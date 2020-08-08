@@ -104,7 +104,7 @@ function renderPeserta(doc){
     <td style="font-weight:bold;" id="nama-table${doc.id}">${nama}</td>
     <td id="lokasi-table${doc.id}">${lokasi}</td>
     <td id="libur-table${doc.id}">${libur}</td>
-    <td id="email-table${doc.id}" class="body-email">${email}</td>
+    <td id="email-table${doc.id}" class="email-table">${email}</td>
     <td id="status-td-peserta${doc.id}" style="font-weight:bold;"></td>
     `
 
@@ -449,6 +449,7 @@ const setupUI = (user) => {
         let tugasSelesai = document.querySelectorAll('.tugasseseorangselesai');
         let kesalahan = document.querySelectorAll('.kesalahanseseorang');
         let bodyEmail = document.querySelectorAll('.body-email');
+        let emailTable = document.querySelectorAll('.email-table');
         let username = doc.data().username;
         document.querySelector('#nama-peserta-masuk').innerHTML = username
         if(username == "Admin Galaxy" && user.email == 'useradmin@galaxy.id'){
@@ -457,8 +458,16 @@ const setupUI = (user) => {
             function myFunction(x){
             if (x.matches) { // If media query matches
                     document.querySelector('#halaman-tugas').style.display = 'block';
+                    for(let x = 0; x<emailTable.length;x++){
+                    emailTable[x].setAttribute('style','display:none !important;');
+                    }
+                    document.querySelector('#th-email').style.display = 'none';
             } else {
                     document.querySelector('#halaman-tugas').style.display = 'grid';
+                    for(let x = 0; x<emailTable.length;x++){
+                    emailTable[x].setAttribute('style','display:block !important;');
+                    }
+                    document.querySelector('#th-email').style.display = 'revert';
             }
         }
             console.log("YES YES");
@@ -501,7 +510,6 @@ const setupUI = (user) => {
             for(let x = 0; x<bodyEmail.length;x++){
             bodyEmail[x].setAttribute('style','display:block !important;');
             }
-            document.querySelector('#th-email').style.display = 'revert';
             document.querySelector('#home').style.display = 'block';
             document.querySelector('#swot').style.display = 'block';
             document.querySelector('#achievement').style.display = 'block';
@@ -562,6 +570,9 @@ const setupUI = (user) => {
             }
             for(let x = 0; x<bodyEmail.length;x++){
             bodyEmail[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<emailTable.length;x++){
+            emailTable[x].setAttribute('style','display:none !important;');
             }
             document.querySelector('#th-email').style.display = 'none';
             document.querySelector('#home').style.display = 'none';
@@ -633,6 +644,9 @@ const setupUI = (user) => {
             }
             for(let x = 0; x<bodyEmail.length;x++){
             bodyEmail[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<emailTable.length;x++){
+            emailTable[x].setAttribute('style','display:none !important;');
             }
             document.querySelector('#home').style.display = 'none';
             document.querySelector('#swot').style.display = 'none';
