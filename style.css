@@ -461,6 +461,9 @@ th,td{
 	margin:50px 50px !important;
 }
 
+#th-email, .body-email{
+	display: none;
+}
 
 #judul-list-tugas, #judul-list-tugas-selesai, #judul-list-kesalahan{
 	font-size: 16px;
