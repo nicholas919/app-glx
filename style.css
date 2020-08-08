@@ -528,3 +528,18 @@ th,td{
 	margin-right: auto !important;
 	}
 }
+
+@media only screen and (max-width: 460px){
+	.navbar-brand{
+	margin-left: 29.5% !important;
+	margin-right: auto !important;
+	}
+}
+
+
+@media only screen and (max-width: 420px){
+	.navbar-brand{
+	margin-left: 28% !important;
+	margin-right: auto !important;
+	}
+}
