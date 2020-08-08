@@ -444,7 +444,7 @@ th,td{
 
 @media only screen and (max-width: 750px){
 	.navbar-brand{
-	margin-left: 36.5% !important;
+	margin-left: 35% !important;
 	margin-right: auto !important;
 	}
 }
