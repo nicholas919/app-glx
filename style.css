@@ -506,6 +506,19 @@ th,td{
 	text-align: center;
 }
 
+#judul-jumbotron-performa-peserta{
+	font-size: 34px !important;
+}
+
+#judul-jumbotron-performa-peserta-individu{
+	font-size: 32px !important;
+}
+
+#list-performa-peserta, #list-performa-peserta-individu{
+	font-size: 18px !important;
+	margin-top: 5px;
+}
+
 }
 
 @media only screen and (max-width: 660px){
