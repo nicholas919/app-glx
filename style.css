@@ -1,0 +1,530 @@
+body{
+	background-color: #eeeeee !important;
+}
+
+div.daftar-menu{
+	padding: 0px !important;
+}
+
+#judul-login, #judul-register{
+	text-align: center;
+	font-weight: bold;
+	font-size: 24px;
+	margin-bottom: 15px;
+}
+
+#tombol-burger{
+	visibility: hidden;
+}
+
+#sign-out{
+	display: none;
+}
+
+#form-daftar, #form-masuk{
+	display: none !important;
+}
+
+#sign-up, #sign-in{
+	color:#69c7e0;
+	cursor: pointer;
+	display: inline-block;
+}
+
+#sign-up:hover, #sign-in:hover{
+	color:#05bbed;
+}
+
+#sign-up:active, #sign-in:active{
+	color:#009ac4;
+}
+
+.navbar, .isi-daftar-menu, .menu{
+	border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+.menu{
+	padding:8px 16px !important;
+	cursor: pointer;
+}
+
+.menu:hover,.navbar-brand:hover{
+	color:#db9832 !important;
+}
+
+.navbar-brand{
+	font-family: 'Righteous', cursive;
+	margin-left: 44.5% !important;
+	margin-right: auto !important;
+}
+
+#beranda:active, #pengaturan:active, #sign-in:active{
+	color:#4592d9 !important;
+}
+
+.jumbotron{
+	margin: 20px 20px 10px !important;
+	background-color: white !important;
+}
+
+#sign-out:active{
+	color:#eb0707 !important;
+}
+
+.form-login, .form-daftar{
+	border:0 !important;
+	background-color:#f5f5f5 !important;
+	box-shadow: none !important;
+	border-radius: 0 !important;
+}
+
+#form-masuk, #form-daftar{
+	background-color: white !important;
+	padding:50px !important;
+	margin:80px 450px !important;
+}
+
+#form-tombol-masuk, #form-tombol-daftar{
+	display: block !important;
+	width: 100% !important;
+	box-shadow: none !important;
+	border-radius: 0 !important;
+}
+
+#stranger{
+	background-color: white;
+	margin:20px 150px;
+	padding:30px;
+	text-align: center;
+	display: none;
+}
+
+#judul-peringatan{
+	color:red;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+#keterangan-peringatan{
+	font-size: 17px;
+}
+
+#tabel-peserta{
+	display: none;
+}
+
+#jumbotron-performa-peserta, #jumbotron-performa-peserta-individu{
+	display: none;
+}
+
+#halaman-tugas, #halaman-kesalahan{
+	display: none;
+	grid-template-columns: 50% 50%;
+}
+
+#list-tugas, #list-tugas-selesai{
+	background-color: #fff;
+	margin:10px 10px 20px 20px;
+	border: 1px solid rgba(0,0,0,.2);
+}
+
+#list-kesalahan{
+	background-color: #fff;
+	margin:0px 10px 20px 20px;
+	border: 1px solid rgba(0,0,0,.2);
+}
+
+#judul-list-tugas, #judul-list-tugas-selesai, #judul-list-kesalahan{
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+	padding:4px;
+}
+
+#list-tugas-peserta, #list-tugas-peserta-selesai, #list-kesalahan-peserta{
+	margin:10px 50px 10px 50px;
+	height:400px;
+	overflow-y: auto;
+	max-height: 100000px;
+}
+
+#target-peserta option{
+	cursor: pointer;
+}
+
+.tugas, .kesalahan{
+	background-color: #092532;
+	color:white;
+	margin: 4px 8px 8px;
+	padding:8px;
+	cursor: pointer;
+}
+
+.tombol-tambah{
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    display: block;
+    position: fixed;
+    bottom: 0px;
+    right:0;
+    left:0;
+    text-align: center;
+    cursor: pointer;
+    color: white !important;
+    padding:5px 0px;
+    font-size: 30px;
+}
+
+.tombol-tambah:hover{
+    background-color: white !important;
+    color:#007bff !important;
+}
+
+.tombol-tambah:active{
+    background-color: #007bff !important;
+    color:white !important;
+}
+
+.tugasseseorang, .tugasseseorangselesai, .kesalahanseseorang{
+	display: none;
+}
+
+
+#tombol-tambah-peserta, #tombol-tambah-tugas, #tombol-tambah-kesalahan{
+	display: none !important;
+	font-weight: bold;
+	color:white !important;
+	border-radius: 0 !important;
+	}
+
+
+#info-peserta{
+	display: grid;
+	grid-template-columns: 220px 15px auto;
+	justify-content: center;
+	padding-bottom: 12px;
+}
+
+#info-kesalahan, #info-achievement, #info-akun{
+	display: grid;
+	grid-template-columns: 150px 15px auto;
+	padding-bottom: 12px;
+}
+
+#info-analisis{
+	display: block;
+	padding:0px 8px 8px;
+}
+
+.garis{
+	border-bottom: 1px solid rgba(0,0,0,.2);
+}
+
+#info-tugas{
+	display: grid;
+	grid-template-columns: 200px 15px auto;
+	padding-bottom: 12px;
+}
+
+.hapus, .selesai, .edit, .copy ,.wewenang, .reset{
+	margin:4px 0px 8px 0px;
+	display: block !important;
+	color:white !important;
+}
+
+.modal-peserta,.modal-analisis{
+	display: none;
+}
+
+.modal-tugas, .modal-kesalahan, .modal-achievement{
+	border-top:1px solid rgba(0,0,0,.2);
+	border-bottom:1px solid rgba(0,0,0,.2);
+	display: none;
+}
+
+#form-reset-password, #form-hapus-akun{
+	display: none;
+}
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.tombol-lokasi, .tombol-swot{
+	text-align: center;
+	margin: 0px 1px 0px;
+	border: 1px solid #dee2e6 !important;
+	border-bottom: none !important;
+	border-radius: 0 !important;
+	border-top-left-radius: 15px !important;
+	border-top-right-radius: 15px !important;
+	padding:15px;
+}
+
+th,td{
+	text-align: center !important;
+}
+
+.peserta{
+	cursor: pointer;
+	display: none;
+}
+
+.swot, .pencapaian{
+	cursor: pointer;
+}
+
+#swot, #achievement, #home{
+	display: none;
+}
+
+#th-email{
+	display: none;
+}
+
+#tombol-daftar-lokasi{
+	margin-top: 10px;
+	display:-webkit-inline-box;
+}
+
+@media only screen and (max-width: 1450px){
+	.navbar-brand{
+	margin-left: 43.5% !important;
+	margin-right: auto !important;
+	}
+}
+
+@media only screen and (max-width: 1350px){
+	.navbar-brand{
+	margin-left: 43% !important;
+	margin-right: auto !important;
+	}
+
+	#form-masuk, #form-daftar{
+	background-color: white !important;
+	padding:50px !important;
+	margin:80px 350px !important;
+}
+
+}
+
+@media only screen and (max-width: 1200px){
+	.navbar-brand{
+	margin-left: 42.5% !important;
+	margin-right: auto !important;
+	}
+
+	#form-masuk, #form-daftar{
+	background-color: white !important;
+	padding:50px !important;
+	margin:80px 300px !important;
+}
+}
+
+@media only screen and (max-width: 1100px){
+	.navbar-brand{
+	margin-left: 42% !important;
+	margin-right: auto !important;
+	}
+
+	#form-masuk, #form-daftar{
+	background-color: white !important;
+	padding:50px !important;
+	margin:80px 280px !important;
+}
+}
+
+@media only screen and (max-width: 1050px){
+	.navbar-brand{
+	margin-left: 41.5% !important;
+	margin-right: auto !important;
+	}
+
+	#form-masuk, #form-daftar{
+	background-color: white !important;
+	padding:50px !important;
+	margin:80px 260px !important;
+}
+}
+
+@media only screen and (max-width: 1000px){
+	.navbar-brand{
+	margin-left: 41% !important;
+	margin-right: auto !important;
+	}
+
+	#form-masuk, #form-daftar{
+	background-color: white !important;
+	padding:50px !important;
+	margin:80px 240px !important;
+}
+}
+
+@media only screen and (max-width: 960px){
+	.navbar-brand{
+	margin-left: 40.5% !important;
+	margin-right: auto !important;
+	}
+
+	#form-masuk, #form-daftar{
+	background-color: white !important;
+	padding:50px !important;
+	margin:80px 220px !important;
+}
+}
+
+@media only screen and (max-width: 920px){
+	.navbar-brand{
+	margin-left: 40% !important;
+	margin-right: auto !important;
+	}
+
+	#form-masuk, #form-daftar{
+	background-color: white !important;
+	padding:50px !important;
+	margin:80px 200px !important;
+}
+}
+
+@media only screen and (max-width: 870px){
+	.navbar-brand{
+	margin-left: 39.5% !important;
+	margin-right: auto !important;
+	}
+
+	#form-masuk, #form-daftar{
+	background-color: white !important;
+	padding:50px !important;
+	margin:80px 180px !important;
+}
+}
+
+@media only screen and (max-width: 840px){
+	.navbar-brand{
+	margin-left: 39% !important;
+	margin-right: auto !important;
+	}
+
+	#form-masuk, #form-daftar{
+	background-color: white !important;
+	padding:50px !important;
+	margin:80px 160px !important;
+}
+}
+
+@media only screen and (max-width: 810px){
+	.navbar-brand{
+	margin-left: 38.5% !important;
+	margin-right: auto !important;
+	}
+
+	#form-masuk, #form-daftar{
+	background-color: white !important;
+	padding:50px !important;
+	margin:80px 140px !important;
+}
+}
+
+@media only screen and (max-width: 780px){
+	.navbar-brand{
+	margin-left: 38% !important;
+	margin-right: auto !important;
+	}
+
+	#form-masuk, #form-daftar{
+	background-color: white !important;
+	padding:50px !important;
+	margin:80px 120px !important;
+}
+}
+
+@media only screen and (max-width: 750px){
+	.navbar-brand{
+	margin-left: 37.5% !important;
+	margin-right: auto !important;
+	}
+}
+
+@media only screen and (max-width: 700px) {
+#list-tugas, #list-tugas-selesai, #list-kesalahan{
+	background-color: #fff;
+	margin:15px 20px;
+	border: 1px solid rgba(0,0,0,.2);
+}
+	#form-masuk, #form-daftar{
+	background-color: white !important;
+	padding:50px !important;
+	margin:50px 50px !important;
+}
+
+
+#judul-list-tugas, #judul-list-tugas-selesai, #judul-list-kesalahan{
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	padding:4px;
+}
+
+#list-tugas-peserta, #list-tugas-peserta-selesai, #list-kesalahan-peserta{
+	margin:10px 20px 10px 20px;
+}
+
+#target-peserta option{
+	cursor: pointer;
+}
+
+.tugas, .kesalahan{
+	background-color: #092532;
+	color:white;
+	margin: 4px 8px 8px;
+	padding:6px;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+#tombol-tambah-peserta, #tombol-tambah-tugas, #tombol-tambah-kesalahan{
+	display: none !important;
+	font-weight: bold;
+	color:white !important;
+	border-radius: 0 !important;
+	}
+
+#tombol-daftar-lokasi{
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+	margin-top: 10px;
+	}
+
+#stranger{
+	background-color: white;
+	margin:20px 40px;
+	padding:30px;
+	text-align: center;
+}
+
+}
+
+@media only screen and (max-width: 660px){
+	.navbar-brand{
+	margin-left: 35% !important;
+	margin-right: auto !important;
+	}
+}
+
+@media only screen and (max-width: 630px){
+	.navbar-brand{
+	margin-left: 34% !important;
+	margin-right: auto !important;
+	}
+}
+
+@media only screen and (max-width: 500px){
+	.navbar-brand{
+	margin-left: 31.5% !important;
+	margin-right: auto !important;
+	}
+}

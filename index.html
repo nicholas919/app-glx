@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <button class="navbar-toggler" id="tombol-burger" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">Galaxy</a>
+  </nav>
+<div class="pos-f-t isi-daftar-menu">
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4 daftar-menu">
+      <div class="tab-halaman text-white menu" id="home" data-toggle="pill" href="#halaman-home" role="tab" aria-controls="halaman-home" aria-selected="true"><i class="fa fa-home" aria-hidden="true"></i> Beranda</div>
+      <div class="tab-halaman text-white menu" id="swot" data-toggle="pill" href="#halaman-swot" role="tab" aria-controls="halaman-swot" aria-selected="true"><i class='fas fa-seedling'></i> SWOT Analysis</div>
+      <div class="tab-halaman text-white menu" id="achievement" data-toggle="pill" href="#halaman-achievement" role="tab" aria-controls="halaman-achievement" aria-selected="true"><i class='fas fa-crown'></i> Achievement</div>
+      <div class="tab-halaman text-white menu item-masuk" id="account" data-toggle="modal" data-target="#modalpengaturanakun"><i class="fa fa-gear"></i> Pengaturan Akun</div>
+      <div class="item-masuk text-white menu" id="sign-out"><i class='fas fa-sign-out-alt'></i> Keluar</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal fade" id="modalpengaturanakun" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fa fa-gear"></i> Pengaturan Akun</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+        <div id="data-akun">
+        <div id="info-akun">
+        <div>Pengguna</div>
+        <div>:</div>
+        <div style="font-weight:bold;" id="pengguna-akun"></div>
+        <div>Email</div>
+        <div>:</div>        
+        <div style="font-weight:bold;" id="email-akun"></div>
+        </div>
+        <div id="reset-password-akun" class="btn btn-warning reset">Reset Ulang Password</div>
+        <div id="hapus-akun" class="btn btn-danger hapus">Hapus Akun</div>
+        </div>
+          <form id="form-reset-password">
+                <div class="form-group">
+                  <label class="col-form-label">Password Lama</label>
+                  <input type="password" class="form-control" id="password-lama" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Konfirmasi Password Lama</label>
+                  <input type="password" class="form-control" id="konfirmasi-password-lama" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Password Baru</label>
+                  <input type="password" class="form-control" id="password-baru" autocomplete="off" required>
+                </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            <form id="form-hapus-akun">
+                <div class="form-group">
+                  <label class="col-form-label">Konfirmasi Password</label>
+                  <input type="password" class="form-control" id="konfirmasi-password" autocomplete="off" required>
+                </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+<div class="tab-content" id="myTabContent">
+<div class="halaman tab-pane fade active show" id="halaman-home" role="tabpanel">
+  <form class="item-keluar" id="form-masuk">
+    <div id="judul-login">Login</div>
+                <div class="form-group">
+                  <input type="email" class="form-control form-login" id="emailmasuk" placeholder="Email" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control form-login" id="passwordmasuk" placeholder="Password" autocomplete="off" minlength="6"
+       maxlength="13" required>
+                </div>
+                <button type="submit" id="form-tombol-masuk" class="btn btn-success">Masuk</button>
+                <small>Belum Mempunyai Akun? <div id="sign-up"> Daftar Sekarang!</div></small>
+        </form>
+  <form id="form-daftar" class="item-keluar">
+    <div id="judul-register">Register</div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-daftar" id="username" placeholder="Username" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control form-daftar" id="emaildaftar" placeholder="Email" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control form-daftar" id="passworddaftar" placeholder="Password" autocomplete="off" minlength="6"
+       maxlength="13" required>
+                </div>
+                <button type="submit" class="btn btn-success" id="form-tombol-daftar">Daftar</button>
+                <small>Sudah Mempunyai Akun? <div id="sign-in"> Masuk Sekarang!</div></small>
+      </form>
+
+
+<div id="stranger"></div>
+
+<div class="jumbotron" id="jumbotron-performa-peserta">
+  <h1 class="display-4"><i class="fa fa-group"></i> Performa Karyawan</h1>
+  <div class="lead" id="list-performa-peserta"></div>
+</div>
+
+<div class="jumbotron" id="jumbotron-performa-peserta-individu">
+  <h1 class="display-4">Selamat Datang <span id="nama-peserta-masuk"></span>!</h1>
+  <div class="lead" id="list-performa-peserta-individu">
+    <div style="font-weight: bold;font-size:24px;">Noticement :</div>
+    <div><i class='fas fa-bullhorn' style="color:red;"></i> Halaman website akan refresh otomatis setiap 1.5 jam,terhitung dari setelah anda membuka halaman website, untuk menghindari adanya keterlambatan update dalam pengembangan website.</div>
+    <div><i class='fas fa-bullhorn' style="color:red;"></i> Kesalahan individu dalam bekerja hanya dapat ditambahkan oleh pihak admin sendiri yang memantau.</div>
+    <div><i class='fas fa-bullhorn' style="color:red;"></i> Diharapkan agar anda dapat menyelesaikan tugas sebelum tenggat waktu tugas berakhir.</div>
+    <div><i class='fas fa-bullhorn' style="color:red;"></i> Kecepatan rata-rata penyelesaian atau keterlambatan penyelesaian tugas maupun kesalahan individu hanya bisa dilihat oleh pihak admin sendiri.</div>
+  </div>
+</div>
+
+<div id="tabel-peserta">
+<!--Modal Sign-Up Berakhir disini-->
+<div id="tombol-daftar-lokasi">
+<div class="tombol-lokasi btn btn-secondary" id="tombol-tangerang">Tangerang</div>
+<div class="tombol-lokasi btn btn-secondary" id="tombol-depok">Depok</div>
+<div class="tombol-lokasi btn btn-secondary" id="tombol-jaksel">Jakara Selatan</div>
+<div class="tombol-lokasi btn btn-secondary" id="tombol-jakpus">Jakarta Pusat</div>
+</div>
+
+<table class="table garis" style="margin-bottom: 0px;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Nama</th>
+      <th scope="col">Lokasi</th>
+      <th scope="col">Cuti</th>
+      <th scope="col" id="th-email">Email Karyawan</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody id="list-peserta-tgr"></tbody>
+  <tbody id="list-peserta-dpk" style="border-top:0 !important;"></tbody>
+  <tbody id="list-peserta-jkt" style="border-top:0 !important;"></tbody>
+  <tbody id="list-peserta-snn" style="border-top:0 !important;"></tbody>
+</table>
+<div id="tombol-tambah-peserta" class="btn btn-success item-masuk" data-toggle="modal" data-target="#modaldaftarpeserta">Tambah Karyawan</div>
+</div>
+
+<div id="halaman-tugas">
+<div id="list-tugas">
+  <div id="judul-list-tugas">List Tugas</div>
+  <div id="list-tugas-peserta"></div>
+  <div id="tombol-tambah-tugas" class="btn btn-success item-masuk" data-toggle="modal" data-target="#modaltambahtugas">Tambah Tugas</div>
+</div>
+
+<div id="list-tugas-selesai">
+  <div id="judul-list-tugas-selesai">List Tugas Selesai</div>
+  <div id="list-tugas-peserta-selesai"></div>
+</div>
+</div>
+
+<div id="halaman-kesalahan">
+<div id="list-kesalahan">
+  <div id="judul-list-kesalahan">List Kesalahan Karyawan</div>
+  <div id="list-kesalahan-peserta"></div>
+  <div id="tombol-tambah-kesalahan" class="btn btn-success item-masuk" data-toggle="modal" data-target="#modaltambahkesalahan">Tambah Kesalahan Karyawan</div>
+</div>
+</div>
+<div id="modal-edit-peserta"></div>
+<div id="modal-tambah-tugas"></div>
+<div id="modal-tugas-selesai"></div>
+<div id="modal-tambah-kesalahan"></div>
+
+
+<div class="modal fade" id="modaldaftarpeserta" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menambahkan Karyawan Terbaru</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-peserta">
+                <div class="form-group">
+                  <label class="col-form-label">Nama Karyawan(Note: Nama Karyawan tidak dapat dipergantikan kembali)</label>
+                  <input type="text" class="form-control" id="nama-peserta" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Hari Libur <small>(Note: Hari Libur bisa diganti sewaktu-waktu)</small></label>
+        <select class="form-control seleksi" id="hari-libur" required>
+                    <option value="" disabled selected hidden>-</option>
+                    <option>Senin</option>
+                    <option>Selasa</option>
+                    <option>Rabu</option>
+                    <option>Kamis</option>
+                    <option>Jumat</option>
+                    <option>Sabtu</option>
+                    <option>Minggu</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Lokasi Berjaga<small>(Note: Lokasi Berjaga bisa diganti sewaktu-waktu)</small></label>
+        <select class="form-control seleksi" id="lokasi-berjaga" required>
+                    <option value="" disabled selected hidden>-</option>
+                    <option>Tangerang</option>
+                    <option>Depok</option>
+                    <option>Jakarta Selatan</option>
+                    <option>Jakarta Pusat</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">E-mail Karyawan <small>(Note: Email Karyawan tidak dapat dipergantikan kembali)</small></label>
+                  <input type="email" class="form-control" id="email-peserta"  autocomplete="off" required>
+                </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+
+
+<div class="modal fade" id="modaltambahtugas" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menambahkan Tugas Terbaru</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-tugas">
+                <div class="form-group">
+                  <label class="col-form-label">CC</label>
+                    <select class="form-control seleksi" id="target-peserta" required>
+                      <option value="" disabled selected hidden>-</option>
+                    </select>
+                </div>
+          <div class="form-group">
+            <label>Konten Tugas</label>
+          <textarea oninput="auto_grow(this)" class="form-control" id="konten-tugas" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+          </div>
+          <div class="form-group">
+            <label style="display: block;text-align:center;">Waktu Pengerjaan</label>
+            <div class="form-row align-items-center">
+                <div class="col-sm-3 my-1">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Minggu</div>
+                    </div>
+                    <input type="number" id="per-minggu" autocomplete="off" max="53" min="0" class="form-control your_class">
+                  </div>
+                </div>
+                <div class="col-sm-3 my-1">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Hari</div>
+                    </div>
+                    <input type="number" id="per-hari" autocomplete="off" max="366" min="0" class="form-control your_class">
+                  </div>
+                </div>
+                <div class="col-sm-3 my-1">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Jam</div>
+                    </div>
+                    <input type="number" id="per-jam" autocomplete="off" max="24" min="0" class="form-control your_class">
+                  </div>
+                </div>
+                <div class="col-sm-3 my-1">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Menit</div>
+                    </div>
+                    <input type="number" id="per-menit" autocomplete="off" max="60" min="0" class="form-control your_class">
+                  </div>
+                </div>
+              </div>
+          </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+
+<div class="modal fade" id="modaltambahkesalahan" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menambahkan Data Kesalahan Karyawan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-kesalahan">
+                <div class="form-group">
+                  <label class="col-form-label">Karyawan</label>
+                    <select class="form-control seleksi" id="target-peserta-kedua" required>
+                      <option value="" disabled selected hidden>-</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Tanggal Kejadian <small>(Note :Tanggal akan otomatis mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
+                  <input type="date" class="form-control" id="tanggal-kesalahan" autocomplete="off">
+                </div>
+              <div class="form-group">
+                <label>Konten Kesalahan Karyawan</label>
+              <textarea oninput="auto_grow(this)" class="form-control" id="konten-kesalahan" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+              </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+</div>
+<div class="halaman tab-pane fade" id="halaman-swot" role="tabpanel">
+
+<div id="tombol-daftar-lokasi">
+<div class="tombol-swot btn btn-secondary" id="tombol-strength">Strength</div>
+<div class="tombol-swot btn btn-secondary" id="tombol-weakness">Weakness</div>
+<div class="tombol-swot btn btn-secondary" id="tombol-oportunity">Oportunity</div>
+<div class="tombol-swot btn btn-secondary" id="tombol-threat">Threat</div>
+</div>
+<table class="table garis" style="margin-bottom: 100px;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" style="width: 30%;">Analisis Swot</th>
+      <th scope="col">Konten Analsis</th>
+    </tr>
+  </thead>
+  <tbody id="list-strength"></tbody>
+  <tbody id="list-weakness" style="border-top:0 !important;"></tbody>
+  <tbody id="list-oportunity" style="border-top:0 !important;"></tbody>
+  <tbody id="list-threat" style="border-top:0 !important;"></tbody>
+</table>
+
+<div class="modal fade" id="modalswot" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menambahkan Data Analisis SWOT</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-swot">
+                <div class="form-group">
+                  <label class="col-form-label">SWOT Analisis</label>
+                    <select class="form-control seleksi" id="analisis-swot" required>
+                      <option value="" disabled selected hidden>-</option>
+                      <option>Strength</option>
+                      <option>Weakness</option>
+                      <option>Oportunity</option>
+                      <option>Threat</option>
+                    </select>
+                </div>
+              <div class="form-group">
+                <label>Konten Analisis</label>
+              <textarea oninput="auto_grow(this)" class="form-control" id="konten-analisis" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+              </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+<div id="modal-edit-swot"></div>
+
+<a id="tambahswot" class="tombol-tambah" data-toggle="modal" data-target="#modalswot">+</a>
+
+</div>
+
+
+
+<div class="halaman tab-pane fade" id="halaman-achievement" role="tabpanel">
+
+<table class="table garis" style="margin-top: 10px;margin-bottom: 100px;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" style="width: 30%;">Tanggal Pencapaian</th>
+      <th scope="col">Konten Pencapaian</th>
+    </tr>
+  </thead>
+  <tbody id="list-achievement"></tbody>
+</table>
+
+<div class="modal fade" id="modalachievement" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menambahkan Data Pencapaian</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-achievement">
+                <div class="form-group">
+                  <label class="col-form-label">Tanggal Pencapaian <small>(Note :Tanggal akan otomatis mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
+                  <input type="date" class="form-control" id="tanggal-pencapaian" autocomplete="off">
+                </div>
+              <div class="form-group">
+                <label>Konten Pencapaian</label>
+              <textarea oninput="auto_grow(this)" class="form-control" id="konten-pencapaian" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+              </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+<div id="modal-edit-achievement"></div>
+
+<a id="tambahachievement" class="tombol-tambah" data-toggle="modal" data-target="#modalachievement">+</a>
+
+</div>
+
+</div>
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAop05eMV0uuIKUgJvbaKHYvpU1kVE8v8A",
+    authDomain: "app-galaxy-b4ae6.firebaseapp.com",
+    databaseURL: "https://app-galaxy-b4ae6.firebaseio.com",
+    projectId: "app-galaxy-b4ae6",
+    storageBucket: "app-galaxy-b4ae6.appspot.com",
+    messagingSenderId: "964768836920",
+    appId: "1:964768836920:web:06f1c2ea5bbb0bcec3a5cd",
+    measurementId: "G-70741L7RL0"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
+<script src="app.js"></script>
+<script src="auth.js"></script>
+<script>
+    $(".daftar-menu .tab-halaman").click(function() {
+    $(".daftar-menu .tab-halaman").removeClass('active');
+    });
+</script> 
+<script>
+ $(document).ready(function(){
+    setInterval(function(){ reload_page(); },90*60000);
+ });
+
+ function reload_page()
+ {
+    window.location.reload(true);
+ }
+</script>
+</body>
+</html>
+
