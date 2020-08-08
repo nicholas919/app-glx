@@ -255,7 +255,7 @@ input::-webkit-inner-spin-button {
 }
 
 .tombol-lokasi, .tombol-swot{
-	text-align: center !important;
+	text-align: center;
 	margin: 0px 1px 0px;
 	border: 1px solid #dee2e6 !important;
 	border-bottom: none !important;
@@ -461,9 +461,6 @@ th,td{
 	margin:50px 50px !important;
 }
 
-#th-email, .body-email{
-	display: none;
-}
 
 #judul-list-tugas, #judul-list-tugas-selesai, #judul-list-kesalahan{
 	font-size: 16px;
@@ -528,20 +525,6 @@ th,td{
 @media only screen and (max-width: 500px){
 	.navbar-brand{
 	margin-left: 31.5% !important;
-	margin-right: auto !important;
-	}
-}
-
-@media only screen and (max-width: 450px){
-	.navbar-brand{
-	margin-left: 30% !important;
-	margin-right: auto !important;
-	}
-}
-
-@media only screen and (max-width: 400px){
-	.navbar-brand{
-	margin-left: 28.5% !important;
 	margin-right: auto !important;
 	}
 }
