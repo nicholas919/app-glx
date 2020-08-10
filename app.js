@@ -761,6 +761,7 @@ const setupUI = (user) => {
 
 
   } else {
+    document.querySelector('#stranger').style.display = 'none';
     document.querySelector('#home').style.display = 'none';
     document.querySelector('#swot').style.display = 'none';
     document.querySelector('#achievement').style.display = 'none';
