@@ -191,7 +191,7 @@ div.daftar-menu{
 
 
 #tombol-tambah-peserta, #tombol-tambah-tugas, #tombol-tambah-kesalahan{
-	display: none !important;
+	display: none;
 	font-weight: bold;
 	color:white !important;
 	border-radius: 0 !important;
@@ -486,13 +486,6 @@ th,td{
 	cursor: pointer;
 	font-size: 14px;
 }
-
-#tombol-tambah-peserta, #tombol-tambah-tugas, #tombol-tambah-kesalahan{
-	display: none !important;
-	font-weight: bold;
-	color:white !important;
-	border-radius: 0 !important;
-	}
 
 #tombol-daftar-lokasi{
 	display: grid;

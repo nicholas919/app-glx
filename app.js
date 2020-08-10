@@ -765,8 +765,7 @@ const setupUI = (user) => {
     itemMasuk.forEach(item => item.style.display = 'none');
     itemKeluar.forEach(item => item.style.display = 'block');
     document.querySelector('#form-masuk').setAttribute('style','display:block !important;');
-  }
-     console.log = function(){}   
+  } 
 };
 
 function renderUpdatePeserta(doc){
