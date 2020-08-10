@@ -766,6 +766,7 @@ const setupUI = (user) => {
     document.querySelector('#achievement').style.display = 'none';
     document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
     document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
+    document.querySelector('#tabel-peserta').style.display = 'none';
     document.querySelector('#halaman-tugas').style.display = 'none';
     document.querySelector('#halaman-kesalahan').style.display = 'none';
     document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
