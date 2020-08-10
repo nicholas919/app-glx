@@ -654,6 +654,7 @@ const setupUI = (user) => {
             document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
             document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'block';
             document.querySelector('#stranger').style.display = 'none';
+            document.querySelector('#tabel-peserta').style.display = 'none';
             document.querySelector('#halaman-kesalahan').style.display = 'block';
             document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:none !important;');
@@ -681,6 +682,7 @@ const setupUI = (user) => {
             document.querySelector('#achievement').style.display = 'none';
             document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
             document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
+            document.querySelector('#tabel-peserta').style.display = 'none';
             document.querySelector('#halaman-tugas').style.display = 'none';
             document.querySelector('#halaman-kesalahan').style.display = 'none';
             document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
