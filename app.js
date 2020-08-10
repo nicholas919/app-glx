@@ -759,6 +759,16 @@ const setupUI = (user) => {
 
 
   } else {
+    document.querySelector('#home').style.display = 'none';
+    document.querySelector('#swot').style.display = 'none';
+    document.querySelector('#achievement').style.display = 'none';
+    document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
+    document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
+    document.querySelector('#halaman-tugas').style.display = 'none';
+    document.querySelector('#halaman-kesalahan').style.display = 'none';
+    document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
+    document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:none !important;');
+    document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:none !important;');
     document.querySelector('#pengguna-akun').innerHTML = '';
     document.querySelector('#email-akun').innerHTML = '';
     document.querySelector('#tombol-burger').style.visibility = 'hidden';

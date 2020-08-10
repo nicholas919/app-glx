@@ -297,7 +297,7 @@ daftarPeserta.addEventListener('submit', (e) => {
     let nama = document.querySelector('#nama-peserta').value;
     let email = document.querySelector('#email-peserta').value;
     if(!email.includes('galaxy.id')){
-        alert('Pastikan email domain peserta adalah @galaxy.id');
+        alert('Pastikan email domain karyawan adalah @galaxy.id');
         document.querySelector('#email-peserta').value = '';
     } else if(daftarKaryawan.includes(nama.toLowerCase().replace(" ", "-")) && daftarEmailKaryawan.includes(email)){
         alert('Nama dan alamat email ini telah digunakan!')
@@ -307,7 +307,7 @@ daftarPeserta.addEventListener('submit', (e) => {
         alert('Nama ini telah digunakan!')
         document.querySelector('#nama-peserta').value = '';
     } else if(daftarEmailKaryawan.includes(email) && !daftarKaryawan.includes(nama.toLowerCase().replace(" ", "-"))){
-        alert('alamat ini telah digunakan!')
+        alert('Alamat email ini telah digunakan!')
         document.querySelector('#email-peserta').value = '';
     }  else {
     db.collection('peserta').add({
