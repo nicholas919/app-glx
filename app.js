@@ -470,7 +470,6 @@ const setupUI = (user) => {
                     document.querySelector('#th-email').style.display = 'revert';
             }
         }
-            console.log("YES YES");
             for(let x = 0; x<editPeserta.length;x++){
             editPeserta[x].setAttribute('style','display:block !important;');
             }
@@ -531,7 +530,6 @@ const setupUI = (user) => {
                     document.querySelector('#halaman-tugas').style.display = 'grid';
             }
         }
-            console.log("YES")
             for(let x = 0; x<editPeserta.length;x++){
             editPeserta[x].setAttribute('style','display:none !important;');
             }
