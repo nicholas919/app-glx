@@ -226,7 +226,7 @@ div.daftar-menu{
 	padding-bottom: 12px;
 }
 
-.hapus, .selesai, .edit, .copy ,.wewenang, .reset{
+.hapus, .selesai, .edit, .copy ,.wewenang, .reset, .download{
 	margin:4px 0px 8px 0px;
 	display: block !important;
 	color:white !important;

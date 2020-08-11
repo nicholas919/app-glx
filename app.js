@@ -441,7 +441,10 @@ const setupUI = (user) => {
         let editTugas = document.querySelectorAll('.edit-tugas');
         let hapusTugas = document.querySelectorAll('.hapus-tugas');
         let copyTugasSelesai = document.querySelectorAll('.copy-tugas-selesai');
+        let downloadTugasSelesai = document.querySelectorAll('.download-tugas-selesai');
         let hapusTugasSelesai = document.querySelectorAll('.hapus-tugas-selesai');
+        let filePenyelesaianTugasBody = document.querySelectorAll('.file-penyelesaian-tugas-body');
+        let buktiPenyelesaianTugasBody = document.querySelectorAll('.bukti-penyelesaian-tugas-body');
         let editKesalahan = document.querySelectorAll('.edit-kesalahan');
         let hapusKesalahan = document.querySelectorAll('.hapus-kesalahan');
         let peserta = document.querySelectorAll('.peserta');
@@ -485,8 +488,17 @@ const setupUI = (user) => {
             for(let x = 0; x<copyTugasSelesai.length;x++){
             copyTugasSelesai[x].setAttribute('style','display:block !important;');
             }
+            for(let x = 0; x<downloadTugasSelesai.length;x++){
+            downloadTugasSelesai[x].setAttribute('style','display:block !important;');
+            }
             for(let x = 0; x<hapusTugasSelesai.length;x++){
             hapusTugasSelesai[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<filePenyelesaianTugasBody.length;x++){
+            filePenyelesaianTugasBody[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<buktiPenyelesaianTugasBody.length;x++){
+            buktiPenyelesaianTugasBody[x].setAttribute('style','display:block !important;');
             }
             for(let x = 0; x<editKesalahan.length;x++){
             editKesalahan[x].setAttribute('style','display:block !important;');
@@ -545,8 +557,17 @@ const setupUI = (user) => {
             for(let x = 0; x<copyTugasSelesai.length;x++){
             copyTugasSelesai[x].setAttribute('style','display:block !important;');
             }
+            for(let x = 0; x<downloadTugasSelesai.length;x++){
+            downloadTugasSelesai[x].setAttribute('style','display:block !important;');
+            }
             for(let x = 0; x<hapusTugasSelesai.length;x++){
             hapusTugasSelesai[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<filePenyelesaianTugasBody.length;x++){
+            filePenyelesaianTugasBody[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<buktiPenyelesaianTugasBody.length;x++){
+            buktiPenyelesaianTugasBody[x].setAttribute('style','display:block !important;');
             }
             for(let x = 0; x<editKesalahan.length;x++){
             editKesalahan[x].setAttribute('style','display:none !important;');
@@ -609,8 +630,17 @@ const setupUI = (user) => {
             for(let x = 0; x<copyTugasSelesai.length;x++){
             copyTugasSelesai[x].setAttribute('style','display:none !important;');
             }
+            for(let x = 0; x<downloadTugasSelesai.length;x++){
+            downloadTugasSelesai[x].setAttribute('style','display:none !important;');
+            }
             for(let x = 0; x<hapusTugasSelesai.length;x++){
             hapusTugasSelesai[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<filePenyelesaianTugasBody.length;x++){
+            filePenyelesaianTugasBody[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<buktiPenyelesaianTugasBody.length;x++){
+            buktiPenyelesaianTugasBody[x].setAttribute('style','display:none !important;');
             }            
             for(let x = 0; x<peserta.length;x++){
                 if(peserta[x].classList.contains(username.toLowerCase().replace(" ", "-"))){
@@ -711,7 +741,6 @@ const setupUI = (user) => {
         let passwordBaru = document.querySelector('#password-baru').value;
         if(passwordLama == konfirmasiPasswordLama){
         let user = auth.currentUser;
-        console.log(user);
         let credential = firebase.auth.EmailAuthProvider.credential(user.email, passwordLama);
         user.reauthenticateWithCredential(credential).then(function (){
             let konfirmasi = confirm('Apa anda yakin ingin mereset ulang password akun ini?');
@@ -918,6 +947,9 @@ function renderTugas(doc){
             <label>Bukti Penyelesaian <small>(Note : Tidak wajib untuk diisi)</small></label>
             <textarea oninput="auto_grow(this)" class="form-control" id="bukti-penyelesaian${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)"></textarea>
         </div>
+        <div class="form-group">
+            <input type="file" accept="file_extension,image/*" id="file-penyelesaian${doc.id}" class="inputfile">
+        </div>
 </form>
         <div id="selesai${doc.id}" class="btn btn-success selesai">Selesaikan Tugas</div>
         <div id="edit${doc.id}" class="btn btn-warning edit edit-tugas">Edit Tugas Karyawan</div>
@@ -1024,6 +1056,7 @@ function renderTugas(doc){
     selesai.addEventListener('click', function (e) {
         e.stopPropagation();
         let buktiPenyelesaian = document.querySelector('#bukti-penyelesaian' + doc.id).value.replace(/\n\r?/g, '<br/>');
+        let filePenyelesaian = document.querySelector('#file-penyelesaian' + doc.id).files[0];
         let tanggalSekarang = new Date();
         db.collection('tugas').doc(doc.id).get().then(doc =>{
         let kontenTugasUpdate = doc.data().kontenTugas;
@@ -1031,20 +1064,31 @@ function renderTugas(doc){
         let perHariUpdate = doc.data().perHari;
         let perJamUpdate = doc.data().perJam;
         let perMenitUpdate = doc.data().perMenit;
-        console.log(kontenTugasUpdate)
         let tanggalUpdate = new Date(waktuRilis);
         let waktuDeadlineUpdate = tanggalUpdate.setTime(tanggalUpdate.getTime() + ((perMingguUpdate*7*24*60*60*1000) + (perHariUpdate*24*60*60*1000) + (perJamUpdate*60*60*1000) + (perMenitUpdate*60*1000)))
         let waktuSekarang = tanggalSekarang.getTime();
     if(waktuSekarang > waktuDeadlineUpdate){
-        let konfirmasiTerlambat = confirm('Sepertinya anda terlambat untuk menyelesaikan tugas berikut, tugas masih bisa diselesaikan tetapi tugas berikut akan ditandai akan keterlambatan penyelesaian, lanjutkan proses?');
+        let konfirmasiTerlambat = confirm('Sepertinya anda terlambat untuk menyelesaikan tugas berikut, tugas masih bisa diselesaikan tetapi tugas berikut akan ditandai akan keterlambatan penyelesaian. Lanjutkan proses?');
         if(konfirmasiTerlambat == true){
         let tanggal = new Date();
         let waktuPenyerahan = tanggal.getTime();
-        if(buktiPenyelesaian == ""){
+        if(buktiPenyelesaian == "" && filePenyelesaian == null){
             buktiPenyelesaian = "Tidak Ada";
+            filePenyelesaian = "Tidak Ada";
+        } else if(buktiPenyelesaian == "" && filePenyelesaian != null){
+            let refPenyimpanan = firebase.storage().ref('Tugas ' + doc.id + ' ' + tanggalLuncur.replace(/\//g,'-') + ' ' + namaPeserta +  '/' + filePenyelesaian.name);
+            let penyimpanan = refPenyimpanan.put(filePenyelesaian);
+            buktiPenyelesaian = "Tidak Ada";
+            filePenyelesaian = filePenyelesaian.name;
+        } else if(buktiPenyelesaian != "" && filePenyelesaian == null){
+            filePenyelesaian = "Tidak Ada";
+        } else if(buktiPenyelesaian != "" && filePenyelesaian != null){
+            let refPenyimpanan = firebase.storage().ref('Tugas ' + doc.id + ' ' + tanggalLuncur.replace(/\//g,'-') + ' ' + namaPeserta +  '/' + filePenyelesaian.name);
+            let penyimpanan = refPenyimpanan.put(filePenyelesaian);
+            filePenyelesaian = filePenyelesaian.name;
         }
         let terlambat = `<span style="color:#e61c33;">(Terlambat)</span>`;
-        db.collection('tugasSelesai').add({
+        db.collection('tugasSelesai').doc(doc.id).set({
             namaPeserta : namaPeserta,
             kontenTugas : kontenTugasUpdate,
             perMinggu : perMingguUpdate,
@@ -1055,6 +1099,7 @@ function renderTugas(doc){
             tanggalLuncur : tanggalLuncur,
             waktuPenyerahan : waktuPenyerahan,
             buktiPenyelesaian : buktiPenyelesaian,
+            filePenyelesaian : filePenyelesaian,
             terlambat : terlambat
         }).then(() => {
             document.querySelector('#status-tugas' + doc.id).style.color = "#13eb5e";
@@ -1070,10 +1115,22 @@ function renderTugas(doc){
         if(konfirmasi == true){
         let tanggal = new Date();
         let waktuPenyerahan = tanggal.getTime();
-        if(buktiPenyelesaian == ""){
+        if(buktiPenyelesaian == "" && filePenyelesaian == null){
             buktiPenyelesaian = "Tidak Ada";
+            filePenyelesaian = "Tidak Ada";
+        } else if(buktiPenyelesaian == "" && filePenyelesaian != null){
+            let refPenyimpanan = firebase.storage().ref('Tugas ' + doc.id + ' ' + tanggalLuncur.replace(/\//g,'-') + ' ' + namaPeserta +  '/' + filePenyelesaian.name);
+            let penyimpanan = refPenyimpanan.put(filePenyelesaian);
+            buktiPenyelesaian = "Tidak Ada";
+            filePenyelesaian = filePenyelesaian.name;
+        } else if(buktiPenyelesaian != "" && filePenyelesaian == null){
+            filePenyelesaian = "Tidak Ada";
+        } else if(buktiPenyelesaian != "" && filePenyelesaian != null){
+            let refPenyimpanan = firebase.storage().ref('Tugas ' + doc.id + ' ' + tanggalLuncur.replace(/\//g,'-') + ' ' + namaPeserta +  '/' + filePenyelesaian.name);
+            let penyimpanan = refPenyimpanan.put(filePenyelesaian);
+            filePenyelesaian = filePenyelesaian.name;
         }
-        db.collection('tugasSelesai').add({
+        db.collection('tugasSelesai').doc(doc.id).set({
             namaPeserta : namaPeserta,
             kontenTugas : kontenTugas,
             perMinggu : perMinggu,
@@ -1083,7 +1140,8 @@ function renderTugas(doc){
             waktuRilis : waktuRilis,
             tanggalLuncur : tanggalLuncur,
             waktuPenyerahan : waktuPenyerahan,
-            buktiPenyelesaian : buktiPenyelesaian
+            buktiPenyelesaian : buktiPenyelesaian,
+            filePenyelesaian : filePenyelesaian
         }).then(() => {
             document.querySelector('#status-tugas' + doc.id).style.color = "#13eb5e";
             document.querySelector('#status-tugas' + doc.id).innerText = "COMPLETED";
@@ -1117,6 +1175,7 @@ function renderTugas(doc){
 }
 
 
+
 function renderTugasSelesai(doc){
     let div = document.createElement('div');
     let tugas = document.createElement('div');
@@ -1140,6 +1199,7 @@ function renderTugasSelesai(doc){
     let tanggalLuncur = doc.data().tanggalLuncur;
     let waktuPenyerahan = doc.data().waktuPenyerahan;
     let buktiPenyelesaian = doc.data().buktiPenyelesaian;
+    let filePenyelesaian = doc.data().filePenyelesaian;
     let terlambat = doc.data().terlambat;
     let selisihWaktu = Number(waktuPenyerahan - waktuRilis);
     let performaTugas;
@@ -1199,7 +1259,6 @@ function renderTugasSelesai(doc){
     } else {
         div.classList.add('terlambat'+ namaPeserta.toLowerCase().replace(" ", "-"));
     }
-
     div.innerHTML = `<div class="tugas" data-toggle="modal" data-target="#modaltugasselesai${doc.id}" id="tugas${doc.id}">Tugas ${tanggalLuncur}, CC : ${namaPeserta} ${terlambat}</div>`
     tugas.innerHTML = `
 <div class="modal fade" id="modaltugasselesai${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -1235,11 +1294,15 @@ function renderTugasSelesai(doc){
         <div>Konten Tugas</div>
         <div>:</div> 
         <div id="update-konten-tugas${doc.id}">${kontenTugas}</div>
-        <div>Bukti Penyelesaian</div>
-        <div>:</div> 
-        <div id="bukti-penyelesaian-tugas${doc.id}">${buktiPenyelesaian}</div>
+        <div class="file-penyelesaian-tugas-body">File Penyelesaian Tugas</div>
+        <div class="file-penyelesaian-tugas-body">:</div> 
+        <div id="file-penyelesaian-tugas${doc.id}" class="file-penyelesaian-tugas-body"></div>
+        <div class="bukti-penyelesaian-tugas-body">Bukti Penyelesaian Tugas</div>
+        <div class="bukti-penyelesaian-tugas-body">:</div> 
+        <div id="bukti-penyelesaian-tugas${doc.id}" class="bukti-penyelesaian-tugas-body">${buktiPenyelesaian}</div>
         </div>
         <div id="copytugasselesai${doc.id}" class="btn btn-success copy copy-tugas-selesai">Copy Bukti Penyelesaian</div>
+        <div id="downloadtugasselesai${doc.id}" class="btn btn-warning download download-tugas-selesai">Download File Penyelesaian Tugas</div>
         <div id="hapustugasselesai${doc.id}" class="btn btn-danger hapus hapus-tugas-selesai">Hapus Tugas(Selesai) Karyawan</div>
       </div>
               <form id="modal-tugas${doc.id}" class="modal-tugas">
@@ -1312,16 +1375,108 @@ function renderTugasSelesai(doc){
     })
 }
 
+    if(filePenyelesaian == "Tidak Ada"){
+        document.querySelector("#downloadtugasselesai" + doc.id).classList.add("disabled");
+        document.querySelector("#file-penyelesaian-tugas" + doc.id).innerHTML = filePenyelesaian;
+    } else {
+    let download = document.querySelector("#downloadtugasselesai" + doc.id);
+    let karakterTitik = filePenyelesaian.lastIndexOf('.');
+    let ekstensi = filePenyelesaian.substring(karakterTitik + 1);
+    switch(ekstensi){
+        case "docx":
+        download.innerHTML = 'Download File Penyelesaian Tugas';
+        document.querySelector("#file-penyelesaian-tugas" + doc.id).innerHTML = 'File format word ini tersedia untuk didownload!';
+        break;
+        case "xls":
+        download.innerHTML = 'Download File Penyelesaian Tugas';
+        document.querySelector("#file-penyelesaian-tugas" + doc.id).innerHTML = 'File format excel ini tersedia untuk didownload!';
+        break;
+        case "pptx":
+        download.innerHTML = 'Download File Penyelesaian Tugas';
+        document.querySelector("#file-penyelesaian-tugas" + doc.id).innerHTML = 'File format powerpoint ini tersedia untuk didownload!';
+        break;
+        case "pdf":
+        download.innerHTML = 'Lihat File Penyelesaian Tugas';
+        document.querySelector("#file-penyelesaian-tugas" + doc.id).innerHTML = 'File format pdf ini tersedia untuk didownload!';
+        break;
+        case "txt":
+        download.innerHTML = 'Lihat File Penyelesaian Tugas';
+        document.querySelector("#file-penyelesaian-tugas" + doc.id).innerHTML = 'File format text ini tersedia untuk dilihat!';
+        break;
+        case "jpg":
+        download.innerHTML = 'Lihat File Penyelesaian Tugas';
+        document.querySelector("#file-penyelesaian-tugas" + doc.id).innerHTML = 'File format gambar(jpg) ini tersedia untuk dilihat!';
+        break;
+        case "jpeg":
+        download.innerHTML = 'Lihat File Penyelesaian Tugas';
+        document.querySelector("#file-penyelesaian-tugas" + doc.id).innerHTML = 'File format gambar(jpeg) ini tersedia untuk dilihat!';
+        break;
+        case "png":
+        download.innerHTML = 'Lihat File Penyelesaian Tugas';
+        document.querySelector("#file-penyelesaian-tugas" + doc.id).innerHTML = 'File format gambar(png) ini tersedia untuk dilihat!';
+        break;
+        case "gif":
+        download.innerHTML = 'Lihat File Penyelesaian Tugas';
+        document.querySelector("#file-penyelesaian-tugas" + doc.id).innerHTML = 'File format gambar(gif) ini tersedia untuk dilihat!';
+        break;
+        default:
+        download.innerHTML = 'Lihat File Penyelesaian Tugas';
+        document.querySelector("#file-penyelesaian-tugas" + doc.id).innerHTML = 'File ini tersedia untuk dilihat/didownload!';
+    }
+    download.addEventListener('click', function(e) {
+        let refPenyimpanan = firebase.storage().ref('Tugas ' + doc.id + ' ' + tanggalLuncur.replace(/\//g,'-') + ' ' + namaPeserta +  '/');
+        let ambilPenyimpanan = refPenyimpanan.child(filePenyelesaian);
+        ambilPenyimpanan.getDownloadURL().then(function(url){
+            switch(ekstensi){
+                case "docx":
+                window.location.href = url;
+                break;
+                case "xls":
+                window.location.href = url;
+                break;
+                case "pptx":
+                window.location.href = url;
+                break;
+                case "pdf":
+                window.open(url);
+                break;
+                case "txt":
+                window.open(url);
+                break;
+                case "jpg":
+                window.open(url);
+                break;
+                case "jpeg":
+                window.open(url);
+                break;
+                case "png":
+                window.open(url);
+                break;
+                case "gif":
+                window.open(url);
+                break;
+                default:
+                window.location.href = url;
+                }
+            })
+        })
+    }
 
     let hapus = document.querySelector('#hapustugasselesai' + doc.id);
     hapus.addEventListener('click', (e) => {
         e.stopPropagation();
-        let konfirmasi = confirm('Anda yakin ingin menghapus tugas ini?');
+        let konfirmasi = confirm('Anda yakin ingin menghapus tugas(selesai) ini?');
         if(konfirmasi == true){
+            let konfirmasiKedua = confirm('Menghapus tugas ini akan mempengaruhi performa karyawan individu dan hilangnya file penyelesaian tugas tersebut. Lanjutkan proses?');
+            if(konfirmasiKedua == true){
         let id = document.querySelector('.dokumentasi-tugas-peserta-selesai' + doc.id).getAttribute('data-id');
         db.collection('tugasSelesai').doc(id).delete();
         document.querySelector('#waktu-penyelesaian-' + doc.id).remove();
         $('#modaltugasselesai' + doc.id).modal('hide');
+        let refPenyimpanan = firebase.storage().ref('Tugas ' + doc.id + ' ' + tanggalLuncur.replace(/\//g,'-') + ' ' + namaPeserta +  '/');
+        let ambilPenyimpanan = refPenyimpanan.child(filePenyelesaian);
+        ambilPenyimpanan.delete();
+            }
         }
     })
 
