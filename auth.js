@@ -54,7 +54,7 @@ auth.onAuthStateChanged(user => {
             }
         }
     })
-}, err => console.log(err.message))
+        }, err => console.log(err.message))
 
     db.collection('tugasSelesai').onSnapshot(snapshot =>{
         let changes = snapshot.docChanges();
@@ -73,52 +73,7 @@ auth.onAuthStateChanged(user => {
                     }
                         let rataRataPenyelesaian = sum/performaPeserta.length;
                         let rataRataWaktuPenyelesaian;
-                            if(rataRataPenyelesaian < 60000){
-                                let perhitunganDetik = Math.floor(rataRataPenyelesaian/1000) + ' Detik';
-                                rataRataWaktuPenyelesaian = perhitunganDetik;
-                            } else if(rataRataPenyelesaian == 60000){
-                                let perhitunganMenit = Math.floor(rataRataPenyelesaian/60000) + ' Menit ';
-                                rataRataWaktuPenyelesaian = perhitunganMenit;
-                            } else if(rataRataPenyelesaian > 60000){
-                                let perhitunganMenit = Math.floor(rataRataPenyelesaian/60000) + ' Menit ';
-                                let perhitunganDetik = Math.floor((rataRataPenyelesaian%60000)/1000) + ' Detik'
-                                if(perhitunganDetik == '0 Detik'){
-                                    perhitunganDetik = '';
-                                }
-                                rataRataWaktuPenyelesaian = perhitunganMenit + perhitunganDetik;
-                            } else if(rataRataPenyelesaian == 3600000){
-                                let perhitunganJam = Math.floor(rataRataPenyelesaian/3600000) + ' Jam ';
-                                rataRataWaktuPenyelesaian = perhitunganJam;
-                            } else if(rataRataPenyelesaian > 3600000){
-                                let perhitunganJam = Math.floor(rataRataPenyelesaian/3600000) + ' Jam ';
-                                let perhitunganMenit = Math.floor((rataRataPenyelesaian%(3600000))/60000) + ' Menit ';
-                                let perhitunganDetik = Math.floor((rataRataPenyelesaian%(60000))/1000) + ' Detik';
-                                if(perhitunganMenit == '0 Menit '){
-                                    perhitunganMenit = '';
-                                } else if(perhitunganDetik == '0 Detik'){
-                                    perhitunganDetik = '';
-                                }
-                                rataRataWaktuPenyelesaian = perhitunganJam + perhitunganMenit + perhitunganDetik;
-                            } else if(rataRataPenyelesaian == 86400000){
-                                let perhitunganHari = Math.floor(rataRataPenyelesaian/86400000) + ' Hari';
-                                rataRataWaktuPenyelesaian = perhitunganHari;
-                            } else if(rataRataPenyelesaian > 86400000){
-                                let perhitunganHari = Math.floor(rataRataPenyelesaian/86400000) + ' Hari';
-                                let perhitunganJam = Math.floor((rataRataPenyelesaian%(86400000))/3600000) + ' Jam ';
-                                let perhitunganMenit = Math.floor((rataRataPenyelesaian%(3600000))/60000) + ' Menit ';
-                                let perhitunganDetik = Math.floor((rataRataPenyelesaian%(60000))/1000) + ' Detik';
-                                if(perhitunganJam == '0 Jam '){
-                                    perhitunganJam = '';
-                                } else if(perhitunganMenit == '0 Menit '){
-                                    perhitunganMenit = '';
-                                } else if(perhitunganDetik == '0 Detik'){
-                                    perhitunganDetik = '';
-                                }
-                                rataRataWaktuPenyelesaian = perhitunganHari + perhitunganJam + perhitunganMenit + perhitunganDetik;
-                            } else if(rataRataPenyelesaian == 604800000){
-                                let perhitunganMinggu = Math.floor(rataRataPenyelesaian/604800000) + ' Minggu ';
-                                rataRataWaktuPenyelesaian = perhitunganMinggu;
-                            } else if(rataRataPenyelesaian > 604800000){
+                            if(rataRataPenyelesaian > 604800000){
                                 let perhitunganMinggu = Math.floor(rataRataPenyelesaian/604800000) + ' Minggu ';
                                 let perhitunganHari = Math.floor((rataRataPenyelesaian%(604800000))/86400000) + ' Hari';
                                 let perhitunganJam = Math.floor((rataRataPenyelesaian%(86400000))/3600000) + ' Jam ';
@@ -134,6 +89,51 @@ auth.onAuthStateChanged(user => {
                                     perhitunganDetik = '';
                                 }
                                 rataRataWaktuPenyelesaian = perhitunganMinggu + perhitunganHari + perhitunganJam + perhitunganMenit + perhitunganDetik;
+                            } else if(rataRataPenyelesaian == 604800000){
+                                let perhitunganMinggu = Math.floor(rataRataPenyelesaian/604800000) + ' Minggu ';
+                                rataRataWaktuPenyelesaian = perhitunganMinggu;
+                            } else if(rataRataPenyelesaian > 86400000){
+                                let perhitunganHari = Math.floor(rataRataPenyelesaian/86400000) + ' Hari';
+                                let perhitunganJam = Math.floor((rataRataPenyelesaian%(86400000))/3600000) + ' Jam ';
+                                let perhitunganMenit = Math.floor((rataRataPenyelesaian%(3600000))/60000) + ' Menit ';
+                                let perhitunganDetik = Math.floor((rataRataPenyelesaian%(60000))/1000) + ' Detik';
+                                if(perhitunganJam == '0 Jam '){
+                                    perhitunganJam = '';
+                                } else if(perhitunganMenit == '0 Menit '){
+                                    perhitunganMenit = '';
+                                } else if(perhitunganDetik == '0 Detik'){
+                                    perhitunganDetik = '';
+                                }
+                                rataRataWaktuPenyelesaian = perhitunganHari + perhitunganJam + perhitunganMenit + perhitunganDetik;
+                            } else if(rataRataPenyelesaian == 86400000){
+                                let perhitunganHari = Math.floor(rataRataPenyelesaian/86400000) + ' Hari';
+                                rataRataWaktuPenyelesaian = perhitunganHari;
+                            } else if(rataRataPenyelesaian > 3600000){
+                                let perhitunganJam = Math.floor(rataRataPenyelesaian/3600000) + ' Jam ';
+                                let perhitunganMenit = Math.floor((rataRataPenyelesaian%(3600000))/60000) + ' Menit ';
+                                let perhitunganDetik = Math.floor((rataRataPenyelesaian%(60000))/1000) + ' Detik';
+                                if(perhitunganMenit == '0 Menit '){
+                                    perhitunganMenit = '';
+                                } else if(perhitunganDetik == '0 Detik'){
+                                    perhitunganDetik = '';
+                                }
+                                rataRataWaktuPenyelesaian = perhitunganJam + perhitunganMenit + perhitunganDetik;
+                            } else if(rataRataPenyelesaian == 3600000){
+                                let perhitunganJam = Math.floor(rataRataPenyelesaian/3600000) + ' Jam ';
+                                rataRataWaktuPenyelesaian = perhitunganJam;
+                            } else if(rataRataPenyelesaian > 60000){
+                                let perhitunganMenit = Math.floor(rataRataPenyelesaian/60000) + ' Menit ';
+                                let perhitunganDetik = Math.floor((rataRataPenyelesaian%60000)/1000) + ' Detik'
+                                if(perhitunganDetik == '0 Detik'){
+                                    perhitunganDetik = '';
+                                }
+                                rataRataWaktuPenyelesaian = perhitunganMenit + perhitunganDetik;
+                            } else if(rataRataPenyelesaian == 60000){
+                                let perhitunganMenit = Math.floor(rataRataPenyelesaian/60000) + ' Menit ';
+                                rataRataWaktuPenyelesaian = perhitunganMenit;
+                            } else if(rataRataPenyelesaian < 60000){
+                                let perhitunganDetik = Math.floor(rataRataPenyelesaian/1000) + ' Detik';
+                                rataRataWaktuPenyelesaian = perhitunganDetik;
                             }
 
                         for(let x = 0;x<daftarKaryawan.length;x++){
@@ -213,6 +213,15 @@ auth.onAuthStateChanged(user => {
         changes.forEach(change =>{
             if(change.type == 'added'){
                 renderSwot(change.doc);
+                document.querySelector('#jumlah-data-swot-kosong').style.display = 'none';
+                let jumlahStrength = document.querySelectorAll('.strength').length;
+                let jumlahWeakness = document.querySelectorAll('.weakness').length;
+                let jumlahOportunity = document.querySelectorAll('.oportunity').length;
+                let jumlahThreat = document.querySelectorAll('.threat').length;
+                document.querySelector('#jumlah-strength').innerHTML = jumlahStrength;
+                document.querySelector('#jumlah-weakness').innerHTML = jumlahWeakness;
+                document.querySelector('#jumlah-oportunity').innerHTML = jumlahOportunity;
+                document.querySelector('#jumlah-threat').innerHTML = jumlahThreat;
                 setupUI(user);
             } else if (change.type == 'removed'){
                 let tr = document.querySelector('[data-id="' + change.doc.id + '"]');
@@ -230,7 +239,18 @@ auth.onAuthStateChanged(user => {
                     case "Threat":
                     analisisThr.removeChild(tr);
                 }
-
+                let jumlahStrength = document.querySelectorAll('.strength').length;
+                let jumlahWeakness = document.querySelectorAll('.weakness').length;
+                let jumlahOportunity = document.querySelectorAll('.oportunity').length;
+                let jumlahThreat = document.querySelectorAll('.threat').length;
+                document.querySelector('#jumlah-strength').innerHTML = jumlahStrength;
+                document.querySelector('#jumlah-weakness').innerHTML = jumlahWeakness;
+                document.querySelector('#jumlah-oportunity').innerHTML = jumlahOportunity;
+                document.querySelector('#jumlah-threat').innerHTML = jumlahThreat;
+                if(jumlahStrength == 0 && jumlahWeakness == 0 && jumlahOportunity == 0 && jumlahThreat == 0){
+                    document.querySelector('#jumlah-data-swot').remove();
+                    document.querySelector('#jumlah-data-swot-kosong').style.display = 'block';
+                }
                 $('#modaleditpeserta' + change.doc.id).modal('hide');
             } else if(change.type == 'modified'){
                 renderUpdateSwot(change.doc);
@@ -249,6 +269,14 @@ auth.onAuthStateChanged(user => {
                 case "Threat":   
                 analisisThr.appendChild(tr);
                 }
+                let jumlahStrength = document.querySelectorAll('.strength').length;
+                let jumlahWeakness = document.querySelectorAll('.weakness').length;
+                let jumlahOportunity = document.querySelectorAll('.oportunity').length;
+                let jumlahThreat = document.querySelectorAll('.threat').length;
+                document.querySelector('#jumlah-strength').innerHTML = jumlahStrength;
+                document.querySelector('#jumlah-weakness').innerHTML = jumlahWeakness;
+                document.querySelector('#jumlah-oportunity').innerHTML = jumlahOportunity;
+                document.querySelector('#jumlah-threat').innerHTML = jumlahThreat;
             }
         })
     }, err => console.log(err.message))
@@ -258,10 +286,19 @@ auth.onAuthStateChanged(user => {
         changes.forEach(change =>{
             if(change.type == 'added'){
                 renderAchievement(change.doc);
+                document.querySelector('#jumlah-data-achievement-kosong').style.display = 'none';
+                let jumlahAchievement = document.querySelectorAll('.pencapaian').length;
+                document.querySelector('#jumlah-achievement').innerHTML = jumlahAchievement;
                 setupUI(user);
             }else if (change.type == 'removed'){
                 let tr = document.querySelector('[data-id="' + change.doc.id + '"]');
                 listPencapaian.removeChild(tr);
+                let jumlahAchievement = document.querySelectorAll('.pencapaian').length;
+                document.querySelector('#jumlah-achievement').innerHTML = jumlahAchievement;
+                if(jumlahAchievement == 0){
+                    document.querySelector('#jumlah-data-achievement').remove();
+                    document.querySelector('#jumlah-data-achievement-kosong').style.display = 'block';
+                }                
             } else if(change.type == 'modified'){
                 renderUpdateAchievement(change.doc);
                 let items = $('#list-achievement > .achievement').get();
@@ -280,6 +317,158 @@ auth.onAuthStateChanged(user => {
         })
     }, err => console.log(err.message))
         
+        db.collection('pengumuman').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderPengumuman(change.doc);
+                        setupUI(user);
+                    }else if (change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        document.querySelector('#grid-jumbotron-pengumuman').parentNode.removeChild(div);
+                    } else if(change.type == 'modified'){
+                        renderUpdatePengumuman(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('overview').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderOverview(change.doc);
+                        setupUI(user);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('kategoriMenu').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderKategoriMenu(change.doc);
+                        setupUI(user);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        listKategoriMenu.removeChild(div);
+                    } else if(change.type == 'modified'){
+                        renderUpdateKategoriMenu(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('menu').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderMenu(change.doc);
+                        setupUI(user);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        let listMenu = document.querySelectorAll('.list-menu');
+                        for(let x = 0; x<listMenu.length; x++){
+                            let li = listMenu[x].getElementsByTagName('li');
+                            for(let y = 0; y<li.length; y++){
+                                let id = li[y].getAttribute('data-id')
+                                if(id == change.doc.id){
+                                    listMenu[x].removeChild(div);
+                                }
+                            }
+                        }
+                    } else if(change.type == 'modified'){
+                        renderUpdateMenu(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))        
+
+
+        $(document).ready(function(){
+            setInterval(function(){ reload_page(); },90*60000);
+            setInterval(function(){ refreshOnPengumuman(); },1000);
+            setInterval(function(){ refreshOnOverview(); },1000);
+        });
+
+        function reload_page(){
+            window.location.reload(true);
+        }
+
+        function refreshOnPengumuman(){
+          db.collection('pengumuman').get().then(function(querySnapshot){
+            querySnapshot.docs.map((doc) => {
+              let tanggal = doc.data().tanggal;
+              let tanggalSekarang = new Date().getTime();
+              let perbandinganWaktu = tanggalSekarang - tanggal;
+              let perbandinganBaru;
+              if(perbandinganWaktu >= 31536000000){
+                  let perhitunganTahun = Math.floor(perbandinganWaktu/31536000000);
+                  perbandinganWaktu = perhitunganTahun + ' tahun yang lalu';
+                  perbandinganBaru = '';
+              } else if(perbandinganWaktu >= 2629800000){
+                  let perhitunganBulan = Math.floor(perbandinganWaktu/2629800000);
+                  perbandinganWaktu = perhitunganBulan + ' bulan yang lalu';
+                  perbandinganBaru = '';
+              } else if(perbandinganWaktu >= 604800000){
+                  let perhitunganMinggu = Math.floor(perbandinganWaktu/604800000);
+                  perbandinganWaktu = perhitunganMinggu + ' minggu yang lalu';
+                  perbandinganBaru = '';
+              } else if(perbandinganWaktu >= 86400000){
+                  if(perbandinganWaktu > 259200000){
+                      perbandinganBaru = '';
+                  } else {
+                      perbandinganBaru = 'Baru';
+                  }                
+                  let perhitunganHari = Math.floor(perbandinganWaktu/86400000);
+                  perbandinganWaktu = perhitunganHari + ' hari yang lalu';
+              } else if(perbandinganWaktu >= 3600000){
+                  let perhitunganJam = Math.floor(perbandinganWaktu/3600000);
+                  perbandinganWaktu = perhitunganJam + ' jam yang lalu';
+                  perbandinganBaru = 'Baru';
+              } else if(perbandinganWaktu >= 60000){
+                  let perhitunganMenit = Math.floor(perbandinganWaktu/60000);
+                  perbandinganWaktu = perhitunganMenit + ' menit yang lalu';
+                  perbandinganBaru = 'Baru';
+              } else if(perbandinganWaktu < 60000){
+                  perbandinganWaktu = 'baru saja';
+                  perbandinganBaru = 'Baru';
+              }
+              $('#waktu-pengumuman-dibuat' + doc.id).text(perbandinganWaktu);
+              $('#perbandingan-baru' + doc.id).text(perbandinganBaru);
+            })
+          })
+        }
+
+        function refreshOnOverview(){
+          db.collection('overview').get().then(function(querySnapshot){
+            querySnapshot.docs.map((doc) => {
+              let waktuOverview = doc.data().waktuOverview;
+              let waktuSekarang = new Date().getTime();
+              let perbandinganWaktu = waktuSekarang - waktuOverview;
+                if(perbandinganWaktu >= 31536000000){
+                    let perhitunganTahun = Math.floor(perbandinganWaktu/31536000000);
+                    perbandinganWaktu = 'pada ' + perhitunganTahun + ' tahun yang lalu';
+                } else if(perbandinganWaktu >= 2629800000){
+                    let perhitunganBulan = Math.floor(perbandinganWaktu/2629800000);
+                    perbandinganWaktu = 'pada ' + perhitunganBulan + ' bulan yang lalu';
+                } else if(perbandinganWaktu >= 604800000){
+                    let perhitunganMinggu = Math.floor(perbandinganWaktu/604800000);
+                    perbandinganWaktu = 'pada ' + perhitunganMinggu + ' minggu yang lalu';
+                } else if(perbandinganWaktu >= 86400000){
+                    let perhitunganHari = Math.floor(perbandinganWaktu/86400000);
+                    perbandinganWaktu = 'pada ' + perhitunganHari + ' hari yang lalu';
+                } else if(perbandinganWaktu >= 3600000){
+                    let perhitunganJam = Math.floor(perbandinganWaktu/3600000);
+                    perbandinganWaktu = 'pada ' + perhitunganJam + ' jam yang lalu';
+                } else if(perbandinganWaktu >= 60000){
+                    let perhitunganMenit = Math.floor(perbandinganWaktu/60000);
+                    perbandinganWaktu = 'pada ' + perhitunganMenit + ' menit yang lalu';
+                } else if(perbandinganWaktu < 60000){
+                    perbandinganWaktu = 'baru saja';
+                }
+              $('#waktu-overview' + doc.id).text(perbandinganWaktu);
+            })
+          })
+        }
+
     setupUI(user);
   } else {
     setupUI();
@@ -316,12 +505,22 @@ daftarPeserta.addEventListener('submit', (e) => {
         lokasi : daftarPeserta['lokasi-berjaga'].value,
         email : daftarPeserta['email-peserta'].value
     }).then(() => {
+        tanggal = new Date().getTime();
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                pengguna : nama,
+                waktuOverview : tanggal,
+                overview : 'add-user'
+            })
+        }).then(() => {
         $('#modaldaftarpeserta').modal('hide');
         document.querySelector('#tambah-peserta').reset();
         document.getElementsByClassName('seleksi').selectedIndex = null;
-    });
-    }
-});
+        })
+    })
+   }
+})
 
 
 const daftarTugas = document.querySelector('#tambah-tugas');
@@ -348,12 +547,22 @@ daftarTugas.addEventListener('submit', (e) => {
         waktuRilis : waktuRilis,
         tanggalLuncur : tanggal 
     }).then(() => {
+        tanggal = new Date().getTime();
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                penggunaTugas : daftarTugas['target-peserta'].value,
+                waktuOverview : tanggal,
+                overview : 'add-task'
+            })
+        }).then(() => {
         $('#modaltambahtugas').modal('hide');
         document.querySelector('#tambah-tugas').reset();
-        document.getElementsByClassName('seleksi').selectedIndex = null;
-    });
+        document.getElementsByClassName('seleksi').selectedIndex = null;          
+        })
+    })
   }
-});
+})
 
 const daftarKesalahan = document.querySelector('#tambah-kesalahan');
 daftarKesalahan.addEventListener('submit', (e) => {
@@ -372,21 +581,40 @@ daftarKesalahan.addEventListener('submit', (e) => {
         nama: daftarKesalahan['target-peserta-kedua'].value,
         kontenKesalahan: daftarKesalahan['konten-kesalahan'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
+        let tanggal = new Date().getTime();
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                penggunaKesalahan : daftarKesalahan['target-peserta-kedua'].value,
+                waktuOverview : tanggal,
+                overview : 'add-mistake'
+            })        
+        }).then(() => {
         $('#modaltambahkesalahan').modal('hide');
-        document.querySelector('#tambah-kesalahan').reset();
+        document.querySelector('#tambah-kesalahan').reset();  
+        })        
     })
-   
   } else {
     db.collection('kesalahan').add({
         tanggal: daftarKesalahan['tanggal-kesalahan'].value,
         nama: daftarKesalahan['target-peserta-kedua'].value,
         kontenKesalahan: daftarKesalahan['konten-kesalahan'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
-        $('#modaltambahkesalahan').modal('hide');
-        document.querySelector('#tambah-kesalahan').reset();
-    });
+        let tanggal = new Date().getTime();
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                penggunaKesalahan : daftarKesalahan['target-peserta-kedua'].value,
+                waktuOverview : tanggal,
+                overview : 'add-mistake'
+            })        
+        }).then(() => {
+            $('#modaltambahkesalahan').modal('hide');
+            document.querySelector('#tambah-kesalahan').reset();  
+        })
+    })
   }
-});
+})
 
 const daftarSwot = document.querySelector('#tambah-swot');
 daftarSwot.addEventListener('submit', (e) => {
@@ -395,11 +623,21 @@ daftarSwot.addEventListener('submit', (e) => {
         analisis : daftarSwot['analisis-swot'].value,
         kontenAnalisis : daftarSwot['konten-analisis'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
+        let tanggal = new Date().getTime();
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : tanggal,
+                analisisSwot : daftarSwot['analisis-swot'].value.toLowerCase(),
+                overview : 'add-swot'
+            })
+    }).then(() =>{
         $('#modalswot').modal('hide');
         document.querySelector('#tambah-swot').reset();
         document.getElementsByClassName('seleksi').selectedIndex = null;
-    });
-});
+        })
+    })
+})
 
 const daftarAchievement = document.querySelector('#tambah-achievement');
 daftarAchievement.addEventListener('submit', (e) => {
@@ -409,6 +647,7 @@ daftarAchievement.addEventListener('submit', (e) => {
     let bulan = String(tanggalSekarang.getMonth() + 1).padStart(2, '0');
     let tahun = tanggalSekarang.getFullYear();
     tanggalSekarang = tahun + '-' + bulan + '-' + hari;
+    let tanggal = new Date().getTime();
     if(document.querySelector('#tanggal-pencapaian').value > tanggalSekarang){
       alert('Sepertinya anda mencantumkan tanggal sebelum kejadian terjadi');
     } else if(document.querySelector('#tanggal-pencapaian').value == 0){
@@ -417,39 +656,109 @@ daftarAchievement.addEventListener('submit', (e) => {
         tanggal: tanggal,
         kontenPencapaian: daftarAchievement['konten-pencapaian'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : tanggal,
+                overview : 'add-achievement'
+            })
+        }).then(() => {
         $('#modalachievement').modal('hide');
         document.querySelector('#tambah-achievement').reset();
+        })
     })
-   
   } else {
     db.collection('achievement').add({
         tanggal: daftarAchievement['tanggal-pencapaian'].value,
         kontenPencapaian: daftarAchievement['konten-pencapaian'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : tanggal,
+                overview : 'add-achievement'
+            })
+        }).then(() => {        
         $('#modalachievement').modal('hide');
         document.querySelector('#tambah-achievement').reset();
-    });
+        })
+    })
   }
 })
-// signup
+
+const daftarPengumuman = document.querySelector('#tambah-pengumuman');
+daftarPengumuman.addEventListener('submit', (e) => {
+    e.preventDefault();
+    db.collection('pengguna').doc(auth.currentUser.uid).get().then(doc =>{
+    let tanggal = new Date().getTime();
+    let username = doc.data().username;
+    db.collection('pengumuman').add({
+        tanggal: tanggal,
+        pembuatPengumuman: username,
+        judulPengumuman: daftarPengumuman['judul-pengumuman'].value,
+        kontenPengumuman: daftarPengumuman['konten-pengumuman'].value.replace(/\n\r?/g, '<br/>')
+    }).then(() => {
+            db.collection('overview').add({
+                penggunaOverview : username,
+                waktuOverview : tanggal,
+                judulPengumuman : daftarPengumuman['judul-pengumuman'].value,
+                overview : 'add-announcement'
+            })
+        }).then(() => {
+        $('#modalpengumuman').modal('hide');
+        document.querySelector('#tambah-pengumuman').reset();
+        })
+    })
+})
+
+const daftarKategoriMenu = document.querySelector('#tambah-kategori-menu');
+daftarKategoriMenu.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let tanggal = new Date().getTime();
+    db.collection('kategoriMenu').add({
+        tanggal: tanggal,
+        namaKategoriMenu: daftarKategoriMenu['nama-kategori-menu'].value
+    }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : tanggal,
+                namaKategoriMenu : daftarKategoriMenu['nama-kategori-menu'].value,
+                overview : 'add-menu-category'
+            })
+        }).then(() => {
+        $('#modalkategorimenu').modal('hide');
+        document.querySelector('#tambah-kategori-menu').reset();
+        })
+    })
+})
+
 
 const formDaftar = document.querySelector('#form-daftar');
 formDaftar.addEventListener('submit', (e) => {
   e.preventDefault();
  
-  // get user info
   const email = formDaftar['emaildaftar'].value;
   const password = formDaftar['passworddaftar'].value;
 
 if(email.includes('galaxy.id')){
 
-  // sign up the user
   auth.createUserWithEmailAndPassword(email, password).then(cred => {
     return db.collection('pengguna').doc(cred.user.uid).set({
       username : formDaftar['username'].value
     });
-  }).then(() => {
-        // close the signup modal & reset form
+}, err => 
+    console.log(err.code)
+
+  ).then(() => {
+    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+    let tanggal = new Date().getTime();
+    db.collection('overview').add({
+        penggunaOverview : doc.data().username,
+        waktuOverview : tanggal,
+        overview : 'sign-up'
+        })
+    })
       $('#modaldaftar').modal('hide');
       formDaftar.reset();
         });
@@ -458,30 +767,51 @@ if(email.includes('galaxy.id')){
        formDaftar.reset();
     }
 });
-// logout
+
 const keluar = document.querySelector('#sign-out');
 keluar.addEventListener('click', (e) => {
-  e.preventDefault();
-  let konfirmasi = confirm("Apa anda yakin ingin keluar?");
-  if(konfirmasi){
-  auth.signOut();
-  window.location.reload();
-  }
+    e.stopImmediatePropagation();
+    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+    let konfirmasi = confirm("Apa anda yakin ingin keluar?");
+    if(konfirmasi){
+    let tanggal = new Date().getTime();
+    db.collection('overview').add({
+        penggunaOverview : doc.data().username,
+        waktuOverview : tanggal,
+        overview : 'sign-out'
+        }).then(() => {
+            auth.signOut();
+            window.location.reload();
+            });
+        }
+    });
 });
 
-// login
+
 const formMasuk = document.querySelector('#form-masuk');
 formMasuk.addEventListener('submit', (e) => {
   e.preventDefault();
   
-  // get user info
   const email = formMasuk['emailmasuk'].value;
   const password = formMasuk['passwordmasuk'].value;
 
-  // log the user in
   auth.signInWithEmailAndPassword(email, password).then((cred) => {
+    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+    let tanggal = new Date().getTime();
+    db.collection('overview').add({
+        penggunaOverview : doc.data().username,
+        waktuOverview : tanggal,
+        overview : 'sign-in'
+        })
+    })
       $('#modallogin').modal('hide');
       formMasuk.reset();
+  }, err => {
+    if(err.code == 'auth/user-not-found'){
+        alert('User tidak ditemukan.')
+    }else if(err.code == 'auth/wrong-password'){
+        alert('Email atau Password yang anda masukkan salah!')
+    } 
   });
 
 });

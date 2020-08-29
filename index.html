@@ -3,26 +3,27 @@
 <head>
   <title>App GLX</title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
-  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark">
-    <button class="navbar-toggler" id="tombol-burger" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler tombol-burger" id="tombol-burger" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="#">Galaxy</a>
   </nav>
 <div class="pos-f-t isi-daftar-menu">
-  <div class="collapse" id="navbarToggleExternalContent">
+  <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
     <div class="bg-dark p-4 daftar-menu">
       <div class="tab-halaman text-white menu" id="home" data-toggle="pill" href="#halaman-home" role="tab" aria-controls="halaman-home" aria-selected="true"><i class="fa fa-home" aria-hidden="true"></i> Beranda</div>
       <div class="tab-halaman text-white menu" id="swot" data-toggle="pill" href="#halaman-swot" role="tab" aria-controls="halaman-swot" aria-selected="true"><i class='fas fa-seedling'></i> SWOT Analysis</div>
-      <div class="tab-halaman text-white menu" id="achievement" data-toggle="pill" href="#halaman-achievement" role="tab" aria-controls="halaman-achievement" aria-selected="true"><i class='fas fa-crown'></i> Achievement</div>
-      <div class="tab-halaman text-white menu item-masuk" id="account" data-toggle="modal" data-target="#modalpengaturanakun"><i class="fa fa-gear"></i> Pengaturan Akun</div>
+      <div class="tab-halaman text-white menu" id="achievement" data-toggle="pill" href="#halaman-achievement" role="tab" aria-controls="halaman-achievement" aria-selected="true"> <i class='fas fa-crown'></i> Achievement</div>
+      <div class="tab-halaman text-white menu" id="list-gaji" data-toggle="pill" href="#halaman-list-gaji" role="tab" aria-controls="halaman-list-gaji" aria-selected="true"><i class='fas fa-clipboard-list'></i> List Gaji</div>
+      <div id="setting" class="tab-halaman text-white menu item-masuk" id="account" data-toggle="modal" data-target="#modalpengaturanakun"><i class="fa fa-gear"></i> Pengaturan Akun</div>
       <div class="item-masuk text-white menu" id="sign-out"><i class='fas fa-sign-out-alt'></i> Keluar</div>
     </div>
   </div>
@@ -39,8 +40,8 @@
         </button>
       </div>
         <div class="modal-body">
-        <div id="data-akun">
-        <div id="info-akun">
+        <div class="data-akun">
+        <div class="info-akun">
         <div>Pengguna</div>
         <div>:</div>
         <div style="font-weight:bold;" id="pengguna-akun"></div>
@@ -84,8 +85,6 @@
        </div>
      </div>
 
-<div class="tab-content" id="myTabContent">
-<div class="halaman tab-pane fade active show" id="halaman-home" role="tabpanel">
   <form class="item-keluar" id="form-masuk">
     <div id="judul-login">Login</div>
                 <div class="form-group">
@@ -114,8 +113,25 @@
                 <small>Sudah Mempunyai Akun? <div id="sign-in"> Masuk Sekarang!</div></small>
       </form>
 
-
+<div id="darken"></div>
+<div class="tab-content" id="myTabContent">
+<div class="halaman tab-pane fade active show" id="halaman-home" role="tabpanel">
 <div id="stranger"></div>
+
+<div id="list-menu-tambahan" class="daftar-menu">
+  <div class="tab-halaman tombol-menu-tambahan" id="pengumuman" data-toggle="pill" href="#halaman-pengumuman" role="tab" aria-controls="halaman-pengumuman" aria-selected="true">
+    <div class="menu-tambahan"><i class='ikon-menu-tambahan fas fa-bullhorn'></i></div>
+    <div class="menu-tambahan-teks">Pengumuman</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan" id="overview" data-toggle="pill" href="#halaman-overview" role="tab" aria-controls="halaman-overview" aria-selected="true">
+    <div class="menu-tambahan"><i class='ikon-menu-tambahan fas fa-list'></i></div>
+    <div class="menu-tambahan-teks">Overview</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan" id="menu" data-toggle="pill" href="#halaman-menu" role="tab" aria-controls="halaman-menu" aria-selected="true">
+    <div class="menu-tambahan"><i class="ikon-menu-tambahan ikon-menu-tambahan-pengecualian material-icons">apps</i></div>
+    <div class="menu-tambahan-teks">Menu</div>
+  </div>
+</div>
 
 <div class="jumbotron" id="jumbotron-performa-peserta">
   <div id="judul-jumbotron-performa-peserta" class="display-4"><i class="fa fa-group"></i> Performa Karyawan</div>
@@ -123,13 +139,12 @@
 </div>
 
 <div class="jumbotron" id="jumbotron-performa-peserta-individu">
-  <h1 id="judul-jumbotron-performa-peserta-individu" class="display-4">Selamat Datang <span id="nama-peserta-masuk"></span>!</h1>
+  <h1 id="judul-jumbotron-performa-peserta-individu" class="display-4">Noticement :</h1>
   <div class="lead" id="list-performa-peserta-individu">
-    <div style="font-weight: bold;font-size:24px;">Noticement :</div>
     <div><i class='fas fa-bullhorn' style="color:red;"></i> Halaman website akan refresh otomatis setiap 1.5 jam,terhitung dari setelah anda membuka halaman website, untuk menghindari adanya keterlambatan update dalam pengembangan website.</div>
     <div><i class='fas fa-bullhorn' style="color:red;"></i> Kesalahan individu dalam bekerja hanya dapat ditambahkan oleh pihak admin sendiri yang memantau.</div>
     <div><i class='fas fa-bullhorn' style="color:red;"></i> Diharapkan agar anda dapat menyelesaikan tugas sebelum tenggat waktu tugas berakhir.</div>
-    <div><i class='fas fa-bullhorn' style="color:red;"></i> Kecepatan rata-rata penyelesaian atau keterlambatan penyelesaian tugas maupun kesalahan individu hanya bisa dilihat oleh pihak admin sendiri.</div>
+    <div><i class='fas fa-bullhorn' style="color:red;"></i> Kecepatan rata-rata penyelesaian atau keterlambatan penyelesaian tugas maupun kesalahan individu hanya akan ditampilkan individu.</div>
   </div>
 </div>
 
@@ -347,6 +362,11 @@
 </div>
 <div class="halaman tab-pane fade" id="halaman-swot" role="tabpanel">
 
+<div class="jumbotron" id="jumbotron-swot">
+  <div id="judul-jumbotron-swot" class="display-4">Analisis SWOT</div>
+  <div class="lead" id="list-swot"><div id="jumlah-data-swot-kosong">Untuk saat ini tidak terdapat data analisa SWOT yang tercantum pada tabel dibawah berikut.</div></div>
+</div>
+
 <div id="tombol-daftar-lokasi">
 <div class="tombol-swot btn btn-secondary" id="tombol-strength">Strength</div>
 <div class="tombol-swot btn btn-secondary" id="tombol-weakness">Weakness</div>
@@ -410,7 +430,10 @@
 
 
 <div class="halaman tab-pane fade" id="halaman-achievement" role="tabpanel">
-
+<div class="jumbotron" id="jumbotron-achievement">
+  <div id="judul-jumbotron-achievement" class="display-4"><i class="fa fa-trophy"></i> Daftar Achievement</div>
+  <div class="lead" id="list-achievement-kedua"><div id="jumlah-data-achievement-kosong">Untuk saat ini anda belum pernah mencapai achievement pada event tertentu.</div></div>
+</div>
 <table class="table garis" style="margin-top: 10px;margin-bottom: 100px;">
   <thead class="thead-dark">
     <tr>
@@ -456,7 +479,188 @@
 
 </div>
 
+
+
+<div class="halaman tab-pane fade" id="halaman-pengumuman" role="tabpanel">
+
+<div class="grid-halaman" id="grid-halaman-pengumuman">
+<div id="grid-jumbotron-pengumuman">
+<div class="jumbotron" id="jumbotron-pengumuman">
+  <div id="judul-jumbotron-pengumuman" class="display-4"><i class='far fa-object-group'></i> Pengumuman</div>
+  <div class="lead" id="list-pengumuman-kedua"></div>
+  <div id="tombol-tambah-pengumuman">
+    <div id="tambahpengumuman" data-toggle="modal" class="btn btn-primary pull-right" data-target="#modalpengumuman">Tambah Pengumuman</div>
+  </div>
 </div>
+<div id="tombol-tambah-pengumuman-kedua"></div>
+</div>
+
+</div>
+
+        <div class="modal fade" id="modalpengumuman" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Menambahkan Pengumuman</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div class="modal-body">
+                  <form id="tambah-pengumuman">
+                        <div class="form-group">
+                          <label class="col-form-label">Judul Pengumuman</label>
+                          <input type="text" class="form-control" id="judul-pengumuman" autocomplete="off" required>
+                        </div>
+                      <div class="form-group">
+                        <label>Konten Pengumuman</label>
+                      <textarea oninput="auto_grow(this)" class="form-control" id="konten-pengumuman" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                      </div>
+                        <div class="modal-footer">
+                              <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                              <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                    </div>
+                  </div>
+               </div>
+             </div>
+             
+<div id="modal-edit-pengumuman"></div>
+
+
+  <div id="list-menu-tambahan-kedua" class="daftar-menu">
+  <div class="tab-halaman tombol-menu-tambahan-kedua kembali" data-toggle="pill" href="#halaman-home" role="tab" aria-controls="halaman-home" aria-selected="true">
+    <div class="menu-tambahan-kedua"><i class='ikon-menu-tambahan-kedua fas fa-reply'></i></div>
+    <div class="menu-tambahan-teks-kedua">Kembali</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan-kedua" id="pengumuman-kedua" data-toggle="pill" href="#halaman-pengumuman" role="tab" aria-controls="halaman-pengumuman" aria-selected="true">
+    <div class="menu-tambahan-kedua"><i class='ikon-menu-tambahan-kedua fas fa-bullhorn'></i></div>
+    <div class="menu-tambahan-teks-kedua">Pengumuman</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan-kedua" id="overview-kedua" data-toggle="pill" href="#halaman-overview" role="tab" aria-controls="halaman-overview" aria-selected="true">
+    <div class="menu-tambahan-kedua"><i class='ikon-menu-tambahan-kedua fas fa-list'></i></div>
+    <div class="menu-tambahan-teks-kedua">Overview</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan-kedua" id="menu-kedua" data-toggle="pill" href="#halaman-menu" role="tab" aria-controls="halaman-menu" aria-selected="true">
+    <div class="menu-tambahan-kedua"><i class="ikon-menu-tambahan-kedua ikon-menu-tambahan-pengecualian material-icons">apps</i></div>
+    <div class="menu-tambahan-teks-kedua">Menu</div>
+  </div>
+</div>
+
+</div>
+
+
+<div class="halaman tab-pane fade" id="halaman-overview" role="tabpanel">
+
+  <div id="list-menu-tambahan-ketiga" class="daftar-menu">
+  <div class="tab-halaman tombol-menu-tambahan-ketiga kembali" data-toggle="pill" href="#halaman-home" role="tab" aria-controls="halaman-home" aria-selected="true">
+    <div class="menu-tambahan-ketiga"><i class='ikon-menu-tambahan-ketiga fas fa-reply'></i></div>
+    <div class="menu-tambahan-teks-ketiga">Kembali</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan-ketiga" id="pengumuman-ketiga" data-toggle="pill" href="#halaman-pengumuman" role="tab" aria-controls="halaman-pengumuman" aria-selected="true">
+    <div class="menu-tambahan-ketiga"><i class='ikon-menu-tambahan-ketiga fas fa-bullhorn'></i></div>
+    <div class="menu-tambahan-teks-ketiga">Pengumuman</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan-ketiga" id="overview-ketiga" data-toggle="pill" href="#halaman-overview" role="tab" aria-controls="halaman-overview" aria-selected="true">
+    <div class="menu-tambahan-ketiga"><i class='ikon-menu-tambahan-ketiga fas fa-list'></i></div>
+    <div class="menu-tambahan-teks-ketiga">Overview</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan-ketiga" id="menu-ketiga" data-toggle="pill" href="#halaman-menu" role="tab" aria-controls="halaman-menu" aria-selected="true">
+    <div class="menu-tambahan-ketiga"><i class="ikon-menu-tambahan-ketiga ikon-menu-tambahan-pengecualian material-icons">apps</i></div>
+    <div class="menu-tambahan-teks-ketiga">Menu</div>
+  </div>
+</div>
+
+<div class="jumbotron" id="jumbotron-overview">
+  <div id="judul-jumbotron-overview" class="display-4"><i class='fas fa-hand-sparkles'></i> <span class="kata-sambutan"></span></div>
+  <div class="lead" id="jumbotron-keterangan-overview">Halaman ini menampilkan data-data aktivitas yang <span id="pengguna-overview"></span> lakukan selama berada pada website.</div>
+</div>
+<div id="list-overview"></div>
+<div id="list-info-overview"></div>
+
+</div>
+
+
+<div class="halaman tab-pane fade" id="halaman-menu" role="tabpanel">
+
+  <div id="list-menu-tambahan-keempat" class="daftar-menu">
+  <div class="tab-halaman tombol-menu-tambahan-keempat kembali" data-toggle="pill" href="#halaman-home" role="tab" aria-controls="halaman-home" aria-selected="true">
+    <div class="menu-tambahan-keempat"><i class='ikon-menu-tambahan-keempat fas fa-reply'></i></div>
+    <div class="menu-tambahan-teks-keempat">Kembali</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan-keempat" id="pengumuman-keempat" data-toggle="pill" href="#halaman-pengumuman" role="tab" aria-controls="halaman-pengumuman" aria-selected="true">
+    <div class="menu-tambahan-keempat"><i class='ikon-menu-tambahan-keempat fas fa-bullhorn'></i></div>
+    <div class="menu-tambahan-teks-keempat">Pengumuman</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan-keempat" id="overview-keempat" data-toggle="pill" href="#halaman-overview" role="tab" aria-controls="halaman-overview" aria-selected="true">
+    <div class="menu-tambahan-keempat"><i class='ikon-menu-tambahan-keempat fas fa-list'></i></div>
+    <div class="menu-tambahan-teks-keempat">Overview</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan-keempat" id="menu-keempat" data-toggle="pill" href="#halaman-menu" role="tab" aria-controls="halaman-menu" aria-selected="true">
+    <div class="menu-tambahan-keempat"><i class="ikon-menu-tambahan-keempat ikon-menu-tambahan-pengecualian material-icons">apps</i></div>
+    <div class="menu-tambahan-teks-keempat">Menu</div>
+  </div>
+</div>
+
+<div style="display: block;margin: 5px 20px;position: relative;">
+<input type="text" placeholder="Cari berdasarkan nama..." id="search-menu">
+<div id="hasil-pencarian"></div>
+<div id="list-menu-konfigurasi">
+  <div class="btn btn-primary" id="tombol-tambah-kategori-menu" data-target="#modalkategorimenu" data-toggle="modal">Tambah Kategori</div>
+</div>
+</div>
+<div>
+<div id="list-kategori-menu"></div>
+</div>
+<div id="modal-edit-menu"></div>
+
+        <div class="modal fade" id="modalkategorimenu" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Menambahkan Kategori</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div class="modal-body">
+                  <form id="tambah-kategori-menu">
+                        <div class="form-group">
+                          <label class="col-form-label">Nama Kategori</label>
+                          <input type="text" class="form-control" id="nama-kategori-menu" autocomplete="off" required>
+                        </div>
+                        <div class="modal-footer">
+                              <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                              <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                    </div>
+                  </div>
+               </div>
+             </div>
+
+
+</div>
+<div class="halaman tab-pane fade" id="halaman-list-gaji" role="tabpanel">
+
+<div id="kotak-list-gaji">
+  <div id="header-kotak-list-gaji">List Gaji</div>
+  <div id="garis-kotak-list-gaji"></div>
+  <div id="periode-kotak-list-gaji">
+    <span>Periode</span>
+    <select id="select-periode-list-gaji">
+      <option value="" disabled selected hidden>-</option>
+    </select>
+  </div>
+</div>
+
+</div>
+
+</div>
+
+
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-storage.js"></script>
@@ -465,6 +669,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
 <script>
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -483,6 +688,7 @@
   const auth = firebase.auth();
   const db = firebase.firestore();
 </script>
+
 <script src="app.js"></script>
 <script src="auth.js"></script>
 <script>
@@ -490,16 +696,12 @@
     $(".daftar-menu .tab-halaman").removeClass('active');
     });
 </script> 
-<script>
- $(document).ready(function(){
-    setInterval(function(){ reload_page(); },90*60000);
- });
 
- function reload_page()
- {
-    window.location.reload(true);
- }
+<script>
+
+
 </script>
+
+
 </body>
 </html>
-

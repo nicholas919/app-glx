@@ -1,5 +1,3 @@
-
-
 document.querySelector('#tombol-tangerang').addEventListener('click', (e) =>{
     pesertaTgr.style.display = "table-row-group";
     pesertaDpk.style.display = "none"; 
@@ -121,8 +119,8 @@ function renderPeserta(doc){
         </button>
       </div>
         <div class="modal-body">
-        <div id="data-peserta">
-        <div id="info-peserta">
+        <div class="data-peserta">
+        <div class="info-peserta">
         <div>Nama</div>
         <div>:</div>
         <div style="font-weight:bold;" id="nama${doc.id}">${nama.toUpperCase()}</div>
@@ -140,7 +138,7 @@ function renderPeserta(doc){
         <div id="performa-peserta${doc.id}" class="performa-peserta-${nama.toLowerCase().replace(" ", "-")}" style="font-weight:bold;">-</div>
         <div>Status</div>
         <div>:</div> 
-        <div id="status-peserta${doc.id}" style="font-weight:bold;"></div>
+        <div id="status-peserta${doc.id}" style="font-weight:bold;"></div> 
         </div>
         <div id="edit${doc.id}" class="btn btn-warning edit edit-peserta">Edit Data Karyawan</div>
         <div id="hapus${doc.id}" class="btn btn-danger hapus hapus-peserta">Hapus Data Karyawan</div>
@@ -217,14 +215,14 @@ function renderPeserta(doc){
     let hariLibur = hariIni.getDay();
     let penentuanLibur = hari[hariLibur];
     if(penentuanLibur == libur){
-        document.querySelector('#status-td-peserta' + doc.id).innerText = "Non-Aktif";
+        document.querySelector('#status-td-peserta' + doc.id).innerHTML = "Non-Aktif";
         document.querySelector('#status-td-peserta' + doc.id).style.color = "#e61c33";
-        document.querySelector('#status-peserta' + doc.id).innerText = "Non-Aktif";
+        document.querySelector('#status-peserta' + doc.id).innerHTML = "Non-Aktif";
         document.querySelector('#status-peserta' + doc.id).style.color = "#e61c33";
     } else {
-        document.querySelector('#status-td-peserta' + doc.id).innerText = "Aktif";
+        document.querySelector('#status-td-peserta' + doc.id).innerHTML = "Aktif";
         document.querySelector('#status-td-peserta' + doc.id).style.color = "#13eb5e";
-        document.querySelector('#status-peserta' + doc.id).innerText = "Aktif";
+        document.querySelector('#status-peserta' + doc.id).innerHTML = "Aktif";
         document.querySelector('#status-peserta' + doc.id).style.color = "#13eb5e";
         }
 
@@ -246,7 +244,7 @@ for(let x = 0; x<pilihanLokasi.options.length; x++){
         }
     }
 
-let status = document.querySelector('#status-peserta' + doc.id).innerText;
+let status = document.querySelector('#status-peserta' + doc.id).innerHTML;
     switch(status){
         case "Aktif":
         document.querySelector('#target-peserta').appendChild(opsiTugas);
@@ -260,15 +258,62 @@ let status = document.querySelector('#status-peserta' + doc.id).innerText;
         formEdit.style.display = "block";
         formEdit.addEventListener('submit', function(e){
             e.preventDefault();
+            e.stopImmediatePropagation();
             let liburPeserta = document.querySelector('#hari-libur' + doc.id).value;
             let lokasiPeserta = document.querySelector('#lokasi-berjaga' + doc.id).value;
-
-            db.collection('peserta').doc(doc.id).update({
-                nama : nama,
-                libur : liburPeserta,
-                lokasi : lokasiPeserta
-            }).then(() => {
-                formEdit.style.display = "none";
+            let overviewCadangan;
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+            db.collection('peserta').doc(doc.id).get().then(function(item) {
+                libur = item.data().libur;
+                lokasi = item.data().lokasi;
+                nama = item.data().nama;
+            if(libur == liburPeserta && lokasi == lokasiPeserta){
+                alert('Tidak ada perubahan yang terjadi pada kolom kolom berikut');
+            } else if(libur != liburPeserta && lokasi != lokasiPeserta){
+                overviewCadangan = 'mengubah lokasi dan waktu libur karyawan ' + nama + ' dari ' + lokasi + ' dan hari ' + libur + ' menjadi ' + lokasiPeserta + ' dan hari ' + liburPeserta + '.';
+                db.collection('peserta').doc(doc.id).update({
+                    libur : liburPeserta,
+                    lokasi : lokasiPeserta
+                }).then(() => {
+                    formEdit.style.display = "none";
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        pengguna : nama,
+                        waktuOverview : new Date().getTime(),
+                        overview : 'update-user',
+                        overviewCadangan : overviewCadangan
+                    })
+                })
+            } else if(libur != liburPeserta){
+                overviewCadangan = 'mengubah waktu libur karyawan ' + nama + ' dari hari ' + libur + ' menjadi hari ' + liburPeserta + '.';
+                db.collection('peserta').doc(doc.id).update({
+                    libur : liburPeserta
+                }).then(() => {
+                    formEdit.style.display = "none";
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        pengguna : nama,
+                        waktuOverview : new Date().getTime(),
+                        overview : 'update-user',
+                        overviewCadangan : overviewCadangan
+                    })
+                })                
+            } else if(lokasi != lokasiPeserta){
+                overviewCadangan = 'mengubah lokasi karyawan ' + nama + ' dari ' + lokasi + ' menjadi ' + lokasiPeserta + '.';
+                db.collection('peserta').doc(doc.id).update({
+                    lokasi : lokasiPeserta
+                }).then(() => {
+                    formEdit.style.display = "none";
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        pengguna : nama,
+                        waktuOverview : new Date().getTime(),
+                        overview : 'update-user',
+                        overviewCadangan : overviewCadangan
+                    })
+                })                
+            }
+                })
             })
         })
     })
@@ -280,6 +325,17 @@ let status = document.querySelector('#status-peserta' + doc.id).innerText;
     if(konfirmasi == true){
         let konfirmasiKedua = confirm('Semua yang berkaitan dengan data karyawan seperti tugas, histori tugas selesai maupun kesalahan karyawan akan dihapus juga.')
         if(konfirmasiKedua == true){
+    db.collection('peserta').doc(doc.id).get().then(function(item){
+    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+    let tanggal = new Date().getTime();
+        db.collection('overview').add({
+            penggunaOverview : docs.data().username,
+            waktuOverview : tanggal,
+            pengguna : item.data().nama,
+            overview : 'delete-user'
+            })
+        })
+    }).then(() => {
     $(document).ready(function() {
     let tugasPeserta = document.querySelectorAll('.tugasseseorang' + nama.toLowerCase().replace(" ", "-"))
     for(let x = 0;x<tugasPeserta.length;x++){
@@ -298,10 +354,11 @@ let status = document.querySelector('#status-peserta' + doc.id).innerText;
             let id = kesalahanPeserta[x].getAttribute('data-id')
             db.collection('kesalahan').doc(id).delete()
         }
-})  
-    let id = document.querySelector('.dokumentasi-peserta' + doc.id).getAttribute('data-id');
+})
+    let id = document.querySelector('.dokumentasi-peserta' + doc.id).getAttribute('data-id');    
     db.collection('peserta').doc(id).delete();
     $('#modaleditpeserta' + doc.id).modal('hide');
+                })
             }
         }
     })
@@ -312,8 +369,10 @@ const analisisWks = document.querySelector('#list-weakness');
 const analisisOpt = document.querySelector('#list-oportunity');
 const analisisThr = document.querySelector('#list-threat');
 const modalSwot = document.querySelector('#modal-edit-swot')
+const listSwot = document.querySelector('#list-swot')
 function renderSwot(doc){
     let tr = document.createElement('tr');
+    let div = document.createElement('div');
     let swot = document.createElement('div');
     let analisis = doc.data().analisis;
     let kontenAnalisis = doc.data().kontenAnalisis;
@@ -321,11 +380,14 @@ function renderSwot(doc){
     tr.setAttribute('data-toggle', 'modal');
     tr.setAttribute('data-target', '#modaleditswot' + doc.id);
     tr.setAttribute('id','swot' + doc.id);
-    tr.classList.add('dokumentasi-swot' + doc.id, 'swot');
+    tr.classList.add('dokumentasi-swot' + doc.id, 'swot', analisis.toLowerCase());
+    div.classList.add('dokumentasi-swot-kedua' + doc.id);
     tr.innerHTML = `
-    <td style="font-weight:bold;" id="analisis-swot-table${doc.id}">${analisis}</td>
-    <td id="konten-analisis-table${doc.id}">${kontenAnalisis}</td>
+    <td style="font-weight:bold;justify-content:center;align-items:center;vertical-align:middle;" id="analisis-swot-table${doc.id}">${analisis}</td>
+    <td id="konten-analisis-table${doc.id}" style="text-align:left !important;">${kontenAnalisis}</td>
     `
+    div.innerHTML = `<div id="jumlah-data-swot">Jumlah masing-masing data analisa SWOT pada Strength sebesar <span id="jumlah-strength"></span>, Weakness <span id="jumlah-weakness"></span>, Oportunity <span id="jumlah-oportunity"></span>, Threat <span id="jumlah-threat"></span>.</div>`
+
     swot.innerHTML = `
 <div class="modal fade" id="modaleditswot${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -337,8 +399,8 @@ function renderSwot(doc){
         </button>
       </div>
         <div class="modal-body">
-        <div id="data-analisis">
-        <div id="info-analisis">
+        <div class="data-analisis">
+        <div class="info-analisis">
         <div id="analisis-swot-body${doc.id}" style="text-align:center;font-size:24px;font-weight:bold;">${analisis}</div>
         <div id="konten-analisis-body${doc.id}">${kontenAnalisis}</div>
         </div>
@@ -387,8 +449,9 @@ function renderSwot(doc){
         analisisThr.appendChild(tr);
         }
 
-    
-
+    if(!document.querySelector('#jumlah-data-swot')){
+        listSwot.appendChild(div);
+    }
 
 
 let pilihanAnalisis = document.querySelector('#analisis-swot' + doc.id);
@@ -403,17 +466,66 @@ for(let x = 0; x<pilihanAnalisis.options.length; x++){
     let edit = document.querySelector('#edit' + doc.id);
     edit.addEventListener('click', function(e){
         e.preventDefault();
+        e.stopImmediatePropagation();
         let formEdit = document.querySelector('#modal-analisis' + doc.id);
         formEdit.style.display = "block";
         formEdit.addEventListener('submit', function(e){
             e.preventDefault();
+            e.stopImmediatePropagation();
             let analisisUpdate = document.querySelector('#analisis-swot' + doc.id).value;
             let kontenAnalisisUpdate = document.querySelector('#konten-analisis' + doc.id).value;
+            let overviewCadangan;
+            db.collection('swot').doc(doc.id).get().then(function(item){
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+                analisis = item.data().analisis;
+                kontenAnalisis = item.data().kontenAnalisis;                
+                let tanggal = new Date().getTime();
+            if(analisis == analisisUpdate && kontenAnalisis == kontenAnalisisUpdate.replace(/\n\r?/g, '<br/>')){
+                alert('Tidak ada perubahan yang terjadi pada kolom kolom berikut');
+            } else if(analisis != analisisUpdate && kontenAnalisis != kontenAnalisisUpdate.replace(/\n\r?/g, '<br/>')){
+            overviewCadangan = 'mengubah suatu data analisa swot ' + analisis.toLowerCase() + ' menjadi ' + analisisUpdate.toLowerCase() + ' beserta kontennya.';
             db.collection('swot').doc(doc.id).update({
                 analisis : analisisUpdate,
+                analisisSebelumnya : analisis,
                 kontenAnalisis : kontenAnalisisUpdate.replace(/\n\r?/g, '<br/>')
             }).then(() => {
                 formEdit.style.display = "none";
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        waktuOverview : tanggal,
+                        overviewCadangan : overviewCadangan,
+                        overview : 'update-swot'
+                    })
+                })
+            } else if(analisis != analisisUpdate){
+            overviewCadangan = 'mengubah suatu data analisa swot ' + analisis.toLowerCase() + ' menjadi ' + analisisUpdate.toLowerCase() + '.';
+            db.collection('swot').doc(doc.id).update({
+                analisis : analisisUpdate,
+                analisisSebelumnya : analisis
+            }).then(() => {
+                formEdit.style.display = "none";
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        waktuOverview : tanggal,
+                        overviewCadangan : overviewCadangan,
+                        overview : 'update-swot'
+                    })
+                })
+            } else if(kontenAnalisis != kontenAnalisisUpdate.replace(/\n\r?/g, '<br/>')){
+            overviewCadangan = 'mengubah konten suatu data analisa swot pada ' + analisis.toLowerCase() + '.';
+            db.collection('swot').doc(doc.id).update({
+                kontenAnalisis : kontenAnalisisUpdate.replace(/\n\r?/g, '<br/>')
+            }).then(() => {
+                formEdit.style.display = "none";
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        waktuOverview : tanggal,
+                        overviewCadangan : overviewCadangan,
+                        overview : 'update-swot'
+                    })
+                })                
+            }
+                })
             })
         })
     })
@@ -424,8 +536,21 @@ for(let x = 0; x<pilihanAnalisis.options.length; x++){
     let konfirmasi = confirm('Anda yakin ingin menghapus data analisis swot ini?');
     if(konfirmasi == true){
     let id = document.querySelector('.dokumentasi-swot' + doc.id).getAttribute('data-id');
-    db.collection('swot').doc(id).delete();
-    $('#modaleditswot' + doc.id).modal('hide');
+    db.collection('swot').doc(id).get().then(function(item){
+    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+    let tanggal = new Date().getTime();
+        db.collection('overview').add({
+            penggunaOverview : docs.data().username,
+            waktuOverview : tanggal,
+            analisisSwot : item.data().analisis,
+            kontenAnalisis : item.data().kontenAnalisis,
+            overview : 'delete-swot'
+            })
+        }).then(() => {
+            db.collection('swot').doc(id).delete();
+            $('#modaleditswot' + doc.id).modal('hide');
+                })
+            })    
         }
     })
 }
@@ -434,7 +559,7 @@ const itemKeluar = document.querySelectorAll('.item-keluar');
 const itemMasuk = document.querySelectorAll('.item-masuk');
 const setupUI = (user) => {    
   if (user) {
-        let x = window.matchMedia("(max-width: 800px)");
+        let x = window.matchMedia("(max-width: 700px)");
         db.collection('pengguna').doc(user.uid).get().then(doc => {
         let editPeserta = document.querySelectorAll('.edit-peserta');
         let hapusPeserta = document.querySelectorAll('.hapus-peserta');
@@ -454,8 +579,20 @@ const setupUI = (user) => {
         let bodyEmail = document.querySelectorAll('.body-email');
         let emailTable = document.querySelectorAll('.email-table');
         let username = doc.data().username;
-        document.querySelector('#nama-peserta-masuk').innerHTML = username
+        let kataSambut = document.querySelectorAll('.kata-sambutan');
+        let overview = document.querySelectorAll('.overview');
+        let penggunaTargetOverview = document.querySelectorAll('.pengguna-target-overview');
+        let editKategoriMenu = document.querySelectorAll('.edit-kategori-menu');
+        let hapusKategoriMenu = document.querySelectorAll('.hapus-kategori-menu');
+        let editMenu = document.querySelectorAll('.edit-menu');
+        let hapusMenu = document.querySelectorAll('.hapus-menu');
+        let tombolTambahMenu = document.querySelectorAll('.tombol-tambah-menu');
+        let dataMenu = document.querySelectorAll('.data-menu');
+        for(let x = 0; x<kataSambut.length; x++){
+            kataSambut[x].innerHTML = 'Hallo ,' + username + '!';
+        }
         if(username == "Admin Galaxy" && user.email == 'useradmin@galaxy.id'){
+        document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
             myFunction(x);
             x.addListener(myFunction);
             function myFunction(x){
@@ -521,18 +658,44 @@ const setupUI = (user) => {
             for(let x = 0; x<bodyEmail.length;x++){
             bodyEmail[x].setAttribute('style','display:block !important;');
             }
+            for(let x = 0; x<overview.length;x++){
+            overview[x].style.display = '';
+            }
+            for(let x = 0; x<editKategoriMenu.length;x++){
+            editKategoriMenu[x].setAttribute('style','display:inline-block;');
+            }
+            for(let x = 0; x<hapusKategoriMenu.length;x++){
+            hapusKategoriMenu[x].setAttribute('style','display:inline-block;');
+            }            
+            for(let x = 0; x<editMenu.length;x++){
+            editMenu[x].setAttribute('style','display:inline-block;');
+            }
+            for(let x = 0; x<hapusMenu.length;x++){
+            hapusMenu[x].setAttribute('style','display:inline-block;');
+            }
+            for(let x = 0; x<tombolTambahMenu.length;x++){
+            tombolTambahMenu[x].setAttribute('style','display:block !important;');
+            }                                                
             document.querySelector('#home').style.display = 'block';
             document.querySelector('#swot').style.display = 'block';
             document.querySelector('#achievement').style.display = 'block';
+            document.querySelector('#list-gaji').style.display = 'none';
+            document.querySelector('#list-menu-tambahan').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-keempat').style.display = 'grid';
             document.querySelector('#jumbotron-performa-peserta').style.display = 'block';
             document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
+            document.querySelector('#jumbotron-swot').style.display = 'block';
             document.querySelector('#stranger').style.display = 'none';
             document.querySelector('#tabel-peserta').style.display = 'block';
             document.querySelector('#halaman-kesalahan').style.display = 'block';
             document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:block !important;');
             document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:block !important;');
             document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:block !important;');
+            document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:block !important;');
         } else if(username == "Admin Kantor" && user.email == 'useradminkantor@galaxy.id'){
+            document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
             myFunction(x);
             x.addListener(myFunction);
             function myFunction(x){
@@ -593,19 +756,49 @@ const setupUI = (user) => {
             for(let x = 0; x<emailTable.length;x++){
             emailTable[x].setAttribute('style','display:none !important;');
             }
+            for(let x = 0; x<overview.length;x++){
+                if(overview[x].classList.contains('overview-' + username.toLowerCase().replace(" ", "-"))){
+                    overview[x].style.display = '';
+                } else {
+                    overview[x].style.display = 'none';
+                }
+            }
+            for(let x = 0; x<editKategoriMenu.length;x++){
+            editKategoriMenu[x].setAttribute('style','display:inline-block;');
+            }
+            for(let x = 0; x<hapusKategoriMenu.length;x++){
+            hapusKategoriMenu[x].setAttribute('style','display:inline-block;');
+            }            
+            for(let x = 0; x<editMenu.length;x++){
+            editMenu[x].setAttribute('style','display:inline-block;');
+            }
+            for(let x = 0; x<hapusMenu.length;x++){
+            hapusMenu[x].setAttribute('style','display:inline-block;');
+            }
+            for(let x = 0; x<tombolTambahMenu.length;x++){
+            tombolTambahMenu[x].setAttribute('style','display:block !important;');
+            }                        
             document.querySelector('#th-email').style.display = 'none';
             document.querySelector('#home').style.display = 'none';
             document.querySelector('#swot').style.display = 'none';
             document.querySelector('#achievement').style.display = 'none';
+            document.querySelector('#list-gaji').style.display = 'none';
+            document.querySelector('#list-menu-tambahan').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-keempat').style.display = 'grid';
             document.querySelector('#jumbotron-performa-peserta').style.display = 'block';
             document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
+            document.querySelector('#jumbotron-swot').style.display = 'none';
             document.querySelector('#stranger').style.display = 'none';
             document.querySelector('#tabel-peserta').style.display = 'block';
             document.querySelector('#halaman-kesalahan').style.display = 'block';
             document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:block !important;');
+            document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:block !important;');
         } else if(daftarKaryawan.includes(username.toLowerCase().replace(" ", "-")) && daftarEmailKaryawan.includes(user.email)){
+            document.querySelector('#pengguna-overview').innerHTML = 'anda';
             myFunction(x);
             x.addListener(myFunction);
             function myFunction(x){
@@ -641,7 +834,7 @@ const setupUI = (user) => {
             }
             for(let x = 0; x<buktiPenyelesaianTugasBody.length;x++){
             buktiPenyelesaianTugasBody[x].setAttribute('style','display:none !important;');
-            }            
+            }
             for(let x = 0; x<peserta.length;x++){
                 if(peserta[x].classList.contains(username.toLowerCase().replace(" ", "-"))){
                     peserta[x].style.display = 'table-row';
@@ -676,23 +869,57 @@ const setupUI = (user) => {
             for(let x = 0; x<emailTable.length;x++){
             emailTable[x].setAttribute('style','display:none !important;');
             }
+            for(let x = 0; x<overview.length;x++){
+                if(overview[x].classList.contains('overview-' + username.toLowerCase().replace(" ", "-"))){
+                    overview[x].style.display = '';
+                } else {
+                    overview[x].style.display = 'none';
+                }
+            }
+            for(let x = 0; x<penggunaTargetOverview.length; x++){
+                if(penggunaTargetOverview[x].classList.contains('pengguna-target-overview-' + username.toLowerCase().replace(" ", "-"))){
+                    penggunaTargetOverview[x].innerHTML = 'anda';
+                }
+            }
+            for(let x = 0; x<editKategoriMenu.length;x++){
+            editKategoriMenu[x].setAttribute('style','display:none;');
+            }
+            for(let x = 0; x<hapusKategoriMenu.length;x++){
+            hapusKategoriMenu[x].setAttribute('style','display:none;');
+            }            
+            for(let x = 0; x<editMenu.length;x++){
+            editMenu[x].setAttribute('style','display:none;');
+            }
+            for(let x = 0; x<hapusMenu.length;x++){
+            hapusMenu[x].setAttribute('style','display:none;');
+            } 
+            for(let x = 0; x<tombolTambahMenu.length;x++){
+            tombolTambahMenu[x].setAttribute('style','display:none !important;');
+            }                       
             document.querySelector('#home').style.display = 'none';
             document.querySelector('#swot').style.display = 'none';
             document.querySelector('#achievement').style.display = 'none';
+            document.querySelector('#list-gaji').style.display = 'none';
+            document.querySelector('#list-menu-tambahan').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-keempat').style.display = 'grid';
             document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
             document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'block';
+            document.querySelector('#jumbotron-swot').style.display = 'none';
             document.querySelector('#stranger').style.display = 'none';
             document.querySelector('#tabel-peserta').style.display = 'none';
             document.querySelector('#halaman-kesalahan').style.display = 'block';
             document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:none !important;');
+            document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:none !important;');
         } else {
-            document.querySelector('#stranger').style.display = 'block';
             document.querySelector('#stranger').innerHTML = `
             <div id="judul-peringatan">Maaf!</div>
             <div id="keterangan-peringatan">Sepertinya data anda tidak terdaftar dalam sistem!</div>
             `;
+            document.querySelector('#stranger').style.display = 'block';
             for(let x = 0; x<editPeserta.length;x++){
             editPeserta[x].setAttribute('style','display:none !important;');
             }
@@ -708,6 +935,7 @@ const setupUI = (user) => {
             document.querySelector('#home').style.display = 'none';
             document.querySelector('#swot').style.display = 'none';
             document.querySelector('#achievement').style.display = 'none';
+            document.querySelector('#list-gaji').style.display = 'none';
             document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
             document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
             document.querySelector('#tabel-peserta').style.display = 'none';
@@ -716,18 +944,16 @@ const setupUI = (user) => {
             document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:none !important;');
-        } 
-    
+        }  
     document.querySelector('#pengguna-akun').innerHTML = username;
     document.querySelector('#email-akun').innerHTML = user.email;
     document.querySelector('#tombol-burger').style.visibility = 'visible';
     itemMasuk.forEach(item => item.style.display = 'block');
     itemKeluar.forEach(item => item.style.display = 'none');
-})
 
-    const reset = document.querySelector('#reset-password-akun');
-    const formResetPassword = document.querySelector('#form-reset-password');
-    const formHapusAkun = document.querySelector('#form-hapus-akun')
+    let reset = document.querySelector('#reset-password-akun');
+    let formResetPassword = document.querySelector('#form-reset-password');
+    let formHapusAkun = document.querySelector('#form-hapus-akun')
     reset.addEventListener('click', function(e) {
         e.preventDefault();
     formResetPassword.style.display = 'block';
@@ -749,6 +975,13 @@ const setupUI = (user) => {
                 $('#modalpengaturanakun').modal('hide');
                 alert('Password anda berhasil diubah!');
                 formResetPassword.style.display = 'none';
+                console.log(username);
+                let waktuOverview = new Date().getTime();
+                db.collection('overview').add({
+                    penggunaOverview : username,
+                    waktuOverview : waktuOverview,
+                    overview : 'change-password'
+                })
             })
             }
         })
@@ -759,8 +992,8 @@ const setupUI = (user) => {
     })
 
 
-    const hapus = document.querySelector('#hapus-akun');
-    hapus.addEventListener('click', function(e) {
+    let hapusAkun = document.querySelector('#hapus-akun');
+    hapusAkun.addEventListener('click', function(e) {
         e.preventDefault();
         formResetPassword.style.display = 'none';
         formHapusAkun.style.display = 'block';
@@ -779,15 +1012,420 @@ const setupUI = (user) => {
                     $('#modalpengaturanakun').modal('hide');
                     alert('Akun anda berhasil dihapus!');
                     formHapusAkun.style.display = 'none';
+                    console.log(username);
+                    let waktuOverview = new Date().getTime();
+                    db.collection('overview').add({
+                        penggunaOverview : username,
+                        waktuOverview : waktuOverview,
+                        overview : 'delete-account'
+                        })
                     })
             }
                 })
             
         })
-    
+})
+
+let menu = document.querySelector('#tombol-burger');
+menu.addEventListener('click', function(e){
+myFunction(x);
+x.addListener(myFunction);
+function myFunction(x){
+    if(x.matches){
+        document.querySelector('#myTabContent').style.marginLeft = '0';
+        document.querySelector('#myTabContent').style.transition = '0';
+        let tombolTambah = document.querySelectorAll('.tombol-tambah');
+        for(let x = 0; x<tombolTambah.length; x++){
+            tombolTambah[x].style.marginLeft = '0';
+            tombolTambah[x].style.transition = '0';
+            }
+        document.querySelector('#list-menu-tambahan').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan').style.transition = '0';
+        if($( ".navbar-collapse" ).is( ":hidden" )){
+        document.querySelector('#darken').style.backgroundColor = 'black';
+        document.querySelector('#darken').style.width = '100%';
+        document.querySelector('#darken').style.height = '100%';
+        document.querySelector('#darken').style.position = 'fixed';
+        document.querySelector('#darken').style.opacity = '0.8';
+        document.querySelector('#darken').style.zIndex = '2';
+        document.querySelector('#darken').addEventListener('click', function(e){
+            e.stopImmediatePropagation()
+        document.querySelector('#darken').style.backgroundColor = '0';
+        document.querySelector('#darken').style.width = '0';
+        document.querySelector('#darken').style.height = '0';
+        document.querySelector('#darken').style.position = '0';
+        document.querySelector('#darken').style.opacity = '0';
+        document.querySelector('#darken').style.zIndex = '0';
+        $( ".navbar-collapse" ).collapse('hide');
+        })
+        } else {
+        document.querySelector('#darken').style.backgroundColor = '0';
+        document.querySelector('#darken').style.width = '0';
+        document.querySelector('#darken').style.height = '0';
+        document.querySelector('#darken').style.position = '0';
+        document.querySelector('#darken').style.opacity = '0';
+        document.querySelector('#darken').style.zIndex = '0';
+        }
+    } else {
+    if($( ".navbar-collapse" ).is( ":hidden" )){
+        document.querySelector('#myTabContent').style.marginLeft = '250px';
+        document.querySelector('#myTabContent').style.transition = 'all 1s ease';
+        let tombolTambah = document.querySelectorAll('.tombol-tambah');
+        for(let x = 0; x<tombolTambah.length; x++){
+            tombolTambah[x].style.marginLeft = '250px';
+            tombolTambah[x].style.transition = 'all 1s ease'
+        }
+        document.querySelector('#list-menu-tambahan').style.boxSizing = 'border-box';
+        document.querySelector('#list-menu-tambahan').style.paddingRight = '250px';
+        document.querySelector('#list-menu-tambahan').style.transition = 'all 0.4s ease';
+        document.querySelector('#list-menu-tambahan-kedua').style.boxSizing = 'border-box';
+        document.querySelector('#list-menu-tambahan-kedua').style.paddingRight = '250px';
+        document.querySelector('#list-menu-tambahan-kedua').style.transition = 'all 0.4s ease';
+        document.querySelector('#list-menu-tambahan-ketiga').style.boxSizing = 'border-box';
+        document.querySelector('#list-menu-tambahan-ketiga').style.paddingRight = '250px';
+        document.querySelector('#list-menu-tambahan-ketiga').style.transition = 'all 0.4s ease';
+        document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = 'border-box';
+        document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '250px';
+        document.querySelector('#list-menu-tambahan-keempat').style.transition = 'all 0.4s ease';
+    } else {
+        document.querySelector('#myTabContent').style.marginLeft = '0';
+        document.querySelector('#myTabContent').style.transition = 'all 0.4s ease';
+        let tombolTambah = document.querySelectorAll('.tombol-tambah');
+        for(let x = 0; x<tombolTambah.length; x++){
+            tombolTambah[x].style.marginLeft = '0';
+            tombolTambah[x].style.transition = 'all 0.4s ease';
+            }
+        document.querySelector('#list-menu-tambahan').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan').style.transition = 'all 0.4s ease';
+        document.querySelector('#list-menu-tambahan-kedua').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-kedua').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-kedua').style.transition = 'all 0.4s ease';
+        document.querySelector('#list-menu-tambahan-ketiga').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-ketiga').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-ketiga').style.transition = 'all 0.4s ease';
+        document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-keempat').style.transition = 'all 0.4s ease';                        
+        }
+    }
+}  
+})
+
+
+window.addEventListener('resize', function(){
+        document.querySelector('#darken').style.backgroundColor = '0';
+        document.querySelector('#darken').style.width = '0';
+        document.querySelector('#darken').style.height = '0';
+        document.querySelector('#darken').style.position = '0';
+        document.querySelector('#darken').style.opacity = '0';
+        $( ".navbar-collapse" ).collapse('hide');
+        document.querySelector('#myTabContent').style.marginLeft = '0';
+        document.querySelector('#myTabContent').style.transition = '0';
+        let tombolTambah = document.querySelectorAll('.tombol-tambah');
+        for(let x = 0; x<tombolTambah.length; x++){
+            tombolTambah[x].style.marginLeft = '0';
+            tombolTambah[x].style.transition = '0';
+            }
+        document.querySelector('#list-menu-tambahan').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-kedua').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-kedua').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-ketiga').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-ketiga').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '0';
+        if($(window).width() <= 700){
+            if(document.querySelector('#tambahpengumuman')){
+            tombolTambahPengumumanKedua.appendChild(document.querySelector('#tambahpengumuman'));
+            }
+            document.querySelector('#tambahpengumuman').classList.add('tombol-tambah-kedua');
+            document.querySelector('#tambahpengumuman').classList.remove('pull-right');
+        } else {
+            if(document.querySelector('#tambahpengumuman')){
+            tombolTambahPengumuman.appendChild(document.querySelector('#tambahpengumuman'));
+            }
+            document.querySelector('#tambahpengumuman').classList.add('pull-right');
+            document.querySelector('#tambahpengumuman').classList.remove('tombol-tambah-kedua');
+        }
+})
+
+let tombolTambahPengumuman = document.querySelector('#tombol-tambah-pengumuman');
+let tombolTambahPengumumanKedua = document.querySelector('#tombol-tambah-pengumuman-kedua')
+$(document).ready(function(e){
+    if($(window).width() <= 700){
+        if(!document.querySelector('#tambahpengumuman')){
+        document.querySelector('#tambahpengumuman').classList.add('tombol-tambah-kedua');
+        document.querySelector('#tambahpengumuman').classList.remove('pull-right');
+        tombolTambahPengumumanKedua.appendChild(document.querySelector('#tambahpengumuman'));
+        }
+    } else {
+        if(!document.querySelector('#tambahpengumuman')){
+            document.querySelector('#tambahpengumuman').classList.add('pull-right');
+            document.querySelector('#tambahpengumuman').classList.remove('tombol-tambah-kedua');
+        tombolTambahPengumumanKedua.appendChild(document.querySelector('#tambahpengumuman'));    
+        }
+    }
+})
+
+
+
+let tabHalaman = document.querySelectorAll('.tab-halaman')
+for(let x = 0; x<tabHalaman.length; x++){
+    tabHalaman[x].addEventListener('click', function(e){
+        if($(window).width() <= 700){        
+        if($( ".navbar-collapse" ).is( ":visible" )){
+            document.querySelector('#darken').style.backgroundColor = '0';
+            document.querySelector('#darken').style.width = '0';
+            document.querySelector('#darken').style.height = '0';
+            document.querySelector('#darken').style.position = '0';
+            document.querySelector('#darken').style.opacity = '0';
+            $( ".navbar-collapse" ).collapse('hide');            
+            }
+        } else {            
+            if($( ".navbar-collapse" ).is( ":visible" )){
+               $( ".navbar-collapse" ).collapse('show'); 
+            }
+        }
+    })
+}
+   
+
+  const menuPilihan = [];
+document.querySelector('#search-menu').addEventListener('input', function(e){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    setTimeout(function(){      
+    let input, filter, ul, li, a, i, txtValue, found, sum = 0, hasilMenu, menu, id, ambilId, kategoriMenu, href, semuaMenu = '', semuaMenuTampilan, atas = -1, bawah, hitunganAtas = 1;
+    input = document.querySelector('#search-menu');
+    if(input.value.length == 0){
+    menuPilihan.push(-1);
+    document.querySelector('#hasil-pencarian').innerHTML = '';
+    } else if(input.value.length > 0){
+    filter = input.value.toUpperCase();
+    ul = document.querySelectorAll('.list-menu');
+    for(let x = 0; x<ul.length; x++){
+        li = ul[x].getElementsByTagName('li');
+        for(let y = 0; y<li.length; y++){
+            a = li[y].getElementsByTagName('a')[0];
+            txtValue = a.textContent || a.innerText;
+            id = li[y].getAttribute('data-id');
+            href = a.getAttribute('href');
+                if(txtValue.toUpperCase().indexOf(filter) > -1) {
+                    ambilId = ul[x].getAttribute('id').slice(9,ul[x].getAttribute('id').length);
+                    kategoriMenu = document.querySelector('#nama-kategori-menu-tampilan' + ambilId).textContent;
+                    hasilMenu = `<div class="pencarian"><a href="${href}" class="link-pencarian" id="link-pencarian${id}" target="_blank"><span class="induk-pencarian">${kategoriMenu}</span> > ${a.textContent}</a></div>`;
+                    semuaMenu += hasilMenu;
+                    semuaMenuTampilan = semuaMenu;
+                    found = 1;
+                    sum += found;
+                } else {
+                    found = 0;
+                    sum += found;                  
+                }
+            }
+        }        
+        if(sum == 0){
+            if(!document.querySelector('#hasil-menu-kosong')){
+                if(document.querySelector('#hasil-menu')){
+                    document.querySelector('#hasil-menu').remove();
+                }
+                menu = document.createElement('div');
+                menu.setAttribute('id','hasil-menu-kosong');
+                menu.innerHTML = `
+                <div id="ketemu-hasil-pencarian">No Results Found.</div>
+                `
+                document.querySelector('#hasil-pencarian').appendChild(menu)                
+            } else if(document.querySelector('#hasil-menu-kosong')){
+                if(sum != 0){            
+                document.querySelector('#hasil-menu-kosong').remove();                
+                }
+            }
+        } else {
+            if(!document.querySelector('#hasil-menu')){
+                if(document.querySelector('#hasil-menu-kosong')){
+                    document.querySelector('#hasil-menu-kosong').remove(); 
+                }
+                menu = document.createElement('div');
+                menu.setAttribute('id','hasil-menu');
+                menu.innerHTML = `
+                ${semuaMenuTampilan}
+                <div id="ketemu-hasil-pencarian">Found ${sum} on same result.</div>
+                `
+                document.querySelector('#hasil-pencarian').appendChild(menu);
+
+                document.querySelector('#search-menu').addEventListener('keydown',function(e){
+                    e.stopImmediatePropagation();
+                if(e.keyCode === 40){
+                    if(menuPilihan.length == 0){
+                    atas += hitunganAtas
+                    let cariLinkPencarian = atas
+                    let linkPencarian = document.querySelectorAll('.link-pencarian');
+                    for(let x = 0; x<linkPencarian.length; x++){
+                        if(x == cariLinkPencarian){
+                            linkPencarian[x].style.backgroundColor = 'lightskyblue';
+                            window.scrollTo(0, (x+1)*30)
+                        } else {
+                            linkPencarian[x].style.backgroundColor = 'white';
+                        }
+                    }
+                    menuPilihan.push(atas)
+                    } else if(menuPilihan.length > 0){
+                    atas = 1
+                    let cariLinkPencarian = menuPilihan[menuPilihan.length - 1] + atas
+                    let linkPencarian = document.querySelectorAll('.link-pencarian');
+                    if(cariLinkPencarian > linkPencarian.length - 1){
+                      for(let x = 0; x<linkPencarian.length; x++){
+                        linkPencarian[x].style.backgroundColor = 'white';
+                      }                      
+                        linkPencarian[0].style.backgroundColor = 'lightskyblue'
+                        window.scrollTo(0, 30)
+                        menuPilihan.push(0);
+                    } else {
+                    for(let x = 0; x<linkPencarian.length; x++){
+                        if(x == cariLinkPencarian){
+                            linkPencarian[x].style.backgroundColor = 'lightskyblue';
+                            window.scrollTo(0, (x+1)*30)
+                        } else {
+                            linkPencarian[x].style.backgroundColor = 'white';
+                        }
+                    }
+                    menuPilihan.push(menuPilihan[menuPilihan.length - 1] + atas)
+                    }
+                }
+                e.preventDefault();
+                } else if(e.keyCode === 38){
+                if(menuPilihan.length > 0){
+                    bawah = -1
+                    let cariLinkPencarian = menuPilihan[menuPilihan.length - 1] + bawah;
+                    let linkPencarian = document.querySelectorAll('.link-pencarian');
+                    if(cariLinkPencarian < 0){
+                      for(let x = 0; x<linkPencarian.length; x++){
+                        linkPencarian[x].style.backgroundColor = 'white';
+                      }
+                        linkPencarian[linkPencarian.length - 1].style.backgroundColor = 'lightskyblue';
+                        let posisi = linkPencarian[linkPencarian.length - 1].getBoundingClientRect();
+                        window.scrollTo(0, linkPencarian.length*30)
+                        menuPilihan.push(linkPencarian.length - 1)
+                    } else {
+                    for(let x = 0; x<linkPencarian.length; x++){
+                        if(x == cariLinkPencarian){
+                            linkPencarian[x].style.backgroundColor = 'lightskyblue';
+                            window.scrollTo(0, (x+1)*30)
+                        } else {
+                            linkPencarian[x].style.backgroundColor = 'white';
+                        }
+                    }                    
+                    menuPilihan.push(menuPilihan[menuPilihan.length - 1] + bawah)
+                    }
+                }
+                e.preventDefault();
+            } else if(e.keyCode === 13){
+              document.querySelectorAll('.link-pencarian')[menuPilihan[menuPilihan.length - 1]].click();
+            }
+
+                })           
+
+            } else if(document.querySelector('#hasil-menu')){
+                document.querySelector('#hasil-menu').remove();
+                menu = document.createElement('div');
+                menu.setAttribute('id','hasil-menu');
+                menu.innerHTML = `
+                ${semuaMenuTampilan}
+                <div id="ketemu-hasil-pencarian">Found ${sum} on same result.</div>
+                `
+                document.querySelector('#hasil-pencarian').appendChild(menu);
+
+                document.querySelector('#search-menu').addEventListener('keydown',function(e){
+                    e.stopImmediatePropagation();
+                if(e.keyCode === 40){
+                    if(menuPilihan.length == 0){
+                    atas += hitunganAtas
+                    let cariLinkPencarian = atas
+                    let linkPencarian = document.querySelectorAll('.link-pencarian');
+                    for(let x = 0; x<linkPencarian.length; x++){
+                        if(x == cariLinkPencarian){
+                            linkPencarian[x].style.backgroundColor = 'lightskyblue';
+                            window.scrollTo(0, (x+1)*30)
+                        } else {
+                            linkPencarian[x].style.backgroundColor = 'white';
+                        }
+                    }
+                    menuPilihan.push(atas)
+                    } else if(menuPilihan.length > 0){
+                    atas = 1
+                    let cariLinkPencarian = menuPilihan[menuPilihan.length - 1] + atas
+                    let linkPencarian = document.querySelectorAll('.link-pencarian');
+                    if(cariLinkPencarian > linkPencarian.length - 1){
+                      for(let x = 0; x<linkPencarian.length; x++){
+                        linkPencarian[x].style.backgroundColor = 'white';
+                      }                      
+                        linkPencarian[0].style.backgroundColor = 'lightskyblue'
+                        window.scrollTo(0, 30)
+                        menuPilihan.push(0);
+                    } else {
+                    for(let x = 0; x<linkPencarian.length; x++){
+                        if(x == cariLinkPencarian){
+                            linkPencarian[x].style.backgroundColor = 'lightskyblue';
+                            window.scrollTo(0, (x+1)*30)
+                        } else {
+                            linkPencarian[x].style.backgroundColor = 'white';
+                        }
+                    }
+                    menuPilihan.push(menuPilihan[menuPilihan.length - 1] + atas)
+                    }
+                }
+                e.preventDefault();
+                } else if(e.keyCode === 38){
+                if(menuPilihan.length > 0){
+                    bawah = -1
+                    let cariLinkPencarian = menuPilihan[menuPilihan.length - 1] + bawah;
+                    let linkPencarian = document.querySelectorAll('.link-pencarian');
+                    if(cariLinkPencarian < 0){
+                      for(let x = 0; x<linkPencarian.length; x++){
+                        linkPencarian[x].style.backgroundColor = 'white';
+                      }
+                        linkPencarian[linkPencarian.length - 1].style.backgroundColor = 'lightskyblue';
+                        let posisi = linkPencarian[linkPencarian.length - 1].getBoundingClientRect();
+                        window.scrollTo(0, linkPencarian.length*30)
+                        menuPilihan.push(linkPencarian.length - 1)
+
+                    } else {
+                    for(let x = 0; x<linkPencarian.length; x++){
+                        if(x == cariLinkPencarian){
+                            linkPencarian[x].style.backgroundColor = 'lightskyblue';
+                            window.scrollTo(0, (x+1)*30)
+                        } else {
+                            linkPencarian[x].style.backgroundColor = 'white';
+                        }
+                    }                    
+                    menuPilihan.push(menuPilihan[menuPilihan.length - 1] + bawah)
+                    }
+                }
+                e.preventDefault();
+            } else if(e.keyCode === 13){
+              document.querySelectorAll('.link-pencarian')[menuPilihan[menuPilihan.length - 1]].click();
+            }
+
+                })
+
+            }
+        }
+    }
+    },0)
+})
+
 
 
   } else {
+    document.querySelector('#myTabContent').style.marginLeft = '0';
+    document.querySelector('#myTabContent').style.transition = '0';
+    let tombolTambah = document.querySelectorAll('.tombol-tambah');
+    for(let x = 0; x<tombolTambah.length; x++){
+            tombolTambah[x].style.marginLeft = '0';
+            tombolTambah[x].style.transition = '0';
+        }
     document.querySelector('#stranger').style.display = 'none';
     document.querySelector('#home').style.display = 'none';
     document.querySelector('#swot').style.display = 'none';
@@ -795,6 +1433,10 @@ const setupUI = (user) => {
     document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
     document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
     document.querySelector('#tabel-peserta').style.display = 'none';
+    document.querySelector('#list-menu-tambahan').style.display = 'none';
+    document.querySelector('#list-menu-tambahan-kedua').style.display = 'none';
+    document.querySelector('#list-menu-tambahan-ketiga').style.display = 'none';
+    document.querySelector('#list-menu-tambahan-keempat').style.display = 'none';
     document.querySelector('#halaman-tugas').style.display = 'none';
     document.querySelector('#halaman-kesalahan').style.display = 'none';
     document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
@@ -806,8 +1448,8 @@ const setupUI = (user) => {
     itemMasuk.forEach(item => item.style.display = 'none');
     itemKeluar.forEach(item => item.style.display = 'block');
     document.querySelector('#form-masuk').setAttribute('style','display:block !important;');
-  } 
-};
+  }
+}
 
 function renderUpdatePeserta(doc){
     let nama = doc.data().nama;
@@ -817,64 +1459,68 @@ function renderUpdatePeserta(doc){
     let opsiTugasKedua = document.createElement('option');
     opsiTugas.classList.add('opsi-target-peserta' + doc.id, 'pemilihan-tugas-peserta');
     opsiTugas.innerHTML = nama;
-    opsiTugasKedua.classList.add('opsi-target-peserta-kedua' + doc.id, 'pemilihan-tugas-peserta-kedua');
-    opsiTugasKedua.innerHTML = nama;
-    document.querySelector('#nama-table' + doc.id).innerText = nama;
-    document.querySelector('#libur-table' + doc.id).innerText = libur;
-    document.querySelector('#lokasi-table' + doc.id).innerText = lokasi;
-    document.querySelector('#nama' + doc.id).innerText = nama.toUpperCase();
-    document.querySelector('#libur' + doc.id).innerText = libur;
-    document.querySelector('#lokasi' + doc.id).innerText = lokasi;
-    document.querySelector('#peserta' + doc.id).innerText = nama + ' ';
+    document.querySelector('#nama-table' + doc.id).innerHTML = nama;
+    document.querySelector('#libur-table' + doc.id).innerHTML = libur;
+    document.querySelector('#lokasi-table' + doc.id).innerHTML = lokasi;
+    document.querySelector('#nama' + doc.id).innerHTML = nama.toUpperCase();
+    document.querySelector('#libur' + doc.id).innerHTML = libur;
+    document.querySelector('#lokasi' + doc.id).innerHTML = lokasi;
+    document.querySelector('#peserta' + doc.id).innerHTML = nama + ' ';
 
     let hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
     let hariIni = new Date();
     let hariLibur = hariIni.getDay();
     let penentuanLibur = hari[hariLibur];
     if(penentuanLibur == libur){
-        document.querySelector('#status-td-peserta' + doc.id).innerText = "Non-Aktif";
+        document.querySelector('#status-td-peserta' + doc.id).innerHTML = "Non-Aktif";
         document.querySelector('#status-td-peserta' + doc.id).style.color = "#e61c33";
-        document.querySelector('#status-peserta' + doc.id).innerText = "Non-Aktif";
+        document.querySelector('#status-peserta' + doc.id).innerHTML = "Non-Aktif";
         document.querySelector('#status-peserta' + doc.id).style.color = "#e61c33";
     } else {
-        document.querySelector('#status-td-peserta' + doc.id).innerText = "Aktif";
+        document.querySelector('#status-td-peserta' + doc.id).innerHTML = "Aktif";
         document.querySelector('#status-td-peserta' + doc.id).style.color = "#13eb5e";
-        document.querySelector('#status-peserta' + doc.id).innerText = "Aktif";
+        document.querySelector('#status-peserta' + doc.id).innerHTML = "Aktif";
         document.querySelector('#status-peserta' + doc.id).style.color = "#13eb5e";
         }
 
-    let status = document.querySelector('#status-peserta' + doc.id).innerText;
+$(document).ready(function(){
+    let status = document.querySelector('#status-peserta' + doc.id).innerHTML;
     let opsi = document.querySelector('.opsi-target-peserta' + doc.id);
     let opsiKedua = document.querySelector('.opsi-target-peserta-kedua' + doc.id);
+
         switch(status){
         case "Aktif":
         if(opsi){
-            return false;
-        } else{
+            opsi.style.display = 'block';
+        } else if(!opsi){
             document.querySelector('#target-peserta').appendChild(opsiTugas);
+            opsiTugas.style.display = 'block';
         }
         break;
         case "Non-Aktif":
-        document.querySelector('#target-peserta').removeChild(opsi);
+        if(opsi){
+            opsi.style.display = 'none';
+        } else if(!opsi){
+            document.querySelector('#target-peserta').appendChild(opsiTugas);
+            opsiTugas.style.display = 'none';
+        }
     }
 
-        if(opsiKedua){
-            return false;
-        } else{
-            document.querySelector('#target-peserta-kedua').appendChild(opsiTugasKedua);
-        }
-
+})
 
 }
 
 
 function renderUpdateSwot(doc){
     let analisis = doc.data().analisis;
+    let analisisSebelumnya = doc.data().analisisSebelumnya;
     let kontenAnalisis = doc.data().kontenAnalisis;
-    document.querySelector('#analisis-swot-table' + doc.id).innerText = analisis;
-    document.querySelector('#konten-analisis-table' + doc.id).innerText = kontenAnalisis;
-    document.querySelector('#analisis-swot-body' + doc.id).innerText = analisis;
-    document.querySelector('#konten-analisis-body' + doc.id).innerText = kontenAnalisis;
+    document.querySelector('.dokumentasi-swot' + doc.id).classList.remove(analisisSebelumnya.toLowerCase());
+    document.querySelector('.dokumentasi-swot' + doc.id).classList.add(analisis.toLowerCase());
+    document.querySelector('#analisis-swot-table' + doc.id).innerHTML = analisis;
+    document.querySelector('#konten-analisis-table' + doc.id).innerHTML = kontenAnalisis;
+    document.querySelector('#analisis-swot-body' + doc.id).innerHTML = analisis;
+    document.querySelector('#konten-analisis-body' + doc.id).innerHTML = kontenAnalisis;
 }
 
 
@@ -924,8 +1570,8 @@ function renderTugas(doc){
         </button>
       </div>
         <div class="modal-body">
-        <div id="data-tugas">
-        <div id="info-tugas">
+        <div class="data-tugas">
+        <div class="info-tugas">
         <div>CC</div>
         <div>:</div>
         <div style="font-weight:bold;" id="nama-peserta-tugas${doc.id}">${namaPeserta.toUpperCase()}</div>
@@ -1011,16 +1657,6 @@ function renderTugas(doc){
     tugasPeserta.appendChild(div);
     modalTugasPeserta.appendChild(tugas);
 
-    let hapus = document.querySelector('#hapus' + doc.id);
-    hapus.addEventListener('click', (e) => {
-        e.stopPropagation();
-        let konfirmasi = confirm('Anda yakin ingin menghapus tugas ini?');
-        if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-tugas-peserta' + doc.id).getAttribute('data-id');
-        db.collection('tugas').doc(id).delete();
-        $('#modaltugas' + doc.id).modal('hide');
-        }
-    })
 
     let edit = document.querySelector('#edit' + doc.id);
     edit.addEventListener('click', function(e){
@@ -1029,25 +1665,125 @@ function renderTugas(doc){
         formEdit.style.display = "block";      
         formEdit.addEventListener('submit', function(e){
             e.preventDefault();
+            e.stopImmediatePropagation();
             let kontenTugasUpdate = document.querySelector('#konten-tugas' + doc.id).value.replace(/\n\r?/g, '<br/>');
             let perMingguUpdate = document.querySelector('#per-minggu' + doc.id).value;
             let perHariUpdate = document.querySelector('#per-hari' + doc.id).value;
             let perJamUpdate = document.querySelector('#per-jam' + doc.id).value;
             let perMenitUpdate = document.querySelector('#per-menit' + doc.id).value;
+            let overviewCadangan;
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+            db.collection('tugas').doc(doc.id).get().then(function(item) {
             if(perMingguUpdate == "" && perHariUpdate == "" && perJamUpdate == "" && perMenitUpdate == ""){
-        alert("Pastikan Mengisi Kolom Waktu Pengerjaan untuk Melanjuti Proses Mengedit Tugas");
+                alert("Pastikan Mengisi Kolom Waktu Pengerjaan untuk Melanjuti Proses Mengedit Tugas");
            } else {
-            db.collection('tugas').doc(doc.id).update({
-                kontenTugas : kontenTugasUpdate,
-                perMinggu : perMingguUpdate,
-                perHari : perHariUpdate,
-                perJam : perJamUpdate,
-                perMenit : perMenitUpdate
-            }).then(() =>{
-                formEdit.style.display = "none";
+            kontenTugas = item.data().kontenTugas;            
+            perMinggu = item.data().perMinggu;
+            perHari = item.data().perHari;
+            perJam = item.data().perJam;
+            perMenit = item.data().perMenit;
+            waktuRilis = item.data().waktuRilis;
+            tanggalLuncur = item.data().tanggalLuncur
+            tanggal = new Date(waktuRilis);
+            //console.log(perMingguUpdate);
+            //console.log(perMinggu);
+            //console.log(perHariUpdate);
+            //console.log(perHari);            
+            //console.log(perJamUpdate);
+            //console.log(perJam);            
+            //console.log(perMenitUpdate);
+            //console.log(perMenit);            
+            waktuDeadline = tanggal.getTime() + ((perMinggu*7*24*60*60*1000) + (perHari*24*60*60*1000) + (perJam*60*60*1000) + (perMenit*60*1000))
+            let waktuDeadlineBaru = tanggal.getTime() + ((perMingguUpdate*7*24*60*60*1000) + (perHariUpdate*24*60*60*1000) + (perJamUpdate*60*60*1000) + (perMenitUpdate*60*1000))
+            if(kontenTugas == kontenTugasUpdate.replace(/\n\r?/g, '<br/>') && perMinggu == perMingguUpdate && perHari == perHariUpdate && perJam == perJamUpdate && perMenit == perMenitUpdate){
+                alert('Tidak ada perubahan yang terjadi pada kolom kolom berikut');                
+            } else if(kontenTugas != kontenTugasUpdate.replace(/\n\r?/g, '<br/>')){
+                if(perMinggu != perMingguUpdate || perHari != perHariUpdate || perJam != perJamUpdate || perMenit != perMenitUpdate){
+                    if(waktuDeadline < waktuDeadlineBaru){
+                        overviewCadangan = 'mengubah konten dan menambahkan tenggat waktu Tugas ' + tanggalLuncur + ', CC : ' + namaPeserta + '.';
+                    } else if(waktuDeadline > waktuDeadlineBaru){
+                        overviewCadangan = 'mengubah konten dan mengurangi tenggat waktu Tugas ' + tanggalLuncur + ', CC : ' + namaPeserta + '.';
+                    }                    
+                } else {
+                    overviewCadangan = 'mengubah konten Tugas ' + tanggalLuncur + ', CC : ' + namaPeserta + '.';
+                }
+                    db.collection('tugas').doc(doc.id).update({
+                        kontenTugas : kontenTugasUpdate.replace(/\n\r?/g, '<br/>')
+                    }).then(() =>{
+                        formEdit.style.display = "none";
+                        db.collection('overview').add({
+                            penggunaOverview : docs.data().username,
+                            penggunaTugas : item.data().namaPeserta,
+                            waktuOverview : new Date().getTime(),
+                            overview : 'update-task',
+                            overviewCadangan : overviewCadangan
+                        })
+                            })                   
+            } else if(perMinggu != perMingguUpdate || perHari != perHariUpdate || perJam != perJamUpdate || perMenit != perMenitUpdate){
+                if(waktuDeadline < waktuDeadlineBaru){
+                    overviewCadangan = 'menambahkan tenggat waktu Tugas ' + tanggalLuncur + ', CC : ' + namaPeserta + '.';
+                } else if(waktuDeadline > waktuDeadlineBaru){
+                    overviewCadangan = 'mengurangi tenggat waktu Tugas ' + tanggalLuncur + ', CC : ' + namaPeserta + '.';
+                }
+                    db.collection('tugas').doc(doc.id).update({
+                        perMinggu : perMingguUpdate,
+                        perHari : perHariUpdate,
+                        perJam : perJamUpdate,
+                        perMenit : perMenitUpdate
+                    }).then(() =>{
+                        formEdit.style.display = "none";
+                        db.collection('overview').add({
+                            penggunaOverview : docs.data().username,
+                            penggunaTugas : item.data().namaPeserta,
+                            waktuOverview : new Date().getTime(),
+                            overview : 'update-task',
+                            overviewCadangan : overviewCadangan
+                        })
+                            })                                
+            }
+            }
             })
-           }
         })
+    })
+})
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus tugas ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-tugas-peserta' + doc.id).getAttribute('data-id');
+        db.collection('tugas').doc(id).get().then(function(item){
+            perMinggu = item.data().perMinggu;
+            perHari = item.data().perHari;
+            perJam = item.data().perJam;
+            perMenit = item.data().perMenit;
+            waktuRilis = item.data().waktuRilis;
+            tanggal = new Date(waktuRilis);
+            waktuDeadline = tanggal.setTime(tanggal.getTime() + ((perMinggu*7*24*60*60*1000) + (perHari*24*60*60*1000) + (perJam*60*60*1000) + (perMenit*60*1000)))
+            waktuPenyelesaian = new Date(waktuDeadline);
+            dd = String(waktuPenyelesaian.getDate()).padStart(2, '0');
+            mm = String(waktuPenyelesaian.getMonth() + 1).padStart(2, '0'); 
+            yyyy = waktuPenyelesaian.getFullYear();
+            hh = ('0' + waktuPenyelesaian.getHours()).slice(-2);
+            ms = ('0' + waktuPenyelesaian.getMinutes()).slice(-2);
+            tanggalDeadline = dd + '/' + mm + '/' + yyyy + ', ' + hh + ':' + ms;            
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        db.collection('overview').add({
+            penggunaOverview : docs.data().username,
+            waktuOverview : new Date().getTime(),
+            penggunaTugas : item.data().namaPeserta,
+            kontenTugas : item.data().kontenTugas,
+            tanggalLuncurTugas : item.data().tanggalLuncur,
+            tanggalDeadlineTugas : tanggalDeadline,
+            overview : 'delete-task'
+            })
+        }).then(() => {
+            db.collection('tugas').doc(id).delete();
+            $('#modaltugas' + doc.id).modal('hide');
+                })
+            })   
+        }
     })
 
 
@@ -1058,6 +1794,9 @@ function renderTugas(doc){
         let buktiPenyelesaian = document.querySelector('#bukti-penyelesaian' + doc.id).value.replace(/\n\r?/g, '<br/>');
         let filePenyelesaian = document.querySelector('#file-penyelesaian' + doc.id).files[0];
         let tanggalSekarang = new Date();
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(docs => {
+        let username = docs.data().username;
+        if(username == namaPeserta || 'Admin Kantor' || 'Admin Galaxy'){
         db.collection('tugas').doc(doc.id).get().then(doc =>{
         let kontenTugasUpdate = doc.data().kontenTugas;
         let perMingguUpdate = doc.data().perMinggu;
@@ -1103,7 +1842,7 @@ function renderTugas(doc){
             terlambat : terlambat
         }).then(() => {
             document.querySelector('#status-tugas' + doc.id).style.color = "#13eb5e";
-            document.querySelector('#status-tugas' + doc.id).innerText = "COMPLETED";
+            document.querySelector('#status-tugas' + doc.id).innerHTML = "COMPLETED";
             alert("Tugas berhasil diselesaikan!")
             $('#modaltugas' + doc.id).modal('hide');
             let id = document.querySelector('.dokumentasi-tugas-peserta' + doc.id).getAttribute('data-id');
@@ -1144,7 +1883,7 @@ function renderTugas(doc){
             filePenyelesaian : filePenyelesaian
         }).then(() => {
             document.querySelector('#status-tugas' + doc.id).style.color = "#13eb5e";
-            document.querySelector('#status-tugas' + doc.id).innerText = "COMPLETED";
+            document.querySelector('#status-tugas' + doc.id).innerHTML = "COMPLETED";
             alert("Tugas berhasil diselesaikan!")
             $('#modaltugas' + doc.id).modal('hide');
             let id = document.querySelector('.dokumentasi-tugas-peserta' + doc.id).getAttribute('data-id');
@@ -1153,6 +1892,11 @@ function renderTugas(doc){
      }
    }
    })
+            } else {
+                alert('Tugas ini hanya dapat diselesaikan oleh ' + namaPeserta + '!');
+            }
+        })
+        
  })
 
 
@@ -1203,32 +1947,32 @@ function renderTugasSelesai(doc){
     let terlambat = doc.data().terlambat;
     let selisihWaktu = Number(waktuPenyerahan - waktuRilis);
     let performaTugas;
-    if(selisihWaktu < 60000){
-        let perhitunganDetik = Math.floor(selisihWaktu/1000) + ' Detik';
-        performaTugas = perhitunganDetik;
-    } else if(selisihWaktu > 60000 || selisihWaktu == 60000){
-        let perhitunganMenit = Math.floor(selisihWaktu/60000) + ' Menit ';
-        let perhitunganDetik = Math.floor((selisihWaktu%60000)/1000) + ' Detik'
-        performaTugas = perhitunganMenit + perhitunganDetik;
-    } else if(selisihWaktu > 3600000 || selisihWaktu == 3600000){
-        let perhitunganJam = Math.floor(selisihWaktu/3600000) + ' Jam ';
-        let perhitunganMenit = Math.floor((selisihWaktu%(3600000))/60000) + ' Menit ';
-        let perhitunganDetik = Math.floor((selisihWaktu%(60000))/1000) + ' Detik';
-        performaTugas = perhitunganJam + perhitunganMenit + perhitunganDetik;
-    } else if(selisihWaktu > 86400000 || selisihWaktu == 86400000){
-        let perhitunganHari = Math.floor(selisihWaktu/86400000) + ' Hari';
-        let perhitunganJam = Math.floor((selisihWaktu%(86400000))/3600000) + ' Jam ';
-        let perhitunganMenit = Math.floor((selisihWaktu%(3600000))/60000) + ' Menit ';
-        let perhitunganDetik = Math.floor((selisihWaktu%(60000))/1000) + ' Detik';
-        performaTugas = perhitunganHari + perhitunganJam + perhitunganMenit + perhitunganDetik;
-    } else if(selisihWaktu > 604800000 || selisihWaktu == 604800000){
+    if(selisihWaktu > 604800000 || selisihWaktu == 604800000){
         let perhitunganBulan = Math.floor(selisihWaktu/604800000) + ' Minggu ';
         let perhitunganHari = Math.floor((selisihWaktu%(604800000))/86400000) + ' Hari';
         let perhitunganJam = Math.floor((selisihWaktu%(86400000))/3600000) + ' Jam ';
         let perhitunganMenit = Math.floor((selisihWaktu%(3600000))/60000) + ' Menit ';
         let perhitunganDetik = Math.floor((selisihWaktu%(60000))/1000) + ' Detik';
         performaTugas = perhitunganBulan + perhitunganHari + perhitunganJam + perhitunganMenit + perhitunganDetik;
-    }
+    } else if(selisihWaktu > 86400000 || selisihWaktu == 86400000){
+        let perhitunganHari = Math.floor(selisihWaktu/86400000) + ' Hari';
+        let perhitunganJam = Math.floor((selisihWaktu%(86400000))/3600000) + ' Jam ';
+        let perhitunganMenit = Math.floor((selisihWaktu%(3600000))/60000) + ' Menit ';
+        let perhitunganDetik = Math.floor((selisihWaktu%(60000))/1000) + ' Detik';
+        performaTugas = perhitunganHari + perhitunganJam + perhitunganMenit + perhitunganDetik;
+    } else if(selisihWaktu > 3600000 || selisihWaktu == 3600000){
+        let perhitunganJam = Math.floor(selisihWaktu/3600000) + ' Jam ';
+        let perhitunganMenit = Math.floor((selisihWaktu%(3600000))/60000) + ' Menit ';
+        let perhitunganDetik = Math.floor((selisihWaktu%(60000))/1000) + ' Detik';
+        performaTugas = perhitunganJam + perhitunganMenit + perhitunganDetik;
+    } else if(selisihWaktu > 60000 || selisihWaktu == 60000){
+        let perhitunganMenit = Math.floor(selisihWaktu/60000) + ' Menit ';
+        let perhitunganDetik = Math.floor((selisihWaktu%60000)/1000) + ' Detik'
+        performaTugas = perhitunganMenit + perhitunganDetik;
+    } else if(selisihWaktu < 60000){
+        let perhitunganDetik = Math.floor(selisihWaktu/1000) + ' Detik';
+        performaTugas = perhitunganDetik;
+    }  
 //    console.log(namaPeserta);
 //    console.log(kontenTugas);
 //    console.log(perMinggu);
@@ -1271,8 +2015,8 @@ function renderTugasSelesai(doc){
         </button>
       </div>
         <div class="modal-body">
-        <div id="data-tugas">
-        <div id="info-tugas">
+        <div class="data-tugas">
+        <div class="info-tugas">
         <div>CC</div>
         <div>:</div>
         <div style="font-weight:bold;" id="nama-peserta-tugas${doc.id}">${namaPeserta.toUpperCase()}</div>
@@ -1507,52 +2251,7 @@ for (let i=0;i<performaPeserta.length;i++) {
 }
 let rataRataPenyelesaian = sum/performaPeserta.length;
 let rataRataWaktuPenyelesaian;
-            if(rataRataPenyelesaian < 60000){
-                let perhitunganDetik = Math.floor(rataRataPenyelesaian/1000) + ' Detik';
-                rataRataWaktuPenyelesaian = perhitunganDetik;
-            } else if(rataRataPenyelesaian == 60000){
-                let perhitunganMenit = Math.floor(rataRataPenyelesaian/60000) + ' Menit ';
-                rataRataWaktuPenyelesaian = perhitunganMenit;
-            } else if(rataRataPenyelesaian > 60000){
-                let perhitunganMenit = Math.floor(rataRataPenyelesaian/60000) + ' Menit ';
-                let perhitunganDetik = Math.floor((rataRataPenyelesaian%60000)/1000) + ' Detik'
-                if(perhitunganDetik == '0 Detik'){
-                    perhitunganDetik = '';
-                }
-                rataRataWaktuPenyelesaian = perhitunganMenit + perhitunganDetik;
-            } else if(rataRataPenyelesaian == 3600000){
-                let perhitunganJam = Math.floor(rataRataPenyelesaian/3600000) + ' Jam ';
-                rataRataWaktuPenyelesaian = perhitunganJam;
-            } else if(rataRataPenyelesaian > 3600000){
-                let perhitunganJam = Math.floor(rataRataPenyelesaian/3600000) + ' Jam ';
-                let perhitunganMenit = Math.floor((rataRataPenyelesaian%(3600000))/60000) + ' Menit ';
-                let perhitunganDetik = Math.floor((rataRataPenyelesaian%(60000))/1000) + ' Detik';
-                if(perhitunganMenit == '0 Menit '){
-                    perhitunganMenit = '';
-                } else if(perhitunganDetik == '0 Detik'){
-                    perhitunganDetik = '';
-                }
-                rataRataWaktuPenyelesaian = perhitunganJam + perhitunganMenit + perhitunganDetik;
-            } else if(rataRataPenyelesaian == 86400000){
-                let perhitunganHari = Math.floor(rataRataPenyelesaian/86400000) + ' Hari';
-                rataRataWaktuPenyelesaian = perhitunganHari;
-            } else if(rataRataPenyelesaian > 86400000){
-                let perhitunganHari = Math.floor(rataRataPenyelesaian/86400000) + ' Hari';
-                let perhitunganJam = Math.floor((rataRataPenyelesaian%(86400000))/3600000) + ' Jam ';
-                let perhitunganMenit = Math.floor((rataRataPenyelesaian%(3600000))/60000) + ' Menit ';
-                let perhitunganDetik = Math.floor((rataRataPenyelesaian%(60000))/1000) + ' Detik';
-                if(perhitunganJam == '0 Jam '){
-                    perhitunganJam = '';
-                } else if(perhitunganMenit == '0 Menit '){
-                    perhitunganMenit = '';
-                } else if(perhitunganDetik == '0 Detik'){
-                    perhitunganDetik = '';
-                }
-                rataRataWaktuPenyelesaian = perhitunganHari + perhitunganJam + perhitunganMenit + perhitunganDetik;
-            } else if(rataRataPenyelesaian == 604800000){
-                let perhitunganMinggu = Math.floor(rataRataPenyelesaian/604800000) + ' Minggu ';
-                rataRataWaktuPenyelesaian = perhitunganMinggu;
-            } else if(rataRataPenyelesaian > 604800000){
+            if(rataRataPenyelesaian > 604800000){
                 let perhitunganMinggu = Math.floor(rataRataPenyelesaian/604800000) + ' Minggu ';
                 let perhitunganHari = Math.floor((rataRataPenyelesaian%(604800000))/86400000) + ' Hari';
                 let perhitunganJam = Math.floor((rataRataPenyelesaian%(86400000))/3600000) + ' Jam ';
@@ -1568,11 +2267,56 @@ let rataRataWaktuPenyelesaian;
                                     perhitunganDetik = '';
                 }
                 rataRataWaktuPenyelesaian = perhitunganMinggu + perhitunganHari + perhitunganJam + perhitunganMenit + perhitunganDetik;
+            } else if(rataRataPenyelesaian == 604800000){
+                let perhitunganMinggu = Math.floor(rataRataPenyelesaian/604800000) + ' Minggu ';
+                rataRataWaktuPenyelesaian = perhitunganMinggu;
+            } else if(rataRataPenyelesaian > 86400000){
+                let perhitunganHari = Math.floor(rataRataPenyelesaian/86400000) + ' Hari';
+                let perhitunganJam = Math.floor((rataRataPenyelesaian%(86400000))/3600000) + ' Jam ';
+                let perhitunganMenit = Math.floor((rataRataPenyelesaian%(3600000))/60000) + ' Menit ';
+                let perhitunganDetik = Math.floor((rataRataPenyelesaian%(60000))/1000) + ' Detik';
+                if(perhitunganJam == '0 Jam '){
+                    perhitunganJam = '';
+                } else if(perhitunganMenit == '0 Menit '){
+                    perhitunganMenit = '';
+                } else if(perhitunganDetik == '0 Detik'){
+                    perhitunganDetik = '';
+                }
+                rataRataWaktuPenyelesaian = perhitunganHari + perhitunganJam + perhitunganMenit + perhitunganDetik;
+            } else if(rataRataPenyelesaian == 86400000){
+                let perhitunganHari = Math.floor(rataRataPenyelesaian/86400000) + ' Hari';
+                rataRataWaktuPenyelesaian = perhitunganHari;
+            } else if(rataRataPenyelesaian > 3600000){
+                let perhitunganJam = Math.floor(rataRataPenyelesaian/3600000) + ' Jam ';
+                let perhitunganMenit = Math.floor((rataRataPenyelesaian%(3600000))/60000) + ' Menit ';
+                let perhitunganDetik = Math.floor((rataRataPenyelesaian%(60000))/1000) + ' Detik';
+                if(perhitunganMenit == '0 Menit '){
+                    perhitunganMenit = '';
+                } else if(perhitunganDetik == '0 Detik'){
+                    perhitunganDetik = '';
+                }
+                rataRataWaktuPenyelesaian = perhitunganJam + perhitunganMenit + perhitunganDetik;
+            } else if(rataRataPenyelesaian == 3600000){
+                let perhitunganJam = Math.floor(rataRataPenyelesaian/3600000) + ' Jam ';
+                rataRataWaktuPenyelesaian = perhitunganJam;
+            } else if(rataRataPenyelesaian > 60000){
+                let perhitunganMenit = Math.floor(rataRataPenyelesaian/60000) + ' Menit ';
+                let perhitunganDetik = Math.floor((rataRataPenyelesaian%60000)/1000) + ' Detik'
+                if(perhitunganDetik == '0 Detik'){
+                    perhitunganDetik = '';
+                }
+                rataRataWaktuPenyelesaian = perhitunganMenit + perhitunganDetik;
+            } else if(rataRataPenyelesaian == 60000){
+                let perhitunganMenit = Math.floor(rataRataPenyelesaian/60000) + ' Menit ';
+                rataRataWaktuPenyelesaian = perhitunganMenit;
+            } else if(rataRataPenyelesaian < 60000){
+                let perhitunganDetik = Math.floor(rataRataPenyelesaian/1000) + ' Detik';
+                rataRataWaktuPenyelesaian = perhitunganDetik;
             }
 
 let tampilanPerforma = document.querySelectorAll('.performa-peserta-' + namaPeserta.toLowerCase().replace(" ", "-"));
 for(let x = 0;x<tampilanPerforma.length;x++){
-    tampilanPerforma[x].innerText = rataRataWaktuPenyelesaian;
+    tampilanPerforma[x].innerHTML = rataRataWaktuPenyelesaian;
 }
     let jumlahTugasTerlambat = document.querySelectorAll('.terlambat' + namaPeserta.toLowerCase().replace(" ", "-")).length;
     let jumlahTugasSelesai = document.querySelectorAll('.tugasseseorangselesai' + namaPeserta.toLowerCase().replace(" ", "-")).length;
@@ -1622,6 +2366,7 @@ function renderUpdateTugas(doc){
 const kesalahanPeserta = document.querySelector("#list-kesalahan-peserta");
 const modalKesalahanPeserta = document.querySelector("#modal-tambah-kesalahan");
 
+
 function renderKesalahan(doc){
     let div = document.createElement('div');
     let kesalahan = document.createElement('div');
@@ -1651,8 +2396,8 @@ function renderKesalahan(doc){
             </button>
           </div>
             <div class="modal-body">
-            <div id="data-kesalahan">
-            <div id="info-kesalahan">
+            <div class="data-kesalahan">
+            <div class="info-kesalahan">
             <div>Karyawan</div>
             <div>:</div>
             <div style="font-weight:bold;" id="nama-kesalahan-peserta${doc.id}">${nama.toUpperCase()}</div>
@@ -1699,17 +2444,85 @@ function renderKesalahan(doc){
         formEdit.style.display = "block";
         formEdit.addEventListener('submit', function(e){
             e.preventDefault();
+            e.stopImmediatePropagation();
             let tanggalUpdate = document.querySelector('#tanggal-kesalahan' + doc.id).value;
             let kontenKesalahanUpdate = document.querySelector('#konten-kesalahan' + doc.id).value;
             if(tanggalUpdate == 0){
             tanggalUpdate = new Date().getTime();
             }
-            db.collection('kesalahan').doc(doc.id).update({
-                tanggal : tanggalUpdate,
-                kontenKesalahan : kontenKesalahanUpdate.replace(/\n\r?/g, '<br/>')
-            }).then(() => {
-                formEdit.style.display = "none";
+            let tanggalUpdateBaru = new Date(tanggalUpdate);
+            let hariBaru = String(tanggalUpdateBaru.getDate()).padStart(2, '0');
+            let bulanBaru = String(tanggalUpdateBaru.getMonth() + 1).padStart(2, '0');
+            let tahunBaru = tanggalUpdateBaru.getFullYear();
+            tanggalUpdateBaru = tahunBaru + '-' + bulanBaru + '-' + hariBaru;
+            let overviewCadangan;
+            let tanggalSekarang = new Date();
+            let hariSekarang = String(tanggalSekarang.getDate()).padStart(2, '0');
+            let bulanSekarang = String(tanggalSekarang.getMonth() + 1).padStart(2, '0');
+            let tahunSekarang = tanggalSekarang.getFullYear();
+            tanggalSekarang = tahunSekarang + '-' + bulanSekarang + '-' + hariSekarang;
+            if(new Date(tanggalSekarang) >= new Date(tanggalUpdateBaru)){
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+            db.collection('kesalahan').doc(doc.id).get().then(function(item) {
+                let tanggalKesalahan = item.data().tanggal;
+                let kontenKesalahan = item.data().kontenKesalahan;
+                let penggunaKesalahan = item.data().nama;
+                let tanggalBaru = new Date(tanggalKesalahan);
+                let hariBaru = String(tanggalBaru.getDate()).padStart(2, '0');
+                let bulanBaru = String(tanggalBaru.getMonth() + 1).padStart(2, '0');
+                let tahunBaru = tanggalBaru.getFullYear();
+                tanggalBaru = tahunBaru + '-' + bulanBaru + '-' + hariBaru;
+                if(tanggalBaru == tanggalUpdateBaru && kontenKesalahan == kontenKesalahanUpdate.replace(/\n\r?/g, '<br/>')){
+                    alert('Tidak ada perubahan yang terjadi pada kolom kolom berikut');
+                } else if(tanggalBaru != tanggalUpdateBaru && kontenKesalahan != kontenKesalahanUpdate.replace(/\n\r?/g, '<br/>')){
+                    overviewCadangan = `mengubah tanggal beserta konten suatu kesalahan <span class="pengguna-target-overview pengguna-target-overview-${penggunaKesalahan.toLowerCase().replace(" ", "-")}">${penggunaKesalahan}</span>.`;
+                        db.collection('kesalahan').doc(doc.id).update({
+                        tanggal : tanggalUpdate,
+                        kontenKesalahan : kontenKesalahanUpdate.replace(/\n\r?/g, '<br/>')
+                    }).then(() => {
+                        formEdit.style.display = "none";
+                            db.collection('overview').add({
+                                penggunaOverview : docs.data().username,
+                                penggunaKesalahan : penggunaKesalahan,
+                                waktuOverview : new Date().getTime(),
+                                overview : 'update-mistake',
+                                overviewCadangan : overviewCadangan
+                            })
+                        })
+                } else if(tanggalBaru != tanggalUpdateBaru){
+                    overviewCadangan = `mengubah tanggal suatu kesalahan <span class="pengguna-target-overview pengguna-target-overview-${penggunaKesalahan.toLowerCase().replace(" ", "-")}">${penggunaKesalahan}</span>.`
+                    db.collection('kesalahan').doc(doc.id).update({
+                        tanggal : tanggalUpdate
+                    }).then(() => {
+                        formEdit.style.display = "none";
+                            db.collection('overview').add({
+                                penggunaOverview : docs.data().username,
+                                penggunaKesalahan : penggunaKesalahan,
+                                waktuOverview : new Date().getTime(),
+                                overview : 'update-mistake',
+                                overviewCadangan : overviewCadangan
+                            })
+                        })                    
+                } else if(kontenKesalahan != kontenKesalahanUpdate.replace(/\n\r?/g, '<br/>')){
+                    overviewCadangan = `mengubah konten suatu kesalahan <span class="pengguna-target-overview pengguna-target-overview-${penggunaKesalahan.toLowerCase().replace(" ", "-")}">${penggunaKesalahan}</span>.`
+                    db.collection('kesalahan').doc(doc.id).update({
+                        kontenKesalahan : kontenKesalahanUpdate.replace(/\n\r?/g, '<br/>')
+                    }).then(() => {
+                        formEdit.style.display = "none";
+                            db.collection('overview').add({
+                                penggunaOverview : docs.data().username,
+                                penggunaKesalahan : penggunaKesalahan,
+                                waktuOverview : new Date().getTime(),
+                                overview : 'update-mistake',
+                                overviewCadangan : overviewCadangan
+                            })
+                        })                        
+                    }
+                })
             })
+            } else {
+                alert('Sepertinya anda mencantumkan tanggal sebelum kejadian terjadi');
+            }
         })
     })
 
@@ -1719,11 +2532,28 @@ function renderKesalahan(doc){
         let konfirmasi = confirm('Anda yakin ingin menghapus kesalahan ' + nama + ' ini?');
         if(konfirmasi == true){
         let id = document.querySelector('.dokumentasi-kesalahan-peserta' + doc.id).getAttribute('data-id');
+        db.collection('kesalahan').doc(id).get().then(function(item){
+            let tanggalKesalahan = new Date(item.data().tanggal);
+            let hariKesalahan = String(tanggalKesalahan.getDate()).padStart(2, '0');
+            let bulanKesalahan = String(tanggalKesalahan.getMonth() + 1).padStart(2, '0');
+            let tahunKesalahan = tanggalKesalahan.getFullYear();
+            tanggalKesalahan = hariKesalahan + '/' + bulanKesalahan + '/' + tahunKesalahan;
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                penggunaKesalahan : item.data().nama,
+                tanggalKesalahan : tanggalKesalahan,
+                kontenKesalahan : item.data().kontenKesalahan,
+                overview : 'delete-mistake'
+                })
         db.collection('kesalahan').doc(id).delete();
         $('#modalkesalahan' + doc.id).modal('hide');
-        let jumlahKesalahanBaru = document.querySelectorAll('.kesalahanseseorang' + nama.toLowerCase().replace(" ", "-")).length;
-        }
-    })
+            })
+        })
+    }
+})
 
     $(document).ready(function() {
     db.collection('kesalahan').onSnapshot(snapshot =>{
@@ -1764,16 +2594,18 @@ function renderUpdateKesalahan(doc){
 
 
 const listPencapaian = document.querySelector('#list-achievement');
-const modalPencapaian = document.querySelector('#modal-edit-achievement')
-
+const modalPencapaian = document.querySelector('#modal-edit-achievement');
+const listPencapaianKedua = document.querySelector('#list-achievement-kedua');
 function renderAchievement(doc){
     let tr = document.createElement('tr');
+    let div = document.createElement('div');
     let achievement = document.createElement('div');
     tr.setAttribute('data-id', doc.id);
     tr.setAttribute('data-toggle', 'modal');
     tr.setAttribute('data-target', '#modalachievement' + doc.id);
     tr.setAttribute('id','achievement' + doc.id);
     tr.classList.add('dokumentasi-pencapaian' + doc.id, 'pencapaian');
+    div.classList.add('dokumentasi-pencapaian-kedua' + doc.id);
     let kontenPencapaian = doc.data().kontenPencapaian;
     let tanggal = doc.data().tanggal;
     let kalkulasiTanggal = new Date(tanggal);
@@ -1790,6 +2622,9 @@ function renderAchievement(doc){
     <td style="font-weight:bold;" id="tanggal-pencapaian-table${doc.id}">${tanggal}</td>
     <td id="konten-pencapaian-table${doc.id}">${kontenPencapaian}</td>
     `
+
+    div.innerHTML = `<div id="jumlah-data-achievement">Jumlah Achievement yang anda raih sampai saat ini sebanyak <span id="jumlah-achievement"></span>.</div>`
+
     achievement.innerHTML = `
     <div class="modal fade" id="modalachievement${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
@@ -1801,8 +2636,8 @@ function renderAchievement(doc){
             </button>
           </div>
           <div class="modal-body">
-            <div id="data-achievement">
-            <div id="info-achievement">
+            <div class="data-achievement">
+            <div class="info-achievement">
             <div>Tanggal</div>
             <div>:</div>
             <div style="font-weight:bold;" id="tanggal-pencapaian-body${doc.id}">${tanggal}</div>
@@ -1835,6 +2670,9 @@ function renderAchievement(doc){
 
     listPencapaian.appendChild(tr);
     modalPencapaian.appendChild(achievement);
+    if(!document.querySelector('#jumlah-data-achievement')){
+        listPencapaianKedua.appendChild(div);
+    }
 
     let edit = document.querySelector('#edit' + doc.id);
     edit.addEventListener('click', function(e){
@@ -1843,19 +2681,84 @@ function renderAchievement(doc){
         formEdit.style.display = "block";
         formEdit.addEventListener('submit', function(e){
             e.preventDefault();
+            e.stopImmediatePropagation();
             let tanggalUpdate = document.querySelector('#tanggal-pencapaian' + doc.id).value;
             let kontenPencapaianUpdate = document.querySelector('#konten-pencapaian' + doc.id).value;
             if(tanggalUpdate == 0){
             tanggalUpdate = new Date().getTime();
             }
-            db.collection('achievement').doc(doc.id).update({
-                tanggal : tanggalUpdate,
-                kontenPencapaian : kontenPencapaianUpdate.replace(/\n\r?/g, '<br/>')
-            }).then(() => {
-                formEdit.style.display = "none";
+            let tanggalUpdateBaru = new Date(tanggalUpdate);
+            let hariBaru = String(tanggalUpdateBaru.getDate()).padStart(2, '0');
+            let bulanBaru = String(tanggalUpdateBaru.getMonth() + 1).padStart(2, '0');
+            let tahunBaru = tanggalUpdateBaru.getFullYear();
+            tanggalUpdateBaru = tahunBaru + '-' + bulanBaru + '-' + hariBaru;
+            let overviewCadangan;
+            let tanggalSekarang = new Date();
+            let hariSekarang = String(tanggalSekarang.getDate()).padStart(2, '0');
+            let bulanSekarang = String(tanggalSekarang.getMonth() + 1).padStart(2, '0');
+            let tahunSekarang = tanggalSekarang.getFullYear();
+            tanggalSekarang = tahunSekarang + '-' + bulanSekarang + '-' + hariSekarang;
+            if(new Date(tanggalSekarang) >= new Date(tanggalUpdateBaru)){
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+            db.collection('achievement').doc(doc.id).get().then(function(item) {
+                tanggal = item.data().tanggal;
+                kontenPencapaian = item.data().kontenPencapaian;
+                let tanggalBaru = new Date(tanggal);
+                let hariBaru = String(tanggalBaru.getDate()).padStart(2, '0');
+                let bulanBaru = String(tanggalBaru.getMonth() + 1).padStart(2, '0');
+                let tahunBaru = tanggalBaru.getFullYear();
+                tanggalBaru = tahunBaru + '-' + bulanBaru + '-' + hariBaru;
+                if(tanggalBaru == tanggalUpdateBaru && kontenPencapaian == kontenPencapaianUpdate.replace(/\n\r?/g, '<br/>')){
+                    alert('Tidak ada perubahan yang terjadi pada kolom kolom berikut');
+                } else if(tanggalBaru != tanggalUpdateBaru && kontenPencapaian != kontenPencapaianUpdate.replace(/\n\r?/g, '<br/>')){
+                overviewCadangan = 'mengubah tanggal beserta konten suatu achievement.'
+                    db.collection('achievement').doc(doc.id).update({
+                        tanggal : tanggalUpdate,
+                        kontenPencapaian : kontenPencapaianUpdate.replace(/\n\r?/g, '<br/>')
+                    }).then(() => {
+                        formEdit.style.display = "none";
+                            db.collection('overview').add({
+                                penggunaOverview : docs.data().username,
+                                waktuOverview : new Date().getTime(),
+                                overview : 'update-achievement',
+                                overviewCadangan : overviewCadangan
+                            })
+                        })                   
+                    } else if(tanggalBaru != tanggalUpdateBaru){
+                    overviewCadangan = 'mengubah tanggal suatu achievement.'
+                    db.collection('achievement').doc(doc.id).update({
+                        tanggal : tanggalUpdate
+                    }).then(() => {
+                        formEdit.style.display = "none";
+                            db.collection('overview').add({
+                                penggunaOverview : docs.data().username,
+                                waktuOverview : new Date().getTime(),
+                                overview : 'update-achievement',
+                                overviewCadangan : overviewCadangan
+                            })
+                        })
+                    } else if(kontenPencapaian != kontenPencapaianUpdate.replace(/\n\r?/g, '<br/>')){
+                    overviewCadangan = 'mengubah konten suatu achievement.'
+                    db.collection('achievement').doc(doc.id).update({
+                        kontenPencapaian : kontenPencapaianUpdate.replace(/\n\r?/g, '<br/>')
+                    }).then(() => {
+                        formEdit.style.display = "none";
+                            db.collection('overview').add({
+                                penggunaOverview : docs.data().username,
+                                waktuOverview : new Date().getTime(),
+                                overview : 'update-achievement',
+                                overviewCadangan : overviewCadangan
+                            })
+                        })                        
+                    }
+                })
             })
+            } else {
+                alert('Sepertinya anda mencantumkan tanggal sebelum kejadian terjadi');
+            }
         })
     })
+
 
     let hapus = document.querySelector('#hapus' + doc.id);
     hapus.addEventListener('click', (e) => {
@@ -1863,10 +2766,23 @@ function renderAchievement(doc){
         let konfirmasi = confirm('Anda yakin ingin menghapus pencapaian ini?');
         if(konfirmasi == true){
         let id = document.querySelector('.dokumentasi-pencapaian' + doc.id).getAttribute('data-id');
-        db.collection('achievement').doc(id).delete();
-        $('#modalachievement' + doc.id).modal('hide');
-        }
-    })
+        db.collection('achievement').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                tanggalPencapaian : item.data().tanggal,
+                kontenPencapaian : item.data().kontenPencapaian,
+                overview : 'delete-achievement'
+                })
+        }).then(() => {
+            db.collection('achievement').doc(id).delete();
+            $('#modalachievement' + doc.id).modal('hide');
+            })
+        })
+    }
+})
 
     $(document).ready(function() {
     db.collection('achievement').onSnapshot(snapshot =>{
@@ -1907,7 +2823,1066 @@ function renderUpdateAchievement(doc){
     document.querySelector('#konten-pencapaian-body' + doc.id).innerHTML = kontenPencapaian;
 }
 
+const modalPengumuman = document.querySelector('#modal-edit-pengumuman');
+function renderPengumuman(doc){
+    let div = document.createElement('div');
+    let pengumuman = document.createElement('div');
+    div.setAttribute('data-id', doc.id);
+    div.setAttribute('data-toggle', 'modal');
+    div.setAttribute('data-target', '#modalpengumuman' + doc.id);
+    div.setAttribute('id','pengumuman' + doc.id);
+    div.classList.add('dokumentasi-pengumuman' + doc.id, 'pengumuman');
+    let judulPengumuman = doc.data().judulPengumuman;
+    let kontenPengumuman = doc.data().kontenPengumuman;
+    let pembuatPengumuman = doc.data().pembuatPengumuman;
+    let tanggal = doc.data().tanggal;
+    let tanggalSekarang = new Date().getTime();
+    let perbandinganWaktu = tanggalSekarang - tanggal;
+    let kalkulasiTanggal = new Date(tanggal);
+    div.setAttribute('data-date', tanggal);
+    let perbandinganBaru;
+    if(perbandinganWaktu >= 31536000000){
+        let perhitunganTahun = Math.floor(perbandinganWaktu/31536000000);
+        perbandinganWaktu = perhitunganTahun + ' tahun yang lalu';
+        perbandinganBaru = '';
+    } else if(perbandinganWaktu >= 2629800000){
+        let perhitunganBulan = Math.floor(perbandinganWaktu/2629800000);
+        perbandinganWaktu = perhitunganBulan + ' bulan yang lalu';
+        perbandinganBaru = '';
+    } else if(perbandinganWaktu >= 604800000){
+        let perhitunganMinggu = Math.floor(perbandinganWaktu/604800000);
+        perbandinganWaktu = perhitunganMinggu + ' minggu yang lalu';
+        perbandinganBaru = '';
+    } else if(perbandinganWaktu >= 86400000){
+        if(perbandinganWaktu > 259200000){
+            perbandinganBaru = '';
+        } else {
+            perbandinganBaru = 'Baru';
+        }
+        let perhitunganHari = Math.floor(perbandinganWaktu/86400000);
+        perbandinganWaktu = perhitunganHari + ' hari yang lalu'
+    } else if(perbandinganWaktu >= 3600000){
+        let perhitunganJam = Math.floor(perbandinganWaktu/3600000);
+        perbandinganWaktu = perhitunganJam + ' jam yang lalu';
+        perbandinganBaru = 'Baru';
+    } else if(perbandinganWaktu >= 60000){
+        let perhitunganMenit = Math.floor(perbandinganWaktu/60000);
+        perbandinganWaktu = perhitunganMenit + ' menit yang lalu';
+        perbandinganBaru = 'Baru';
+    } else if(perbandinganWaktu < 60000){
+        perbandinganWaktu = 'baru saja';
+        perbandinganBaru = 'Baru';
+    }
 
+    div.innerHTML = `
+    <div><span id="judul-pengumuman-tampilan${doc.id}" class="judul-pengumuman-tampilan">${judulPengumuman}</span> <span class="badge badge-success perbandingan-baru" id="perbandingan-baru${doc.id}">${perbandinganBaru}</span></div>
+    <div id="konten-pengumuman-tampilan${doc.id}" class="konten-pengumuman-tampilan">${kontenPengumuman}</div>
+    <div class="keterangan-pembuat-pengumuman"><small>Dibuat oleh <span class="nama-pembuat-pengumuman" id="nama-pembuat-pengumuman${doc.id}">${pembuatPengumuman}</span> <span class="waktu-pengumuman-dibuat" id="waktu-pengumuman-dibuat${doc.id}">${perbandinganWaktu}</span></small></div>
+    `
+
+    pengumuman.innerHTML = `
+        <div class="modal fade" id="modalpengumuman${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Pengaturan Pengumuman</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div class="modal-body">
+                  <div class="data-pengumuman">
+                    <div class="info-pengumuman">
+                    <div class="judul-pengumuman-body" id="judul-pengumuman-body${doc.id}">${judulPengumuman}</div>
+                    <div class="konten-pengumuman-body" id="konten-pengumuman-body${doc.id}">${kontenPengumuman}</div>
+                    </div>
+                    <div id="edit${doc.id}" class="btn btn-warning edit editpengumuman">Edit Data Pengumuman</div>
+                    <div id="hapus${doc.id}" class="btn btn-danger hapus hapuspengumuman">Hapus Data Pengumuman</div>
+                  </div>
+                  <form id="modal-pengumuman${doc.id}" class="modal-pengumuman">
+                        <div class="form-group">
+                          <label class="col-form-label">Judul Pengumuman</label>
+                          <input type="text" value="${judulPengumuman}" class="form-control" id="judul-pengumuman${doc.id}" autocomplete="off" required>
+                        </div>
+                      <div class="form-group">
+                        <label>Konten Pengumuman</label>
+                      <textarea oninput="auto_grow(this)" class="form-control" id="konten-pengumuman${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required>${kontenPengumuman.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                      </div>
+                        <div class="modal-footer">
+                              <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                              <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                    </div>
+                  </div>
+               </div>
+             </div>
+    `
+
+    document.querySelector('#grid-jumbotron-pengumuman').parentNode.insertBefore(div, document.querySelector('#grid-jumbotron-pengumuman').nextSibling);
+    modalPengumuman.appendChild(pengumuman);
+
+    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        if(pembuatPengumuman == docs.data().username){
+            document.querySelector('#nama-pembuat-pengumuman' + doc.id).innerHTML = 'anda';
+            document.querySelector('#nama-pembuat-pengumuman' + doc.id).style.textDecoration = 'none';
+            document.querySelector('#nama-pembuat-pengumuman' + doc.id).style.color = 'black';
+        }
+    })
+
+    let edit = document.querySelector('#edit' + doc.id);
+    edit.addEventListener('click', function(e){
+        let formEdit = document.querySelector('#modal-pengumuman' + doc.id);
+        formEdit.style.display = "block";
+        formEdit.addEventListener('submit', function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            let judulPengumumanUpdate = document.querySelector('#judul-pengumuman' + doc.id).value;
+            let kontenPengumumanUpdate = document.querySelector('#konten-pengumuman' + doc.id).value;
+            tanggal = new Date().getTime();
+            let overviewCadangan;
+            db.collection('pengumuman').doc(doc.id).get().then(function(item){
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+                judulPengumuman = item.data().judulPengumuman;
+                kontenPengumuman = item.data().kontenPengumuman;
+            if(judulPengumuman == judulPengumumanUpdate && kontenPengumuman == kontenPengumumanUpdate.replace(/\n\r?/g, '<br/>')){
+                alert('Tidak ada perubahan yang terjadi pada kolom kolom berikut');
+            } else if(judulPengumuman != judulPengumumanUpdate && kontenPengumuman != kontenPengumumanUpdate.replace(/\n\r?/g, '<br/>')){
+                overviewCadangan = 'mengubah judul pengumuman "' + judulPengumuman + '" menjadi "' + judulPengumumanUpdate + '" beserta konten pengumumannya.';
+                db.collection('pengumuman').doc(doc.id).update({
+                judulPengumuman : judulPengumumanUpdate,
+                kontenPengumuman : kontenPengumumanUpdate.replace(/\n\r?/g, '<br/>')
+            }).then(() => {
+                formEdit.style.display = "none";
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        waktuOverview : tanggal,
+                        overview : 'update-announcement',
+                        overviewCadangan : overviewCadangan
+                    })
+                })
+            } else if(kontenPengumuman != kontenPengumumanUpdate.replace(/\n\r?/g, '<br/>')){
+            overviewCadangan = 'mengubah konten pengumuman "' + judulPengumuman + '".';
+            db.collection('pengumuman').doc(doc.id).update({
+                kontenPengumuman : kontenPengumumanUpdate.replace(/\n\r?/g, '<br/>')
+            }).then(() => {
+                formEdit.style.display = "none";
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        waktuOverview : tanggal,
+                        overview : 'update-announcement',
+                        overviewCadangan : overviewCadangan
+                    })                
+                })
+            } else if(judulPengumuman != judulPengumumanUpdate){
+            overviewCadangan = 'mengubah judul pengumuman "' + judulPengumuman + '" menjadi "' + judulPengumumanUpdate + '".';
+            db.collection('pengumuman').doc(doc.id).update({
+                judulPengumuman : judulPengumumanUpdate,
+            }).then(() => {
+                formEdit.style.display = "none";
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        waktuOverview : tanggal,
+                        overview : 'update-announcement',
+                        overviewCadangan : overviewCadangan
+                    })                
+                })
+                    }
+                })
+            })
+        })
+    })
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus pengumuman ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-pengumuman' + doc.id).getAttribute('data-id');
+        db.collection('pengumuman').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                judulPengumuman : item.data().judulPengumuman,
+                kontenPengumuman : item.data().kontenPengumuman,
+                overview : 'delete-announcement'
+                })
+        }).then(() => {
+        db.collection('pengumuman').doc(id).delete();
+        $('#modalpengumuman' + doc.id).modal('hide');
+            })
+    })
+        }
+    })
+
+        $(document).ready(function() {
+        db.collection('pengumuman').onSnapshot(snapshot =>{
+        let items = $('.pengumuman').get();
+        items.sort(function(a, b) {
+        let keyA = $(a).data('date');
+        let keyB = $(b).data('date');
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+        })
+        $.each(items, function(i, div) {
+        document.querySelector('#grid-jumbotron-pengumuman').parentNode.insertBefore(div, document.querySelector('#grid-jumbotron-pengumuman').nextSibling);
+        })
+      })
+    })
+
+}
+
+function renderUpdatePengumuman(doc){
+    let judulPengumuman = doc.data().judulPengumuman;
+    let kontenPengumuman = doc.data().kontenPengumuman;
+    document.querySelector('#judul-pengumuman-tampilan' + doc.id).innerHTML = judulPengumuman;
+    document.querySelector('#konten-pengumuman-tampilan' + doc.id).innerHTML = kontenPengumuman;
+    document.querySelector('#judul-pengumuman-body' + doc.id).innerHTML = judulPengumuman;
+    document.querySelector('#konten-pengumuman-body' + doc.id).innerHTML = kontenPengumuman;
+}
+
+const listOverview = document.querySelector('#list-overview');
+const listInfoOverview = document.querySelector('#list-info-overview')
+function renderOverview(doc){
+    let div = document.createElement('div');
+    let info = document.createElement('div');
+    let penggunaOverview = doc.data().penggunaOverview;
+    let waktuOverview = doc.data().waktuOverview;
+    let overview = doc.data().overview;
+    div.setAttribute('data-id', doc.id);
+    div.setAttribute('id', 'overview' + doc.id);
+    div.classList.add('overview');
+    let waktuSekarang = new Date().getTime();
+    let perbandinganWaktu = waktuSekarang - overview;
+    let judulPengumuman;
+    let kontenPengumuman;
+    let overviewCadangan;
+    let tanggalPencapaian;
+    let kontenPencapaian;
+    let analisisSwot;
+    let kontenAnalisis;
+    let penggunaKesalahan;
+    let tanggalKesalahan;
+    let kontenKesalahan;
+    let penggunaTugas;
+    let kontenTugas;
+    let tanggalLuncurTugas;
+    let tanggalDeadlineTugas;
+    let pengguna;
+    let namaKategoriMenu;
+    let namaMenu;
+    let linkMenu;
+    div.setAttribute('data-date', waktuOverview);
+    if(perbandinganWaktu >= 31536000000){
+        let perhitunganTahun = Math.floor(perbandinganWaktu/31536000000);
+        perbandinganWaktu = 'pada ' + perhitunganTahun + ' tahun yang lalu';
+    } else if(perbandinganWaktu >= 2629800000){
+        let perhitunganBulan = Math.floor(perbandinganWaktu/2629800000);
+        perbandinganWaktu = 'pada ' + perhitunganBulan + ' bulan yang lalu';
+    } else if(perbandinganWaktu >= 604800000){
+        let perhitunganMinggu = Math.floor(perbandinganWaktu/604800000);
+        perbandinganWaktu = 'pada ' + perhitunganMinggu + ' minggu yang lalu';
+    } else if(perbandinganWaktu >= 86400000){
+        let perhitunganHari = Math.floor(perbandinganWaktu/86400000);
+        perbandinganWaktu = 'pada ' + perhitunganHari + ' hari yang lalu';
+    } else if(perbandinganWaktu >= 3600000){
+        let perhitunganJam = Math.floor(perbandinganWaktu/3600000);
+        perbandinganWaktu = 'pada ' + perhitunganJam + ' jam yang lalu';
+    } else if(perbandinganWaktu >= 60000){
+        let perhitunganMenit = Math.floor(perbandinganWaktu/60000);
+        perbandinganWaktu = 'pada ' + perhitunganMenit + ' menit yang lalu';
+    } else if(perbandinganWaktu < 60000){
+        perbandinganWaktu = 'baru saja';
+    }
+
+    switch(overview){
+        case 'sign-out':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> keluar dari website.`
+        listOverview.appendChild(div);
+        break;
+        case 'sign-in':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> masuk kedalam website.`
+        listOverview.appendChild(div);
+        break;
+        case 'sign-up':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> bergabung kedalam website.`
+        listOverview.appendChild(div);
+        break;
+        case 'change-password':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> mengganti password akun.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-account':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus akun.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-announcement':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;        
+        case 'add-announcement':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        judulPengumuman = doc.data().judulPengumuman;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan pengumuman "${judulPengumuman}".`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-announcement':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        judulPengumuman = doc.data().judulPengumuman;
+        kontenPengumuman = doc.data().kontenPengumuman;
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus pengumuman "${judulPengumuman}".</div>`
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Pengumuman</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div class="modal-body">
+                <div class="judul-pengumuman-body">${judulPengumuman}</div>
+                <div class="konten-pengumuman-body">${kontenPengumuman}</div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white'
+        break;        
+        case 'add-achievement':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan suatu achievement.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-achievement':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        tanggalPencapaian = doc.data().tanggalPencapaian;
+        let kalkulasiTanggal = new Date(tanggalPencapaian);
+        let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+        let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        let mm = bulan[kalkulasiTanggal.getMonth()]
+        let yyyy = kalkulasiTanggal.getFullYear();
+        tanggalPencapaian = dd + ' ' + mm + ' ' + yyyy;
+        kontenPencapaian = doc.data().kontenPencapaian;
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus suatu achievement.</div>`
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Achievement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-achievement">
+                            <div>Tanggal</div>
+                            <div>:</div>
+                            <div style="font-weight:bold;">${tanggalPencapaian}</div>
+                            <div>Konten Achievement</div>
+                            <div>:</div> 
+                            <div>${kontenPencapaian}</div>
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-achievement':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;        
+        case 'add-swot':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        analisisSwot = doc.data().analisisSwot;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data analisa swot pada ${analisisSwot}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-swot':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        kontenAnalisis = doc.data().kontenAnalisis;
+        analisisSwot = doc.data().analisisSwot;
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data analisa swot pada ${analisisSwot}.</div>`
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Analisis Swot</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-analisis">
+                            <div style="text-align:center;font-size:24px;font-weight:bold;">${analisisSwot}</div>
+                            <div>${kontenAnalisis}</div>
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-swot':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-mistake':
+        penggunaKesalahan = doc.data().penggunaKesalahan;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaKesalahan.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data kesalahan pada karyawan ${penggunaKesalahan}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-mistake':
+        penggunaKesalahan = doc.data().penggunaKesalahan;
+        tanggalKesalahan = doc.data().tanggalKesalahan;
+        kontenKesalahan = doc.data().kontenKesalahan;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaKesalahan.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data kesalahan pada karyawan ${penggunaKesalahan}.</div>`
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Kesalahan ${penggunaKesalahan}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-kesalahan">
+                        <div>Karyawan</div>
+                        <div>:</div>
+                        <div style="font-weight:bold;">${penggunaKesalahan.toUpperCase()}</div>
+                        <div>Waktu Kejadian</div>
+                        <div>:</div>        
+                        <div style="font-weight:bold;">${tanggalKesalahan}</div>
+                        <div>Konten Kesalahan</div>
+                        <div>:</div> 
+                        <div>${kontenKesalahan}</div>
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;       
+        case 'update-mistake':
+        penggunaKesalahan = doc.data().penggunaKesalahan;
+        overviewCadangan = doc.data().overviewCadangan;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaKesalahan.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-task':
+        penggunaTugas = doc.data().penggunaTugas;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaTugas.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan tugas kepada ${penggunaTugas}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;         
+        case 'delete-task':
+        penggunaTugas = doc.data().penggunaTugas;
+        tanggalLuncurTugas = doc.data().tanggalLuncurTugas;
+        tanggalDeadlineTugas = doc.data().tanggalDeadlineTugas;
+        kontenTugas = doc.data().kontenTugas;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaTugas.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus tugas ${penggunaTugas}.</div>`
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Tugas ${tanggalLuncurTugas}, CC : ${penggunaTugas}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-tugas">
+                        <div>CC</div>
+                        <div>:</div>
+                        <div style="font-weight:bold;">${penggunaTugas.toUpperCase()}</div>
+                        <div>Waktu Peluncuran</div>
+                        <div>:</div>        
+                        <div style="font-weight:bold;">${tanggalLuncurTugas}</div>
+                        <div>Waktu Deadline</div>
+                        <div>:</div>        
+                        <div style="font-weight:bold;">${tanggalDeadlineTugas}</div>
+                        <div>Status</div>
+                        <div>:</div> 
+                        <div style="font-weight:bold;color:#c72424;">PENDING</div>
+                        <div>Konten Tugas</div>
+                        <div>:</div> 
+                        <div>${kontenTugas}</div>
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-task':
+        penggunaTugas = doc.data().penggunaTugas;
+        overviewCadangan = doc.data().overviewCadangan;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaTugas.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-user':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        pengguna = doc.data().pengguna;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data karyawan a.n ${pengguna}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-user':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        pengguna = doc.data().pengguna;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data karyawan a.n ${pengguna}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-user':
+        pengguna = doc.data().pengguna;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + pengguna.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-menu-category':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        namaKategoriMenu = doc.data().namaKategoriMenu;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan kategori menu ${namaKategoriMenu}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-menu-category':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        namaKategoriMenu = doc.data().namaKategoriMenu;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus kategori menu ${namaKategoriMenu}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-menu-category':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-menu':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        namaKategoriMenu = doc.data().namaKategoriMenu;
+        namaMenu = doc.data().namaMenu;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan menu "${namaMenu}" pada kategori menu ${namaKategoriMenu}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-menu':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        namaKategoriMenu = doc.data().namaKategoriMenu;
+        namaMenu = doc.data().namaMenu;
+        linkMenu = doc.data().linkMenu;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus menu "<a style="text-decoration:none;color:#961515;" href="${linkMenu}" target="_blank">${namaMenu}</a>" pada kategori menu ${namaKategoriMenu}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-menu':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;                                        
+    }
+
+    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        if(document.querySelector('#pengguna-overview' + doc.id) == null){
+            console.log = function(){}
+        } else if(penggunaOverview == docs.data().username){
+            document.querySelector('#pengguna-overview' + doc.id).innerHTML = 'Anda';
+        }
+    })
+
+    $(document).ready(function() {
+    db.collection('overview').onSnapshot(snapshot =>{
+    let items = $('#list-overview > .overview').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('date');
+    let keyB = $(b).data('date');
+    if (keyA < keyB) return 1;
+    if (keyA > keyB) return -1;
+    return 0;
+    })
+    let daftarOverview = $('#list-overview');
+    $.each(items, function(i, div) {
+    daftarOverview.append(div);
+    })
+  })
+})
+
+}
+
+const listKategoriMenu = document.querySelector('#list-kategori-menu');
+const modalMenu = document.querySelector('#modal-edit-menu');
+function renderKategoriMenu(doc){
+    let div = document.createElement('div');
+    let menu = document.createElement('div');
+    let modalTambahMenu = document.createElement('div');
+    let modalKategoriMenu = document.createElement('div');
+    let tanggal = doc.data().tanggal;
+    let namaKategoriMenu = doc.data().namaKategoriMenu;
+    div.setAttribute('data-id', doc.id);
+    div.setAttribute('id', namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id)
+    div.setAttribute('data-date', tanggal);
+    div.classList.add('dokumentasi-kategori-menu' + doc.id, 'induk-kategori-menu');
+    menu.setAttribute('id', 'menu-' + namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id)
+    menu.classList.add('dokumentasi-kategori-isi-menu' + doc.id, 'kategori-isi-menu', 'collapse', 'hide')
+    div.innerHTML = `<div class="kategori-menu"><span id="nama-kategori-menu-tampilan${doc.id}" class="nama-kategori-menu-tampilan">${namaKategoriMenu}</span><i class='fas fa-pen pull-right edit-kategori-menu' id='edit${doc.id}'></i><i class='fas fa-trash-alt pull-right hapus-kategori-menu' id="hapus${doc.id}"></i></div>`
+    menu.innerHTML = `
+<ul class="list-menu" id="list-menu${doc.id}" ></ul>
+<div class="btn btn-success tombol-tambah-menu" id="tombol-tambah-menu${doc.id}">Tambah Menu</div>    
+    `
+    modalKategoriMenu.innerHTML = `
+    <div class="modal fade" id="modalkategorimenu${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Pengaturan Kategori</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body">
+              <form id="tambah-kategori-menu${doc.id}">
+                    <div class="form-group">
+                      <label class="col-form-label">Nama Kategori</label>
+                      <input type="text" class="form-control" value="${namaKategoriMenu}" id="nama-kategori-menu${doc.id}" autocomplete="off" required>
+                    </div>                      
+                    <div class="modal-footer">
+                          <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+           </div>
+         </div>    
+    `
+    modalTambahMenu.innerHTML = `
+    <div class="modal fade" id="modalmenu${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Menambahkan Menu</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body">
+              <form id="tambah-menu${doc.id}">
+                    <div class="form-group">
+                      <label class="col-form-label">Nama Menu</label>
+                      <input type="text" class="form-control" id="nama-menu${doc.id}" autocomplete="off" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-form-label">Link Menu</label>
+                      <input type="text" class="form-control" id="link-menu${doc.id}" autocomplete="off" required>
+                    </div>                        
+                    <div class="modal-footer">
+                          <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+           </div>
+         </div>    
+    `
+    listKategoriMenu.appendChild(div);
+    document.getElementById(namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id).insertBefore(menu, document.getElementById(namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id).nextSibling);
+    modalMenu.appendChild(modalTambahMenu);
+    modalMenu.appendChild(modalKategoriMenu);
+
+    $('#' + namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id).click(function(e){
+        e.stopPropagation();
+        $('#menu-' + namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id).collapse('toggle');
+    })
+
+    let tombolTambahMenu = document.querySelector('#tombol-tambah-menu' + doc.id)
+    tombolTambahMenu.addEventListener('click', function(e){
+        e.stopPropagation();
+        $('#modalmenu' + doc.id).modal('show');
+    })
+
+    let listMenu = document.querySelector('#list-menu' + doc.id);
+    listMenu.addEventListener('click', function(e){
+        e.stopPropagation();
+    })
+
+    let daftarMenu = document.querySelector('#tambah-menu' + doc.id);
+    daftarMenu.addEventListener('submit', function(e){
+        e.preventDefault();
+        db.collection('kategoriMenu').doc(doc.id).get().then(function(item){
+            namaKategoriMenu = item.data().namaKategoriMenu;
+        db.collection('menu').add({
+            tanggal : new Date().getTime(),
+            namaMenu : daftarMenu['nama-menu' + doc.id].value,
+            linkMenu : daftarMenu['link-menu' + doc.id].value,
+            kategoriMenu : doc.id
+            }) 
+        }).then(() => {
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : new Date().getTime(),
+                namaMenu : daftarMenu['nama-menu' + doc.id].value,
+                namaKategoriMenu : namaKategoriMenu,
+                overview : 'add-menu'
+                })
+            }).then(() => {
+                $('#modalmenu' + doc.id).modal('hide');
+                document.querySelector('#tambah-menu' + doc.id).reset();
+            })
+        })
+    })
+
+
+    let edit = document.querySelector('#edit' + doc.id);
+    edit.addEventListener('click', function(e){
+        e.stopPropagation();
+        $('#modalkategorimenu' + doc.id).modal('show');
+    })
+
+        let formEdit = document.querySelector('#tambah-kategori-menu' + doc.id);
+        formEdit.addEventListener('submit', function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            let namaKategoriMenuUpdate = document.querySelector('#nama-kategori-menu' + doc.id).value;
+            let tanggal = new Date().getTime()
+            let overviewCadangan;
+            db.collection('kategoriMenu').doc(doc.id).get().then(function(item){
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+                namaKategoriMenu = item.data().namaKategoriMenu;
+            if(namaKategoriMenu == namaKategoriMenuUpdate){
+                alert('Tidak ada perubahan yang terjadi pada kolom berikut');
+            } else if(namaKategoriMenu != namaKategoriMenuUpdate){
+                overviewCadangan = 'mengubah nama kategori menu "' + namaKategoriMenu + '" menjadi "' + namaKategoriMenuUpdate + '".';
+                db.collection('kategoriMenu').doc(doc.id).update({
+                    namaKategoriMenu : namaKategoriMenuUpdate,
+            }).then(() => {
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        waktuOverview : tanggal,
+                        overview : 'update-menu-category',
+                        overviewCadangan : overviewCadangan
+                        })
+                    }).then(() => {
+                        $('#modalkategorimenu' + doc.id).modal('hide');
+                    })
+                    }
+                })
+            })
+        })
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus kategori menu ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-kategori-menu' + doc.id).getAttribute('data-id');
+        db.collection('kategoriMenu').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                namaKategoriMenu : item.data().namaKategoriMenu,
+                overview : 'delete-menu-category'
+                })
+        }).then(() => {
+        db.collection('menu').get().then(function(querySnapshot){
+            querySnapshot.docs.map((items) => {
+                    if(items.data().kategoriMenu == item.id){
+                        db.collection('menu').doc(items.id).delete();
+                    }
+                })
+            })
+        })
+    }).then(() => {
+        db.collection('kategoriMenu').doc(id).delete();
+    })
+        }
+    })
+
+    $(document).ready(function() {
+    db.collection('kategoriMenu').onSnapshot(snapshot =>{
+    let items = $('#list-kategori-menu > .induk-kategori-menu').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('date');
+    let keyB = $(b).data('date');
+    if (keyA > keyB) return 1;
+    if (keyA < keyB) return -1;
+    return 0;
+    })
+    let daftarKategoriMenu = $('#list-kategori-menu');
+    $.each(items, function(i, div) {
+    daftarKategoriMenu.append(div);
+    })
+  })
+})
+
+
+}
+
+function renderUpdateKategoriMenu(doc){
+    let namaKategoriMenu = doc.data().namaKategoriMenu;
+    document.querySelector('#nama-kategori-menu-tampilan' + doc.id).innerHTML = namaKategoriMenu;
+}
+
+
+function renderMenu(doc){
+    let li = document.createElement('li');
+    let menu = document.createElement('div');
+    let tanggal = doc.data().tanggal;
+    let namaMenu = doc.data().namaMenu;
+    let linkMenu = doc.data().linkMenu;
+    let kategoriMenu = doc.data().kategoriMenu;
+    li.setAttribute('data-id', doc.id);
+    li.setAttribute('id', 'menu' + doc.id);
+    li.classList.add('dokumentasi-menu' + doc.id, 'data-menu');
+    li.setAttribute('data-date', tanggal);
+    li.innerHTML = `<a class="link-menu" id="link-menu-kedua${doc.id}" href="${linkMenu}" target="_blank">${namaMenu}</a><i class='fas fa-pen edit-menu' id='edit${doc.id}'></i><i class='fas fa-trash-alt hapus-menu' id="hapus${doc.id}"></i>`
+    menu.innerHTML = `
+    <div class="modal fade" id="modalmenu${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Pengaturan Menu</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body">
+              <form id="tambah-menu${doc.id}">
+                    <div class="form-group">
+                      <label class="col-form-label">Nama Menu</label>
+                      <input type="text" value="${namaMenu}" class="form-control" id="nama-menu${doc.id}" autocomplete="off" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-form-label">Link Menu</label>
+                      <input type="text" value="${linkMenu}" class="form-control" id="link-menu${doc.id}" autocomplete="off" required>
+                    </div>                        
+                    <div class="modal-footer">
+                          <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+           </div>
+         </div>    
+    `
+    document.querySelector('#list-menu' + kategoriMenu).appendChild(li);
+    modalMenu.appendChild(menu);
+
+    let edit = document.querySelector('#edit' + doc.id);
+    edit.addEventListener('click', function(e){
+        e.stopPropagation();
+        $('#modalmenu' + doc.id).modal('show');
+    })
+
+        let formEdit = document.querySelector('#tambah-menu' + doc.id);
+        formEdit.addEventListener('submit', function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            let namaMenuUpdate = document.querySelector('#nama-menu' + doc.id).value;
+            let linkMenuUpdate = document.querySelector('#link-menu' + doc.id).value;
+            let tanggal = new Date().getTime()
+            let overviewCadangan;
+            db.collection('menu').doc(doc.id).get().then(function(item){
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+                namaMenu = item.data().namaMenu;
+                linkMenu = item.data().linkMenu;
+            if(namaMenu == namaMenuUpdate && linkMenu == linkMenuUpdate){
+                alert('Tidak ada perubahan yang terjadi pada kolom kolom berikut');
+            } else if(namaMenu != namaMenuUpdate && linkMenu != linkMenuUpdate){
+                overviewCadangan = 'mengubah nama menu "' + namaMenu + '" menjadi "' + namaMenuUpdate + '" beserta link menu.';
+                db.collection('menu').doc(doc.id).update({
+                    namaMenu : namaMenuUpdate,
+                    linkMenu : linkMenuUpdate
+            }).then(() => {
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        waktuOverview : tanggal,
+                        overview : 'update-menu',
+                        overviewCadangan : overviewCadangan
+                        })
+                    }).then(() => {
+                        $('#modalmenu' + doc.id).modal('hide');
+                    })
+            } else if(namaMenu != namaMenuUpdate){
+                overviewCadangan = 'mengubah nama menu "' + namaMenu + '" menjadi "' + namaMenuUpdate + '".';
+                db.collection('menu').doc(doc.id).update({
+                    namaMenu : namaMenuUpdate
+            }).then(() => {
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        waktuOverview : tanggal,
+                        overview : 'update-menu',
+                        overviewCadangan : overviewCadangan
+                        })
+                    }).then(() => {
+                        $('#modalmenu' + doc.id).modal('hide');
+                    })                
+            } else if(linkMenu != linkMenuUpdate){
+                overviewCadangan = 'mengubah link menu "' + namaMenu + '".';
+                db.collection('menu').doc(doc.id).update({
+                    linkMenu : linkMenuUpdate
+            }).then(() => {
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        waktuOverview : tanggal,
+                        overview : 'update-menu',
+                        overviewCadangan : overviewCadangan
+                        })
+                    }).then(() => {
+                        $('#modalmenu' + doc.id).modal('hide');
+                    })
+            }
+                })
+            })
+        })
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus menu ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-menu' + doc.id).getAttribute('data-id');
+        db.collection('menu').doc(id).get().then(function(item){
+        db.collection('kategoriMenu').doc(item.data().kategoriMenu).get().then(function(items){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                namaMenu : item.data().namaMenu,
+                linkMenu : item.data().linkMenu,
+                namaKategoriMenu : items.data().namaKategoriMenu,
+                overview : 'delete-menu'
+                })
+        }).then(() => {
+        db.collection('menu').doc(id).delete();
+        })
+    })
+        })
+}
+    })
+
+    $(document).ready(function() {
+    db.collection('menu').onSnapshot(snapshot =>{
+    let items = $('#list-menu' + kategoriMenu + ' > .data-menu').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('date');
+    let keyB = $(b).data('date');
+    if (keyA > keyB) return 1;
+    if (keyA < keyB) return -1;
+    return 0;
+    })
+    let daftarMenu = $('#list-menu' + kategoriMenu);
+    $.each(items, function(i, div) {
+    daftarMenu.append(div);
+    })
+  })
+})
+
+}
+
+function renderUpdateMenu(doc){
+    let namaMenu = doc.data().namaMenu;
+    let linkMenu = doc.data().linkMenu;
+    document.querySelector('#link-menu-kedua' + doc.id).innerHTML = namaMenu;
+    document.querySelector('#link-menu-kedua' + doc.id).removeAttribute('href');
+    document.querySelector('#link-menu-kedua' + doc.id).setAttribute('href', linkMenu)
+}
 
 function auto_grow(element){
     element.style.height = "5px";
@@ -1922,15 +3897,5 @@ document.querySelector(".your_class").addEventListener("keypress", function (evt
 });
 
 
-//var tanggal = document.querySelectorAll('.tanggal-table');
-//var sum = 0;
-//for(let x=0;x<tanggal.length;x++){
-//    let ambilTanggal = tanggal[x].textContent.slice(3,5)
-//console.log(ambilTanggal)
-//    if(ambilTanggal == 08){
-//       sum+= Number(document.querySelectorAll('.nominal-table')[x].textContent.replace('Rp ','').slice(0,-3).replace(/,/g,''));
-//        }
-//    }
-//console.log(sum)
 
 
