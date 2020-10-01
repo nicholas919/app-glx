@@ -253,7 +253,6 @@ let status = document.querySelector('#status-peserta' + doc.id).innerHTML;
 
     let edit = document.querySelector('#edit' + doc.id);
     edit.addEventListener('click', function(e){
-        e.preventDefault();
         let formEdit = document.querySelector('#modal-peserta' + doc.id);
         formEdit.style.display = "block";
         formEdit.addEventListener('submit', function(e){
@@ -465,7 +464,6 @@ for(let x = 0; x<pilihanAnalisis.options.length; x++){
 
     let edit = document.querySelector('#edit' + doc.id);
     edit.addEventListener('click', function(e){
-        e.preventDefault();
         e.stopImmediatePropagation();
         let formEdit = document.querySelector('#modal-analisis' + doc.id);
         formEdit.style.display = "block";
@@ -578,6 +576,8 @@ const setupUI = (user) => {
         let kesalahan = document.querySelectorAll('.kesalahanseseorang');
         let bodyEmail = document.querySelectorAll('.body-email');
         let emailTable = document.querySelectorAll('.email-table');
+        let produkTransaksiTable = document.querySelectorAll('.produk-transaksi-table');
+        let keteranganTransaksiTable = document.querySelectorAll('.keterangan-transaksi-table');
         let username = doc.data().username;
         let kataSambut = document.querySelectorAll('.kata-sambutan');
         let overview = document.querySelectorAll('.overview');
@@ -592,7 +592,9 @@ const setupUI = (user) => {
             kataSambut[x].innerHTML = 'Hallo ,' + username + '!';
         }
         if(username == "Admin Galaxy" && user.email == 'useradmin@galaxy.id'){
+        setInterval(function(){
         document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
+    },0)
             myFunction(x);
             x.addListener(myFunction);
             function myFunction(x){
@@ -602,12 +604,28 @@ const setupUI = (user) => {
                     emailTable[x].setAttribute('style','display:none !important;');
                     }
                     document.querySelector('#th-email').style.display = 'none';
+                    for(let x = 0; x<produkTransaksiTable.length;x++){
+                    produkTransaksiTable[x].setAttribute('style','display:none !important;');
+                    }
+                    for(let x = 0; x<keteranganTransaksiTable.length;x++){
+                    keteranganTransaksiTable[x].setAttribute('style','display:none !important;');
+                    }                    
+                    document.querySelector('#th-produk-transaksi').style.display = 'none';
+                    document.querySelector('#th-keterangan-transaksi').style.display = 'none';                    
             } else {
                     document.querySelector('#halaman-tugas').style.display = 'grid';
                     for(let x = 0; x<emailTable.length;x++){
                     emailTable[x].setAttribute('style','display:block !important;');
                     }
-                    document.querySelector('#th-email').style.display = 'revert';
+                    document.querySelector('#th-email').style.display = 'table-cell';
+                    for(let x = 0; x<produkTransaksiTable.length;x++){
+                    produkTransaksiTable[x].setAttribute('style','display:table-cell !important;');
+                    }
+                    for(let x = 0; x<keteranganTransaksiTable.length;x++){
+                    keteranganTransaksiTable[x].setAttribute('style','display:table-cell !important;');
+                    }
+                    document.querySelector('#th-produk-transaksi').style.display = 'table-cell';
+                    document.querySelector('#th-keterangan-transaksi').style.display = 'table-cell';                    
             }
         }
             for(let x = 0; x<editPeserta.length;x++){
@@ -675,11 +693,20 @@ const setupUI = (user) => {
             }
             for(let x = 0; x<tombolTambahMenu.length;x++){
             tombolTambahMenu[x].setAttribute('style','display:block !important;');
-            }                                                
+            }                  
+            document.querySelector('#tambahpengumuman').style.display = 'block';
+            document.querySelector('#myTabContent').style.display = 'block';                              
             document.querySelector('#home').style.display = 'block';
             document.querySelector('#swot').style.display = 'block';
             document.querySelector('#achievement').style.display = 'block';
             document.querySelector('#list-gaji').style.display = 'none';
+            document.querySelector('#informasi').style.display = 'block';
+            document.querySelector('#catatan').style.display = 'block';
+            document.querySelector('#indent-cust').style.display = 'block';
+            document.querySelector('#cetak-label').style.display = 'block';
+            document.querySelector('#perpindahan-barang').style.display = 'block';
+            document.querySelector('#kalkulator').style.display = 'block';
+            document.querySelector('#transaksi-berjalan').style.display = 'block';            
             document.querySelector('#list-menu-tambahan').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
@@ -687,7 +714,6 @@ const setupUI = (user) => {
             document.querySelector('#jumbotron-performa-peserta').style.display = 'block';
             document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
             document.querySelector('#jumbotron-swot').style.display = 'block';
-            document.querySelector('#stranger').style.display = 'none';
             document.querySelector('#tabel-peserta').style.display = 'block';
             document.querySelector('#halaman-kesalahan').style.display = 'block';
             document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:block !important;');
@@ -695,14 +721,29 @@ const setupUI = (user) => {
             document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:block !important;');
             document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:block !important;');
         } else if(username == "Admin Kantor" && user.email == 'useradminkantor@galaxy.id'){
+            setInterval(function(){
             document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
+        },0)
             myFunction(x);
             x.addListener(myFunction);
             function myFunction(x){
             if (x.matches) { // If media query matches
                     document.querySelector('#halaman-tugas').style.display = 'block';
+                    for(let x = 0; x<produkTransaksiTable.length;x++){
+                    produkTransaksiTable[x].setAttribute('style','display:none !important;');
+                    }
+                    for(let x = 0; x<keteranganTransaksiTable.length;x++){
+                    keteranganTransaksiTable[x].setAttribute('style','display:none !important;');
+                    }                    
+                    document.querySelector('#th-produk-transaksi').style.display = 'none';
+                    document.querySelector('#th-keterangan-transaksi').style.display = 'none';                    
             } else {
                     document.querySelector('#halaman-tugas').style.display = 'grid';
+                    for(let x = 0; x<produkTransaksiTable.length;x++){
+                    produkTransaksiTable[x].setAttribute('style','display:block !important;');
+                    }
+                    document.querySelector('#th-produk-transaksi').style.display = 'table-cell';
+                    document.querySelector('#th-keterangan-transaksi').style.display = 'table-cell';                    
             }
         }
             for(let x = 0; x<editPeserta.length;x++){
@@ -778,11 +819,20 @@ const setupUI = (user) => {
             for(let x = 0; x<tombolTambahMenu.length;x++){
             tombolTambahMenu[x].setAttribute('style','display:block !important;');
             }                        
+            document.querySelector('#tambahpengumuman').style.display = 'none';
+            document.querySelector('#myTabContent').style.display = 'block';
             document.querySelector('#th-email').style.display = 'none';
-            document.querySelector('#home').style.display = 'none';
+            document.querySelector('#home').style.display = 'block';
             document.querySelector('#swot').style.display = 'none';
             document.querySelector('#achievement').style.display = 'none';
             document.querySelector('#list-gaji').style.display = 'none';
+            document.querySelector('#informasi').style.display = 'block';
+            document.querySelector('#catatan').style.display = 'block';
+            document.querySelector('#indent-cust').style.display = 'block';
+            document.querySelector('#cetak-label').style.display = 'block';
+            document.querySelector('#perpindahan-barang').style.display = 'block';
+            document.querySelector('#kalkulator').style.display = 'block';
+            document.querySelector('#transaksi-berjalan').style.display = 'block';            
             document.querySelector('#list-menu-tambahan').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
@@ -790,7 +840,6 @@ const setupUI = (user) => {
             document.querySelector('#jumbotron-performa-peserta').style.display = 'block';
             document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
             document.querySelector('#jumbotron-swot').style.display = 'none';
-            document.querySelector('#stranger').style.display = 'none';
             document.querySelector('#tabel-peserta').style.display = 'block';
             document.querySelector('#halaman-kesalahan').style.display = 'block';
             document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
@@ -798,7 +847,9 @@ const setupUI = (user) => {
             document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:block !important;');
             document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:block !important;');
         } else if(daftarKaryawan.includes(username.toLowerCase().replace(" ", "-")) && daftarEmailKaryawan.includes(user.email)){
+            setInterval(function(){
             document.querySelector('#pengguna-overview').innerHTML = 'anda';
+        },0)
             myFunction(x);
             x.addListener(myFunction);
             function myFunction(x){
@@ -882,24 +933,33 @@ const setupUI = (user) => {
                 }
             }
             for(let x = 0; x<editKategoriMenu.length;x++){
-            editKategoriMenu[x].setAttribute('style','display:none;');
+            editKategoriMenu[x].setAttribute('style','display:none !important;');
             }
             for(let x = 0; x<hapusKategoriMenu.length;x++){
-            hapusKategoriMenu[x].setAttribute('style','display:none;');
+            hapusKategoriMenu[x].setAttribute('style','display:none !important;');
             }            
             for(let x = 0; x<editMenu.length;x++){
-            editMenu[x].setAttribute('style','display:none;');
+            editMenu[x].setAttribute('style','display:none !important;');
             }
             for(let x = 0; x<hapusMenu.length;x++){
-            hapusMenu[x].setAttribute('style','display:none;');
+            hapusMenu[x].setAttribute('style','display:none !important;');
             } 
             for(let x = 0; x<tombolTambahMenu.length;x++){
             tombolTambahMenu[x].setAttribute('style','display:none !important;');
-            }                       
-            document.querySelector('#home').style.display = 'none';
+            }
+            document.querySelector('#tambahpengumuman').style.display = 'none';
+            document.querySelector('#myTabContent').style.display = 'block';
+            document.querySelector('#home').style.display = 'block';
             document.querySelector('#swot').style.display = 'none';
             document.querySelector('#achievement').style.display = 'none';
             document.querySelector('#list-gaji').style.display = 'none';
+            document.querySelector('#informasi').style.display = 'block';
+            document.querySelector('#catatan').style.display = 'block';
+            document.querySelector('#indent-cust').style.display = 'block';            
+            document.querySelector('#cetak-label').style.display = 'block';
+            document.querySelector('#perpindahan-barang').style.display = 'block';
+            document.querySelector('#kalkulator').style.display = 'block';
+            document.querySelector('#transaksi-berjalan').style.display = 'none';            
             document.querySelector('#list-menu-tambahan').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
@@ -907,7 +967,6 @@ const setupUI = (user) => {
             document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
             document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'block';
             document.querySelector('#jumbotron-swot').style.display = 'none';
-            document.querySelector('#stranger').style.display = 'none';
             document.querySelector('#tabel-peserta').style.display = 'none';
             document.querySelector('#halaman-kesalahan').style.display = 'block';
             document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
@@ -915,11 +974,6 @@ const setupUI = (user) => {
             document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:none !important;');
         } else {
-            document.querySelector('#stranger').innerHTML = `
-            <div id="judul-peringatan">Maaf!</div>
-            <div id="keterangan-peringatan">Sepertinya data anda tidak terdaftar dalam sistem!</div>
-            `;
-            document.querySelector('#stranger').style.display = 'block';
             for(let x = 0; x<editPeserta.length;x++){
             editPeserta[x].setAttribute('style','display:none !important;');
             }
@@ -932,10 +986,18 @@ const setupUI = (user) => {
             for(let x = 0; x<hapusTugas.length;x++){
             hapusTugas[x].setAttribute('style','display:none !important;');
             }
+            document.querySelector('#myTabContent').style.display = 'block';
             document.querySelector('#home').style.display = 'none';
             document.querySelector('#swot').style.display = 'none';
             document.querySelector('#achievement').style.display = 'none';
             document.querySelector('#list-gaji').style.display = 'none';
+            document.querySelector('#informasi').style.display = 'none';
+            document.querySelector('#catatan').style.display = 'none';
+            document.querySelector('#indent-cust').style.display = 'none';            
+            document.querySelector('#cetak-label').style.display = 'none';
+            document.querySelector('#perpindahan-barang').style.display = 'none';
+            document.querySelector('#kalkulator').style.display = 'none';
+            document.querySelector('#transaksi-berjalan').style.display = 'none';
             document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
             document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
             document.querySelector('#tabel-peserta').style.display = 'none';
@@ -971,20 +1033,21 @@ const setupUI = (user) => {
         user.reauthenticateWithCredential(credential).then(function (){
             let konfirmasi = confirm('Apa anda yakin ingin mereset ulang password akun ini?');
             if(konfirmasi == true){
-            user.updatePassword(passwordBaru).then(function (){
-                $('#modalpengaturanakun').modal('hide');
-                alert('Password anda berhasil diubah!');
-                formResetPassword.style.display = 'none';
-                console.log(username);
-                let waktuOverview = new Date().getTime();
+            let waktuOverview = new Date().getTime();
                 db.collection('overview').add({
                     penggunaOverview : username,
                     waktuOverview : waktuOverview,
                     overview : 'change-password'
+                }).then(function (){
+            user.updatePassword(passwordBaru).then(function (){
+                $('#modalpengaturanakun').modal('hide');
+                alert('Password anda berhasil diubah!');
+                formResetPassword.style.display = 'none';
                 })
             })
             }
         })
+
         } else if(passwordLama != konfirmasiPasswordLama){
             alert('Kolom yang anda isi pada password lama dan konfirmasi password lama tidak sama!');
         }
@@ -1028,10 +1091,7 @@ const setupUI = (user) => {
 
 let menu = document.querySelector('#tombol-burger');
 menu.addEventListener('click', function(e){
-myFunction(x);
-x.addListener(myFunction);
-function myFunction(x){
-    if(x.matches){
+if($(window).width() <= 760){
         document.querySelector('#myTabContent').style.marginLeft = '0';
         document.querySelector('#myTabContent').style.transition = '0';
         let tombolTambah = document.querySelectorAll('.tombol-tambah');
@@ -1069,12 +1129,13 @@ function myFunction(x){
         }
     } else {
     if($( ".navbar-collapse" ).is( ":hidden" )){
+        setTimeout(function(){
         document.querySelector('#myTabContent').style.marginLeft = '250px';
-        document.querySelector('#myTabContent').style.transition = 'all 1s ease';
+        document.querySelector('#myTabContent').style.transition = 'all 0.4s ease';
         let tombolTambah = document.querySelectorAll('.tombol-tambah');
         for(let x = 0; x<tombolTambah.length; x++){
             tombolTambah[x].style.marginLeft = '250px';
-            tombolTambah[x].style.transition = 'all 1s ease'
+            tombolTambah[x].style.transition = 'all 0.4s ease'
         }
         document.querySelector('#list-menu-tambahan').style.boxSizing = 'border-box';
         document.querySelector('#list-menu-tambahan').style.paddingRight = '250px';
@@ -1088,6 +1149,11 @@ function myFunction(x){
         document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = 'border-box';
         document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '250px';
         document.querySelector('#list-menu-tambahan-keempat').style.transition = 'all 0.4s ease';
+        if(document.querySelector('#peringatan-perpindahan-kedua')){
+        document.querySelector('#peringatan-perpindahan-kedua').style.width = '-webkit-calc(100% - 250px)';
+        document.querySelector('#peringatan-perpindahan-kedua').style.transition = 'all 0.4s ease';
+        }
+    },410)
     } else {
         document.querySelector('#myTabContent').style.marginLeft = '0';
         document.querySelector('#myTabContent').style.transition = 'all 0.4s ease';
@@ -1107,68 +1173,14 @@ function myFunction(x){
         document.querySelector('#list-menu-tambahan-ketiga').style.transition = 'all 0.4s ease';
         document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = '0';
         document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '0';
-        document.querySelector('#list-menu-tambahan-keempat').style.transition = 'all 0.4s ease';                        
-        }
-    }
-}  
-})
-
-
-window.addEventListener('resize', function(){
-        document.querySelector('#darken').style.backgroundColor = '0';
-        document.querySelector('#darken').style.width = '0';
-        document.querySelector('#darken').style.height = '0';
-        document.querySelector('#darken').style.position = '0';
-        document.querySelector('#darken').style.opacity = '0';
-        $( ".navbar-collapse" ).collapse('hide');
-        document.querySelector('#myTabContent').style.marginLeft = '0';
-        document.querySelector('#myTabContent').style.transition = '0';
-        let tombolTambah = document.querySelectorAll('.tombol-tambah');
-        for(let x = 0; x<tombolTambah.length; x++){
-            tombolTambah[x].style.marginLeft = '0';
-            tombolTambah[x].style.transition = '0';
-            }
-        document.querySelector('#list-menu-tambahan').style.boxSizing = '0';
-        document.querySelector('#list-menu-tambahan').style.paddingRight = '0';
-        document.querySelector('#list-menu-tambahan-kedua').style.boxSizing = '0';
-        document.querySelector('#list-menu-tambahan-kedua').style.paddingRight = '0';
-        document.querySelector('#list-menu-tambahan-ketiga').style.boxSizing = '0';
-        document.querySelector('#list-menu-tambahan-ketiga').style.paddingRight = '0';
-        document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = '0';
-        document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '0';
-        if($(window).width() <= 700){
-            if(document.querySelector('#tambahpengumuman')){
-            tombolTambahPengumumanKedua.appendChild(document.querySelector('#tambahpengumuman'));
-            }
-            document.querySelector('#tambahpengumuman').classList.add('tombol-tambah-kedua');
-            document.querySelector('#tambahpengumuman').classList.remove('pull-right');
-        } else {
-            if(document.querySelector('#tambahpengumuman')){
-            tombolTambahPengumuman.appendChild(document.querySelector('#tambahpengumuman'));
-            }
-            document.querySelector('#tambahpengumuman').classList.add('pull-right');
-            document.querySelector('#tambahpengumuman').classList.remove('tombol-tambah-kedua');
-        }
-})
-
-let tombolTambahPengumuman = document.querySelector('#tombol-tambah-pengumuman');
-let tombolTambahPengumumanKedua = document.querySelector('#tombol-tambah-pengumuman-kedua')
-$(document).ready(function(e){
-    if($(window).width() <= 700){
-        if(!document.querySelector('#tambahpengumuman')){
-        document.querySelector('#tambahpengumuman').classList.add('tombol-tambah-kedua');
-        document.querySelector('#tambahpengumuman').classList.remove('pull-right');
-        tombolTambahPengumumanKedua.appendChild(document.querySelector('#tambahpengumuman'));
-        }
-    } else {
-        if(!document.querySelector('#tambahpengumuman')){
-            document.querySelector('#tambahpengumuman').classList.add('pull-right');
-            document.querySelector('#tambahpengumuman').classList.remove('tombol-tambah-kedua');
-        tombolTambahPengumumanKedua.appendChild(document.querySelector('#tambahpengumuman'));    
+        document.querySelector('#list-menu-tambahan-keempat').style.transition = 'all 0.4s ease';
+        if(document.querySelector('#peringatan-perpindahan-kedua')){    
+        document.querySelector('#peringatan-perpindahan-kedua').style.width =  '100%';
+        document.querySelector('#peringatan-perpindahan-kedua').style.transition = 'all 0.4s ease';                            
+        }        
         }
     }
 })
-
 
 
 let tabHalaman = document.querySelectorAll('.tab-halaman')
@@ -1190,9 +1202,8 @@ for(let x = 0; x<tabHalaman.length; x++){
         }
     })
 }
-   
 
-  const menuPilihan = [];
+const menuPilihan = [];
 document.querySelector('#search-menu').addEventListener('input', function(e){
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -1426,10 +1437,19 @@ document.querySelector('#search-menu').addEventListener('input', function(e){
             tombolTambah[x].style.marginLeft = '0';
             tombolTambah[x].style.transition = '0';
         }
-    document.querySelector('#stranger').style.display = 'none';
+    document.querySelector('.navbar-collapse').classList.remove('show')
+    document.querySelector('#myTabContent').style.display = 'none';
     document.querySelector('#home').style.display = 'none';
     document.querySelector('#swot').style.display = 'none';
     document.querySelector('#achievement').style.display = 'none';
+    document.querySelector('#list-gaji').style.display = 'none';
+    document.querySelector('#informasi').style.display = 'none';
+    document.querySelector('#catatan').style.display = 'none';
+    document.querySelector('#indent-cust').style.display = 'none';            
+    document.querySelector('#cetak-label').style.display = 'none';
+    document.querySelector('#perpindahan-barang').style.display = 'none';
+    document.querySelector('#kalkulator').style.display = 'none';
+    document.querySelector('#transaksi-berjalan').style.display = 'none';    
     document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
     document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
     document.querySelector('#tabel-peserta').style.display = 'none';
@@ -2111,11 +2131,10 @@ function renderTugasSelesai(doc){
     } else {
     let copy = document.querySelector("#copytugasselesai" + doc.id);
     copy.addEventListener('click', function (e) {
-    var range = document.getSelection().getRangeAt(0);
+    let range = document.getSelection().getRangeAt(0);
     range.selectNode(document.querySelector("#bukti-penyelesaian-tugas" + doc.id));
     window.getSelection().addRange(range);
     document.execCommand("copy");
-    alert("Teks berhasil dicopy!");
     })
 }
 
@@ -2875,7 +2894,7 @@ function renderPengumuman(doc){
     }
 
     div.innerHTML = `
-    <div><span id="judul-pengumuman-tampilan${doc.id}" class="judul-pengumuman-tampilan">${judulPengumuman}</span> <span class="badge badge-success perbandingan-baru" id="perbandingan-baru${doc.id}">${perbandinganBaru}</span></div>
+    <div><span id="judul-pengumuman-tampilan${doc.id}" class="judul-pengumuman-tampilan">${judulPengumuman}</span> <span class="badge badge-success perbandingan-baru-pengumuman" id="perbandingan-baru${doc.id}">${perbandinganBaru}</span></div>
     <div id="konten-pengumuman-tampilan${doc.id}" class="konten-pengumuman-tampilan">${kontenPengumuman}</div>
     <div class="keterangan-pembuat-pengumuman"><small>Dibuat oleh <span class="nama-pembuat-pengumuman" id="nama-pembuat-pengumuman${doc.id}">${pembuatPengumuman}</span> <span class="waktu-pengumuman-dibuat" id="waktu-pengumuman-dibuat${doc.id}">${perbandinganWaktu}</span></small></div>
     `
@@ -3075,6 +3094,23 @@ function renderOverview(doc){
     let namaKategoriMenu;
     let namaMenu;
     let linkMenu;
+    let namaEkspedisiCetakLabel;
+    let pembuatCatatan;
+    let kontenCatatan;
+    let kontenIndent;
+    let produkIndent;
+    let namaCustomer;
+    let kontakCustomer;
+    let tanggalPerpindahan;
+    let kontenPerpindahan;
+    let tenor;
+    let biayaAdmin;
+    let bunga;
+    let kalkulasiTanggal;
+    let dd;
+    let bulan;
+    let mm;
+    let yyyy;
     div.setAttribute('data-date', waktuOverview);
     if(perbandinganWaktu >= 31536000000){
         let perhitunganTahun = Math.floor(perbandinganWaktu/31536000000);
@@ -3176,18 +3212,18 @@ function renderOverview(doc){
         case 'add-achievement':
         div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan suatu achievement.`
-        listOverview.appendChild(div);
+        listOverview.appendChild(div)
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'delete-achievement':
         div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
         tanggalPencapaian = doc.data().tanggalPencapaian;
-        let kalkulasiTanggal = new Date(tanggalPencapaian);
-        let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
-        let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-        let mm = bulan[kalkulasiTanggal.getMonth()]
-        let yyyy = kalkulasiTanggal.getFullYear();
+        kalkulasiTanggal = new Date(tanggalPencapaian);
+        dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+        bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        mm = bulan[kalkulasiTanggal.getMonth()]
+        yyyy = kalkulasiTanggal.getFullYear();
         tanggalPencapaian = dd + ' ' + mm + ' ' + yyyy;
         kontenPencapaian = doc.data().kontenPencapaian;
         div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus suatu achievement.</div>`
@@ -3470,9 +3506,261 @@ function renderOverview(doc){
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
         document.querySelector('#overview' + doc.id).style.color = 'white';
-        break;                                        
+        break;
+        case 'add-print-label-expedition':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        namaEkspedisiCetakLabel = doc.data().namaEkspedisiCetakLabel;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan ekspedisi "${namaEkspedisiCetakLabel}" pada fitur cetak label.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-print-label-expedition':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        namaEkspedisiCetakLabel = doc.data().namaEkspedisiCetakLabel;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus ekspedisi "${namaEkspedisiCetakLabel}" dari fitur cetak label.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-print-label-expedition':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-note':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan suatu catatan.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-note':
+        pembuatCatatan = doc.data().pembuatCatatan;
+        kontenCatatan = doc.data().kontenCatatan;        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + pembuatCatatan.toLowerCase().replace(" ", "-"));        
+        if(penggunaOverview.toLowerCase().replace(" ", "-") == pembuatCatatan.toLowerCase().replace(" ", "-")){
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus catatan milik anda.</div>`
+        } else {
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus catatan milik ${pembuatCatatan}.</div>`    
+        }
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Catatan <span style="font-weight:bold;">${pembuatCatatan}</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                      <div>${kontenCatatan}</div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';        
+        break;
+        case 'update-note':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-indent':
+        namaCustomer = doc.data().namaCustomer;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data indent cust "${namaCustomer}".`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-indent':
+        kontenIndent = doc.data().kontenIndent;
+        produkIndent = doc.data().produkIndent;
+        namaCustomer = doc.data().namaCustomer;
+        kontakCustomer = doc.data().kontakCustomer;        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data indent cust "${namaCustomer}".</div>`        
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Indent Cust ${namaCustomer}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-indent-cust">
+                        <div>Nama Customer</div>
+                        <div>:</div>
+                        <div style="font-weight:bold;">${namaCustomer}</div>
+                        <div>Kontak Customer</div>
+                        <div>:</div>        
+                        <div >${kontakCustomer}</div>
+                        <div>Indent Produk</div>
+                        <div>:</div>        
+                        <div style="font-weight:bold;">${produkIndent}</div>
+                        <div>Konten Indent</div>
+                        <div>:</div> 
+                        <div>${kontenIndent}</div>
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';        
+        break;
+        case 'update-indent':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-transport':
+        tanggalPerpindahan = doc.data().tanggalPerpindahan;
+        kalkulasiTanggal = new Date(tanggalPerpindahan);
+        dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+        bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        mm = bulan[kalkulasiTanggal.getMonth()]
+        yyyy = kalkulasiTanggal.getFullYear();
+        tanggalPerpindahan = dd + ' ' + mm + ' ' + yyyy;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data perpindahan barang untuk tanggal ${tanggalPerpindahan}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-transport':
+        tanggalPerpindahan = doc.data().tanggalPerpindahan;
+        kontenPerpindahan = doc.data().kontenPerpindahan;
+        kalkulasiTanggal = new Date(tanggalPerpindahan);
+        dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+        bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        mm = bulan[kalkulasiTanggal.getMonth()]
+        yyyy = kalkulasiTanggal.getFullYear();
+        tanggalPerpindahan = dd + ' ' + mm + ' ' + yyyy;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data perpindahan ${tanggalPerpindahan}.</div>`        
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Perpindahan ${tanggalPerpindahan}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-perpindahan-barang">
+                        <div>Tanggal Perpindahan</div>
+                        <div>:</div>
+                        <div>${tanggalPerpindahan}</div>
+                        <div>Konten Perpindahan</div>
+                        <div>:</div>        
+                        <div>${kontenPerpindahan}</div>
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';        
+        break;
+        case 'update-transport':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-tenor-calculator':
+        tenor = doc.data().tenor;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan tenor ${tenor} bulan pada konfigurasi kalkulator.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-tenor-calculator':
+        tenor = doc.data().tenor;
+        biayaAdmin = doc.data().biayaAdmin;
+        bunga = doc.data().bunga;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus tenor ${tenor} bulan pada konfigurasi Kalkulator.</div>`        
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Informasi Tenor</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-tenor">
+                        <div>Tenor</div>
+                        <div>:</div>
+                        <div>${tenor} Bulan</div>
+                        <div>Biaya Admin</div>
+                        <div>:</div>        
+                        <div>${"Rp " + Number(biayaAdmin).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"}</div>
+                        <div>Biaya Bunga</div>
+                        <div>:</div>        
+                        <div>${bunga}%</div>                        
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';        
+        break;
+        case 'update-tenor-calculator':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;        
     }
 
+    if(auth.currentUser != null){
     db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         if(document.querySelector('#pengguna-overview' + doc.id) == null){
             console.log = function(){}
@@ -3480,6 +3768,7 @@ function renderOverview(doc){
             document.querySelector('#pengguna-overview' + doc.id).innerHTML = 'Anda';
         }
     })
+    }
 
     $(document).ready(function() {
     db.collection('overview').onSnapshot(snapshot =>{
@@ -3884,17 +4173,1840 @@ function renderUpdateMenu(doc){
     document.querySelector('#link-menu-kedua' + doc.id).setAttribute('href', linkMenu)
 }
 
+const listEkspedisiCetakLabel = document.querySelector('#list-ekspedisi-cetak-label')
+const modalCetakLabel = document.querySelector('#modal-cetak-label')
+function renderEkspedisiCetakLabel(doc){
+    let div = document.createElement('div');
+    let opsi = document.createElement('option');
+    let opsiKedua = document.createElement('option');
+    let ekspedisiCetakLabel = document.createElement('div');
+    opsi.setAttribute('id', 'ekspedisicetaklabel' + doc.id);
+    opsiKedua.setAttribute('id', 'ekspedisitransaksiberjalan' + doc.id);
+    div.classList.add('dokumentasi-ekspedisi-cetak-label' + doc.id, 'ekspedisicetaklabel')
+    div.setAttribute('data-id', doc.id);
+    let namaEkspedisiCetakLabel = doc.data().namaEkspedisiCetakLabel;
+    let tanggal = doc.data().tanggal;
+    div.setAttribute('data-date', tanggal);
+    opsi.setAttribute('data-date', tanggal);
+    opsiKedua.setAttribute('data-date', tanggal);  
+    div.innerHTML = `
+    <div id="nama-ekspedisi-cetak-label-tampilan${doc.id}" class="nama-ekspedisi-cetak-label-tampilan">${namaEkspedisiCetakLabel}</div>
+    <i class='fas fa-pen edit-ekspedisi-cetak-label' id='edit${doc.id}' data-target="#modalekspedisicetaklabel${doc.id}" data-toggle="modal"></i>
+    <i class='fas fa-trash-alt hapus-ekspedisi-cetak-label' id="hapus${doc.id}"></i>
+    `
+    opsi.innerHTML = namaEkspedisiCetakLabel;
+    opsiKedua.innerHTML = namaEkspedisiCetakLabel;
+
+    ekspedisiCetakLabel.innerHTML = `
+        <div class="modal fade" id="modalekspedisicetaklabel${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Pengaturan Ekspedisi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div class="modal-body">
+                  <form id="tambah-ekspedisi-cetak-label${doc.id}">
+                        <div class="form-group">
+                          <label class="col-form-label">Nama Ekspedisi</label>
+                          <input type="text" class="form-control" value="${namaEkspedisiCetakLabel}" id="nama-ekspedisi-cetak-label${doc.id}" autocomplete="off" required>
+                        </div>
+                        <div class="modal-footer">
+                              <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                              <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                    </div>
+                  </div>
+               </div>
+             </div>
+    `
+
+    listEkspedisiCetakLabel.appendChild(div);
+    if(!document.querySelector('#ekspedisicetaklabel' + doc.id)){
+    document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+
+    $(document).ready(function() {
+    db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+    let items = $('#ekspedisi-customer-cetak-label > option').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('date');
+    let keyB = $(b).data('date');
+    if (keyA > keyB) return 1;
+    if (keyA < keyB) return -1;
+    return 0;
+    })
+    let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+    $.each(items, function(i, div) {
+    daftarOpsiEkspedisiCetakLabel.append(div)
+    })
+  })
+})   
+
+    }
+    document.querySelector('#ekspedisi-transaksi-berjalan').options[0].parentNode.insertBefore(opsiKedua, document.querySelector('#ekspedisi-transaksi-berjalan').options[0].nextSibling);
+
+    $(document).ready(function() {
+    db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+    let items = $('#ekspedisi-transaksi-berjalan > option').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('date');
+    let keyB = $(b).data('date');
+    if (keyA > keyB) return 1;
+    if (keyA < keyB) return -1;
+    return 0;
+    })
+    let daftarOpsiEkspedisiTransaksiBerjalan = $('#ekspedisi-transaksi-berjalan');
+    $.each(items, function(i, div) {
+    daftarOpsiEkspedisiTransaksiBerjalan.append(div)
+    })
+  })
+})   
+
+    modalCetakLabel.appendChild(ekspedisiCetakLabel);
+
+    $(document).ready(function() {
+    db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+    let items = $('#list-ekspedisi-cetak-label > .ekspedisicetaklabel').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('date');
+    let keyB = $(b).data('date');
+    if (keyA > keyB) return 1;
+    if (keyA < keyB) return -1;
+    return 0;
+    })
+    let daftarEkspedisiCetakLabel = $('#list-ekspedisi-cetak-label');
+    $.each(items, function(i, div) {
+    daftarEkspedisiCetakLabel.append(div);
+    })
+  })
+})
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus ekspedisi ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-ekspedisi-cetak-label' + doc.id).getAttribute('data-id');
+        db.collection('ekspedisiCetakLabel').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                namaEkspedisiCetakLabel : item.data().namaEkspedisiCetakLabel,
+                overview : 'delete-print-label-expedition'
+                })
+        }).then(() => {
+
+            db.collection('ekspedisiCetakLabel').doc(id).delete();
+            })
+        })
+    }
+})
+
+        let formEdit = document.querySelector('#tambah-ekspedisi-cetak-label' + doc.id);
+        formEdit.addEventListener('submit', function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            let namaEkspedisiCetakLabelUpdate = document.querySelector('#nama-ekspedisi-cetak-label' + doc.id).value;
+            let tanggal = new Date().getTime()
+            let overviewCadangan;
+            db.collection('ekspedisiCetakLabel').doc(doc.id).get().then(function(item){
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+                namaEkspedisiCetakLabel = item.data().namaEkspedisiCetakLabel;
+            if(namaEkspedisiCetakLabel == namaEkspedisiCetakLabelUpdate){
+                alert('Tidak ada perubahan yang terjadi pada kolom berikut');
+            } else if(namaEkspedisiCetakLabel != namaEkspedisiCetakLabelUpdate){
+                overviewCadangan = 'mengubah nama ekspedisi "' + namaEkspedisiCetakLabel + '" menjadi "' + namaEkspedisiCetakLabelUpdate + '".';
+                db.collection('ekspedisiCetakLabel').doc(doc.id).update({
+                    namaEkspedisiCetakLabel : namaEkspedisiCetakLabelUpdate
+            }).then(() => {
+                    db.collection('overview').add({
+                        penggunaOverview : docs.data().username,
+                        waktuOverview : tanggal,
+                        overview : 'update-print-label-expedition',
+                        overviewCadangan : overviewCadangan
+                        })
+                    }).then(() => {
+                        $('#modalekspedisicetaklabel' + doc.id).modal('hide');
+                    })
+            } 
+                })
+            })
+        })    
+
+}
+
+function renderUpdateEkspedisiCetakLabel(doc){
+    let namaEkspedisiCetakLabel = doc.data().namaEkspedisiCetakLabel;
+    document.querySelector('#nama-ekspedisi-cetak-label-tampilan' + doc.id).innerHTML = namaEkspedisiCetakLabel;
+    document.querySelector('#ekspedisicetaklabel' + doc.id).innerHTML = namaEkspedisiCetakLabel;
+    document.querySelector('#ekspedisitransaksiberjalan' + doc.id).innerHTML = namaEkspedisiCetakLabel;
+}
+
+const listCatatan = document.querySelector('#list-catatan');
+const modalCatatan = document.querySelector('#modal-edit-catatan');
+function renderCatatan(doc){
+    let div = document.createElement('div');
+    let catatan = document.createElement('div');
+    let kontenCatatan = doc.data().kontenCatatan;
+    let pembuatCatatan = doc.data().pembuatCatatan;
+    let tanggal = doc.data().tanggal;
+    let kalkulasiTanggal = new Date(tanggal);
+    let tanggalSekarang = new Date().getTime();
+    let perbandinganWaktu = tanggalSekarang - tanggal;
+    div.setAttribute('data-date', tanggal);
+    div.setAttribute('data-id', doc.id)
+    div.setAttribute('id', 'catatan' + doc.id)
+    div.classList.add('dokumentasi-catatan' + doc.id, 'catatan')
+    let perbandinganBaru;
+    if(perbandinganWaktu >= 31536000000){
+        let perhitunganTahun = Math.floor(perbandinganWaktu/31536000000);
+        perbandinganWaktu = 'Dibuat pada ' + perhitunganTahun + ' tahun yang lalu';
+    } else if(perbandinganWaktu >= 2629800000){
+        let perhitunganBulan = Math.floor(perbandinganWaktu/2629800000);
+        perbandinganWaktu = 'Dibuat pada ' + perhitunganBulan + ' bulan yang lalu';
+    } else if(perbandinganWaktu >= 604800000){
+        let perhitunganMinggu = Math.floor(perbandinganWaktu/604800000);
+        perbandinganWaktu = 'Dibuat pada ' + perhitunganMinggu + ' minggu yang lalu';
+    } else if(perbandinganWaktu >= 86400000){
+        let perhitunganHari = Math.floor(perbandinganWaktu/86400000);
+        perbandinganWaktu = 'Dibuat pada ' + perhitunganHari + ' hari yang lalu'
+    } else if(perbandinganWaktu >= 3600000){
+        let perhitunganJam = Math.floor(perbandinganWaktu/3600000);
+        perbandinganWaktu = 'Dibuat pada ' + perhitunganJam + ' jam yang lalu';
+    } else if(perbandinganWaktu >= 60000){
+        let perhitunganMenit = Math.floor(perbandinganWaktu/60000);
+        perbandinganWaktu = 'Dibuat pada ' + perhitunganMenit + ' menit yang lalu';
+    } else if(perbandinganWaktu < 60000){
+        perbandinganWaktu = 'Dibuat baru saja';
+    }
+    div.innerHTML = `
+
+<div class="header-catatan">
+    <div class="header-catatan-kedua">
+        <div class="nama-pembuat-catatan"><i class='fas fa-user-alt'></i> ${pembuatCatatan}</div>
+        <div class="waktu-catatan-dibuat" id="waktu-luncur-catatan${doc.id}">${perbandinganWaktu}</div>
+    </div>
+    <div class="dropdown">        
+        <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+        <div class="dropdown-menu menu-konfigurasi-catatan">
+            <div class='edit-catatan dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalcatatan${doc.id}'><i class='fas fa-pen'></i> Edit</div>
+            <div class='hapus-catatan dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+        </div>
+    </div>
+</div>
+    <div class="konten-catatan-body" id='konten-catatan-body${doc.id}'>${kontenCatatan}</div>
+    `
+
+    catatan.innerHTML = `
+<div class="modal fade" id="modalcatatan${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pengaturan Catatan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-catatan${doc.id}">
+              <div class="form-group">
+                <label>Konten Catatan</label>
+              <textarea oninput="auto_grow(this)" class="form-control" id="konten-catatan${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required>${kontenCatatan.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+              </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+    `
+
+    listCatatan.appendChild(div);
+    modalCatatan.appendChild(catatan);
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus catatan ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-catatan' + doc.id).getAttribute('data-id');
+        db.collection('catatan').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                kontenCatatan : item.data().kontenCatatan,
+                pembuatCatatan : item.data().pembuatCatatan,
+                overview : 'delete-note'
+                })
+        }).then(() => {
+            db.collection('catatan').doc(id).delete();
+            })
+        })
+    }
+})
+
+    let formEdit = document.querySelector('#tambah-catatan' + doc.id);
+    formEdit.addEventListener('submit', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        let kontenCatatanUpdate = document.querySelector('#konten-catatan' + doc.id).value;
+        let tanggal = new Date().getTime()
+        let overviewCadangan;
+        db.collection('catatan').doc(doc.id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+            kontenCatatan = item.data().kontenCatatan;
+        if(kontenCatatan == kontenCatatanUpdate.replace(/\n\r?/g, '<br/>')){
+            alert('Tidak ada perubahan yang terjadi pada kolom berikut');
+        } else if(kontenCatatan != kontenCatatanUpdate.replace(/\n\r?/g, '<br/>')){
+            overviewCadangan = 'mengubah konten suatu catatan.';
+            db.collection('catatan').doc(doc.id).update({
+                kontenCatatan : kontenCatatanUpdate.replace(/\n\r?/g, '<br/>')
+        }).then(() => {
+                db.collection('overview').add({
+                    penggunaOverview : docs.data().username,
+                    waktuOverview : tanggal,
+                    overview : 'update-note',
+                    overviewCadangan : overviewCadangan
+                    })
+                }).then(() => {
+                    $('#modalcatatan' + doc.id).modal('hide');
+                })
+        } 
+            })
+        })
+    })    
+
+
+    $(document).ready(function() {
+    db.collection('catatan').onSnapshot(snapshot =>{
+    let items = $('#list-catatan > .catatan').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('date');
+    let keyB = $(b).data('date');
+    if (keyA < keyB) return 1;
+    if (keyA > keyB) return -1;
+    return 0;
+    })
+    let daftarCatatan = $('#list-catatan');
+    $.each(items, function(i, div) {
+    daftarCatatan.append(div);
+    })
+  })
+})
+
+}
+
+function renderUpdateCatatan(doc){
+    let kontenCatatan = doc.data().kontenCatatan;
+    document.querySelector('#konten-catatan-body' + doc.id).innerHTML = kontenCatatan;
+}
+
+const listIndentCust = document.querySelector('#list-indent-cust')
+const modalIndentCust = document.querySelector('#modal-edit-indent-cust')
+function renderIndent(doc){
+    let div = document.createElement('div');
+    let indent = document.createElement('div')
+    div.setAttribute('data-id', doc.id)
+    div.setAttribute('id', 'indent' + doc.id);
+    div.setAttribute('data-target', '#modalindentcust' + doc.id)
+    div.setAttribute('data-toggle', 'modal')
+    div.classList.add('dokumentasi-indent' + doc.id, 'indent-cust')
+    let tanggal = doc.data().tanggal;
+    div.setAttribute('data-date', tanggal);    
+    let namaCustomer = doc.data().namaCustomer;
+    let kontakCustomer = doc.data().kontakCustomer;
+    let kontenIndent = doc.data().kontenIndent;
+    let produkIndent = doc.data().produkIndent;
+    let kalkulasiTanggal = new Date(tanggal);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let mm1 = String(kalkulasiTanggal.getMonth() + 1).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggal = dd + ' ' + mm + ' ' + yyyy;
+
+    div.innerHTML = `<div>Indent ${tanggal}</div>
+    <div class="produk-indent-tampilan">
+    <div>, Produk</div>
+    <div>:</div>
+    <div id="produk-indent-tampilan${doc.id}">${produkIndent}</div>
+    </div>
+    `
+    indent.innerHTML = `
+<div class="modal fade" id="modalindentcust${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Indent Cust ${namaCustomer}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+        <div class="data-indent-cust">
+        <div class="info-indent-cust">
+        <div>Nama Customer</div>
+        <div>:</div>
+        <div style="font-weight:bold;" id="nama-customer-indent-cust-body${doc.id}">${namaCustomer}</div>
+        <div>Kontak Customer</div>
+        <div>:</div>        
+        <div id="kontak-customer-indent-cust-body${doc.id}">${kontakCustomer}</div>
+        <div>Produk Indent</div>
+        <div>:</div> 
+        <div id="produk-indent-cust-body${doc.id}">${produkIndent}</div>
+        <div>Konten Indent</div>
+        <div>:</div> 
+        <div id="konten-indent-cust-body${doc.id}">${kontenIndent}</div>
+        </div>
+        <div id="edit${doc.id}" class="btn btn-warning edit edit-indent-cust">Edit Data Indent Cust</div>
+        <div id="hapus${doc.id}" class="btn btn-danger hapus hapus-indent-cust">Hapus Data Indent Cust</div>
+      </div>
+          <form id="modal-indent-cust${doc.id}" class="modal-indent-cust">
+              <div class="form-group">
+                <label class="col-form-label">Nama Customer</label>
+                <input type="text" value="${namaCustomer}" class="form-control" id="nama-customer-indent-cust${doc.id}" autocomplete="off" required>
+              </div>
+              <div class="form-group">
+                <label>Kontak Customer <small>(Note : Tidak wajib untuk diisi)</small></label>
+                <input type="number" value="${kontakCustomer}" class="form-control your_class" id="kontak-customer-indent-cust${doc.id}" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13">
+              </div>
+              <div class="form-group">
+                <label>Produk Indent</label>
+              <textarea oninput="auto_grow(this)" class="form-control" id="produk-indent-cust${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required>${produkIndent.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+              </div>              
+              <div class="form-group">                            
+                <label>Konten Indent <small>(Note : Tidak wajib untuk diisi)</small></label>
+              <textarea oninput="auto_grow(this)" class="form-control" id="konten-indent-cust${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)">${kontenIndent.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+              </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+    `
+
+    modalIndentCust.appendChild(indent);
+    listIndentCust.appendChild(div);
+
+    $(document).ready(function() {
+    db.collection('indent').onSnapshot(snapshot =>{
+    let items = $('#list-indent-cust > .indent-cust').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('date');
+    let keyB = $(b).data('date');
+    if (keyA < keyB) return 1;
+    if (keyA > keyB) return -1;
+    return 0;
+    })
+    let daftarIndentCust = $('#list-indent-cust');
+    $.each(items, function(i, div) {
+    daftarIndentCust.append(div);
+    })
+  })
+})
+
+    let edit = document.querySelector('#edit' + doc.id);
+    edit.addEventListener('click', function(e){
+        e.preventDefault();
+        let formEdit = document.querySelector('#modal-indent-cust' + doc.id);
+        formEdit.style.display = "block";      
+        formEdit.addEventListener('submit', function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            let kontenIndentUpdate = document.querySelector('#konten-indent-cust' + doc.id).value;
+            let produkIndentUpdate = document.querySelector('#produk-indent-cust' + doc.id).value;
+            let namaCustomerUpdate = document.querySelector('#nama-customer-indent-cust' + doc.id).value;
+            let kontakCustomerUpdate = document.querySelector('#kontak-customer-indent-cust' + doc.id).value;
+            let overviewCadangan;
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+            db.collection('indent').doc(doc.id).get().then(function(item) {
+            kontenIndent = item.data().kontenIndent;            
+            produkIndent = item.data().produkIndent;
+            namaCustomer = item.data().namaCustomer;
+            kontakCustomer = item.data().kontakCustomer;
+            if(kontenIndent == kontenIndentUpdate.replace(/\n\r?/g, '<br/>') && produkIndent == produkIndentUpdate.replace(/\n\r?/g, '<br/>') && namaCustomer == namaCustomerUpdate && kontakCustomer == kontakCustomerUpdate){
+                alert('Tidak ada perubahan yang terjadi pada kolom kolom berikut');                
+            } else if(kontenIndent != kontenIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                if(produkIndent != produkIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                    if(namaCustomer != namaCustomerUpdate){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta konten dan produk indent cust.';
+                    } else if(kontakCustomer != kontakCustomerUpdate){
+                        overviewCadangan = 'mengubah kontak customer, konten indent dan produk indent cust ' + namaCustomer + '.';
+                    } else {
+                        overviewCadangan = 'mengubah konten indent dan produk indent cust ' + namaCustomer + '.';
+                    }
+                } else if(namaCustomer != namaCustomerUpdate){
+                    if(kontakCustomer != kontakCustomerUpdate){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak dan konten indent cust.';
+                    } else if(produkIndent != produkIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta konten dan produk indent cust.';
+                    } else {
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta konten indent cust.';
+                    }
+                } else if(kontakCustomer != kontakCustomerUpdate){
+                    if(produkIndent != produkIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                        overviewCadangan = 'mengubah kontak customer, konten indent dan produk indent cust ' + namaCustomer + '.';
+                    } else if(namaCustomer != namaCustomerUpdate){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak dan konten indent cust.';
+                    } else {
+                        overviewCadangan = 'mengubah kontak customer dan konten indent cust ' + namaCustomer + '.';
+                    }
+                } else { 
+                    overviewCadangan = 'mengubah konten indent cust ' + namaCustomer + '.';
+                }
+                    db.collection('indent').doc(doc.id).update({
+                        kontenIndent : kontenIndentUpdate.replace(/\n\r?/g, '<br/>'),
+                        produkIndent : produkIndentUpdate.replace(/\n\r?/g, '<br/>'),
+                        namaCustomer : namaCustomerUpdate,
+                        kontakCustomer : kontakCustomerUpdate
+                    }).then(() =>{
+                        formEdit.style.display = "none";
+                        db.collection('overview').add({
+                            penggunaOverview : docs.data().username,
+                            waktuOverview : new Date().getTime(),
+                            overview : 'update-indent',
+                            overviewCadangan : overviewCadangan
+                        })
+                            })                   
+            } else if(produkIndent != produkIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                if(kontenIndent != kontenIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                    if(namaCustomer != namaCustomerUpdate){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta konten dan produk indent cust.';
+                    } else if(kontakCustomer != kontakCustomerUpdate){
+                        overviewCadangan = 'mengubah kontak customer, konten indent dan produk indent cust ' + namaCustomer + '.';
+                    } else {
+                        overviewCadangan = 'mengubah konten indent dan produk indent cust ' + namaCustomer + '.';
+                    }                    
+                } else if(namaCustomer != namaCustomerUpdate){
+                    if(kontakCustomer != kontakCustomerUpdate){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak dan produk indent cust.';
+                    } else if(kontenIndent != kontenIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta konten dan produk indent cust.';
+                    } else {
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta produk indent cust.';
+                    }
+                } else if(kontakCustomer != kontakCustomerUpdate){
+                    if(kontenIndent != kontenIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                        overviewCadangan = 'mengubah kontak customer, konten indent dan produk indent cust ' + namaCustomer + '.';
+                    } else if(namaCustomer != namaCustomerUpdate){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak dan produk indent cust.';
+                    } else {
+                        overviewCadangan = 'mengubah kontak customer dan produk indent cust ' + namaCustomer + '.';
+                    }
+                } else {
+                    overviewCadangan = 'mengubah produk indent cust ' + namaCustomer + '.';
+                }
+                    db.collection('indent').doc(doc.id).update({
+                        kontenIndent : kontenIndentUpdate.replace(/\n\r?/g, '<br/>'),
+                        produkIndent : produkIndentUpdate.replace(/\n\r?/g, '<br/>'),
+                        namaCustomer : namaCustomerUpdate,
+                        kontakCustomer : kontakCustomerUpdate
+                    }).then(() =>{
+                        formEdit.style.display = "none";
+                        db.collection('overview').add({
+                            penggunaOverview : docs.data().username,
+                            waktuOverview : new Date().getTime(),
+                            overview : 'update-indent',
+                            overviewCadangan : overviewCadangan
+                        })
+                            })                                
+            } else if(namaCustomer != namaCustomerUpdate){
+                if(kontakCustomer != kontakCustomerUpdate){
+                    if(kontenIndent != kontenIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak dan konten indent cust.';
+                    } else if(produkIndent != produkIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak dan produk indent cust.';
+                    } else {
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak customer.';
+                    } 
+                } else if(produkIndent != produkIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                    if(kontakCustomer != kontakCustomerUpdate){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak dan produk indent cust.';
+                    } else if(kontenIndent != kontenIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta konten dan produk indent cust.';
+                    } else {
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta produk indent cust.';
+                    }
+                } else if(kontenIndent != kontenIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                    if(produkIndent != produkIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta konten dan produk indent cust.';
+                    } else if(kontakCustomer != kontakCustomerUpdate){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak dan konten indent cust.';
+                    } else {
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta konten indent cust.';
+                    }                    
+                } else {
+                    overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '".';                    
+                }
+                    db.collection('indent').doc(doc.id).update({
+                        kontenIndent : kontenIndentUpdate.replace(/\n\r?/g, '<br/>'),
+                        produkIndent : produkIndentUpdate.replace(/\n\r?/g, '<br/>'),
+                        namaCustomer : namaCustomerUpdate,
+                        kontakCustomer : kontakCustomerUpdate
+                    }).then(() =>{
+                        formEdit.style.display = "none";
+                        db.collection('overview').add({
+                            penggunaOverview : docs.data().username,
+                            waktuOverview : new Date().getTime(),
+                            overview : 'update-indent',
+                            overviewCadangan : overviewCadangan
+                        })
+                            })                                
+            } else if(kontakCustomer != kontakCustomerUpdate){
+                if(namaCustomer != namaCustomerUpdate){
+                    if(kontenIndent != kontenIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak dan konten indent cust.';
+                    } else if(produkIndent != produkIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak dan produk indent cust.';
+                    } else {
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak customer.';
+                    }
+                } else if(produkIndent != produkIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                    if(namaCustomer != namaCustomerUpdate){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak dan produk indent cust.';
+                    } else if(kontenIndent != kontenIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                        overviewCadangan = 'mengubah kontak customer, konten indent dan produk indent cust ' + namaCustomer + '.';
+                    } else {
+                        overviewCadangan = 'mengubah kontak customer dan produk indent cust ' + namaCustomer + '.';
+                    }
+                } else if(kontenIndent != kontenIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                    if(produkIndent != produkIndentUpdate.replace(/\n\r?/g, '<br/>')){
+                        overviewCadangan = 'mengubah kontak customer, konten indent dan produk indent cust ' + namaCustomer + '.';
+                    } else if(namaCustomer != namaCustomerUpdate){
+                        overviewCadangan = 'mengubah nama customer pada data indent cust "' + namaCustomer + '" menjadi "' + namaCustomerUpdate + '" beserta kontak dan konten indent cust.';
+                    } else {
+                        overviewCadangan = 'mengubah kontak customer dan konten indent cust ' + namaCustomer + '.';
+                    }                    
+                } else {
+                    overviewCadangan = 'mengubah konten produk indent cust ' + namaCustomer + '.';
+                }
+                    db.collection('indent').doc(doc.id).update({
+                        kontenIndent : kontenIndentUpdate.replace(/\n\r?/g, '<br/>'),
+                        produkIndent : produkIndentUpdate.replace(/\n\r?/g, '<br/>'),
+                        namaCustomer : namaCustomerUpdate,
+                        kontakCustomer : kontakCustomerUpdate
+                    }).then(() =>{
+                        formEdit.style.display = "none";
+                        db.collection('overview').add({
+                            penggunaOverview : docs.data().username,
+                            waktuOverview : new Date().getTime(),
+                            overview : 'update-indent',
+                            overviewCadangan : overviewCadangan
+                        })
+                            })                                
+            }
+            })
+        })
+    })
+})
+
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus data indent cust ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-indent' + doc.id).getAttribute('data-id');
+        db.collection('indent').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                kontenIndent : item.data().kontenIndent,
+                produkIndent : item.data().produkIndent,
+                namaCustomer : item.data().namaCustomer,
+                kontakCustomer : item.data().kontakCustomer,
+                overview : 'delete-indent'
+                })
+        }).then(() => {
+            db.collection('indent').doc(id).delete();
+            $('#modalindentcust' + doc.id).modal('hide')
+            })
+        })
+    }
+})
+
+}
+
+function renderUpdateIndent(doc){
+    let kontenIndent = doc.data().kontenIndent;
+    let produkIndent = doc.data().produkIndent;
+    let namaCustomer = doc.data().namaCustomer;
+    let kontakCustomer = doc.data().kontakCustomer;
+    document.querySelector('#konten-indent-cust-body' + doc.id).innerHTML = kontenIndent;
+    document.querySelector('#produk-indent-cust-body' + doc.id).innerHTML = produkIndent;
+    document.querySelector('#produk-indent-tampilan' + doc.id).innerHTML = produkIndent;
+    document.querySelector('#nama-customer-indent-cust-body' + doc.id).innerHTML = namaCustomer;
+    document.querySelector('#kontak-customer-indent-cust-body' + doc.id).innerHTML = kontakCustomer;
+}
+
+const listPerpindahanBarang = document.querySelector('#list-perpindahan-barang');
+const listPerpindahanBarangPending = document.querySelector('#list-perpindahan-barang-pending');
+const listPerpindahanBarangSelesai = document.querySelector('#list-perpindahan-barang-selesai');
+const modalPerpindahanBarang = document.querySelector('#modal-edit-perpindahan-barang');
+function renderPerpindahan(doc){
+    let div = document.createElement('div')
+    let perpindahan = document.createElement('div');
+    div.setAttribute('data-id', doc.id)
+    div.setAttribute('id', 'perpindahanbarang' + doc.id)
+    div.classList.add('dokumentasi-perpindahan' + doc.id, 'perpindahan-barang');
+    let tanggal = doc.data().tanggal;
+    let kontenPerpindahan = doc.data().kontenPerpindahan;
+    div.setAttribute('data-date', new Date(tanggal).getTime())
+    let kalkulasiTanggal = new Date(tanggal);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggal = dd + ' ' + mm + ' ' + yyyy;
+    let mm1 = String(kalkulasiTanggal.getMonth() + 1).padStart(2, '0');
+    let tampilanTanggal = yyyy + '-' + mm1 + '-' + dd;
+    let tanggalPerpindahan = yyyy + mm1 + dd;
+    dd = String(new Date().getDate()).padStart(2, '0');
+    mm = String(new Date().getMonth() + 1).padStart(2, '0');
+    yyyy = new Date().getFullYear();
+    let tanggalSekarang = yyyy + mm + dd;
+    div.innerHTML = `
+    <div class="header-perpindahan-barang">
+        <div class="judul-perpindahan-barang">Perpindahan <span id="tanggal-perpindahan-barang-tampilan${doc.id}">Tanggal ${tanggal}</span></div>
+        <div class="dropdown">        
+            <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            <div class="dropdown-menu menu-konfigurasi-perpindahan-barang">
+                <div class='edit-perpindahan-barang dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalperpindahanbarang${doc.id}'><i class='fas fa-pen'></i> Edit</div>
+                <div class='hapus-perpindahan-barang dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+            </div>
+        </div>
+    </div>
+    <div id="konten-perpindahan-barang-tampilan${doc.id}" class="konten-perpindahan-barang-tampilan">${kontenPerpindahan}</div>
+    `
+
+    perpindahan.innerHTML = `
+    <div class="modal fade" id="modalperpindahanbarang${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Pengaturan Data Perpindahan Barang</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body">
+              <form id="tambah-perpindahan-barang${doc.id}">
+                  <div class="form-group">
+                    <label class="col-form-label">Tanggal Perpindahan <small>(Note :Tanggal akan otomatis mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
+                    <input type="date" value="${tampilanTanggal}" class="form-control" id="tanggal-perpindahan-barang${doc.id}" autocomplete="off">
+                  </div>
+                  <div class="form-group">              
+                    <label>Konten Perpindahan</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="konten-perpindahan-barang${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required>${kontenPerpindahan.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                  </div>
+                    <div class="modal-footer">
+                          <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+           </div>
+         </div>
+    `
+    if(tanggalPerpindahan == tanggalSekarang){
+        listPerpindahanBarang.appendChild(div);
+        document.querySelector('#tanggal-perpindahan-barang-tampilan' + doc.id).innerHTML = 'Hari Ini';
+    } else {
+        listPerpindahanBarangPending.appendChild(div);
+    }
+    modalPerpindahanBarang.appendChild(perpindahan);    
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus data perpindahan barang ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-perpindahan' + doc.id).getAttribute('data-id');
+        db.collection('perpindahan').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                tanggalPerpindahan : item.data().tanggal,
+                kontenPerpindahan : item.data().kontenPerpindahan,
+                overview : 'delete-transport'
+                })
+        }).then(() => {
+            db.collection('perpindahan').doc(id).delete();
+            $('#modalperpindahanbarang' + doc.id).modal('hide')
+                })
+            })
+        }
+    })
+
+    let edit = document.querySelector('#tambah-perpindahan-barang' + doc.id);
+    edit.addEventListener('submit', (e) =>{
+        e.preventDefault();
+        let tanggalUpdate = document.querySelector('#tanggal-perpindahan-barang' + doc.id).value;
+        let kontenPerpindahanUpdate = document.querySelector('#konten-perpindahan-barang' + doc.id).value;
+        let overviewCadangan;
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        db.collection('perpindahan').doc(doc.id).get().then(function(item) {
+        tanggal = item.data().tanggal;
+        kontenPerpindahan = item.data().kontenPerpindahan;
+        if(new Date(tanggal).getTime() == new Date(tanggalUpdate).getTime() && kontenPerpindahan == kontenPerpindahanUpdate.replace(/\n\r?/g, '<br/>')){
+            alert('Tidak ada perubahan pada kolom kolom berikut.');
+        } else if(new Date(tanggal).getTime() != new Date(tanggalUpdate).getTime() && kontenPerpindahan != kontenPerpindahanUpdate.replace(/\n\r?/g, '<br/>')){
+            db.collection('perpindahan').doc(doc.id).update({
+                tanggal : tanggalUpdate,
+                kontenPerpindahan : kontenPerpindahanUpdate.replace(/\n\r?/g, '<br/>')
+            }).then(() =>{
+                overviewCadangan = 'mengubah tanggal dan konten suatu perpindahan barang.'            
+                    db.collection('overview').add({
+                    penggunaOverview : docs.data().username,
+                    waktuOverview : new Date().getTime(),
+                    overview : 'update-transport',
+                    overviewCadangan : overviewCadangan
+                    })
+                $('#modalperpindahanbarang' + doc.id).modal('hide')
+                })
+        } else if(new Date(tanggal).getTime() != new Date(tanggalUpdate).getTime()){
+            db.collection('perpindahan').doc(doc.id).update({
+                tanggal : tanggalUpdate
+            }).then(() =>{
+                overviewCadangan = 'mengubah tanggal suatu perpindahan barang.'            
+                    db.collection('overview').add({
+                    penggunaOverview : docs.data().username,
+                    waktuOverview : new Date().getTime(),
+                    overview : 'update-transport',
+                    overviewCadangan : overviewCadangan
+                    })
+                $('#modalperpindahanbarang' + doc.id).modal('hide')
+                })        
+        } else if(kontenPerpindahan != kontenPerpindahanUpdate.replace(/\n\r?/g, '<br/>')){
+            db.collection('perpindahan').doc(doc.id).update({
+                kontenPerpindahan : kontenPerpindahanUpdate.replace(/\n\r?/g, '<br/>')
+            }).then(() =>{
+                overviewCadangan = 'mengubah konten dan konten suatu perpindahan barang.'            
+                    db.collection('overview').add({
+                    penggunaOverview : docs.data().username,
+                    waktuOverview : new Date().getTime(),
+                    overview : 'update-transport',
+                    overviewCadangan : overviewCadangan
+                    })
+                $('#modalperpindahanbarang' + doc.id).modal('hide')
+                })
+        }
+            })
+        })
+    })
+
+        $(document).ready(function() {
+        db.collection('perpindahan').onSnapshot(snapshot =>{
+        let items = $('#list-perpindahan-barang > .perpindahan-barang').get();
+        items.sort(function(a, b) {
+        let keyA = $(a).data('date');
+        let keyB = $(b).data('date');
+        if (keyA < keyB) return 1;
+        if (keyA > keyB) return -1;
+        return 0;
+        })
+        let daftarPerpindahanBarang = $('#list-perpindahan-barang');
+        $.each(items, function(i, div) {
+        daftarPerpindahanBarang.append(div);
+        })
+      })
+    })
+
+}
+
+function renderUpdatePerpindahan(doc){
+    let kontenPerpindahan = doc.data().kontenPerpindahan;
+    document.querySelector('#konten-perpindahan-barang-tampilan' + doc.id).innerHTML = kontenPerpindahan;
+}
+
+const modalTenor = document.querySelector('#modal-edit-tenor');
+function renderTenorKalkulator(doc){
+    let div = document.createElement('div');
+    let tenorKalkulator = document.createElement('div');
+    div.setAttribute('data-id', doc.id);
+    div.setAttribute('id', 'tenor' + doc.id)
+    div.classList.add('dokumentasi-tenor-kalkulator' + doc.id, 'tombol-tenor-kalkulator', 'tenor-kalkulator')
+    let tenor = doc.data().tenor;
+    let biayaAdmin = doc.data().biayaAdmin;
+    let bunga = doc.data().bunga;
+    div.setAttribute('data-filter', tenor);
+    div.innerHTML = `<div data-toggle="modal" data-target="#modaltenor${doc.id}" id="tenor-tampilan${doc.id}" class="tenor-tampilan">${tenor} Bulan</div><div id="hapus${doc.id}" class="hapustenor">x</div>`
+    document.querySelector('#tombol-tambah-tenor-kalkulator').parentNode.insertBefore(div, document.querySelector('#tombol-tambah-tenor-kalkulator'))
+
+    tenorKalkulator.innerHTML = `
+<div class="modal fade" id="modaltenor${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pengaturan Tenor Kalkulator</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+        <div class="data-tenor">
+        <div class="info-tenor">
+        <div>Tenor</div>
+        <div>:</div>
+        <div id="tenor-body${doc.id}">${tenor} Bulan</div>
+        <div>Biaya Admin</div>
+        <div>:</div>        
+        <div id="biaya-admin-body${doc.id}">${"Rp " + Number(biayaAdmin).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"}</div>
+        <div>Biaya Bunga</div>
+        <div>:</div> 
+        <div id="bunga-body${doc.id}">${bunga}%</div> 
+        </div>
+        <div id="edit${doc.id}" class="btn btn-warning edit edit-tenor">Edit Tenor</div>
+        <div id="hapuskedua${doc.id}" class="btn btn-danger hapus hapus-tenor">Hapus Tenor</div>
+        </div>
+          <form id="modal-tenor${doc.id}" class="modal-tenor">
+              <div class="form-group">
+                <label class="col-form-label">Biaya Admin</label>
+                <input type="number" value="${biayaAdmin}" class="form-control your_class" id="biaya-admin-tenor-kalkulator${doc.id}" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" required>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Bunga</label>
+                <input type="text" value="${bunga}" class="form-control" id="bunga-tenor-kalkulator${doc.id}" autocomplete="off" maxlength = "4" required>
+              </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+    `
+
+    modalTenor.appendChild(tenorKalkulator)
+
+    let edit = document.querySelector('#edit' + doc.id);
+    edit.addEventListener('click', function(e){
+        let formEdit = document.querySelector('#modal-tenor' + doc.id);
+        formEdit.style.display = "block";      
+        formEdit.addEventListener('submit', function(e){
+        e.preventDefault();
+        let biayaAdminTenorKalkulatorUpdate = document.querySelector('#biaya-admin-tenor-kalkulator' + doc.id).value;
+        let bungaTenorKalkulatorUpdate = document.querySelector('#bunga-tenor-kalkulator' + doc.id).value;
+            db.collection('tenorKalkulator').doc(doc.id).get().then(function(item){
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+                tenor = item.data().tenor;
+                biayaAdmin = item.data().biayaAdmin;
+                bunga = item.data().bunga;
+                if(biayaAdmin == biayaAdminTenorKalkulatorUpdate && bunga == bungaTenorKalkulatorUpdate){
+                    alert('Tidak ada perubahan pada kolom kolom berikut.')
+                } else if(biayaAdmin != biayaAdminTenorKalkulatorUpdate && bunga != bungaTenorKalkulatorUpdate){
+                    db.collection('tenorKalkulator').doc(doc.id).update({
+                        biayaAdmin : biayaAdminTenorKalkulatorUpdate,
+                        bunga : bungaTenorKalkulatorUpdate
+                    }).then(() =>{
+                        overviewCadangan = `mengubah biaya admin dan bunga pada tenor ${tenor} bulan dari ${"Rp " + Number(biayaAdmin).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"} dan ${bunga}% menjadi ${biayaAdminTenorKalkulatorUpdate} dan ${bungaTenorKalkulatorUpdate}%.`            
+                            db.collection('overview').add({
+                            penggunaOverview : docs.data().username,
+                            waktuOverview : new Date().getTime(),
+                            overview : 'update-tenor-calculator',
+                            overviewCadangan : overviewCadangan
+                            })
+                        $('#modaltenor' + doc.id).modal('hide')
+                        })                    
+                } else if(biayaAdmin != biayaAdminTenorKalkulatorUpdate){
+                    db.collection('tenorKalkulator').doc(doc.id).update({
+                        biayaAdmin : biayaAdminTenorKalkulatorUpdate
+                    }).then(() =>{
+                        overviewCadangan = `mengubah biaya admin pada tenor ${tenor} bulan dari ${"Rp " + Number(biayaAdmin).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"} menjadi ${biayaAdminTenorKalkulatorUpdate}.`            
+                            db.collection('overview').add({
+                            penggunaOverview : docs.data().username,
+                            waktuOverview : new Date().getTime(),
+                            overview : 'update-tenor-calculator',
+                            overviewCadangan : overviewCadangan
+                            })
+                        $('#modaltenor' + doc.id).modal('hide')
+                        })
+                } else if(bunga != bungaTenorKalkulatorUpdate){
+                    db.collection('tenorKalkulator').doc(doc.id).update({
+                        bunga : bungaTenorKalkulatorUpdate
+                    }).then(() =>{
+                        overviewCadangan = `mengubah biaya bunga pada tenor ${tenor} bulan dari ${bunga}% menjadi ${bungaTenorKalkulatorUpdate}%.`            
+                            db.collection('overview').add({
+                            penggunaOverview : docs.data().username,
+                            waktuOverview : new Date().getTime(),
+                            overview : 'update-tenor-calculator',
+                            overviewCadangan : overviewCadangan
+                            })
+                        $('#modaltenor' + doc.id).modal('hide')
+                        })
+                }
+        })
+    })
+        })
+    })
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus tenor ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-tenor-kalkulator' + doc.id).getAttribute('data-id');
+        db.collection('tenorKalkulator').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                tenor : item.data().tenor,
+                biayaAdmin : item.data().biayaAdmin,
+                bunga : item.data().bunga,
+                overview : 'delete-tenor-calculator'
+                })
+        }).then(() => {
+            db.collection('tenorKalkulator').doc(id).delete();
+                })
+            })
+        }
+    })
+
+    let hapusKedua = document.querySelector('#hapuskedua' + doc.id);
+    hapusKedua.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus tenor ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-tenor-kalkulator' + doc.id).getAttribute('data-id');
+        db.collection('tenorKalkulator').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                tenor : item.data().tenor,
+                biayaAdmin : item.data().biayaAdmin,
+                bunga : item.data().bunga,
+                overview : 'delete-tenor-calculator'
+                })
+        }).then(() => {
+            db.collection('tenorKalkulator').doc(id).delete();
+            $('#modaltenor' + doc.id).modal('hide');
+                })
+            })
+        }
+    })
+
+    $(document).ready(function() {
+    db.collection('tenorKalkulator').onSnapshot(snapshot =>{
+    let items = $('#list-tenor-kalkulator > .tenor-kalkulator').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('filter');
+    let keyB = $(b).data('filter');
+    if (keyA > keyB) return 1;
+    if (keyA < keyB) return -1;
+    return 0;
+    })
+    let daftarTenorKalkulator = $('#list-tenor-kalkulator');
+    $.each(items, function(i, div) {
+    document.querySelector('#tombol-tambah-tenor-kalkulator').parentNode.insertBefore(div, document.querySelector('#tombol-tambah-tenor-kalkulator'))
+            })
+        })
+    })   
+     
+}
+
+function renderUpdateTenorKalkulator(doc){
+    let biayaAdmin = doc.data().biayaAdmin;
+    let bunga = doc.data().bunga;
+    document.querySelector('#biaya-admin-body' + doc.id).innerHTML = "Rp " + Number(biayaAdmin).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00";
+    document.querySelector('#bunga-body' + doc.id).innerHTML = bunga + '%'
+}
+
+function renderBiayaAdminKalkulator(doc){
+    let biayaAdmin = doc.data().biayaAdmin;
+    document.querySelector('#biaya-admin-kalkulator').value = biayaAdmin;
+    document.querySelector('#tampilan-biaya-admin-kalkulator').innerHTML = "Rp " + Number(biayaAdmin).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00";    
+}
+
+function renderUpdateBiayaAdminKalkulator(doc){
+    let biayaAdmin = doc.data().biayaAdmin;
+    document.querySelector('#biaya-admin-kalkulator').value = biayaAdmin;
+    document.querySelector('#tampilan-biaya-admin-kalkulator').innerHTML = "Rp " + Number(biayaAdmin).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00";
+}
+
+function renderBiayaBungaKalkulator(doc){
+    let biayaBunga = doc.data().biayaBunga;
+    document.querySelector('#biaya-bunga-kalkulator').value = biayaBunga;
+    document.querySelector('#tampilan-biaya-bunga-kalkulator').innerHTML = biayaBunga + '%';
+}
+
+function renderUpdateBiayaBungaKalkulator(doc){
+    let biayaBunga = doc.data().biayaBunga;
+    document.querySelector('#biaya-bunga-kalkulator').value = biayaBunga;
+    document.querySelector('#tampilan-biaya-bunga-kalkulator').innerHTML = biayaBunga + '%';    
+}
+
+function renderAktivasiBiayaAdminKalkulator(doc){
+    let aktivasi = doc.data().aktivasi;
+    if(aktivasi == 'YA'){
+        document.querySelector('#tombol-aktivasi-biaya-admin-kalkulator').checked = true;
+    } else {
+        document.querySelector('#tombol-aktivasi-biaya-admin-kalkulator').checked = false;
+    }
+}
+
+function renderUpdateAktivasiBiayaAdminKalkulator(doc){
+    let aktivasi = doc.data().aktivasi;
+    if(aktivasi == 'YA'){
+        document.querySelector('#tombol-aktivasi-biaya-admin-kalkulator').checked = true;
+    } else {
+        document.querySelector('#tombol-aktivasi-biaya-admin-kalkulator').checked = false;
+    }
+}
+
+function renderAktivasiBiayaBungaKalkulator(doc){
+    let aktivasi = doc.data().aktivasi;
+    if(aktivasi == 'YA'){
+        document.querySelector('#tombol-aktivasi-biaya-bunga-kalkulator').checked = true;
+    } else {
+        document.querySelector('#tombol-aktivasi-biaya-bunga-kalkulator').checked = false;
+    }
+}
+
+function renderUpdateAktivasiBiayaBungaKalkulator(doc){
+    let aktivasi = doc.data().aktivasi;
+    if(aktivasi == 'YA'){
+        document.querySelector('#tombol-aktivasi-biaya-bunga-kalkulator').checked = true;
+    } else {
+        document.querySelector('#tombol-aktivasi-biaya-bunga-kalkulator').checked = false;
+    }
+}
+const listTransaksiBerjalan = document.querySelector('#list-transaksi-berjalan');
+const modalTransaksi = document.querySelector('#modal-edit-transaksi');
+function renderTransaksiBerjalan(doc){
+    let tr = document.createElement('tr');
+    let transaksi = document.createElement('div');
+    tr.setAttribute('data-id', doc.id);
+    tr.setAttribute('id', 'transaksi' + doc.id);
+    tr.setAttribute('data-toggle', 'modal');
+    tr.setAttribute('data-target', '#modaltransaksiberjalan' + doc.id);
+    tr.classList.add('dokumentasi-transaksi' + doc.id, 'transaksi-berjalan');
+    let namaCustomer = doc.data().namaCustomer;
+    let kontakCustomer = doc.data().kontakCustomer;
+    let alamatCustomer = doc.data().alamatCustomer;
+    let nominalTransaksi = doc.data().nominalTransaksi;
+    let ekspedisiTransaksi = doc.data().ekspedisiTransaksi;
+    let produkTransaksi = doc.data().produkTransaksi;
+    let keteranganTransaksi = doc.data().keteranganTransaksi;
+    let tanggalTransaksi = doc.data().tanggalTransaksi;
+    let kalkulasiTanggal = new Date(tanggalTransaksi);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggalTransaksi = dd + ' ' + mm + ' ' + yyyy;
+    let mm1 = String(kalkulasiTanggal.getMonth() + 1).padStart(2, '0');
+    let tampilanTanggal = yyyy + '-' + mm1 + '-' + dd;
+
+    tr.innerHTML = `
+    <td style="font-weight:bold;" id="tanggal-transaksi-table${doc.id}">${tanggalTransaksi}</td>
+    <td id="nominal-transaksi-table${doc.id}">${"Rp " + Number(nominalTransaksi).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"}</td>
+    <td id="produk-transaksi-table${doc.id}" class="produk-transaksi-table">${produkTransaksi}</td>
+    <td id="keterangan-transaksi-table${doc.id}" class="keterangan-transaksi-table">${keteranganTransaksi}</td>
+    `
+
+    transaksi.innerHTML = `
+<div class="modal fade" id="modaltransaksiberjalan${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pengaturan Data Transaksi Berjalan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+        <div class="data-transaksi">
+        <div class="info-transaksi">
+        <div>Tanggal Transaksi</div>
+        <div>:</div> 
+        <div id="tanggal-transaksi-body${doc.id}">${tanggalTransaksi}</div>
+        <div>Nama Customer</div>
+        <div>:</div>
+        <div style="font-weight:bold;" id="customer-transaksi-body${doc.id}">${namaCustomer.toUpperCase()}</div>
+        <div>Kontak Customer</div>
+        <div>:</div>        
+        <div style="font-weight:bold;" id="kontak-transaksi-body${doc.id}">${kontakCustomer}</div>
+        <div>Alamat Customer</div>
+        <div>:</div> 
+        <div id="alamat-transaksi-body${doc.id}">${alamatCustomer}</div>
+        <div>Ekspedisi Transaksi</div>
+        <div>:</div> 
+        <div id="ekspedisi-transaksi-body${doc.id}">${ekspedisiTransaksi}</div>        
+        <div>Nominal Transaksi</div>
+        <div>:</div> 
+        <div id="nominal-transaksi-body${doc.id}">${"Rp " + Number(nominalTransaksi).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"}</div>
+        <div>Produk</div>
+        <div>:</div> 
+        <div id="produk-transaksi-body${doc.id}">${produkTransaksi}</div>
+        <div>Keterangan Transaksi</div>
+        <div>:</div> 
+        <div id="keterangan-transaksi-body${doc.id}">${keteranganTransaksi}</div> 
+        </div>
+        <div id="edit${doc.id}" class="btn btn-warning edit edit-transaksi-berjalan">Edit Data Transaksi</div>
+        <div id="hapus${doc.id}" class="btn btn-danger hapus hapus-transaksi-berjalan">Hapus Data Transaksi</div>
+        </div>
+          <form id="modal-transaksi-berjalan${doc.id}" class="modal-transaksi-berjalan">
+                <div class="form-group">
+                  <label class="col-form-label">Tanggal Transaksi <small>(Note :Tanggal transaksi akan otomatis mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
+                  <input type="date" value="${tampilanTanggal}" class="form-control" id="tanggal-transaksi-berjalan${doc.id}" autocomplete="off">
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Nama Customer</label>
+                  <input type="text" value="${namaCustomer}" class="form-control your_class" id="customer-transaksi-berjalan${doc.id}" autocomplete="off">
+                </div>
+            <div class="form-row">
+                <div class="form-group col-4">
+                  <label class="col-form-label">Kontak Customer</label>
+                  <input type="number" value="${kontakCustomer}" class="form-control your_class" id="kontak-transaksi-berjalan${doc.id}" autocomplete="off">
+                </div>
+                <div class="form-group col-4">
+                  <label class="col-form-label">Nominal Transaksi</label>
+                  <input type="number" value="${nominalTransaksi}" class="form-control your_class" id="nominal-transaksi-berjalan${doc.id}" autocomplete="off">
+                </div>            
+                <div class="form-group col-4">
+                  <label class="col-form-label">Ekspedisi Transaksi</label>
+                <select class="form-control ekspedisi-transaksi-berjalan" id="ekspedisi-transaksi-berjalan${doc.id}">
+                    <option value="" disabled selected hidden>-</option>
+                    </select>
+                </div>                
+            </div>
+                <div class="form-group">
+                  <label class="col-form-label">Alamat Customer</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="alamat-transaksi-berjalan${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off">${alamatCustomer.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                </div>            
+                <div class="form-group">
+                  <label class="col-form-label">Produk</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="produk-transaksi-berjalan${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off">${produkTransaksi.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Keterangan Transaksi</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="keterangan-transaksi-berjalan${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off">${keteranganTransaksi.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+    `
+
+    listTransaksiBerjalan.appendChild(tr);
+    modalTransaksi.appendChild(transaksi);
+
+    let edit = document.querySelector('#edit' + doc.id);
+    edit.addEventListener('click', function(e){
+        let formEdit = document.querySelector('#modal-transaksi-berjalan' + doc.id);
+        formEdit.style.display = "block";      
+        formEdit.addEventListener('submit', function(e){
+        e.preventDefault();
+        let namaCustomerUpdate = document.querySelector('#customer-transaksi-berjalan' + doc.id).value;
+        let kontakCustomerUpdate = document.querySelector('#kontak-transaksi-berjalan' + doc.id).value;
+        let alamatCustomerUpdate = document.querySelector('#alamat-transaksi-berjalan' + doc.id).value;
+        let nominalTransaksiUpdate = document.querySelector('#nominal-transaksi-berjalan' + doc.id).value;
+        let ekspedisiTransaksiUpdate = document.querySelector('#ekspedisi-transaksi-berjalan' + doc.id).value;
+        let produkTransaksiUpdate = document.querySelector('#produk-transaksi-berjalan' + doc.id).value;
+        let keteranganTransaksiUpdate = document.querySelector('#keterangan-transaksi-berjalan' + doc.id).value;
+        let tanggalTransaksiUpdate = document.querySelector('#tanggal-transaksi-berjalan' + doc.id).value;
+        let tanggalSekarang = new Date();
+        let hari = String(tanggalSekarang.getDate()).padStart(2, '0');
+        let bulan = String(tanggalSekarang.getMonth() + 1).padStart(2, '0');
+        let tahun = tanggalSekarang.getFullYear();
+        tanggalSekarang = tahun + '-' + bulan + '-' + hari;
+        if(tanggalTransaksiUpdate > tanggalSekarang){
+            alert('Sepertinya anda mencantumkan tanggal sebelum kejadian terjadi');
+        } else if(tanggalTransaksiUpdate == 0){
+        db.collection('transaksiBerjalan').doc(doc.id).update({
+            namaCustomer : namaCustomerUpdate,
+            kontakCustomer : kontakCustomerUpdate,
+            alamatCustomer : alamatCustomerUpdate.replace(/\n\r?/g, '<br/>'),
+            nominalTransaksi : nominalTransaksiUpdate,
+            ekspedisiTransaksi : ekspedisiTransaksiUpdate,
+            produkTransaksi : produkTransaksiUpdate.replace(/\n\r?/g, '<br/>'),
+            keteranganTransaksi : keteranganTransaksiUpdate.replace(/\n\r?/g, '<br/>'),
+            tanggalTransaksi : new Date().getTime()
+        })
+        $('#modaltransaksiberjalan' + doc.id).modal('hide');
+        } else {
+        db.collection('transaksiBerjalan').doc(doc.id).update({
+            namaCustomer : namaCustomerUpdate,
+            kontakCustomer : kontakCustomerUpdate,
+            alamatCustomer : alamatCustomerUpdate.replace(/\n\r?/g, '<br/>'),
+            nominalTransaksi : nominalTransaksiUpdate,
+            ekspedisiTransaksi : ekspedisiTransaksiUpdate,
+            produkTransaksi : produkTransaksiUpdate.replace(/\n\r?/g, '<br/>'),
+            keteranganTransaksi : keteranganTransaksiUpdate.replace(/\n\r?/g, '<br/>'),
+            tanggalTransaksi : tanggalTransaksiUpdate
+        })
+        $('#modaltransaksiberjalan' + doc.id).modal('hide');            
+        }
+        })
+    })
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus transaksi ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-transaksi' + doc.id).getAttribute('data-id');
+        db.collection('transaksiBerjalan').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                namaCustomer : item.data().namaCustomer,
+                nominalTransaksi : item.data().nominalTransaksi,
+                keteranganTransaksi : item.data().keteranganTransaksi,
+                produk : item.data().produkTransaksi,
+                overview : 'delete-transaction'
+                })
+        }).then(() => {
+            db.collection('transaksiBerjalan').doc(id).delete();
+            $('#modaltransaksiberjalan' + doc.id).modal('hide');
+            })
+        })
+    }
+})
+
+    $(document).ready(function() {
+    db.collection('transaksiBerjalan').onSnapshot(snapshot =>{
+    let items = $('#ekspedisi-transaksi-berjalan' + doc.id + ' > option').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('date');
+    let keyB = $(b).data('date');
+    if (keyA > keyB) return 1;
+    if (keyA < keyB) return -1;
+    return 0;
+    })
+    let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-transaksi-berjalan' + doc.id);
+    $.each(items, function(i, div) {
+    daftarOpsiEkspedisiCetakLabel.append(div)
+    })
+  })
+})
+
+}
+
+function renderUpdateTransaksiBerjalan(doc){
+    let namaCustomer = doc.data().namaCustomer;
+    let kontakCustomer = doc.data().kontakCustomer;
+    let alamatCustomer = doc.data().alamatCustomer;
+    let nominalTransaksi = doc.data().nominalTransaksi;
+    let ekspedisiTransaksi = doc.data().ekspedisiTransaksi;
+    let produkTransaksi = doc.data().produkTransaksi;
+    let keteranganTransaksi = doc.data().keteranganTransaksi;
+    let tanggalTransaksi = doc.data().tanggalTransaksi;
+    let kalkulasiTanggal = new Date(tanggalTransaksi);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggalTransaksi = dd + ' ' + mm + ' ' + yyyy;
+    let mm1 = String(kalkulasiTanggal.getMonth() + 1).padStart(2, '0');
+    let tampilanTanggal = yyyy + '-' + mm1 + '-' + dd;    
+    document.querySelector('#customer-transaksi-body' + doc.id).innerHTML = namaCustomer;
+    document.querySelector('#kontak-transaksi-body' + doc.id).innerHTML = kontakCustomer;
+    document.querySelector('#alamat-transaksi-body' + doc.id).innerHTML = alamatCustomer;
+    document.querySelector('#nominal-transaksi-table' + doc.id).innerHTML = "Rp " + Number(nominalTransaksi).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00";
+    document.querySelector('#nominal-transaksi-body' + doc.id).innerHTML = "Rp " + Number(nominalTransaksi).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00";
+    document.querySelector('#ekspedisi-transaksi-body' + doc.id).innerHTML = ekspedisiTransaksi;
+    document.querySelector('#produk-transaksi-table' + doc.id).innerHTML = produkTransaksi;
+    document.querySelector('#produk-transaksi-body' + doc.id).innerHTML = produkTransaksi;
+    document.querySelector('#keterangan-transaksi-table' + doc.id).innerHTML = keteranganTransaksi;
+    document.querySelector('#keterangan-transaksi-body' + doc.id).innerHTML = keteranganTransaksi;
+    document.querySelector('#tanggal-transaksi-table' + doc.id).innerHTML = tanggalTransaksi;
+    document.querySelector('#tanggal-transaksi-body' + doc.id).innerHTML = tanggalTransaksi;
+    document.querySelector('#tanggal-transaksi-berjalan' + doc.id).value = tampilanTanggal;
+
+}
+const listReturPending = document.querySelector('#list-retur-pending');
+const listReturSelesai = document.querySelector('#list-retur-selesai');
+const modalRetur = document.querySelector('#modal-edit-retur')
+function renderReturPending(doc){
+    let div = document.createElement('div')
+    let retur = document.createElement('div');
+    div.setAttribute('data-id', doc.id)
+    div.setAttribute('id', 'retur' + doc.id)
+    div.classList.add('dokumentasi-retur' + doc.id, 'retur');
+    let tanggal = doc.data().tanggal;
+    let namaCustomer = doc.data().namaCustomer;
+    let kontakCustomer = doc.data().kontakCustomer;
+    let produkRetur = doc.data().produkRetur;
+    let keluhanCustomer = doc.data().keluhanCustomer;
+    let keteranganRetur = doc.data().keteranganRetur;
+    div.setAttribute('data-date', tanggal)
+    let kalkulasiTanggal = new Date(tanggal);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggal = dd + ' ' + mm + ' ' + yyyy;
+    div.innerHTML = `
+    <div class="header-retur">
+        <div class="judul-retur"><i class='fas fa-history'></i> Retur Penjualan ${tanggal}</div>
+        <div class="dropdown">        
+            <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            <div class="dropdown-menu menu-konfigurasi-retur">
+                <div class='edit-retur dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalretur${doc.id}'><i class='fas fa-pen'></i> Edit</div>
+                <div class='hapus-retur dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+            </div>
+        </div>
+    </div>
+    <div id="konten-retur-tampilan${doc.id}" class="konten-retur-tampilan">
+        <div>Nama Customer</div>
+        <div>:</div>
+        <div id="customer-retur-tampilan${doc.id}" style="font-weight:bold;">${namaCustomer}</div>
+        <div>Kontak Customer</div>
+        <div>:</div>
+        <div id="kontak-retur-tampilan${doc.id}">${kontakCustomer}</div>
+        <div>Produk</div>
+        <div>:</div>
+        <div id="produk-retur-tampilan${doc.id}">${produkRetur}</div>
+        <div>Status Produk</div>
+        <div>:</div>
+        <div style="color:#c72424;font-weight:bold;">Belum Diterima</div>
+        <div>Keluhan Customer</div>
+        <div>:</div>
+        <div id="keluhan-retur-tampilan${doc.id}">${keluhanCustomer}</div>
+        <div>Keterangan Tambahan</div>
+        <div>:</div>
+        <div id="keterangan-retur-tampilan${doc.id}">${keteranganRetur}</div>              
+    </div>
+    `
+
+    retur.innerHTML = `
+    <div class="modal fade" id="modalretur${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Pengaturan Data Retur</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body">
+              <form id="tambah-retur${doc.id}">
+                <div class="form-group">
+                  <label class="col-form-label">Nama Customer</label>
+                  <input type="text" value="${namaCustomer}" class="form-control" id="customer-retur${doc.id}" autocomplete="off" required>
+                </div>
+            <div class="form-row">
+                <div class="form-group col-6">
+                  <label class="col-form-label">Kontak Customer</label>
+                  <input type="number" value="${kontakCustomer}" class="form-control your_class" id="kontak-retur${doc.id}" autocomplete="off">
+                </div>            
+                <div class="form-group col">
+                  <label class="col-form-label">Status Produk</label>
+                <select class="form-control" id="status-retur${doc.id}" required>
+                    <option>Sudah Diterima</option>
+                    <option selected>Belum Diterima</option>
+                    </select>
+                </div>                
+            </div>
+                <div class="form-group">
+                  <label class="col-form-label">Produk</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="produk-retur${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required>${produkRetur.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                </div>            
+                <div class="form-group">
+                  <label class="col-form-label">Keluhan Customer</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="keluhan-retur${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required>${keluhanCustomer.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Keterangan Tambahan</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="keterangan-retur${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off">${keteranganRetur.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                </div>
+                    <div class="modal-footer">
+                          <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+           </div>
+         </div>
+    `
+
+    listReturPending.appendChild(div);
+    
+    modalRetur.appendChild(retur);    
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus data retur ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-retur' + doc.id).getAttribute('data-id');
+        db.collection('returPending').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                namaCustomer : item.data().namaCustomer,
+                produkRetur : item.data().produkRetur,
+                keluhanCustomer : item.data().keluhanCustomer,
+                keteranganRetur : item.data().keteranganRetur,
+                statusProduk : 'Belum Diterima',
+                overview : 'delete-return'
+                })
+        }).then(() => {
+            db.collection('returPending').doc(id).delete();
+            $('#modalretur' + doc.id).modal('hide')
+                })
+            })
+        }
+    })
+
+    let edit = document.querySelector('#tambah-retur' + doc.id);
+    edit.addEventListener('submit', (e) =>{
+        e.preventDefault();
+        let namaCustomerUpdate = document.querySelector('#customer-retur' + doc.id).value;
+        let kontakCustomerUpdate = document.querySelector('#kontak-retur' + doc.id).value;
+        let produkReturUpdate = document.querySelector('#produk-retur' + doc.id).value;
+        let keluhanCustomerUpdate = document.querySelector('#keluhan-retur' + doc.id).value;
+        let keteranganReturUpdate = document.querySelector('#keterangan-retur' + doc.id).value;
+        let statusProdukUpdate = document.querySelector('#status-retur' + doc.id).value;
+        let overviewCadangan;
+        db.collection('returPending').doc(doc.id).get().then(function(item) {
+        tanggal = item.data().tanggal;
+        namaCustomer = item.data().namaCustomer;
+        kontakCustomer = item.data().kontakCustomer;
+        produkRetur = item.data().produkRetur;
+        keluhanCustomer = item.data().keluhanCustomer;
+        keteranganRetur = item.data().keteranganRetur;
+        if(statusProdukUpdate == 'Sudah Diterima'){
+            db.collection('returSelesai').add({
+                tanggal : tanggal,
+                namaCustomer : namaCustomerUpdate,
+                kontakCustomer : kontakCustomerUpdate,
+                produkRetur : produkReturUpdate.replace(/\n\r?/g, '<br/>'),
+                keluhanCustomer : keluhanCustomerUpdate.replace(/\n\r?/g, '<br/>'),
+                keteranganRetur : keteranganReturUpdate.replace(/\n\r?/g, '<br/>')
+            }).then(() => {
+                db.collection('returPending').doc(doc.id).delete();
+                $('#modalretur' + doc.id).modal('hide');
+            })
+        } else {
+            db.collection('returPending').doc(doc.id).update({
+                namaCustomer : namaCustomerUpdate,
+                kontakCustomer : kontakCustomerUpdate,
+                produkRetur : produkReturUpdate.replace(/\n\r?/g, '<br/>'),
+                keluhanCustomer : keluhanCustomerUpdate.replace(/\n\r?/g, '<br/>'),
+                keteranganRetur : keteranganReturUpdate.replace(/\n\r?/g, '<br/>')
+            }).then(() => {
+                $('#modalretur' + doc.id).modal('hide');
+            })
+        }
+            })
+    })
+
+        $(document).ready(function() {
+        db.collection('returPending').onSnapshot(snapshot =>{
+        let items = $('#list-retur-pending > .retur').get();
+        items.sort(function(a, b) {
+        let keyA = $(a).data('date');
+        let keyB = $(b).data('date');
+        if (keyA < keyB) return 1;
+        if (keyA > keyB) return -1;
+        return 0;
+        })
+        let daftarReturPending = $('#list-retur-pending');
+        $.each(items, function(i, div) {
+        daftarReturPending.append(div);
+        })
+      })
+    })
+
+
+}
+
+function renderUpdateReturPending(doc){
+    let namaCustomer = doc.data().namaCustomer;
+    let kontakCustomer = doc.data().kontakCustomer;
+    let produkRetur = doc.data().produkRetur;
+    let keluhanCustomer = doc.data().keluhanCustomer;
+    let keteranganRetur = doc.data().keteranganRetur;
+    document.querySelector('#customer-retur-tampilan' + doc.id).innerHTML = namaCustomer;
+    document.querySelector('#kontak-retur-tampilan' + doc.id).innerHTML = kontakCustomer;
+    document.querySelector('#produk-retur-tampilan' + doc.id).innerHTML = produkRetur;
+    document.querySelector('#keluhan-retur-tampilan' + doc.id).innerHTML = keluhanCustomer;
+    document.querySelector('#keterangan-retur-tampilan' + doc.id).innerHTML = keteranganRetur;
+}
+
+function renderReturSelesai(doc){
+    let div = document.createElement('div')
+    let retur = document.createElement('div');
+    div.setAttribute('data-id', doc.id)
+    div.setAttribute('id', 'retur' + doc.id)
+    div.classList.add('dokumentasi-retur' + doc.id, 'retur');
+    let tanggal = doc.data().tanggal;
+    let namaCustomer = doc.data().namaCustomer;
+    let kontakCustomer = doc.data().kontakCustomer;
+    let produkRetur = doc.data().produkRetur;
+    let keluhanCustomer = doc.data().keluhanCustomer;
+    let keteranganRetur = doc.data().keteranganRetur;
+    div.setAttribute('data-date', tanggal)
+    let kalkulasiTanggal = new Date(tanggal);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggal = dd + ' ' + mm + ' ' + yyyy;
+    div.innerHTML = `
+    <div class="header-retur">
+        <div class="judul-retur"><i class='fas fa-pallet'></i> Retur Penjualan ${tanggal}</div>
+        <div class="dropdown">        
+            <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            <div class="dropdown-menu menu-konfigurasi-retur">
+                <div class='edit-retur dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalretur${doc.id}'><i class='fas fa-pen'></i> Edit</div>
+                <div class='hapus-retur dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+            </div>
+        </div>
+    </div>
+    <div id="konten-retur-tampilan${doc.id}" class="konten-retur-tampilan">
+        <div>Nama Customer</div>
+        <div>:</div>
+        <div id="customer-retur-tampilan${doc.id}" style="font-weight:bold;">${namaCustomer}</div>
+        <div>Kontak Customer</div>
+        <div>:</div>
+        <div id="kontak-retur-tampilan${doc.id}">${kontakCustomer}</div>
+        <div>Produk</div>
+        <div>:</div>
+        <div id="produk-retur-tampilan${doc.id}">${produkRetur}</div>
+        <div>Status Produk</div>
+        <div>:</div>
+        <div style="color:#13eb5e;font-weight:bold;">Sudah Diterima</div>
+        <div>Keluhan Customer</div>
+        <div>:</div>
+        <div id="keluhan-retur-tampilan${doc.id}">${keluhanCustomer}</div>
+        <div>Keterangan Tambahan</div>
+        <div>:</div>
+        <div id="keterangan-retur-tampilan${doc.id}">${keteranganRetur}</div>              
+    </div>
+    `
+
+    retur.innerHTML = `
+    <div class="modal fade" id="modalretur${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Pengaturan Data Retur</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body">
+              <form id="tambah-retur${doc.id}">
+                <div class="form-group">
+                  <label class="col-form-label">Nama Customer</label>
+                  <input type="text" value="${namaCustomer}" class="form-control" id="customer-retur${doc.id}" autocomplete="off" required>
+                </div>
+            <div class="form-row">
+                <div class="form-group col-6">
+                  <label class="col-form-label">Kontak Customer</label>
+                  <input type="number" value="${kontakCustomer}" class="form-control your_class" id="kontak-retur${doc.id}" autocomplete="off">
+                </div>            
+                <div class="form-group col">
+                  <label class="col-form-label">Status Produk</label>
+                <select class="form-control" id="status-retur${doc.id}" required>
+                    <option selected>Sudah Diterima</option>
+                    <option>Belum Diterima</option>
+                    </select>
+                </div>                
+            </div>
+                <div class="form-group">
+                  <label class="col-form-label">Produk</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="produk-retur${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required>${produkRetur.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                </div>            
+                <div class="form-group">
+                  <label class="col-form-label">Keluhan Customer</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="keluhan-retur${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required>${keluhanCustomer.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Keterangan Tambahan</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="keterangan-retur${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off">${keteranganRetur.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                </div>
+                    <div class="modal-footer">
+                          <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+           </div>
+         </div>
+    `
+
+    listReturSelesai.appendChild(div);
+    
+    modalRetur.appendChild(retur);    
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus data retur ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-retur' + doc.id).getAttribute('data-id');
+        db.collection('returSelesai').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                namaCustomer : item.data().namaCustomer,
+                produkRetur : item.data().produkRetur,
+                keluhanCustomer : item.data().keluhanCustomer,
+                keteranganRetur : item.data().keteranganRetur,
+                statusProduk : 'Sudah Diterima',
+                overview : 'delete-return'
+                })
+        }).then(() => {
+            db.collection('returSelesai').doc(id).delete();
+            $('#modalretur' + doc.id).modal('hide')
+                })
+            })
+        }
+    })
+
+    let edit = document.querySelector('#tambah-retur' + doc.id);
+    edit.addEventListener('submit', (e) =>{
+        e.preventDefault();
+        let namaCustomerUpdate = document.querySelector('#customer-retur' + doc.id).value;
+        let kontakCustomerUpdate = document.querySelector('#kontak-retur' + doc.id).value;
+        let produkReturUpdate = document.querySelector('#produk-retur' + doc.id).value;
+        let keluhanCustomerUpdate = document.querySelector('#keluhan-retur' + doc.id).value;
+        let keteranganReturUpdate = document.querySelector('#keterangan-retur' + doc.id).value;
+        let statusProdukUpdate = document.querySelector('#status-retur' + doc.id).value;
+        let overviewCadangan;
+        db.collection('returSelesai').doc(doc.id).get().then(function(item) {
+        tanggal = item.data().tanggal;
+        namaCustomer = item.data().namaCustomer;
+        kontakCustomer = item.data().kontakCustomer;
+        produkRetur = item.data().produkRetur;
+        keluhanCustomer = item.data().keluhanCustomer;
+        keteranganRetur = item.data().keteranganRetur;
+        if(statusProdukUpdate == 'Belum Diterima'){
+            db.collection('returPending').add({
+                tanggal : tanggal,
+                namaCustomer : namaCustomerUpdate,
+                kontakCustomer : kontakCustomerUpdate,
+                produkRetur : produkReturUpdate.replace(/\n\r?/g, '<br/>'),
+                keluhanCustomer : keluhanCustomerUpdate.replace(/\n\r?/g, '<br/>'),
+                keteranganRetur : keteranganReturUpdate.replace(/\n\r?/g, '<br/>')
+            }).then(() => {
+                db.collection('returSelesai').doc(doc.id).delete();
+                $('#modalretur' + doc.id).modal('hide');
+            })
+        } else {
+            db.collection('returSelesai').doc(doc.id).update({
+                namaCustomer : namaCustomerUpdate,
+                kontakCustomer : kontakCustomerUpdate,
+                produkRetur : produkReturUpdate.replace(/\n\r?/g, '<br/>'),
+                keluhanCustomer : keluhanCustomerUpdate.replace(/\n\r?/g, '<br/>'),
+                keteranganRetur : keteranganReturUpdate.replace(/\n\r?/g, '<br/>')
+            }).then(() => {
+                $('#modalretur' + doc.id).modal('hide');
+            })
+        }
+            })
+    })
+
+        $(document).ready(function() {
+        db.collection('returSelesai').onSnapshot(snapshot =>{
+        let items = $('#list-retur-selesai > .retur').get();
+        items.sort(function(a, b) {
+        let keyA = $(a).data('date');
+        let keyB = $(b).data('date');
+        if (keyA < keyB) return 1;
+        if (keyA > keyB) return -1;
+        return 0;
+        })
+        let daftarReturPending = $('#list-retur-selesai');
+        $.each(items, function(i, div) {
+        daftarReturPending.append(div);
+        })
+      })
+    })
+
+
+}
+
+function renderUpdateReturSelesai(doc){
+    let namaCustomer = doc.data().namaCustomer;
+    let kontakCustomer = doc.data().kontakCustomer;
+    let produkRetur = doc.data().produkRetur;
+    let keluhanCustomer = doc.data().keluhanCustomer;
+    let keteranganRetur = doc.data().keteranganRetur;
+    document.querySelector('#customer-retur-tampilan' + doc.id).innerHTML = namaCustomer;
+    document.querySelector('#kontak-retur-tampilan' + doc.id).innerHTML = kontakCustomer;
+    document.querySelector('#produk-retur-tampilan' + doc.id).innerHTML = produkRetur;
+    document.querySelector('#keluhan-retur-tampilan' + doc.id).innerHTML = keluhanCustomer;
+    document.querySelector('#keterangan-retur-tampilan' + doc.id).innerHTML = keteranganRetur;
+}
+
 function auto_grow(element){
     element.style.height = "5px";
     element.style.height = (element.scrollHeight)+"px";
 }
 
-document.querySelector(".your_class").addEventListener("keypress", function (evt) {
-    if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
-    {
-        evt.preventDefault();
-    }
-});
 
 
 

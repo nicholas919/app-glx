@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>App GLX</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Bookmark</title>
+  <link rel="icon" type="text/css" href="bookmark-alt-flat.png">
+  <link media="all" rel="stylesheet" type="text/css" href="style.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -19,10 +20,20 @@
 <div class="pos-f-t isi-daftar-menu">
   <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
     <div class="bg-dark p-4 daftar-menu">
-      <div class="tab-halaman text-white menu" id="home" data-toggle="pill" href="#halaman-home" role="tab" aria-controls="halaman-home" aria-selected="true"><i class="fa fa-home" aria-hidden="true"></i> Beranda</div>
+      <div class="tab-halaman text-white menu" id="home" data-toggle="pill" href="#halaman-home" role="tab" aria-controls="halaman-home" aria-selected="true"><i class="fa fa-home"></i> Beranda</div>
+      <div class="text-white menu" id="informasi" data-toggle="collapse" data-target="#tab-halaman-informasi" aria-expanded="true" aria-controls="tab-halaman-informasi"><i class='fas fa-bookmark'></i> Informasi <i class='fas fa-caret-up ikon-collapse ikon-collapse-bawah'></i></div>
+      <div id="tab-halaman-informasi" class="collapse show nav-pills" role="tablist" aria-orientation="vertical">
+      <div class="tab-halaman text-white menu" id="catatan" data-toggle="pill" href="#halaman-catatan" role="tab" aria-controls="halaman-catatan" aria-selected="true"><i class='far fa-sticky-note'></i> Catatan</div>
+      <div class="tab-halaman text-white menu" id="indent-cust" data-toggle="pill" href="#halaman-indent-cust" role="tab" aria-controls="halaman-indent-cust" aria-selected="true"><i class="fa fa-address-book"></i> Indent Cust</div>
+      </div>
       <div class="tab-halaman text-white menu" id="swot" data-toggle="pill" href="#halaman-swot" role="tab" aria-controls="halaman-swot" aria-selected="true"><i class='fas fa-seedling'></i> SWOT Analysis</div>
       <div class="tab-halaman text-white menu" id="achievement" data-toggle="pill" href="#halaman-achievement" role="tab" aria-controls="halaman-achievement" aria-selected="true"> <i class='fas fa-crown'></i> Achievement</div>
       <div class="tab-halaman text-white menu" id="list-gaji" data-toggle="pill" href="#halaman-list-gaji" role="tab" aria-controls="halaman-list-gaji" aria-selected="true"><i class='fas fa-clipboard-list'></i> List Gaji</div>
+      <div class="tab-halaman text-white menu" id="cetak-label" data-toggle="pill" href="#halaman-cetak-label" role="tab" aria-controls="halaman-cetak-label" aria-selected="true"><i class="fa fa-print"></i> Cetak Label</div>
+      <div class="tab-halaman text-white menu" id="perpindahan-barang" data-toggle="pill" href="#halaman-perpindahan-barang" role="tab" aria-controls="halaman-perpindahan-barang" aria-selected="true"><i class='fas fa-boxes'></i> Perpindahan</div>
+      <div class="tab-halaman text-white menu" id="kalkulator" data-toggle="pill" href="#halaman-kalkulator" role="tab" aria-controls="halaman-kalkulator" aria-selected="true"><i class="fa fa-calculator"></i> Kalkulator</div>
+      <div class="tab-halaman text-white menu" id="transaksi-berjalan" data-toggle="pill" href="#halaman-transaksi-berjalan" role="tab" aria-controls="halaman-transaksi-berjalan" aria-selected="true"><i class='fas fa-coins'></i> Transaksi Berjalan</div>
+      <div class="tab-halaman text-white menu" id="retur" data-toggle="pill" href="#halaman-retur" role="tab" aria-controls="halaman-retur" aria-selected="true"><i class='fas fa-reply'></i> Retur</div>
       <div id="setting" class="tab-halaman text-white menu item-masuk" id="account" data-toggle="modal" data-target="#modalpengaturanakun"><i class="fa fa-gear"></i> Pengaturan Akun</div>
       <div class="item-masuk text-white menu" id="sign-out"><i class='fas fa-sign-out-alt'></i> Keluar</div>
     </div>
@@ -116,7 +127,6 @@
 <div id="darken"></div>
 <div class="tab-content" id="myTabContent">
 <div class="halaman tab-pane fade active show" id="halaman-home" role="tabpanel">
-<div id="stranger"></div>
 
 <div id="list-menu-tambahan" class="daftar-menu">
   <div class="tab-halaman tombol-menu-tambahan" id="pengumuman" data-toggle="pill" href="#halaman-pengumuman" role="tab" aria-controls="halaman-pengumuman" aria-selected="true">
@@ -657,6 +667,443 @@
 
 </div>
 
+<div class="halaman tab-pane fade" id="halaman-cetak-label" role="tabpanel">
+
+<div id="list-jumbotron-cetak-label">
+<div class="jumbotron" id="jumbotron-cetak-label">
+  <div id="judul-jumbotron-cetak-label" class="display-4"><i class="fa fa-print"></i> Cetak Label</div>
+  <div class="lead" id="jumbotron-keterangan-cetak-label">Diharapkan agar periksa ulang kembali kolom yang sudah diisi pada form untuk menghindari kesalahan dalam pengetikan.</div>
+</div>
+<div class="jumbotron" id="jumbotron-ekspedisi-cetak-label">
+  <div id="judul-jumbotron-ekspedisi-cetak-label">Ekspedisi yang tersedia</div>
+  <div id="jumbotron-list-ekspedisi-cetak-label">
+  <div id="list-ekspedisi-cetak-label"></div>
+  </div>
+</div>  
+</div>
+
+<div class="jumbotron" id="jumbotron-form-cetak-label"></div>
+<div id="modal-cetak-label"></div>
+
+<div id="jumbotron-preview-print-cetak-label">
+<div id="judul-preview-print-cetak-label">Preview Print</div>
+<div id="preview-print-cetak-label"></div>
+</div>
+
+        <div class="modal fade" id="modalekspedisicetaklabel" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Menambahkan Ekspedisi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div class="modal-body">
+                  <form id="tambah-ekspedisi-cetak-label">
+                        <div class="form-group">
+                          <label class="col-form-label">Nama Ekspedisi</label>
+                          <input type="text" class="form-control" id="nama-ekspedisi-cetak-label" autocomplete="off" required>
+                        </div>
+                        <div class="modal-footer">
+                              <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                              <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                    </div>
+                  </div>
+               </div>
+             </div>
+</div>
+
+<div class="halaman tab-pane fade" id="halaman-catatan" role="tabpanel">
+
+<div class="jumbotron" id="jumbotron-catatan">
+  <div id="judul-jumbotron-catatan" class="display-4"><i class="fa fa-address-book"></i> Catatan</div>
+  <div class="lead" id="jumbotron-keterangan-catatan"></div>
+</div>
+
+<div id="list-catatan"></div>
+
+<div class="modal fade" id="modalcatatan" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menambahkan Catatan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-catatan">
+              <div class="form-group">
+                <label>Konten Catatan</label>
+              <textarea oninput="auto_grow(this)" class="form-control" id="konten-catatan" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+              </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+<div id="modal-edit-catatan"></div>
+
+<a id="tambahcatatan" class="tombol-tambah" data-toggle="modal" data-target="#modalcatatan">+</a>
+
+</div>
+
+<div class="halaman tab-pane fade" id="halaman-indent-cust" role="tabpanel">
+
+<div class="jumbotron" id="jumbotron-indent-cust">
+  <div id="judul-jumbotron-indent-cust" class="display-4"><i class="fa fa-address-book"></i> Indent Cust</div>
+  <div class="lead" id="jumbotron-keterangan-indent-cust"></div>
+</div>
+
+<div id="list-indent-cust"></div>
+
+<div class="modal fade" id="modalindentcust" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menambahkan Data Indent</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-indent-cust">
+              <div class="form-group">
+                <label class="col-form-label">Nama Customer</label>
+                <input type="text" class="form-control" id="nama-customer-indent-cust" autocomplete="off" required>
+              </div>
+              <div class="form-group">
+                <label>Kontak Customer <small>(Note : Tidak wajib untuk diisi)</small></label>
+                <input type="number" class="form-control your_class" id="kontak-customer-indent-cust" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13">
+              </div>
+              <div class="form-group">
+                <label>Produk Indent</label>
+              <textarea oninput="auto_grow(this)" class="form-control" id="produk-indent-cust" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+              </div>              
+              <div class="form-group">                            
+                <label>Konten Indent <small>(Note : Tidak wajib untuk diisi)</small></label>
+              <textarea oninput="auto_grow(this)" class="form-control" id="konten-indent-cust" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)"></textarea>
+              </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+<div id="modal-edit-indent-cust"></div>
+
+<a id="tambahindentcust" class="tombol-tambah" data-toggle="modal" data-target="#modalindentcust">+</a>
+
+</div>
+
+<div class="halaman tab-pane fade" id="halaman-perpindahan-barang" role="tabpanel">
+
+<div class="jumbotron" id="jumbotron-perpindahan-barang">
+  <div id="judul-jumbotron-perpindahan-barang" class="display-4"><i class="fa fa-calendar-times-o"></i> Perpindahan</div>
+  <div class="lead"></div>
+    <div id="tombol-tambah-lihat-perpindahan">
+      <div id="lihatperpindahanselesai" class="tombol-lihat-perpindahan btn btn-primary pull-right">Lihat Perpindahan Selesai <span class="badge badge-success" id="jumlah-perpindahan-selesai"></span></div>
+      <div id="lihatperpindahanpending" class="tombol-lihat-perpindahan btn btn-primary pull-right">Lihat Perpindahan Pending <span class="badge badge-danger" id="jumlah-perpindahan-pending"></span></div>      
+    </div>
+</div>
+<div id="tombol-tambah-lihat-perpindahan-kedua"></div>
+
+<div id="list-perpindahan-barang"></div>
+<div id="list-perpindahan-barang-pending"></div>
+<div id="list-perpindahan-barang-selesai"></div>
+
+<div class="modal fade" id="modalperpindahanbarang" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menambahkan Data Perpindahan Barang</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-perpindahan-barang">
+              <div class="form-group">
+                <label class="col-form-label">Tanggal Perpindahan <small>(Note :Tanggal akan otomatis mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
+                <input type="date" class="form-control" id="tanggal-perpindahan-barang" autocomplete="off">
+              </div>
+              <div class="form-group">              
+                <label>Konten Perpindahan</label>
+              <textarea oninput="auto_grow(this)" class="form-control" id="konten-perpindahan-barang" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+              </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+<div id="modal-edit-perpindahan-barang"></div>
+
+<a id="tambahperpindahanbarang" class="tombol-tambah" data-toggle="modal" data-target="#modalperpindahanbarang">+</a>
+
+</div>
+
+<div class="halaman tab-pane fade" id="halaman-kalkulator" role="tabpanel">
+
+<div id="form-kalkulator">
+  <div id="judul-atas-form-kalkulator">KALKULATOR</div>
+  <div id="isi-form-kalkulator">
+    <div class="alert alert-danger" id="notice-kalkulator" role="alert"><i class="fa fa-bullhorn ikon-terompet"></i> Pastikan konfigurasi kalkulator pada biaya-biaya berikut sudah diatur sedemikian rupa sesuai dengan ketentuan yang ada.</div>
+      <form id="hitung-angsuran">
+      <div class="form-group">
+        <label class="col-form-label">Harga Produk</label>
+        <div class="input-kalkulator"><i class="fa ikon-dollar fa-dollar"></i><input type="number" class="form-control your_class" id="harga-produk" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" required></div>
+      </div>
+      <div class="form-group">              
+        <label>DP</label>
+      <div class="input-kalkulator"><i class="fa ikon-dollar fa-dollar"></i><input type="number" class="form-control your_class" id="dp-produk" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" required></div>
+      </div>
+        <button type="submit" class="btn btn-primary" id="hitung-kalkulator">Hitung Sekarang</button>
+    </form>
+  </div>
+</div>
+
+<div id="form-setting-kalkulator">
+  <div id="setting-spesifik-kalkulator">
+    <div class="setting-spesifik-kalku">
+        <div id="label-setting-kalkulator-tenor">Tenor yang tersedia</div>
+        <div id="list-tenor-kalkulator">
+          <div class="tombol-tenor-kalkulator" id="tombol-tambah-tenor-kalkulator" data-toggle="modal" data-target="#modaltenorkalkulator"> + Tambah Tenor</div>
+        </div>
+        <div id="label-setting-kalkulator-biaya-admin">Biaya Admin</div>
+        <div id="edit-biaya-admin"><input type="number" class="form-control your_class" id="biaya-admin-kalkulator" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" disabled>
+          <div class="btn btn-primary" id="tombol-edit-biaya-admin"><i class='fas fa-pen'></i> Ubah</div>
+        </div>        
+        <div id="label-setting-kalkulator-biaya-bunga">Biaya Bunga</div>
+        <div id="edit-biaya-bunga"><input type="text" class="form-control" id="biaya-bunga-kalkulator" autocomplete="off" maxlength ="4" disabled>
+          <div class="btn btn-primary" id="tombol-edit-biaya-bunga"><i class='fas fa-pen'></i> Ubah</div>
+        </div>
+        <div class="label-header-setting-kalkulator">Gunakan Biaya Admin</div>     
+          <label class="switch">
+            <input type="checkbox" id="tombol-aktivasi-biaya-admin-kalkulator">
+            <span class="slider round"></span>
+          </label>
+        <div class="note-kalkulator">Note : Biaya admin yang tersedia pada setiap tenor tidak berlaku jika penggunaan biaya admin <span id="tampilan-biaya-admin-kalkulator"></span> ini diaktifkan.</div>    
+        <div class="label-header-setting-kalkulator">Gunakan Biaya Bunga</div>        
+          <label class="switch">
+            <input type="checkbox" id="tombol-aktivasi-biaya-bunga-kalkulator">
+            <span class="slider round"></span>
+          </label>
+        <div class="note-kalkulator">Note : Biaya bunga yang tersedia pada setiap tenor tidak berlaku jika penggunaan biaya bunga <span id="tampilan-biaya-bunga-kalkulator"></span> ini diaktifkan.</div> 
+    </div>
+  </div>  
+</div>
+
+</form>
+
+<div class="modal fade" id="modaltenorkalkulator" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menambahkan Tenor</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-tenor-kalkulator">
+              <div class="form-group">
+                <label class="col-form-label">Tenor <small>(Note : Tenor tidak dapat diubah untuk menghindari kesalahan penggunaan)</small></label>
+                <input type="number" class="form-control your_class" id="tenor-kalkulator" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" required>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Biaya Admin</label>
+                <input type="number" class="form-control your_class" id="biaya-admin-tenor-kalkulator" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" required>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Biaya Bunga</label>
+                <input type="text" class="form-control" id="bunga-tenor-kalkulator" autocomplete="off" maxlength ="4" required>
+              </div>              
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+<div id="modal-edit-tenor"></div>
+
+</div>
+
+<div class="halaman tab-pane fade" id="halaman-transaksi-berjalan" role="tabpanel">
+
+<a id="tambahtransaksiberjalan" class="tombol-tambah" data-toggle="modal" data-target="#modaltransaksiberjalan">+</a>
+
+<div class="jumbotron" id="jumbotron-transaksi-berjalan">
+  <div id="judul-jumbotron-transaksi-berjalan" class="display-4"><i class='fas fa-coins'></i> Transaksi Berjalan</div>
+  <div class="lead" id="jumbotron-keterangan-transaksi-berjalan"></div>
+</div>
+
+<table class="table garis" style="margin-bottom: 0px;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Tanggal Transaksi</th>
+      <th scope="col">Nominal Transaksi</th>
+      <th scope="col" id="th-produk-transaksi">Produk</th>
+      <th scope="col" id="th-keterangan-transaksi">Keterangan Transaksi</th>
+    </tr>
+  </thead>
+  <tbody id="list-transaksi-berjalan"></tbody>
+</table>
+
+<div class="modal fade" id="modaltransaksiberjalan" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menambahkan Data Transaksi Berjalan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-transaksi-berjalan">
+                <div class="form-group">
+                  <label class="col-form-label">Tanggal Transaksi <small>(Note :Tanggal transaksi akan otomatis mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
+                  <input type="date" class="form-control" id="tanggal-transaksi-berjalan" autocomplete="off">
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Nama Customer</label>
+                  <input type="text" class="form-control" id="customer-transaksi-berjalan" autocomplete="off">
+                </div>
+            <div class="form-row">
+                <div class="form-group col-4">
+                  <label class="col-form-label">Kontak Customer</label>
+                  <input type="number" class="form-control your_class" id="kontak-transaksi-berjalan" autocomplete="off">
+                </div>
+                <div class="form-group col-4">
+                  <label class="col-form-label">Nominal Transaksi</label>
+                  <input type="number" class="form-control your_class" id="nominal-transaksi-berjalan" autocomplete="off">
+                </div>            
+                <div class="form-group col-4">
+                  <label class="col-form-label">Ekspedisi Transaksi</label>
+                <select class="form-control" id="ekspedisi-transaksi-berjalan">
+                    <option value="" disabled selected hidden>-</option>
+                    </select>
+                </div>                
+            </div>
+                <div class="form-group">
+                  <label class="col-form-label">Alamat Customer</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="alamat-transaksi-berjalan" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off"></textarea>
+                </div>            
+                <div class="form-group">
+                  <label class="col-form-label">Produk</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="produk-transaksi-berjalan" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Keterangan Transaksi</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="keterangan-transaksi-berjalan" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off"></textarea>
+                </div>                      
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+<div id="modal-edit-transaksi"></div>
+
+</div>
+
+<div class="halaman tab-pane fade" id="halaman-retur" role="tabpanel">
+
+<div class="jumbotron" id="jumbotron-retur">
+  <div id="judul-jumbotron-retur" class="display-4"><i class='fas fa-database'></i> Retur</div>
+  <div class="lead">
+    <div id="tombol-tambah-lihat-retur">
+      <div id="lihatreturselesai" class="tombol-lihat-retur btn btn-primary pull-right">Lihat Retur Selesai <span class="badge badge-success" id="jumlah-retur-selesai"></span></div>
+      <div id="lihatreturpending" class="tombol-lihat-retur btn btn-primary pull-right">Lihat Retur Pending <span class="badge badge-danger" id="jumlah-retur-pending"></span></div>    
+    </div>
+  </div>
+</div>
+<div id="tombol-tambah-lihat-retur-kedua"></div>
+
+<div id="list-retur-pending"></div>
+<div id="list-retur-selesai"></div>
+
+<a id="tambahretur" class="tombol-tambah" data-toggle="modal" data-target="#modalretur">+</a>
+
+<div class="modal fade" id="modalretur" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menambahkan Data Retur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-retur">
+                <div class="form-group">
+                  <label class="col-form-label">Nama Customer</label>
+                  <input type="text" class="form-control" id="customer-retur" autocomplete="off" required>
+                </div>
+            <div class="form-row">
+                <div class="form-group col-6">
+                  <label class="col-form-label">Kontak Customer</label>
+                  <input type="number" class="form-control your_class" id="kontak-retur" autocomplete="off">
+                </div>            
+                <div class="form-group col">
+                  <label class="col-form-label">Status Produk</label>
+                <select class="form-control" id="status-retur" required>
+                    <option value="" disabled selected hidden>-</option>
+                    <option>Sudah Diterima</option>
+                    <option>Belum Diterima</option>
+                    </select>
+                </div>                
+            </div>
+                <div class="form-group">
+                  <label class="col-form-label">Produk</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="produk-retur" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required></textarea>
+                </div>            
+                <div class="form-group">
+                  <label class="col-form-label">Keluhan Customer</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="keluhan-retur" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Keterangan Tambahan</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="keterangan-retur" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off"></textarea>
+                </div>                                      
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+<div id="modal-edit-retur"></div>
+
+</div>
+
 </div>
 
 
@@ -694,14 +1141,1223 @@
 <script>
     $(".daftar-menu .tab-halaman").click(function() {
     $(".daftar-menu .tab-halaman").removeClass('active');
+    $("#link-lihat-perpindahan").removeClass('active')
     });
 </script> 
 
 <script>
+window.addEventListener('resize', function(e){
+        document.querySelector('#darken').style.backgroundColor = '0';
+        document.querySelector('#darken').style.width = '0';
+        document.querySelector('#darken').style.height = '0';
+        document.querySelector('#darken').style.position = '0';
+        document.querySelector('#darken').style.opacity = '0';
+        $( ".navbar-collapse" ).collapse('hide');
+        document.querySelector('#myTabContent').style.marginLeft = '0';
+        document.querySelector('#myTabContent').style.transition = '0';
+        let tombolTambah = document.querySelectorAll('.tombol-tambah');
+        for(let x = 0; x<tombolTambah.length; x++){
+            tombolTambah[x].style.marginLeft = '0';
+            tombolTambah[x].style.transition = '0';
+            }
+        document.querySelector('#list-menu-tambahan').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-kedua').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-kedua').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-ketiga').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-ketiga').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '0';
+        if(document.querySelector('#peringatan-perpindahan-kedua')){
+        document.querySelector('#peringatan-perpindahan-kedua').style.width = '100%';
+        }
+        if($(window).width() <= 840){
+            if(document.querySelector('#tambahpengumuman')){
+            tombolTambahPengumumanKedua.appendChild(document.querySelector('#tambahpengumuman'));
+            }
+            if(document.querySelector('#lihatperpindahanpending') && document.querySelector('#lihatperpindahanselesai')){
+              tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanpending'))
+              tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanselesai'))
+            }
+            if(document.querySelector('#lihatreturpending') && document.querySelector('#lihatreturselesai')){
+              tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturpending'))
+              tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturselesai'))
+            }
+            document.querySelector('#lihatreturpending').classList.add('tombol-tambah-kedua');
+            document.querySelector('#lihatreturselesai').classList.add('tombol-tambah-kedua');            
+            document.querySelector('#lihatperpindahanpending').classList.add('tombol-tambah-kedua');
+            document.querySelector('#lihatperpindahanselesai').classList.add('tombol-tambah-kedua');            
+            document.querySelector('#tambahpengumuman').classList.add('tombol-tambah-kedua');
+            document.querySelector('#lihatreturpending').classList.remove('pull-right');
+            document.querySelector('#lihatreturselesai').classList.remove('pull-right');            
+            document.querySelector('#lihatperpindahanpending').classList.remove('pull-right');
+            document.querySelector('#lihatperpindahanselesai').classList.remove('pull-right');            
+            document.querySelector('#tambahpengumuman').classList.remove('pull-right');
+            let formCetakLabel = document.createElement('form');
+            formCetakLabel.setAttribute('id','form-cetak-label');
+            formCetakLabel.innerHTML = `
+                <div class="form-group">
+                  <label>Nama Customer</label>
+                <input type="text" class="form-control" id="nama-customer-cetak-label" autocomplete="off" required>
+                </div>
+
+                <div class="form-group">
+                  <label>No HP Customer</label>
+                <input type="number" class="form-control your_class" id="kontak-customer-cetak-label" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Ekspedisi</label>
+                <div style="display:grid;grid-template-columns:75% 25%;">
+                <select class="form-control" id="ekspedisi-customer-cetak-label">
+                    <option value="" disabled selected hidden>-</option>
+                </select>
+                <div class="btn btn-warning tombol-tambah-ekspedisi-cetak-label" data-target="#modalekspedisicetaklabel" data-toggle="modal">Add</div>
+                </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Alamat Customer</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="alamat-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Produk</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="produk-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+            <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-cetak-label">Tambah</button>
+            `
+            if(document.querySelector('#form-cetak-label')){
+            document.querySelector('#form-cetak-label').remove();
+            document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })
+                        })
+                    }
+                })
+            } else {
+                document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                            
+                        })
+                    }
+                })                
+            }
+        } else {
+            if(document.querySelector('#tambahpengumuman')){
+            tombolTambahPengumuman.appendChild(document.querySelector('#tambahpengumuman'));
+            }
+            if(document.querySelector('#lihatperpindahanpending') && document.querySelector('#lihatperpindahanselesai')){
+              tombolTambahLihatPerpindahan.appendChild(document.querySelector('#lihatperpindahanselesai'))              
+              tombolTambahLihatPerpindahan.appendChild(document.querySelector('#lihatperpindahanpending'))
+            }
+            if(document.querySelector('#lihatreturpending') && document.querySelector('#lihatreturselesai')){
+              tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturselesai'))              
+              tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturpending'))
+            }
+            document.querySelector('#lihatreturpending').classList.add('pull-right');
+            document.querySelector('#lihatreturpending').style.marginRight = '5px';
+            document.querySelector('#lihatreturselesai').classList.add('pull-right');                        
+            document.querySelector('#lihatperpindahanpending').classList.add('pull-right');
+            document.querySelector('#lihatperpindahanpending').style.marginRight = '5px';
+            document.querySelector('#lihatperpindahanselesai').classList.add('pull-right');
+            document.querySelector('#tambahpengumuman').classList.add('pull-right');
+            document.querySelector('#lihatreturpending').classList.remove('tombol-tambah-kedua');
+            document.querySelector('#lihatreturselesai').classList.remove('tombol-tambah-kedua');            
+            document.querySelector('#lihatperpindahanpending').classList.remove('tombol-tambah-kedua');
+            document.querySelector('#lihatperpindahanselesai').classList.remove('tombol-tambah-kedua');
+            document.querySelector('#tambahpengumuman').classList.remove('tombol-tambah-kedua');
+            let formCetakLabel = document.createElement('form');
+            formCetakLabel.setAttribute('id','form-cetak-label');
+            formCetakLabel.innerHTML = `
+            <div class="row">
+                <div class="form-group col-4">
+                  <label>Nama Customer</label>
+                <input type="text" class="form-control" id="nama-customer-cetak-label" autocomplete="off" required>
+                </div>
+
+                <div class="form-group col-4">
+                  <label>No HP Customer</label>
+                <input type="number" class="form-control your_class" id="kontak-customer-cetak-label" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" required>
+                </div>
+
+                <div class="form-group col-4">
+                  <label>Ekspedisi</label>
+                <div style="display:grid;grid-template-columns:75% 25%;">
+                <select class="form-control" id="ekspedisi-customer-cetak-label">
+                    <option value="" disabled selected hidden>-</option>
+                </select>
+                <div class="btn btn-warning tombol-tambah-ekspedisi-cetak-label" data-target="#modalekspedisicetaklabel" data-toggle="modal">Add</div>
+                </div>
+                </div>
+
+            </div>
+                <div class="form-group">
+                  <label>Alamat Customer</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="alamat-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Produk</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="produk-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+            <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-cetak-label">Tambah</button>
+            `
+            if(document.querySelector('#form-cetak-label')){
+            document.querySelector('#form-cetak-label').remove();
+            document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                            
+                        })
+                    }
+                })            
+            } else {
+                document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                            
+                        })
+                    }
+                })                
+            }            
+        }
+})
+
+let tombolTambahPengumuman = document.querySelector('#tombol-tambah-pengumuman');
+let tombolTambahPengumumanKedua = document.querySelector('#tombol-tambah-pengumuman-kedua');
+let tombolTambahLihatPerpindahan = document.querySelector('#tombol-tambah-lihat-perpindahan');
+let tombolTambahLihatPerpindahanKedua = document.querySelector('#tombol-tambah-lihat-perpindahan-kedua');
+let tombolTambahLihatRetur = document.querySelector('#tombol-tambah-lihat-retur');
+let tombolTambahLihatReturKedua = document.querySelector('#tombol-tambah-lihat-retur-kedua');
+$(document).ready(function(e){
+    if($(window).width() <= 840){
+        if(document.querySelector('#tambahpengumuman')){
+        document.querySelector('#tambahpengumuman').classList.add('tombol-tambah-kedua');
+        document.querySelector('#tambahpengumuman').classList.remove('pull-right');
+        tombolTambahPengumumanKedua.appendChild(document.querySelector('#tambahpengumuman'));
+        }
+        if(document.querySelector('#lihatperpindahanpending') && document.querySelector('#lihatperpindahanselesai')){
+          document.querySelector('#lihatperpindahanpending').classList.add('tombol-tambah-kedua');
+          document.querySelector('#lihatperpindahanselesai').classList.add('tombol-tambah-kedua');
+          document.querySelector('#lihatperpindahanpending').classList.remove('pull-right');
+          document.querySelector('#lihatperpindahanselesai').classList.remove('pull-right');
+          tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanpending'));
+          tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanselesai'));       
+        }
+        if(document.querySelector('#lihatreturpending') && document.querySelector('#lihatreturselesai')){
+          document.querySelector('#lihatreturpending').classList.add('tombol-tambah-kedua');
+          document.querySelector('#lihatreturselesai').classList.add('tombol-tambah-kedua');
+          document.querySelector('#lihatreturpending').classList.remove('pull-right');
+          document.querySelector('#lihatreturselesai').classList.remove('pull-right');
+          tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturpending'));
+          tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturselesai'));       
+        }        
+        let formCetakLabel = document.createElement('form');
+        formCetakLabel.setAttribute('id','form-cetak-label');
+        formCetakLabel.innerHTML = `
+                <div class="form-group">
+                  <label>Nama Customer</label>
+                <input type="text" class="form-control" id="nama-customer-cetak-label" autocomplete="off" required>
+                </div>
+
+                <div class="form-group">
+                  <label>No HP Customer</label>
+                <input type="number" class="form-control your_class" id="kontak-customer-cetak-label" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Ekspedisi</label>
+                <div style="display:grid;grid-template-columns:75% 25%;">
+                <select class="form-control" id="ekspedisi-customer-cetak-label">
+                    <option value="" disabled selected hidden>-</option>
+                </select>
+                <div class="btn btn-warning tombol-tambah-ekspedisi-cetak-label" data-target="#modalekspedisicetaklabel" data-toggle="modal">Add</div>
+                </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Alamat Customer</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="alamat-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Produk</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="produk-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+            <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-cetak-label">Tambah</button>
+            `
+        if(document.querySelector('#form-cetak-label')){
+        document.querySelector('#form-cetak-label').remove();
+        document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                                                       
+                        })
+                    }
+                })        
+        } else {
+            document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                                                        
+                        })
+                    }
+                })            
+        }        
+    } else {
+        if(document.querySelector('#tambahpengumuman')){
+            document.querySelector('#tambahpengumuman').classList.add('pull-right');
+            document.querySelector('#tambahpengumuman').classList.remove('tombol-tambah-kedua');
+            tombolTambahPengumuman.appendChild(document.querySelector('#tambahpengumuman'));    
+        }
+        if(document.querySelector('#lihatperpindahanpending') && document.querySelector('#lihatperpindahanselesai')){
+          document.querySelector('#lihatperpindahanpending').classList.add('pull-right');
+          document.querySelector('#lihatperpindahanpending').style.marginRight = '5px';
+          document.querySelector('#lihatperpindahanselesai').classList.add('pull-right');
+          document.querySelector('#lihatperpindahanpending').classList.remove('tombol-tambah-kedua');
+          document.querySelector('#lihatperpindahanselesai').classList.remove('tombol-tambah-kedua');
+          tombolTambahLihatPerpindahan.appendChild(document.querySelector('#lihatperpindahanselesai'))          
+          tombolTambahLihatPerpindahan.appendChild(document.querySelector('#lihatperpindahanpending'))
+        }
+        if(document.querySelector('#lihatreturpending') && document.querySelector('#lihatreturselesai')){
+          document.querySelector('#lihatreturpending').classList.add('pull-right');
+          document.querySelector('#lihatreturpending').style.marginRight = '5px';
+          document.querySelector('#lihatreturselesai').classList.add('pull-right');
+          document.querySelector('#lihatreturpending').classList.remove('tombol-tambah-kedua');
+          document.querySelector('#lihatreturselesai').classList.remove('tombol-tambah-kedua');
+          tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturselesai'))          
+          tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturpending'))
+        }        
+        let formCetakLabel = document.createElement('form');
+        formCetakLabel.setAttribute('id','form-cetak-label');
+        formCetakLabel.innerHTML = `
+            <div class="row">
+                <div class="form-group col-4">
+                  <label>Nama Customer</label>
+                <input type="text" class="form-control" id="nama-customer-cetak-label" autocomplete="off" required>
+                </div>
+
+                <div class="form-group col-4">
+                  <label>No HP Customer</label>
+                <input type="number" class="form-control your_class" id="kontak-customer-cetak-label" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" required>
+                </div>
+
+                <div class="form-group col-4">
+                  <label>Ekspedisi</label>
+                <div style="display:grid;grid-template-columns:75% 25%;">
+                <select class="form-control" id="ekspedisi-customer-cetak-label">
+                    <option value="" disabled selected hidden>-</option>
+                </select>
+                <div class="btn btn-warning tombol-tambah-ekspedisi-cetak-label" data-target="#modalekspedisicetaklabel" data-toggle="modal">Add</div>
+                </div>
+                </div>
+
+            </div>
+                <div class="form-group">
+                  <label>Alamat Customer</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="alamat-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Produk</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="produk-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+            <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-cetak-label">Tambah</button>
+            `
+            if(document.querySelector('#form-cetak-label')){
+            document.querySelector('#form-cetak-label').remove();
+            document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option');
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                                                        
+                        })
+                    }
+                })            
+            } else {
+                document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                if(auth.currentUser != null){
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option');
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                                                        
+                        })
+                    }
+                })  
+                }              
+            }
+    }
+})
+const previewPrintCetakLabel = document.querySelector('#preview-print-cetak-label')
+$(document).ready(function(){
+setInterval(function(){
+  const formCetakLabel = document.querySelector('#form-cetak-label')
+  formCetakLabel.addEventListener('submit', function(e){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    let namaCustomer = formCetakLabel['nama-customer-cetak-label'].value;
+    let kontakCustomer = formCetakLabel['kontak-customer-cetak-label'].value;
+    let ekspedisiCustomer = formCetakLabel['ekspedisi-customer-cetak-label'].value;
+    let alamatCustomer = formCetakLabel['alamat-customer-cetak-label'].value.replace(/\n\r?/g, '<br/>');
+    let produkCustomer = formCetakLabel['produk-customer-cetak-label'].value.replace(/\n\r?/g, '<br/>');
+    let div = document.createElement('div');
+    let print = document.createElement('button');
+    print.classList.add('btn', 'btn-success', 'mx-auto', 'd-block')
+    print.setAttribute('id', 'tombol-print-cetak-label')
+    print.setAttribute('type', 'button')
+    div.classList.add('potongan-kertas-cetak-label');
+    div.innerHTML = `
+        <div class="super-header-cetak">
+          <img src="logo.png" class="logo-cetak">
+          <div class="label-pengiriman">Label Pengiriman<div class="hapus-potongan-kertas-cetak-label"></div></div>          
+        </div>
+        <div class="header-cetak">
+            <div class="penjual">From</div>
+            <div>:</div>
+            <div>
+              <div class="nama-penjual"><span class="nama-logo">GALAXYCAMERA.ID</span></div>
+              <div class="alamat-penjual">Mall Metropolis Townsquare, Lantai Dasar Blok GC1 No.7, Cikokol, Tangerang</div>
+              <div class="kontak-penjual">082111311131</div>
+            </div>
+          </div>
+        <div class="body-cetak">
+          <div class="ship-to">
+            <div>Ship to</div>
+            <div>:</div>
+            <div>
+              <div class="nama-pembeli">${namaCustomer}</div>
+              <div class="alamat-pembeli">${alamatCustomer}</div>
+              <div class="kontak-pembeli">${kontakCustomer}</div>
+            </div>
+            <div>Ekspedisi</div>
+            <div>:</div>
+              <div class="ekspedisi-terpilih">${ekspedisiCustomer}</div>
+          </div>
+      </div>
+      <div class="footer-cetak">
+        <div class="keterangan-footer">Terima Kasih Sudah Berbelanja di <span class="nama-logo">GALAXYCAMERA.ID</span></div>
+        <div class="keterangan-footer-kedua">
+        <div class="footer-cetak-label-produk">Produk :</div>
+        <div class="footer-cetak-label-konten-produk">${produkCustomer}</div>
+        </div>
+      </div>
+    `
+    print.innerHTML = `Print`
+
+    formCetakLabel.reset();
+    formCetakLabel['ekspedisi-customer-cetak-label'].selectedIndex = null;
+    if(!document.querySelector('#tombol-print-cetak-label')){
+    document.querySelector('#tombol-tambah-cetak-label').parentNode.insertBefore(print, document.querySelector('#tombol-tambah-cetak-label').nextSibling);
+    document.querySelector('#judul-preview-print-cetak-label').style.setProperty("display", "block", "important");    
+    window.addEventListener('resize', function(e){
+        if(document.querySelector('#preview-print-cetak-label').childNodes.length != 0){
+          document.querySelector('#tombol-tambah-cetak-label').parentNode.insertBefore(print, document.querySelector('#tombol-tambah-cetak-label').nextSibling);
+        }
+      })
+    }
+
+    previewPrintCetakLabel.appendChild(div)
+
+    })
+
+  let hapus = document.querySelectorAll('.hapus-potongan-kertas-cetak-label');
+  for(let x = 0; x<hapus.length; x++){
+    hapus[x].addEventListener('click', function(e){
+      e.stopImmediatePropagation();
+      e.target.parentElement.parentElement.parentElement.remove();
+      if(document.querySelector('#preview-print-cetak-label').childNodes.length == 0){
+        document.querySelector('#tombol-print-cetak-label').remove();
+        document.querySelector('#judul-preview-print-cetak-label').style.setProperty("display", "none", "important");
+      }
+    })
+  }
+
+  let print = document.querySelector('#tombol-print-cetak-label');
+  if(print){
+  print.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    document.body.style.visibility = 'hidden';
+    document.querySelector('#preview-print-cetak-label').style.visibility = 'visible';
+    document.body.style.setProperty("background-color", "white", "important");
+    document.querySelector('#tombol-burger').style.visibility = 'hidden';
+    document.querySelector('#preview-print-cetak-label').style.position = 'absolute';
+    document.querySelector('#preview-print-cetak-label').style.width = '100%';
+    document.querySelector('#preview-print-cetak-label').style.top = '0';
+    document.querySelector('#preview-print-cetak-label').style.left = '0';
+    document.querySelector('#jumbotron-preview-print-cetak-label').style.margin = '0'
+    document.querySelector('#myTabContent').style.marginLeft = '0'
+    window.print();
+    document.querySelector('#tombol-burger').style.visibility = 'visible';
+    document.body.style.visibility = 'visible';
+    document.querySelector('#preview-print-cetak-label').style.position = 'relative';
+    document.body.style.setProperty("background-color", "#eeeeee", "important");
+    document.querySelector('#jumbotron-preview-print-cetak-label').style.margin = '20px';
+    setTimeout(function(){
+    document.querySelector('#darken').style.backgroundColor = '0';
+    document.querySelector('#darken').style.width = '0';
+    document.querySelector('#darken').style.height = '0';
+    document.querySelector('#darken').style.position = '0';
+    document.querySelector('#darken').style.opacity = '0';
+    document.querySelector('#darken').style.zIndex = '0';
+    },0)
+  })
+  }
+
+  let hapusPeringatanPerpindahanKedua = document.querySelector('#hapus-peringatan-perpindahan-kedua');
+  if(document.querySelector('#hapus-peringatan-perpindahan-kedua')){
+  hapusPeringatanPerpindahanKedua.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    document.querySelector('#peringatan-perpindahan-kedua').remove();
+    setInterval(function(){
+    if(!document.querySelector('#peringatan-perpindahan-kedua')){
+    document.querySelector('#jumbotron-performa-peserta').style.setProperty('margin-top', '10px', 'important')
+    }
+    },0)      
+  })
+
+  }
+  },0)
+
+  })
+
+  document.querySelector('#informasi').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(e.target.children[1].classList.contains('fa-caret-down') && e.target.getAttribute('aria-expanded') == 'true'){
+        e.target.children[1].classList.remove('fa-caret-down')
+        e.target.children[1].classList.add('fa-caret-up')
+    } else if(e.target.children[1].classList.contains('fa-caret-up') && e.target.getAttribute('aria-expanded') == 'false'){
+        e.target.children[1].classList.remove('fa-caret-up')
+        e.target.children[1].classList.add('fa-caret-down')
+    }
+    },0)
+  })
+
+    document.querySelector('#lihatperpindahanpending').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-perpindahan-barang-pending').style.display == '' || document.querySelector('#list-perpindahan-barang-pending').style.display == 'none'){
+        document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'none', 'important');
+        document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatperpindahanpending').classList.add('active')
+        if(document.querySelector('#lihatperpindahanselesai').classList.contains('active')){
+        document.querySelector('#lihatperpindahanselesai').classList.remove('active')
+        }
+    } else {
+        document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'none', 'important');
+        document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatperpindahanpending').classList.remove('active')        
+    }
+    },0)
+  })
+
+    document.querySelector('#lihatperpindahanselesai').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-perpindahan-barang-selesai').style.display == '' || document.querySelector('#list-perpindahan-barang-selesai').style.display == 'none'){
+        document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'none', 'important');
+        document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatperpindahanselesai').classList.add('active');
+        if(document.querySelector('#lihatperpindahanpending').classList.contains('active')){
+        document.querySelector('#lihatperpindahanpending').classList.remove('active');
+        }
+    } else {
+        document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'none', 'important');
+        document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatperpindahanselesai').classList.remove('active');
+    }
+    },0)
+  })    
+
+    document.querySelector('#lihatreturpending').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-retur-pending').style.display == '' || document.querySelector('#list-retur-pending').style.display == 'none'){
+        document.querySelector('#list-retur-pending').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-retur-selesai').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatreturpending').classList.add('active')
+        if(document.querySelector('#lihatreturselesai').classList.contains('active')){
+        document.querySelector('#lihatreturselesai').classList.remove('active')
+        }
+    }
+    },0)
+  })
+
+    document.querySelector('#lihatreturselesai').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-retur-selesai').style.display == '' || document.querySelector('#list-retur-selesai').style.display == 'none'){
+        document.querySelector('#list-retur-selesai').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-retur-pending').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatreturselesai').classList.add('active');
+        if(document.querySelector('#lihatreturpending').classList.contains('active')){
+        document.querySelector('#lihatreturpending').classList.remove('active');
+        }
+    }
+    },0)
+  })        
+
+  let inputNumber = document.querySelectorAll('.your_class');
+  for(let i = 0; i<inputNumber.length ; i++){
+      inputNumber[i].addEventListener("keypress", function (evt) {
+      if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57){
+          evt.preventDefault();
+        }
+    })
+  }
+
+  let editBiayaAdmin = document.querySelector('#tombol-edit-biaya-admin');
+  editBiayaAdmin.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    setTimeout(function(){
+      if(document.querySelector('#biaya-admin-kalkulator').hasAttribute('disabled')){
+        let simpan = document.createElement('div');
+        simpan.classList.add('btn','btn-success');
+        simpan.setAttribute('id','tombol-simpan-edit-biaya-admin');
+        simpan.innerHTML = 'Simpan Perubahan';
+        editBiayaAdmin.parentNode.insertBefore(simpan, editBiayaAdmin.nextSibling);
+        document.querySelector('#edit-biaya-admin').style.setProperty("display", "block", "important");
+        document.querySelector('#biaya-admin-kalkulator').removeAttribute('disabled');
+        editBiayaAdmin.classList.remove('btn-primary');
+        editBiayaAdmin.classList.add('btn-danger');
+        editBiayaAdmin.style.setProperty("border-radius", "5px");
+        editBiayaAdmin.innerHTML = 'Batalkan Perubahan'
+        document.querySelector('#biaya-admin-kalkulator').style.setProperty("margin-bottom", "5px");
+        simpan.addEventListener('click', function(e){
+          e.stopPropagation();
+        db.collection('biayaAdminKalkulator').get().then(function(querySnapshot){
+          if(querySnapshot.docs.length == 0){
+          db.collection('biayaAdminKalkulator').add({
+              biayaAdmin: document.querySelector('#biaya-admin-kalkulator').value
+          }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : new Date().getTime(),
+                biayaAdmin : document.querySelector('#biaya-admin-kalkulator').value,
+                overview : 'change-adm-calculator'
+            })
+        }).then(() => {
+          editBiayaAdmin.click();
+            })
+          })
+          } else {
+            querySnapshot.docs.map((doc) => {
+              db.collection('biayaAdminKalkulator').doc(doc.id).update({
+                biayaAdmin: document.querySelector('#biaya-admin-kalkulator').value
+              }).then(() => {
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+                db.collection('overview').add({
+                    penggunaOverview : doc.data().username,
+                    waktuOverview : new Date().getTime(),
+                    biayaAdmin : document.querySelector('#biaya-admin-kalkulator').value,
+                    overview : 'change-adm-calculator'
+                })
+            }).then(() => {
+              editBiayaAdmin.click();
+                })
+              })
+            })
+          }
+        })
+      })
+      } else {
+        document.querySelector('#tombol-simpan-edit-biaya-admin').remove();
+        document.querySelector('#edit-biaya-admin').style.setProperty("display", "flex", "important");
+        document.querySelector('#biaya-admin-kalkulator').setAttribute('disabled', 'disabled')
+        editBiayaAdmin.classList.remove('btn-danger');
+        editBiayaAdmin.classList.add('btn-primary');
+        editBiayaAdmin.style.setProperty("border-top-left-radius", "0px");
+        editBiayaAdmin.style.setProperty("border-bottom-left-radius", "0px");
+        editBiayaAdmin.innerHTML = "<i class='fas fa-pen'></i> Ubah</div>"
+        document.querySelector('#biaya-admin-kalkulator').style.setProperty("margin-bottom", "0px");
+      }
+    },0)
+  })
+
+  let editBiayaBunga = document.querySelector('#tombol-edit-biaya-bunga');
+  editBiayaBunga.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    setTimeout(function(){
+      if(document.querySelector('#biaya-bunga-kalkulator').hasAttribute('disabled')){
+        let simpan = document.createElement('div');
+        simpan.classList.add('btn','btn-success');
+        simpan.setAttribute('id','tombol-simpan-edit-biaya-bunga');
+        simpan.innerHTML = 'Simpan Perubahan';
+        editBiayaBunga.parentNode.insertBefore(simpan, editBiayaBunga.nextSibling);
+        document.querySelector('#edit-biaya-bunga').style.setProperty("display", "block", "important");
+        document.querySelector('#biaya-bunga-kalkulator').removeAttribute('disabled');
+        editBiayaBunga.classList.remove('btn-primary');
+        editBiayaBunga.classList.add('btn-danger');
+        editBiayaBunga.style.setProperty("border-radius", "5px");
+        editBiayaBunga.innerHTML = 'Batalkan Perubahan'
+        document.querySelector('#biaya-bunga-kalkulator').style.setProperty("margin-bottom", "5px");
+        simpan.addEventListener('click', function(e){
+          e.stopPropagation();
+        if(document.querySelector('#biaya-bunga-kalkulator').value.match(/[a-z]/g) != null || document.querySelector('#biaya-bunga-kalkulator').value.match(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,\/]/) != null){
+          alert('Pastikan untuk tidak menggunakan huruf atau karakter spesial pada kolom biaya bunga, karakter spesial yang hanya diperbolehkan adalah tanda titik.')
+        } else {
+        db.collection('biayaBungaKalkulator').get().then(function(querySnapshot){
+          if(querySnapshot.docs.length == 0){
+          db.collection('biayaBungaKalkulator').add({
+              biayaBunga: document.querySelector('#biaya-bunga-kalkulator').value
+          }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : new Date().getTime(),
+                biayaBunga : document.querySelector('#biaya-bunga-kalkulator').value,
+                overview : 'change-interest-calculator'
+            })
+        }).then(() => {
+          editBiayaBunga.click();
+            })
+          })
+          } else {
+            querySnapshot.docs.map((doc) => {
+              db.collection('biayaBungaKalkulator').doc(doc.id).update({
+                biayaBunga: document.querySelector('#biaya-bunga-kalkulator').value
+              }).then(() => {
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+                db.collection('overview').add({
+                    penggunaOverview : doc.data().username,
+                    waktuOverview : new Date().getTime(),
+                    biayaBunga : document.querySelector('#biaya-bunga-kalkulator').value,
+                    overview : 'change-interest-calculator'
+                })
+            }).then(() => {
+              editBiayaBunga.click();
+                })
+              })
+            })
+          }
+        })
+        }
+      })
+      } else {
+        document.querySelector('#tombol-simpan-edit-biaya-bunga').remove();
+        document.querySelector('#edit-biaya-bunga').style.setProperty("display", "flex", "important");
+        document.querySelector('#biaya-bunga-kalkulator').setAttribute('disabled', 'disabled')
+        editBiayaBunga.classList.remove('btn-danger');
+        editBiayaBunga.classList.add('btn-primary');
+        editBiayaBunga.style.setProperty("border-top-left-radius", "0px");
+        editBiayaBunga.style.setProperty("border-bottom-left-radius", "0px");
+        editBiayaBunga.innerHTML = "<i class='fas fa-pen'></i> Ubah</div>"
+        document.querySelector('#biaya-bunga-kalkulator').style.setProperty("margin-bottom", "0px");
+      }
+    },0)
+  })  
+
+  let aktivasiBiayaAdmin = document.querySelector('#tombol-aktivasi-biaya-admin-kalkulator')
+  aktivasiBiayaAdmin.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    setTimeout(function(){
+  db.collection('aktivasiBiayaAdminKalkulator').get().then(function(querySnapshot){
+    if(querySnapshot.docs.length == 0){      
+      if(aktivasiBiayaAdmin.checked == true){
+            db.collection('aktivasiBiayaAdminKalkulator').add({
+              aktivasi : 'YA'
+            })
+          }
+        } else {
+        querySnapshot.docs.map((doc) => {          
+          if(aktivasiBiayaAdmin.checked == true){
+              db.collection('aktivasiBiayaAdminKalkulator').doc(doc.id).update({
+                aktivasi : 'YA'
+              })            
+            } else {
+              db.collection('aktivasiBiayaAdminKalkulator').doc(doc.id).update({
+                aktivasi : 'TIDAK'
+              })              
+            } 
+          })                   
+        }
+      })
+    },0)
+  })
+
+  let aktivasiBiayaBunga = document.querySelector('#tombol-aktivasi-biaya-bunga-kalkulator')
+  aktivasiBiayaBunga.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    setTimeout(function(){
+  db.collection('aktivasiBiayaBungaKalkulator').get().then(function(querySnapshot){
+    if(querySnapshot.docs.length == 0){      
+      if(aktivasiBiayaBunga.checked == true){
+            db.collection('aktivasiBiayaBungaKalkulator').add({
+              aktivasi : 'YA'
+            })
+          }
+        } else {
+        querySnapshot.docs.map((doc) => {          
+          if(aktivasiBiayaBunga.checked == true){
+              db.collection('aktivasiBiayaBungaKalkulator').doc(doc.id).update({
+                aktivasi : 'YA'
+              })            
+            } else {
+              db.collection('aktivasiBiayaBungaKalkulator').doc(doc.id).update({
+                aktivasi : 'TIDAK'
+              })              
+            } 
+          })                   
+        }
+      })
+    },0)
+  })  
+
+const kalkulator = document.querySelector('#hitung-angsuran');
+kalkulator.addEventListener('submit', function(e){
+  e.preventDefault();
+  if(document.querySelector('#hasil-perhitungan-kalkulator')){
+    document.querySelector('#hasil-perhitungan-kalkulator').remove();
+  }
+  let hargaProduk = kalkulator['harga-produk'].value;
+  let dpProduk = kalkulator['dp-produk'].value;
+  let hargaSetelahDP = hargaProduk - dpProduk;
+  let hasilPerhitungan = document.createElement('div');
+  hasilPerhitungan.setAttribute('id', 'hasil-perhitungan-kalkulator');
+  let daftarCicilan = [];
+  let daftarCicilanTampilan = ""
+  if(document.querySelector('#tombol-aktivasi-biaya-admin-kalkulator').checked == true && document.querySelector('#tombol-aktivasi-biaya-bunga-kalkulator').checked == true){
+    hargaProduk = hargaProduk - dpProduk;
+    db.collection('tenorKalkulator').get().then(function(firstQuerySnapshot){
+      firstQuerySnapshot.docs.map((firstDoc) => {
+        let tenor = firstDoc.data().tenor;
+        let cicilanAkhir = 0;
+        db.collection('biayaBungaKalkulator').get().then(function(secondQuerySnapshot){
+          secondQuerySnapshot.docs.map((secondDoc) => {
+            let bunga = secondDoc.data().biayaBunga;
+            db.collection('biayaAdminKalkulator').get().then(function(thirdQuerySnapshot){
+              thirdQuerySnapshot.docs.map((thirdDoc) => {
+                let biayaAdmin = thirdDoc.data().biayaAdmin;
+                let biayaBunga = hargaSetelahDP * Number(bunga)/100;
+                let cicilan = (hargaSetelahDP/Number(tenor)) + biayaBunga + 5000;
+                if(tenor == 6){
+                  cicilanAkhir = (Math.floor(cicilan/100)*100) + Number(biayaAdmin);
+                } else {
+                  cicilanAkhir = (Math.ceil(cicilan/100)*100) + Number(biayaAdmin);
+                }
+                let div = `<div data-sort="${tenor}">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}</div>`
+                daftarCicilan.push(div)
+                if(firstQuerySnapshot.docs.length == daftarCicilan.length){
+                  for(let x = 0; x<daftarCicilan.length; x++){
+                    daftarCicilanTampilan += daftarCicilan[x];
+                    hasilPerhitungan.innerHTML = `<div id="deskripsi-cicilan">
+                    <div id="header-hasil-kalkulator">Berikut cicilan dengan DP ${Number(dpProduk).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}</div>
+                    ${daftarCicilanTampilan}
+                    <div id="footer-hasil-kalkulator">Untuk info promo dan list angsuran lainnya silahkan klik link berikut https://galaxycamera.id/cicilan-tanpa-cc</div>
+                    </div>
+                    <div class="btn btn-success" id="copy-hasil-perhitungan-kalkulator">Copy</div>
+                    `                    
+                    console.log(daftarCicilan)
+                    document.querySelector('#notice-kalkulator').parentNode.insertBefore(hasilPerhitungan, document.querySelector('#notice-kalkulator').nextSibling);
+
+                      let copy = document.querySelector("#copy-hasil-perhitungan-kalkulator");
+                      copy.addEventListener('click', function (e) {
+                      let range = document.getSelection().getRangeAt(0);
+                      range.selectNode(document.querySelector("#deskripsi-cicilan"));
+                      window.getSelection().addRange(range);
+                      document.execCommand("copy");
+                    })                    
+
+                  }
+                }
+
+              })
+            })
+
+          })
+        })
+
+      })
+    })
+
+  } else if(document.querySelector('#tombol-aktivasi-biaya-admin-kalkulator').checked == false && document.querySelector('#tombol-aktivasi-biaya-bunga-kalkulator').checked == false){
+    hargaProduk = hargaProduk - dpProduk;
+    db.collection('tenorKalkulator').get().then(function(firstQuerySnapshot){
+      firstQuerySnapshot.docs.map((firstDoc) => {
+        let tenor = firstDoc.data().tenor;
+        let biayaAdmin = firstDoc.data().biayaAdmin;
+        let bunga = firstDoc.data().bunga;
+        let cicilanAkhir = 0;
+        let biayaBunga = hargaSetelahDP * Number(bunga)/100;
+        let cicilan = (hargaSetelahDP/Number(tenor)) + biayaBunga + 5000;
+        if(tenor == 6){
+          cicilanAkhir = (Math.floor(cicilan/100)*100) + Number(biayaAdmin);
+        } else {
+          cicilanAkhir = (Math.ceil(cicilan/100)*100) + Number(biayaAdmin);
+        }
+        let div = `<div data-sort="${tenor}">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>`
+        daftarCicilan.push(div)
+        if(firstQuerySnapshot.docs.length == daftarCicilan.length){
+          for(let x = 0; x<daftarCicilan.length; x++){
+            daftarCicilanTampilan += daftarCicilan[x];
+            hasilPerhitungan.innerHTML = `<div id="deskripsi-cicilan"><div id="header-hasil-kalkulator">Berikut cicilan dengan DP ${Number(dpProduk).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}</div>
+            ${daftarCicilanTampilan}
+            <div id="footer-hasil-kalkulator">Untuk info promo dan list angsuran lainnya silahkan klik link berikut https://galaxycamera.id/cicilan-tanpa-cc</div>
+            </div>
+            <div class="btn btn-success" id="copy-hasil-perhitungan-kalkulator">Copy</div>
+            `                    
+            console.log(daftarCicilan)
+            document.querySelector('#notice-kalkulator').parentNode.insertBefore(hasilPerhitungan, document.querySelector('#notice-kalkulator').nextSibling);
+
+            let copy = document.querySelector("#copy-hasil-perhitungan-kalkulator");
+            copy.addEventListener('click', function (e) {
+            let range = document.getSelection().getRangeAt(0);
+            range.selectNode(document.querySelector("#deskripsi-cicilan"));
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+            })
+          }
+        }
+
+      })
+    })    
+  } else if(document.querySelector('#tombol-aktivasi-biaya-admin-kalkulator').checked == false){
+    hargaProduk = hargaProduk - dpProduk;
+    db.collection('tenorKalkulator').get().then(function(firstQuerySnapshot){
+      firstQuerySnapshot.docs.map((firstDoc) => {
+        let tenor = firstDoc.data().tenor;
+        let biayaAdmin = firstDoc.data().biayaAdmin;
+        let cicilanAkhir = 0;        
+        db.collection('biayaBungaKalkulator').get().then(function(secondQuerySnapshot){
+          secondQuerySnapshot.docs.map((secondDoc) => {
+            let bunga = secondDoc.data().biayaBunga;
+            let biayaBunga = hargaSetelahDP * Number(bunga)/100;
+            let cicilan = (hargaSetelahDP/Number(tenor)) + biayaBunga + 5000;
+            if(tenor == 6){
+              cicilanAkhir = (Math.floor(cicilan/100)*100) + Number(biayaAdmin);
+            } else {
+              cicilanAkhir = (Math.ceil(cicilan/100)*100) + Number(biayaAdmin);
+            }
+            let div = `<div data-sort="${tenor}">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>`
+            daftarCicilan.push(div)
+            if(firstQuerySnapshot.docs.length == daftarCicilan.length){
+              for(let x = 0; x<daftarCicilan.length; x++){
+                daftarCicilanTampilan += daftarCicilan[x];
+                hasilPerhitungan.innerHTML = `<div id="deskripsi-cicilan"><div id="header-hasil-kalkulator">Berikut cicilan dengan DP ${Number(dpProduk).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}</div>
+                ${daftarCicilanTampilan}
+                <div id="footer-hasil-kalkulator">Untuk info promo dan list angsuran lainnya silahkan klik link berikut https://galaxycamera.id/cicilan-tanpa-cc</div>
+                </div>
+                <div class="btn btn-success" id="copy-hasil-perhitungan-kalkulator">Copy</div>
+                `                    
+                console.log(daftarCicilan)
+                document.querySelector('#notice-kalkulator').parentNode.insertBefore(hasilPerhitungan, document.querySelector('#notice-kalkulator').nextSibling);
+
+                let copy = document.querySelector("#copy-hasil-perhitungan-kalkulator");
+                copy.addEventListener('click', function (e) {
+                let range = document.getSelection().getRangeAt(0);
+                range.selectNode(document.querySelector("#deskripsi-cicilan"));
+                window.getSelection().addRange(range);
+                document.execCommand("copy");
+                })
+              }
+            }            
+
+          })
+        })
+
+      })
+    })
+
+  } else if(document.querySelector('#tombol-aktivasi-biaya-bunga-kalkulator').checked == false){
+    hargaProduk = hargaProduk - dpProduk;
+    db.collection('tenorKalkulator').get().then(function(firstQuerySnapshot){
+      firstQuerySnapshot.docs.map((firstDoc) => {
+        let tenor = firstDoc.data().tenor;
+        let bunga = firstDoc.data().bunga;        
+        let cicilanAkhir = 0;        
+          db.collection('biayaAdminKalkulator').get().then(function(thirdQuerySnapshot){
+            thirdQuerySnapshot.docs.map((thirdDoc) => {
+            let biayaAdmin = thirdDoc.data().biayaAdmin;
+            let biayaBunga = hargaSetelahDP * Number(bunga)/100;
+            let cicilan = (hargaSetelahDP/Number(tenor)) + biayaBunga + 5000;
+            if(tenor == 6){
+              cicilanAkhir = (Math.floor(cicilan/100)*100) + Number(biayaAdmin);
+            } else {
+              cicilanAkhir = (Math.ceil(cicilan/100)*100) + Number(biayaAdmin);
+            }
+            let div = `<div data-sort="${tenor}">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>`
+            daftarCicilan.push(div)
+            if(firstQuerySnapshot.docs.length == daftarCicilan.length){
+              for(let x = 0; x<daftarCicilan.length; x++){
+                daftarCicilanTampilan += daftarCicilan[x];
+                hasilPerhitungan.innerHTML = `<div id="deskripsi-cicilan"><div id="header-hasil-kalkulator">Berikut cicilan dengan DP ${Number(dpProduk).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}</div>
+                ${daftarCicilanTampilan}
+                <div id="footer-hasil-kalkulator">Untuk info promo dan list angsuran lainnya silahkan klik link berikut https://galaxycamera.id/cicilan-tanpa-cc</div>
+                </div>
+                <div class="btn btn-success" id="copy-hasil-perhitungan-kalkulator">Copy</div>
+                `                    
+                console.log(daftarCicilan)
+                document.querySelector('#notice-kalkulator').parentNode.insertBefore(hasilPerhitungan, document.querySelector('#notice-kalkulator').nextSibling);
+
+                let copy = document.querySelector("#copy-hasil-perhitungan-kalkulator");
+                copy.addEventListener('click', function (e) {
+                let range = document.getSelection().getRangeAt(0);
+                range.selectNode(document.querySelector("#deskripsi-cicilan"));
+                window.getSelection().addRange(range);
+                document.execCommand("copy");
+                })
+              }
+            }            
+
+          })
+        })
+
+      })
+    })
+
+
+  }
+})
 
 
 </script>
 
-
 </body>
 </html>
+
+

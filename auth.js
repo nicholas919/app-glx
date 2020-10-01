@@ -379,13 +379,182 @@ auth.onAuthStateChanged(user => {
                         renderUpdateMenu(change.doc);
                     }
                 })
+    }, err => console.log(err.message))
+
+        db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderEkspedisiCetakLabel(change.doc);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        let opsi = document.querySelector('#ekspedisicetaklabel' + change.doc.id)
+                        listEkspedisiCetakLabel.removeChild(div);                        
+                        opsi.remove();
+                        document.querySelector('#ekspedisitransaksiberjalan' + change.doc.id).remove();
+                        setInterval(function(){
+                        document.querySelectorAll('.ekspedisi-transaksi-berjalan' + change.doc.id).forEach(eks => {
+                        eks.remove();
+                        })
+                    },0)                        
+                    } else if(change.type == 'modified'){
+                        renderUpdateEkspedisiCetakLabel(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('catatan').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderCatatan(change.doc);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        listCatatan.removeChild(div);
+                    } else if(change.type == 'modified'){
+                        renderUpdateCatatan(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('indent').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderIndent(change.doc);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        listIndentCust.removeChild(div);
+                    } else if(change.type == 'modified'){
+                        renderUpdateIndent(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('perpindahan').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderPerpindahan(change.doc);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        div.remove();
+                    } else if(change.type == 'modified'){
+                        renderUpdatePerpindahan(change.doc);
+                    }
+                })
     }, err => console.log(err.message))        
 
+        db.collection('tenorKalkulator').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderTenorKalkulator(change.doc);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        div.remove();
+                    } else if(change.type == 'modified'){
+                        renderUpdateTenorKalkulator(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('biayaAdminKalkulator').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderBiayaAdminKalkulator(change.doc);
+                    } else if(change.type == 'modified'){
+                        renderUpdateBiayaAdminKalkulator(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))        
+
+        db.collection('biayaBungaKalkulator').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderBiayaBungaKalkulator(change.doc);
+                    } else if(change.type == 'modified'){
+                        renderUpdateBiayaBungaKalkulator(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('aktivasiBiayaAdminKalkulator').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderAktivasiBiayaAdminKalkulator(change.doc);
+                    } else if(change.type == 'modified'){
+                        renderUpdateAktivasiBiayaAdminKalkulator(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('aktivasiBiayaBungaKalkulator').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderAktivasiBiayaBungaKalkulator(change.doc);
+                    } else if(change.type == 'modified'){
+                        renderUpdateAktivasiBiayaBungaKalkulator(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('transaksiBerjalan').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderTransaksiBerjalan(change.doc);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        div.remove();
+                    } else if(change.type == 'modified'){
+                        renderUpdateTransaksiBerjalan(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('returPending').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderReturPending(change.doc);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        div.remove();
+                    } else if(change.type == 'modified'){
+                        renderUpdateReturPending(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('returSelesai').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderReturSelesai(change.doc);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        div.remove();
+                    } else if(change.type == 'modified'){
+                        renderUpdateReturSelesai(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))                 
 
         $(document).ready(function(){
-            setInterval(function(){ reload_page(); },90*60000);
-            setInterval(function(){ refreshOnPengumuman(); },1000);
-            setInterval(function(){ refreshOnOverview(); },1000);
+            setInterval(function(){ reload_page(); }, 90*60000);
+            setInterval(function(){ refreshOnPengumuman(); }, 60000);
+            setInterval(function(){ refreshOnOverview(); }, 0);
+            setInterval(function(){ refreshOnCatatan(); }, 60000);
+            setInterval(function(){ refreshOnPerpindahan(); }, 1000);
+            setInterval(function(){ refreshOnPerpindahanKedua(); }, 0);
+            setInterval(function(){ refreshOnJumlahTenor(); }, 0);
+            setInterval(function(){ refreshOnOpsiEkspedisi(); }, 0);
+            setInterval(function(){ refreshOnRetur(); }, 0)
         });
 
         function reload_page(){
@@ -434,7 +603,7 @@ auth.onAuthStateChanged(user => {
               $('#waktu-pengumuman-dibuat' + doc.id).text(perbandinganWaktu);
               $('#perbandingan-baru' + doc.id).text(perbandinganBaru);
             })
-          })
+          }, err => console.log(err.message))
         }
 
         function refreshOnOverview(){
@@ -464,12 +633,225 @@ auth.onAuthStateChanged(user => {
                 } else if(perbandinganWaktu < 60000){
                     perbandinganWaktu = 'baru saja';
                 }
-              $('#waktu-overview' + doc.id).text(perbandinganWaktu);
+                $('#waktu-overview' + doc.id).text(perbandinganWaktu);
             })
-          })
+          }, err => console.log(err.message))
         }
 
-    setupUI(user);
+        function refreshOnCatatan(){
+        db.collection('catatan').get().then(function(querySnapshot){
+            querySnapshot.docs.map((doc) => {
+                let tanggal = doc.data().tanggal;
+                let tanggalSekarang = new Date().getTime();
+                let perbandinganWaktu = tanggalSekarang - tanggal;
+                if(perbandinganWaktu >= 31536000000){
+                    let perhitunganTahun = Math.floor(perbandinganWaktu/31536000000);
+                    perbandinganWaktu = 'Dibuat pada ' + perhitunganTahun + ' tahun yang lalu';
+                } else if(perbandinganWaktu >= 2629800000){
+                    let perhitunganBulan = Math.floor(perbandinganWaktu/2629800000);
+                    perbandinganWaktu = 'Dibuat pada ' + perhitunganBulan + ' bulan yang lalu';
+                } else if(perbandinganWaktu >= 604800000){
+                    let perhitunganMinggu = Math.floor(perbandinganWaktu/604800000);
+                    perbandinganWaktu = 'Dibuat pada ' + perhitunganMinggu + ' minggu yang lalu';
+                } else if(perbandinganWaktu >= 86400000){
+                    let perhitunganHari = Math.floor(perbandinganWaktu/86400000);
+                    perbandinganWaktu = 'Dibuat pada ' + perhitunganHari + ' hari yang lalu'
+                } else if(perbandinganWaktu >= 3600000){
+                    let perhitunganJam = Math.floor(perbandinganWaktu/3600000);
+                    perbandinganWaktu = 'Dibuat pada ' + perhitunganJam + ' jam yang lalu';
+                } else if(perbandinganWaktu >= 60000){
+                    let perhitunganMenit = Math.floor(perbandinganWaktu/60000);
+                    perbandinganWaktu = 'Dibuat pada ' + perhitunganMenit + ' menit yang lalu';
+                } else if(perbandinganWaktu < 60000){
+                    perbandinganWaktu = 'Dibuat baru saja';
+                }
+                $('#waktu-luncur-catatan' + doc.id).text(perbandinganWaktu)                
+            })
+          }, err => console.log(err.message))
+        }
+
+        function refreshOnPerpindahan(e){
+                let count = 0;            
+        db.collection('perpindahan').get().then(function(querySnapshot){
+            querySnapshot.docs.map((doc) => {
+                let div = document.querySelector('[data-id="' + doc.id + '"]');                
+                let tanggal = doc.data().tanggal;
+                div.setAttribute('data-date', new Date(tanggal).getTime())
+                let tanggalSekarang = new Date();
+                let dd = String(new Date(tanggal).getDate()).padStart(2, '0');
+                let mm1 = String(new Date(tanggal).getMonth() + 1).padStart(2, '0');
+                let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                let mm = bulan[new Date(tanggal).getMonth()]                
+                let yyyy = new Date(tanggal).getFullYear();
+                tanggal = yyyy + mm1 + dd;
+                let tampilanTanggal = dd + ' ' + mm + ' ' + yyyy;
+                dd = String(tanggalSekarang.getDate()).padStart(2, '0');
+                mm1 = String(tanggalSekarang.getMonth() + 1).padStart(2, '0');
+                yyyy = tanggalSekarang.getFullYear();
+                tanggalSekarang = yyyy + mm1 + dd;
+                if(tanggal == tanggalSekarang){
+                    document.querySelector('#tanggal-perpindahan-barang-tampilan' + doc.id).innerHTML = 'Hari Ini';
+                    listPerpindahanBarang.appendChild(div);
+                        let items = $('#list-perpindahan-barang > .perpindahan-barang').get();
+                        items.sort(function(a, b) {
+                        let keyA = $(a).data('date');
+                        let keyB = $(b).data('date');
+                        if (keyA < keyB) return 1;
+                        if (keyA > keyB) return -1;
+                        return 0;
+                            })
+                        let daftarPerpindahanBarang = $('#list-perpindahan-barang');
+                        $.each(items, function(i, div) {
+                        daftarPerpindahanBarang.append(div);
+                            })
+                } else {
+                    document.querySelector('#tanggal-perpindahan-barang-tampilan' + doc.id).innerHTML = 'Tanggal ' + tampilanTanggal;
+                        listPerpindahanBarangPending.appendChild(div);
+                            let items = $('#list-perpindahan-barang-pending > .perpindahan-barang').get();
+                            items.sort(function(a, b) {
+                            let keyA = $(a).data('date');
+                            let keyB = $(b).data('date');
+                            if (keyA < keyB) return 1;
+                            if (keyA > keyB) return -1;
+                            return 0;
+                                })
+                            let daftarPerpindahanBarangPending = $('#list-perpindahan-barang-pending');
+                            $.each(items, function(i, div) {
+                            daftarPerpindahanBarangPending.append(div);
+                                })                        
+                }
+                if(!document.querySelector('#peringatan-perpindahan') && !document.querySelector('#peringatan-perpindahan-kedua')){
+                    if(tanggal == tanggalSekarang){
+                        let counter = 1;                        
+                        count += counter;
+                    }
+                    if(count != 0){
+                    let peringatan = document.createElement('div');
+                    let peringatanKedua = document.createElement('div');
+                    peringatan.setAttribute('id', 'peringatan-perpindahan');
+                    peringatanKedua.setAttribute('id', 'peringatan-perpindahan-kedua');
+                    peringatan.innerHTML = `
+                    <i class="fa fa-info-circle ikon-notice"></i> <span style="font-weight:bold;">NOTICE</span> : Terdapat <span id="jumlah-perpindahan-hari-ini">${count}</span> perpindahan yang telah terjadwalkan pada hari ini!
+                    `
+                    peringatanKedua.innerHTML = `
+                    <div>
+                    <div><i class="fa fa-warning"></i> <span style="font-weight:bold;">Announcement</span></div>
+                    Terdapat <span id="jumlah-perpindahan-hari-ini-kedua">${count}</span> perpindahan yang telah terjadwalkan pada hari ini! <a id="link-lihat-perpindahan" class="tab-halaman" data-toggle="pill" href="#halaman-perpindahan-barang" role="tab" aria-controls="halaman-perpindahan-barang" aria-selected="true">Lihat Sekarang <i id="ikon-link-lihat-perpindahan" class='fas fa-paper-plane'></i></a>
+                    </div>
+                    <div id="hapus-peringatan-perpindahan-kedua"></div>
+                    `
+                    document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').parentNode.insertBefore(peringatan, document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').nextSibling);
+                    document.querySelector('#jumbotron-performa-peserta').parentNode.insertBefore(peringatanKedua, document.querySelector('#jumbotron-performa-peserta'));
+                    setInterval(function(){
+                        if(document.querySelector('#peringatan-perpindahan-kedua')){
+                            if($(window).width() >= 650){
+                            document.querySelector('#jumbotron-performa-peserta').style.setProperty('margin-top', '82px', 'important')
+                            } else if($(window).width() <= 650){
+                            document.querySelector('#jumbotron-performa-peserta').style.setProperty('margin-top', '107px', 'important')                    
+                            }
+                        }
+                        },0)                    
+                    }
+                } else if(document.querySelector('#peringatan-perpindahan') && document.querySelector('#peringatan-perpindahan-kedua')){
+                    if(tanggal == tanggalSekarang){
+                        let counter = 1;                        
+                        count += counter;
+                    }
+                    if(count == 0){
+                        document.querySelector('#peringatan-perpindahan').remove();
+                        document.querySelector('#peringatan-perpindahan-kedua').remove();                    
+                    } else {
+                        document.querySelector('#jumlah-perpindahan-hari-ini').innerHTML = count;
+                        document.querySelector('#jumlah-perpindahan-hari-ini-kedua').innerHTML = count;
+                    }
+                }               
+            })
+          }, err => console.log(err.message))
+        }
+
+        function refreshOnPerpindahanKedua(e){
+            document.querySelector('#jumlah-perpindahan-pending').innerHTML = document.querySelector('#list-perpindahan-barang-pending').childNodes.length;
+            document.querySelector('#jumlah-perpindahan-selesai').innerHTML = document.querySelector('#list-perpindahan-barang-selesai').childNodes.length;
+            if(!document.querySelector('#peringatan-perpindahan-kedua')){
+                document.querySelector('#jumbotron-performa-peserta').style.setProperty('margin-top', '10px', 'important')
+            }
+        }
+        function refreshOnJumlahTenor(e){
+            let tombolTenor = document.querySelectorAll('.tombol-tenor-kalkulator')
+            if(document.querySelectorAll('.tombol-tenor-kalkulator').length > 3){
+                document.querySelector('#label-setting-kalkulator-tenor').style.paddingTop = '5px';
+                document.querySelector('#label-setting-kalkulator-tenor').style.alignItems = 'normal';
+                for(let x = 0; x<tombolTenor.length; x++){
+                    tombolTenor[x].style.marginBottom = '5px'
+                }
+            } else {                
+                document.querySelector('#label-setting-kalkulator-tenor').style.paddingTop = '0px';
+                document.querySelector('#label-setting-kalkulator-tenor').style.alignItems = 'center';                
+                for(let x = 0; x<tombolTenor.length; x++){
+                    tombolTenor[x].style.marginBottom = '0px'
+                }                
+            }
+        }
+
+        function refreshOnOpsiEkspedisi(e){
+            let daftarOpsiEkspedisi = document.querySelectorAll('.ekspedisi-transaksi-berjalan');
+            for(let x = 0; x<daftarOpsiEkspedisi.length; x++){
+            db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+            querySnapshot.docs.map((doc) => {
+            db.collection('transaksiBerjalan').get().then(function(secondQuerySnapshot){
+            let ekspedisiTransaksiBerjalan = document.querySelectorAll('.ekspedisi-transaksi-berjalan' + doc.id);
+            if(ekspedisiTransaksiBerjalan.length != secondQuerySnapshot.docs.length){
+            if(!(daftarOpsiEkspedisi[x].length > querySnapshot.docs.length)){                
+                let opsi = document.createElement('option');
+                opsi.classList.add('ekspedisi-transaksi-berjalan' + doc.id);
+                let tanggal = doc.data().tanggal;
+                opsi.setAttribute('data-date', tanggal)
+                let namaEkspedisiCetakLabel = doc.data().namaEkspedisiCetakLabel;
+                opsi.innerHTML = namaEkspedisiCetakLabel;
+                daftarOpsiEkspedisi[x].options[0].parentNode.insertBefore(opsi, daftarOpsiEkspedisi[x].options[0].nextSibling);
+                    secondQuerySnapshot.docs.map((secondDoc) => {
+                        $(document).ready(function() {
+                        db.collection('transaksiBerjalan').onSnapshot(snapshot =>{
+                        let items = $('#ekspedisi-transaksi-berjalan' + secondDoc.id + ' > option').get();
+                        items.sort(function(a, b) {
+                        let keyA = $(a).data('date');
+                        let keyB = $(b).data('date');
+                        if (keyA > keyB) return 1;
+                        if (keyA < keyB) return -1;
+                        return 0;
+                        })
+                        let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-transaksi-berjalan' + secondDoc.id);
+                        $.each(items, function(i, div) {
+                        daftarOpsiEkspedisiCetakLabel.append(div)
+                        })
+                      })
+                    })
+                    let pilihanEkspedisi = document.querySelector('#ekspedisi-transaksi-berjalan' + secondDoc.id);
+                    let opsiEkspedisi;
+                    for(let x = 0; x<pilihanEkspedisi.options.length; x++){
+                        opsiEkspedisi = pilihanEkspedisi.options[x];
+                        if(opsiEkspedisi.value == secondDoc.data().ekspedisiTransaksi){
+                            opsiEkspedisi.setAttribute('selected', 'selected');
+                            }
+                        }                                        
+                })
+                }                                                        
+            }
+            for(let z = 0; z<ekspedisiTransaksiBerjalan.length; z++){
+                ekspedisiTransaksiBerjalan[z].innerHTML = doc.data().namaEkspedisiCetakLabel;
+                }            
+                    }, err => console.log(err.message))
+                })
+            }, err => console.log(err.message))
+            }
+        }
+
+        function refreshOnRetur(e){
+            document.querySelector('#jumlah-retur-pending').innerHTML = document.querySelector('#list-retur-pending').childNodes.length;
+            document.querySelector('#jumlah-retur-selesai').innerHTML = document.querySelector('#list-retur-selesai').childNodes.length;
+        }
+
+    setupUI(user);    
   } else {
     setupUI();
   }
@@ -651,7 +1033,6 @@ daftarAchievement.addEventListener('submit', (e) => {
     if(document.querySelector('#tanggal-pencapaian').value > tanggalSekarang){
       alert('Sepertinya anda mencantumkan tanggal sebelum kejadian terjadi');
     } else if(document.querySelector('#tanggal-pencapaian').value == 0){
-    let tanggal = new Date().getTime();
     db.collection('achievement').add({
         tanggal: tanggal,
         kontenPencapaian: daftarAchievement['konten-pencapaian'].value.replace(/\n\r?/g, '<br/>')
@@ -704,7 +1085,11 @@ daftarPengumuman.addEventListener('submit', (e) => {
                 judulPengumuman : daftarPengumuman['judul-pengumuman'].value,
                 overview : 'add-announcement'
             })
-        }).then(() => {
+        }, err => {
+            if(err.name == 'FirebaseError'){
+                alert('Anda tidak diperizinkan untuk membuat pengumuman')
+            }
+    }).then(() => {
         $('#modalpengumuman').modal('hide');
         document.querySelector('#tambah-pengumuman').reset();
         })
@@ -732,6 +1117,293 @@ daftarKategoriMenu.addEventListener('submit', (e) => {
         })
     })
 })
+
+const daftarEkspedisiCetakLabel = document.querySelector('#tambah-ekspedisi-cetak-label');
+daftarEkspedisiCetakLabel.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let tanggal = new Date().getTime();
+    db.collection('ekspedisiCetakLabel').add({
+        tanggal: tanggal,
+        namaEkspedisiCetakLabel: daftarEkspedisiCetakLabel['nama-ekspedisi-cetak-label'].value
+    }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : tanggal,
+                namaEkspedisiCetakLabel : daftarEkspedisiCetakLabel['nama-ekspedisi-cetak-label'].value,
+                overview : 'add-print-label-expedition',
+            })
+        }).then(() => {
+        $('#modalekspedisicetaklabel').modal('hide');
+        document.querySelector('#tambah-ekspedisi-cetak-label').reset();
+        })
+    })
+})
+
+const daftarCatatan = document.querySelector('#tambah-catatan');
+daftarCatatan.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let tanggal = new Date().getTime();
+    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+    db.collection('catatan').add({
+        tanggal: tanggal,
+        kontenCatatan: daftarCatatan['konten-catatan'].value.replace(/\n\r?/g, '<br/>'),
+        pembuatCatatan: doc.data().username
+    }).then(() => {
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : tanggal,
+                overview : 'add-note'
+            })
+        }).then(() => {
+        $('#modalcatatan').modal('hide');
+        document.querySelector('#tambah-catatan').reset();
+        })
+    })
+})
+
+const daftarIndentCust = document.querySelector('#tambah-indent-cust');
+daftarIndentCust.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let tanggal = new Date().getTime();
+    db.collection('indent').add({
+        tanggal: tanggal,
+        namaCustomer: daftarIndentCust['nama-customer-indent-cust'].value,
+        kontakCustomer: daftarIndentCust['kontak-customer-indent-cust'].value,
+        kontenIndent: daftarIndentCust['konten-indent-cust'].value.replace(/\n\r?/g, '<br/>'),
+        produkIndent: daftarIndentCust['produk-indent-cust'].value.replace(/\n\r?/g, '<br/>')
+    }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : tanggal,
+                namaCustomer : daftarIndentCust['nama-customer-indent-cust'].value,
+                overview : 'add-indent'
+            })
+        }).then(() => {
+        $('#modalindentcust').modal('hide');
+        document.querySelector('#tambah-indent-cust').reset();
+        })
+    })
+})
+
+const daftarPerpindahanBarang = document.querySelector('#tambah-perpindahan-barang');
+daftarPerpindahanBarang.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let tanggalSekarang = new Date();
+    let hari = String(tanggalSekarang.getDate()).padStart(2, '0');
+    let bulan = String(tanggalSekarang.getMonth() + 1).padStart(2, '0');
+    let tahun = tanggalSekarang.getFullYear();
+    tanggalSekarang = tahun + '-' + bulan + '-' + hari;    
+    let tanggal = new Date().getTime();
+    if(daftarPerpindahanBarang['tanggal-perpindahan-barang'].value == 0){
+    db.collection('perpindahan').add({
+        tanggal: tanggal,
+        kontenPerpindahan: daftarPerpindahanBarang['konten-perpindahan-barang'].value.replace(/\n\r?/g, '<br/>')
+    }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : tanggal,
+                tanggalPerpindahan : tanggal,
+                overview : 'add-transport'
+            })
+        }).then(() => {
+        $('#modalperpindahanbarang').modal('hide');
+        document.querySelector('#tambah-perpindahan-barang').reset();
+        })
+    })
+    } else {
+    if(daftarPerpindahanBarang['tanggal-perpindahan-barang'].value < tanggalSekarang){
+        alert('Cantumkan tanggal perpindahan barang dengan benar!')   
+    } else {
+    db.collection('perpindahan').add({
+        tanggal: daftarPerpindahanBarang['tanggal-perpindahan-barang'].value,
+        kontenPerpindahan: daftarPerpindahanBarang['konten-perpindahan-barang'].value.replace(/\n\r?/g, '<br/>')
+    }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : tanggal,
+                tanggalPerpindahan : daftarPerpindahanBarang['tanggal-perpindahan-barang'].value,
+                overview : 'add-transport'
+            })
+        }).then(() => {
+        $('#modalperpindahanbarang').modal('hide');
+        document.querySelector('#tambah-perpindahan-barang').reset();
+        })
+    })
+    }
+}
+})
+
+const daftarTenorKalkulator = document.querySelector('#tambah-tenor-kalkulator');
+daftarTenorKalkulator.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let available = [];
+    db.collection('tenorKalkulator').get().then(function(querySnapshot){
+        if(querySnapshot.docs.length == 0){
+            fcTenorKalkulator();
+        } else {
+        querySnapshot.docs.map((doc) => {
+            if(doc.data().tenor == daftarTenorKalkulator['tenor-kalkulator'].value){
+                available.push('yes');
+                alert('Tenor berikut sudah dipergunakan');
+                if(querySnapshot.docs.length == available.length){
+                    if(!available.includes('yes')){
+                        fcTenorKalkulator();
+                    }
+                }
+            } else {
+                available.push('no');
+                if(querySnapshot.docs.length == available.length){
+                    if(!available.includes('yes')){
+                        fcTenorKalkulator();
+                    }
+                }                
+            }
+        })
+        }
+    })
+})
+
+function fcTenorKalkulator(){
+    if(daftarTenorKalkulator['bunga-tenor-kalkulator'].value.match(/[a-z]/g) != null || daftarTenorKalkulator['bunga-tenor-kalkulator'].value.match(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,\/]/) != null && daftarTenorKalkulator['biaya-admin-tenor-kalkulator'].value.charAt(0) == '0' && daftarTenorKalkulator['biaya-admin-tenor-kalkulator'].value.length > 1){
+        alert('Kolom yang anda isi pada biaya admin dan bunga tidak valid.');
+    }else if(daftarTenorKalkulator['bunga-tenor-kalkulator'].value.match(/[a-z]/g) != null || daftarTenorKalkulator['bunga-tenor-kalkulator'].value.match(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,\/]/) != null){
+        alert('Pastikan untuk tidak menggunakan huruf atau karakter spesial pada kolom biaya bunga, karakter spesial yang hanya diperbolehkan adalah tanda titik.')
+    } else if(daftarTenorKalkulator['biaya-admin-tenor-kalkulator'].value.charAt(0) == '0' && daftarTenorKalkulator['biaya-admin-tenor-kalkulator'].value.length > 1){
+        alert('Kolom yang anda isi pada biaya admin tidak valid.');
+    } else {
+    db.collection('tenorKalkulator').add({
+        tenor: daftarTenorKalkulator['tenor-kalkulator'].value,
+        biayaAdmin: daftarTenorKalkulator['biaya-admin-tenor-kalkulator'].value,
+        bunga: daftarTenorKalkulator['bunga-tenor-kalkulator'].value
+    }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : new Date().getTime(),
+                tenor : daftarTenorKalkulator['tenor-kalkulator'].value,
+                overview : 'add-tenor-calculator'
+            })
+        }).then(() => {
+        $('#modaltenorkalkulator').modal('hide');
+        document.querySelector('#tambah-tenor-kalkulator').reset();
+        })
+    })
+    }
+}
+
+
+const daftarTransaksiBerjalan = document.querySelector('#tambah-transaksi-berjalan');
+daftarTransaksiBerjalan.addEventListener('submit', function(e){
+    e.preventDefault();
+    let tanggalSekarang = new Date();
+    let hari = String(tanggalSekarang.getDate()).padStart(2, '0');
+    let bulan = String(tanggalSekarang.getMonth() + 1).padStart(2, '0');
+    let tahun = tanggalSekarang.getFullYear();
+    tanggalSekarang = tahun + '-' + bulan + '-' + hari;    
+    let tanggal = new Date().getTime();    
+    if(daftarTransaksiBerjalan['tanggal-transaksi-berjalan'].value > tanggalSekarang){
+        alert('Sepertinya anda mencantumkan tanggal sebelum kejadian terjadi');
+    } else if(daftarTransaksiBerjalan['tanggal-transaksi-berjalan'].value == 0){
+    db.collection('transaksiBerjalan').add({
+        tanggalTransaksi: tanggal,
+        namaCustomer: daftarTransaksiBerjalan['customer-transaksi-berjalan'].value,
+        kontakCustomer: daftarTransaksiBerjalan['kontak-transaksi-berjalan'].value,
+        nominalTransaksi: daftarTransaksiBerjalan['nominal-transaksi-berjalan'].value,
+        ekspedisiTransaksi: daftarTransaksiBerjalan['ekspedisi-transaksi-berjalan'].value,
+        alamatCustomer: daftarTransaksiBerjalan['alamat-transaksi-berjalan'].value.replace(/\n\r?/g, '<br/>'),
+        produkTransaksi: daftarTransaksiBerjalan['produk-transaksi-berjalan'].value.replace(/\n\r?/g, '<br/>'),
+        keteranganTransaksi: daftarTransaksiBerjalan['keterangan-transaksi-berjalan'].value.replace(/\n\r?/g, '<br/>')
+    }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : new Date().getTime(),
+                namaCustomer : daftarTransaksiBerjalan['customer-transaksi-berjalan'].value,
+                overview : 'add-transaction'
+            })
+        }).then(() => {
+        $('#modaltransaksiberjalan').modal('hide');
+        document.querySelector('#tambah-transaksi-berjalan').reset();
+        })
+    })
+    } else {
+    db.collection('transaksiBerjalan').add({
+        tanggalTransaksi: daftarTransaksiBerjalan['tanggal-transaksi-berjalan'].value,
+        namaCustomer: daftarTransaksiBerjalan['customer-transaksi-berjalan'].value,
+        kontakCustomer: daftarTransaksiBerjalan['kontak-transaksi-berjalan'].value,
+        nominalTransaksi: daftarTransaksiBerjalan['nominal-transaksi-berjalan'].value,
+        ekspedisiTransaksi: daftarTransaksiBerjalan['ekspedisi-transaksi-berjalan'].value,
+        alamatCustomer: daftarTransaksiBerjalan['alamat-transaksi-berjalan'].value.replace(/\n\r?/g, '<br/>'),
+        produkTransaksi: daftarTransaksiBerjalan['produk-transaksi-berjalan'].value.replace(/\n\r?/g, '<br/>'),
+        keteranganTransaksi: daftarTransaksiBerjalan['keterangan-transaksi-berjalan'].value.replace(/\n\r?/g, '<br/>')
+    }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : new Date().getTime(),
+                namaCustomer : daftarTransaksiBerjalan['customer-transaksi-berjalan'].value,
+                overview : 'add-transaction'
+            })
+        }).then(() => {
+        $('#modaltenorkalkulator').modal('hide');
+        document.querySelector('#tambah-transaksi-berjalan').reset();
+        })
+    })        
+    }
+})
+
+const daftarRetur = document.querySelector('#tambah-retur');
+daftarRetur.addEventListener('submit', function(e){
+    e.preventDefault();
+if(daftarRetur['status-retur'].value == 'Belum Diterima'){
+    db.collection('returPending').add({
+        tanggal: new Date().getTime(),
+        namaCustomer: daftarRetur['customer-retur'].value,
+        kontakCustomer: daftarRetur['kontak-retur'].value,
+        produkRetur: daftarRetur['produk-retur'].value.replace(/\n\r?/g, '<br/>'),
+        keluhanCustomer: daftarRetur['keluhan-retur'].value.replace(/\n\r?/g, '<br/>'),
+        keteranganRetur: daftarRetur['keterangan-retur'].value.replace(/\n\r?/g, '<br/>')
+    }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : new Date().getTime(),
+                namaCustomer : daftarRetur['customer-retur'].value,
+                overview : 'add-return'
+            })
+        }).then(() => {
+        $('#modalretur').modal('hide');
+        document.querySelector('#tambah-retur').reset();
+        })
+    })
+    } else {
+    db.collection('returSelesai').add({
+        tanggal: new Date().getTime(),
+        namaCustomer: daftarRetur['customer-retur'].value,
+        kontakCustomer: daftarRetur['kontak-retur'].value,
+        produkRetur: daftarRetur['produk-retur'].value.replace(/\n\r?/g, '<br/>'),
+        keluhanCustomer: daftarRetur['keluhan-retur'].value.replace(/\n\r?/g, '<br/>'),
+        keteranganRetur: daftarRetur['keterangan-retur'].value.replace(/\n\r?/g, '<br/>')
+    }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : new Date().getTime(),
+                namaCustomer : daftarRetur['customer-retur'].value,
+                overview : 'add-return'
+            })
+        }).then(() => {
+        $('#modalretur').modal('hide');
+        document.querySelector('#tambah-retur').reset();
+        })        
+    })
+    }
+})
+
 
 
 const formDaftar = document.querySelector('#form-daftar');
@@ -780,11 +1452,13 @@ keluar.addEventListener('click', (e) => {
         waktuOverview : tanggal,
         overview : 'sign-out'
         }).then(() => {
-            auth.signOut();
-            window.location.reload();
-            });
+    auth.signOut();
+    setTimeout(function(){
+    window.location.reload();
+    },2000)
+        })
         }
-    });
+    }, err => console.log(err.message));
 });
 
 
