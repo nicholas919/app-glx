@@ -2029,6 +2029,11 @@ div.induk-kategori-menu{
 	font-size: 15px;
 }
 
+.note-kalkulator{
+	grid-column:1/2 span;
+	font-size: 14px;
+}
+
 .indent-cust{
 	margin: 5px 20px;
 }
