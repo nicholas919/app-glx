@@ -746,8 +746,10 @@ auth.onAuthStateChanged(user => {
                         if(document.querySelector('#peringatan-perpindahan-kedua')){
                             if($(window).width() >= 650){
                             document.querySelector('#jumbotron-performa-peserta').style.setProperty('margin-top', '82px', 'important')
+                            document.querySelector('#jumbotron-performa-peserta-individu').style.setProperty('margin-top', '90px', 'important')
                             } else if($(window).width() <= 650){
                             document.querySelector('#jumbotron-performa-peserta').style.setProperty('margin-top', '107px', 'important')                    
+                            document.querySelector('#jumbotron-performa-peserta-individu').style.setProperty('margin-top', '112px', 'important')
                             }
                         }
                         },0)                    
@@ -774,6 +776,7 @@ auth.onAuthStateChanged(user => {
             document.querySelector('#jumlah-perpindahan-selesai').innerHTML = document.querySelector('#list-perpindahan-barang-selesai').childNodes.length;
             if(!document.querySelector('#peringatan-perpindahan-kedua')){
                 document.querySelector('#jumbotron-performa-peserta').style.setProperty('margin-top', '10px', 'important')
+                document.querySelector('#jumbotron-performa-peserta-individu').style.setProperty('margin-top', '10px', 'important')
             }
         }
         function refreshOnJumlahTenor(e){

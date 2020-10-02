@@ -1405,7 +1405,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 .konten-retur-tampilan{
 	display: grid;
-	grid-template-columns: 220px 15px auto;	
+	grid-template-columns: 170px 15px auto;	
 	padding-bottom: 12px;
 }
 
