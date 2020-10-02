@@ -2033,7 +2033,7 @@ div.induk-kategori-menu{
 	margin: 5px 20px;
 }
 
-.konten-retur-tampilan, .konten-catatan-body{
+.konten-retur-tampilan, .konten-catatan-body, td{
 	font-size: 14px;
 }
 
@@ -2128,7 +2128,7 @@ input:checked + .slider:after {
 	font-size: 15px;
 }
 
-.label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor{
+.label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor, th{
 	font-size: 15px;
 }
 

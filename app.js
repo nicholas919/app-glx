@@ -2638,8 +2638,8 @@ function renderAchievement(doc){
     let sortirTanggal = tampilanTanggal.split('-');
     tr.setAttribute('data-date', sortirTanggal);
     tr.innerHTML = `
-    <td style="font-weight:bold;" id="tanggal-pencapaian-table${doc.id}">${tanggal}</td>
-    <td id="konten-pencapaian-table${doc.id}">${kontenPencapaian}</td>
+    <td style="font-weight:bold;vertical-align:middle;" id="tanggal-pencapaian-table${doc.id}">${tanggal}</td>
+    <td id="konten-pencapaian-table${doc.id}" style="text-align:left !important;">${kontenPencapaian}</td>
     `
 
     div.innerHTML = `<div id="jumlah-data-achievement">Jumlah Achievement yang anda raih sampai saat ini sebanyak <span id="jumlah-achievement"></span>.</div>`
