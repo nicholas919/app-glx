@@ -238,7 +238,7 @@ input:checked + .slider:after {
 	background-color:white;
 	border:1px solid rgba(0,0,0,.2);
 	padding: 15px;
-	position: absolute;
+	display: block;
 }
 
 .ikon-dollar{
@@ -430,7 +430,7 @@ input:checked + .slider:after {
 }
 
 .konten-perpindahan-barang-tampilan, .konten-retur-tampilan{
-	padding: 8px 8px 8px 16px;
+	padding: 8px 8px 12px 16px;
 	background-color: white;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
@@ -1406,7 +1406,6 @@ div.induk-kategori-menu:nth-child(4n+0){
 .konten-retur-tampilan{
 	display: grid;
 	grid-template-columns: 170px 15px auto;	
-	padding-bottom: 12px;
 }
 
 .info-peserta > div {
@@ -2025,6 +2024,10 @@ div.induk-kategori-menu{
 
 .tombol-tenor-kalkulator{
 	font-size: 15px;
+}
+
+.konten-retur-tampilan{
+	padding: 3px 3px 6px 8px;
 }
 
 }
