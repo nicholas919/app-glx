@@ -2115,6 +2115,14 @@ input:checked + .slider:after {
   content:'TIDAK';
 }
 
+#tombol-edit-biaya-bunga, #tombol-edit-biaya-admin{
+	margin-right: 0px;
+}
+
+.label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor{
+	font-size: 15px;
+}
+
 
 }
 
