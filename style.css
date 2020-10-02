@@ -234,7 +234,6 @@ input:checked + .slider:after {
 }
 
 #form-setting-kalkulator{
-	width: 100%;
 	background-color:white;
 	border:1px solid rgba(0,0,0,.2);
 	padding: 15px;
@@ -1405,7 +1404,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 .konten-retur-tampilan{
 	display: grid;
-	grid-template-columns: 170px 15px auto;	
+	grid-template-columns: 165px 15px auto;	
 }
 
 .info-peserta > div {
@@ -2022,12 +2021,12 @@ div.induk-kategori-menu{
 	font-size: 13px;
 }
 
-.tombol-tenor-kalkulator{
+.tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur{
 	font-size: 15px;
 }
 
 .konten-retur-tampilan{
-	padding: 3px 3px 6px 8px;
+	font-size: 14px;
 }
 
 }
