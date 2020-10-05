@@ -1391,14 +1391,14 @@ div.induk-kategori-menu:nth-child(4n+0){
 	overflow-wrap: anywhere;
 }
 
-.konten-retur-tampilan{
-	display: grid;
-	grid-template-columns: 165px 15px auto;	
-}
-
 .info-peserta > div {
 	display: flex;
 	align-items: center;
+}
+
+.konten-retur-tampilan{
+	display: grid;
+	grid-template-columns: 150px 15px auto;
 }
 
 .info-kesalahan, .info-achievement, .info-akun, .info-tenor, .info-transaksi, .info-perpindahan-barang, .info-retur, .info-indent-cust{
