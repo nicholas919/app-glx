@@ -508,7 +508,7 @@ input:checked + .slider:after {
 }
 
 .indent-cust{
-	display: flex;
+	display: block;
 	margin: 5px 20px;
 	padding: 8px 15px;
 	border: 1px solid #343a40;

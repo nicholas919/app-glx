@@ -4480,7 +4480,6 @@ function renderCatatan(doc){
         perbandinganWaktu = 'Dibuat baru saja';
     }
     div.innerHTML = `
-
 <div class="header-catatan">
     <div class="header-catatan-kedua">
         <div class="nama-pembuat-catatan"><i class='fas fa-user-alt'></i> ${pembuatCatatan}</div>
@@ -4632,7 +4631,7 @@ function renderIndent(doc){
 
     div.innerHTML = `<div style="display:flex;">Indent ${tanggal}</div>
     <div class="produk-indent-tampilan">
-    <div>, Produk</div>
+    <div>Produk</div>
     <div>:</div>
     <div id="produk-indent-tampilan${doc.id}">${produkIndent}</div>
     </div>
