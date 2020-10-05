@@ -1438,8 +1438,9 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 .info-tugas{
 	display: grid;
-	grid-template-columns: 200px 15px auto;
+	grid-template-columns: 170px 15px auto;
 	padding-bottom: 12px;
+	overflow-wrap: anywhere;
 }
 
 .hapus, .selesai, .edit, .copy ,.wewenang, .reset, .download{
@@ -2131,6 +2132,10 @@ input:checked + .slider:after {
 
 .info-peserta{
 	grid-template-columns: 170px 15px auto;
+}
+
+.modal-title{
+	font-size: 18px;
 }
 
 }
