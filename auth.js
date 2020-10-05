@@ -396,7 +396,7 @@ auth.onAuthStateChanged(user => {
                         document.querySelectorAll('.ekspedisi-transaksi-berjalan' + change.doc.id).forEach(eks => {
                         eks.remove();
                         })
-                    },0)                        
+                    },10)                        
                     } else if(change.type == 'modified'){
                         renderUpdateEkspedisiCetakLabel(change.doc);
                     }
@@ -559,13 +559,13 @@ auth.onAuthStateChanged(user => {
 
         $(document).ready(function(){
             setInterval(function(){ refreshOnPengumuman(); }, 60000);
-            setInterval(function(){ refreshOnOverview(); }, 0);
+            setInterval(function(){ refreshOnOverview(); }, 10);
             setInterval(function(){ refreshOnCatatan(); }, 60000);
             setInterval(function(){ refreshOnPerpindahan(); }, 1000);
-            setInterval(function(){ refreshOnPerpindahanKedua(); }, 0);
-            setInterval(function(){ refreshOnJumlahTenor(); }, 0);
-            setInterval(function(){ refreshOnOpsiEkspedisi(); }, 0);
-            setInterval(function(){ refreshOnRetur(); }, 0)
+            setInterval(function(){ refreshOnPerpindahanKedua(); }, 10);
+            setInterval(function(){ refreshOnJumlahTenor(); }, 10);
+            setInterval(function(){ refreshOnOpsiEkspedisi(); }, 10);
+            setInterval(function(){ refreshOnRetur(); }, 10)
         });
 
 
@@ -760,7 +760,7 @@ auth.onAuthStateChanged(user => {
                             document.querySelector('#jumbotron-performa-peserta-individu').style.setProperty('margin-top', '112px', 'important')
                             }
                         }
-                        },0)                    
+                        },10)                    
                     }
                 } else if(document.querySelector('#peringatan-perpindahan') && document.querySelector('#peringatan-perpindahan-kedua')){
                     if(tanggal == tanggalSekarang){
