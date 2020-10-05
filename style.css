@@ -2129,6 +2129,10 @@ input:checked + .slider:after {
 	margin: 5px;
 }
 
+.info-peserta{
+	grid-template-columns: 170px 15px auto;
+}
+
 #list-indent-cust{
 	display: block;
 }
