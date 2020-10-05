@@ -1380,6 +1380,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	grid-template-columns: 220px 15px auto;
 	justify-content: center;
 	padding-bottom: 12px;
+	overflow-wrap: anywhere;
 }
 
 .konten-retur-tampilan{
@@ -1416,6 +1417,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 .info-overview{
 	color:#3f78eb;
 	cursor: pointer;
+	overflow-wrap: anywhere;
 }
 
 .info-overview:hover{
