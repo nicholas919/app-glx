@@ -1438,7 +1438,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 .info-tugas{
 	display: grid;
-	grid-template-columns: 130px 15px auto;
+	grid-template-columns: 135px 15px auto;
 	padding-bottom: 12px;
 	overflow-wrap: anywhere;
 }
