@@ -4750,7 +4750,7 @@ function renderIndent(doc){
     let yyyy = kalkulasiTanggal.getFullYear();
     tanggal = dd + ' ' + mm + ' ' + yyyy;
 
-    div.innerHTML = `<div>Indent ${tanggal}</div>
+    div.innerHTML = `<div style="display:flex;">Indent ${tanggal}</div>
     <div class="produk-indent-tampilan">
     <div>, Produk</div>
     <div>:</div>
