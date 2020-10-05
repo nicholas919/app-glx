@@ -2,6 +2,12 @@ body{
 	background-color: #eeeeee !important;
 }
 
+#lihat-performa-peserta{
+	border-radius: 0 !important;
+	border:1px solid lightgray;
+	margin-top: 8px;
+}
+
 .footer-cetak-label-produk{
 	font-weight: bold;
 	padding: 4px 4px 0px;
@@ -501,13 +507,13 @@ input:checked + .slider:after {
 	font-size: 14px;
 }
 
-.hapus-catatan, .edit-catatan, .hapus-perpindahan-barang, .edit-perpindahan-barang, .edit-retur, .hapus-retur{
+.hapus-catatan, .edit-catatan, .hapus-perpindahan-barang, .edit-perpindahan-barang, .selesai-perpindahan-barang, .edit-retur, .hapus-retur{
 	cursor: pointer;
 }
 
 .indent-cust{
 	display: flex;
-	margin: 20px;
+	margin: 5px 20px;
 	padding: 8px 15px;
 	border: 1px solid #343a40;
 	background-color: #343a40;
@@ -564,14 +570,14 @@ input:checked + .slider:after {
 	border-bottom:1px dashed black;
 }
 
-.potongan-kertas-cetak-label:nth-child(9n+0){
+.potongan-kertas-cetak-label:nth-child(7n+0){
 	border-top: 1px dashed black;	
-  	margin-top:107px; 
+  	margin-top:303px; 
 }
 
-.potongan-kertas-cetak-label:nth-child(10n+0){
+.potongan-kertas-cetak-label:nth-child(8n+0){
 	border-top: 1px dashed black;	
-  	margin-top:107px; 
+  	margin-top:303px; 
 }
 
 .hapus-potongan-kertas-cetak-label{
@@ -1412,7 +1418,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	align-items: center;
 }
 
-.info-kesalahan, .info-achievement, .info-akun, .info-tenor, .info-transaksi, .info-perpindahan-barang{
+.info-kesalahan, .info-achievement, .info-akun, .info-tenor, .info-transaksi, .info-perpindahan-barang, .info-retur{
 	display: grid;
 	grid-template-columns: 150px 15px auto;
 	padding-bottom: 12px;
@@ -2025,7 +2031,7 @@ div.induk-kategori-menu{
 	font-size: 16px;
 }
 
-.tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur, .tombol-lihat-perpindahan, .indent-cust{
+.tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur, .tombol-lihat-perpindahan, #lihat-performa-peserta, .konten-perpindahan-barang-tampilan, .judul-perpindahan-barang{
 	font-size: 15px;
 }
 
@@ -2035,10 +2041,10 @@ div.induk-kategori-menu{
 }
 
 .indent-cust{
-	margin: 5px 20px;
+	margin: 4px 20px;
 }
 
-.konten-retur-tampilan, .konten-catatan-body, td{
+.konten-retur-tampilan, .konten-catatan-body, td, .indent-cust{
 	font-size: 14px;
 }
 
@@ -2143,6 +2149,10 @@ input:checked + .slider:after {
 
 #form-kalkulator{
 	margin: 5px;
+}
+
+#list-performa-peserta div, #jumlah-data-swot, #jumlah-data-achievement-kosong{
+	font-size: 16px;
 }
 
 }

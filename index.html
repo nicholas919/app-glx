@@ -151,7 +151,6 @@
 <div class="jumbotron" id="jumbotron-performa-peserta-individu">
   <h1 id="judul-jumbotron-performa-peserta-individu" class="display-4">Noticement :</h1>
   <div class="lead" id="list-performa-peserta-individu">
-    <div><i class='fas fa-bullhorn' style="color:red;"></i> Halaman website akan refresh otomatis setiap 1.5 jam,terhitung dari setelah anda membuka halaman website, untuk menghindari adanya keterlambatan update dalam pengembangan website.</div>
     <div><i class='fas fa-bullhorn' style="color:red;"></i> Kesalahan individu dalam bekerja hanya dapat ditambahkan oleh pihak admin sendiri yang memantau.</div>
     <div><i class='fas fa-bullhorn' style="color:red;"></i> Diharapkan agar anda dapat menyelesaikan tugas sebelum tenggat waktu tugas berakhir.</div>
     <div><i class='fas fa-bullhorn' style="color:red;"></i> Kecepatan rata-rata penyelesaian atau keterlambatan penyelesaian tugas maupun kesalahan individu hanya akan ditampilkan individu.</div>
@@ -1454,6 +1453,7 @@ let tombolTambahLihatPerpindahan = document.querySelector('#tombol-tambah-lihat-
 let tombolTambahLihatPerpindahanKedua = document.querySelector('#tombol-tambah-lihat-perpindahan-kedua');
 let tombolTambahLihatRetur = document.querySelector('#tombol-tambah-lihat-retur');
 let tombolTambahLihatReturKedua = document.querySelector('#tombol-tambah-lihat-retur-kedua');
+
 $(document).ready(function(e){
     if($(window).width() <= 840){
         if(document.querySelector('#tambahpengumuman')){
@@ -1589,7 +1589,7 @@ $(document).ready(function(e){
                         })
                     }
                 })            
-        }        
+        }
     } else {
         if(document.querySelector('#tambahpengumuman')){
             document.querySelector('#tambahpengumuman').classList.add('pull-right');

@@ -79,6 +79,7 @@ function renderPeserta(doc){
     let tr = document.createElement('tr');
     let div = document.createElement('div');
     let peserta = document.createElement('div');
+    let lihatPerformaPeserta = document.createElement('div');    
     let nama = doc.data().nama;
     let libur = doc.data().libur;
     let lokasi = doc.data().lokasi;
@@ -94,10 +95,13 @@ function renderPeserta(doc){
     tr.classList.add('dokumentasi-peserta' + doc.id, nama.toLowerCase().replace(" ", "-"), 'peserta');
     div.setAttribute('data-info', doc.id);
     div.classList.add('dokumentasi-peserta-kedua' + doc.id);
+    lihatPerformaPeserta.setAttribute('id', 'lihat-performa-peserta');
+    lihatPerformaPeserta.classList.add('btn', 'btn-light', 'd-block');    
     opsiTugas.classList.add('opsi-target-peserta' + doc.id, 'pemilihan-tugas-peserta');
     opsiTugasKedua.classList.add('opsi-target-peserta-kedua' + doc.id, 'pemilihan-tugas-peserta-kedua');
     opsiTugas.innerHTML = nama;
-    opsiTugasKedua.innerHTML = nama;
+    opsiTugasKedua.innerHTML = nama;            
+          
     tr.innerHTML = `
     <td style="font-weight:bold;" id="nama-table${doc.id}">${nama}</td>
     <td id="lokasi-table${doc.id}">${lokasi}</td>
@@ -106,7 +110,7 @@ function renderPeserta(doc){
     <td id="status-td-peserta${doc.id}" style="font-weight:bold;"></td>
     `
 
-    div.innerHTML = `<div id="performa-peserta-${nama.toLowerCase().replace(" ", "-")}"><span style="font-weight:bold;" id="peserta${doc.id}"><i class='fas fa-user'></i> ${nama} </span><span id="jumlah-kesalahan-peserta-${nama.toLowerCase().replace(" ", "-")}">sejauh ini tidak memiliki kesalahan atau terlibat dalam masalah</span>, <span id="jumlah-tugas-selesai-peserta-${nama.toLowerCase().replace(" ", "-")}">belum terlibat dalam penugasan tertentu.</span> <span id="rata-rata-waktu-penyelesaian-peserta-${nama.toLowerCase().replace(" ", "-")}"></span><span id="jumlah-tugas-terlambat-selesai-peserta-${nama.toLowerCase().replace(" ", "-")}"></span></div>`
+    div.innerHTML = `<div class="performa-peserta" id="performa-peserta-${nama.toLowerCase().replace(" ", "-")}"><span style="font-weight:bold;" id="peserta${doc.id}"><i class='fas fa-user'></i> ${nama} </span><span id="jumlah-kesalahan-peserta-${nama.toLowerCase().replace(" ", "-")}">sejauh ini tidak memiliki kesalahan atau terlibat dalam masalah</span>, <span id="jumlah-tugas-selesai-peserta-${nama.toLowerCase().replace(" ", "-")}">belum terlibat dalam penugasan tertentu.</span> <span id="rata-rata-waktu-penyelesaian-peserta-${nama.toLowerCase().replace(" ", "-")}"></span><span id="jumlah-tugas-terlambat-selesai-peserta-${nama.toLowerCase().replace(" ", "-")}"></span></div>`
 
     peserta.innerHTML = `
 <div class="modal fade" id="modaleditpeserta${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -175,6 +179,8 @@ function renderPeserta(doc){
        </div>
      </div>
     `
+
+    lihatPerformaPeserta.innerHTML = `<i class='fas fa-caret-down'></i> Show More`;
 
     switch(lokasi){
         case "Tangerang":
@@ -250,6 +256,73 @@ let status = document.querySelector('#status-peserta' + doc.id).innerHTML;
         document.querySelector('#target-peserta').appendChild(opsiTugas);
     }
         document.querySelector('#target-peserta-kedua').appendChild(opsiTugasKedua);
+
+let refreshPerformaPeserta = setInterval(refreshOnPerformaPeserta,0);
+
+function refreshOnPerformaPeserta(){
+    let performaPeserta = document.querySelectorAll('.performa-peserta');    
+    if($(window).width() <= 1000){
+    if(listPerformaPeserta.childNodes.length > 3){
+    for(let x = 0; x<performaPeserta.length; x++){
+    if(x > 2){
+        performaPeserta[x].style.setProperty('display', 'none')
+    }
+        }
+    if(document.querySelector('#lihat-performa-peserta')){
+    document.querySelector('#lihat-performa-peserta').remove();
+    document.querySelector('#list-performa-peserta').parentNode.insertBefore(lihatPerformaPeserta, document.querySelector('#list-performa-peserta').nextSibling);    
+    clearInterval(refreshPerformaPeserta);
+    for(let x = 0; x<performaPeserta.length; x++){
+        if(x > 2){
+            if(performaPeserta[x].style.display == 'none'){
+            document.querySelector('#lihat-performa-peserta').innerHTML = `<i class='fas fa-caret-down'></i> Show More`                
+            } else {
+            document.querySelector('#lihat-performa-peserta').innerHTML = `<i class='fas fa-caret-up'></i> Show Less`                
+            }
+        }
+    }    
+    } else {
+    document.querySelector('#list-performa-peserta').parentNode.insertBefore(lihatPerformaPeserta, document.querySelector('#list-performa-peserta').nextSibling);              
+    clearInterval(refreshPerformaPeserta);    
+        }
+
+    let tombolLihatPerformaPeserta = document.querySelector('#lihat-performa-peserta');
+    tombolLihatPerformaPeserta.addEventListener('click', function(e){
+        e.stopImmediatePropagation();
+        for(let x = 0; x<performaPeserta.length; x++){
+        if(x > 2){
+            if(document.querySelector('#lihat-performa-peserta').innerHTML.includes('Show More') && performaPeserta[x].style.display == 'none'){
+                performaPeserta[x].style.setProperty('display', 'block')
+                tombolLihatPerformaPeserta.innerHTML = `<i class='fas fa-caret-up'></i> Show Less`            
+            } else if(document.querySelector('#lihat-performa-peserta').innerHTML.includes('Show Less') && performaPeserta[x].style.display == 'block'){
+                performaPeserta[x].style.setProperty('display', 'none')
+                tombolLihatPerformaPeserta.innerHTML = `<i class='fas fa-caret-down'></i> Show More`            
+            }            
+        }
+            }        
+    })
+    }
+} else {
+    if(document.querySelector('#lihat-performa-peserta')){
+    for(let x = 0; x<performaPeserta.length; x++){
+        performaPeserta[x].style.setProperty('display', 'block')
+    }
+    document.querySelector('#lihat-performa-peserta').remove();
+    }
+}
+}
+
+setInterval(function(){
+    if($(window).width() >= 1000){
+        if(document.querySelector('#lihat-performa-peserta')){
+            refreshOnPerformaPeserta()
+        }
+    } else {
+        if(!document.querySelector('#lihat-performa-peserta')){
+            refreshOnPerformaPeserta()
+        } 
+    }
+},0)
 
     let edit = document.querySelector('#edit' + doc.id);
     edit.addEventListener('click', function(e){
@@ -581,6 +654,7 @@ const setupUI = (user) => {
         let username = doc.data().username;
         let kataSambut = document.querySelectorAll('.kata-sambutan');
         let overview = document.querySelectorAll('.overview');
+        let overviewIndividu = document.querySelectorAll('.overview-' + username.toLowerCase().replace(" ", "-"))
         let penggunaTargetOverview = document.querySelectorAll('.pengguna-target-overview');
         let editKategoriMenu = document.querySelectorAll('.edit-kategori-menu');
         let hapusKategoriMenu = document.querySelectorAll('.hapus-kategori-menu');
@@ -588,9 +662,46 @@ const setupUI = (user) => {
         let hapusMenu = document.querySelectorAll('.hapus-menu');
         let tombolTambahMenu = document.querySelectorAll('.tombol-tambah-menu');
         let dataMenu = document.querySelectorAll('.data-menu');
+        let catatan = document.querySelectorAll('.catatan')
+
+        setInterval(function(){
+        for(let x = 0; x<catatan.length; x++){
+            let id = catatan[x].getAttribute('data-id')
+            db.collection('catatan').doc(id).get().then(function(item){
+                if(item.data().pembuatCatatan.toLowerCase().replace(" ", "-") == username.toLowerCase().replace(" ", "-")){
+                    document.querySelector('#tombol-pengaturan' + id).style.setProperty('display', 'block', 'important')
+                } else {
+                    document.querySelector('#tombol-pengaturan' + id).style.setProperty('display', 'none', 'important')
+                }
+            })
+        }
+        },0)
+
         for(let x = 0; x<kataSambut.length; x++){
             kataSambut[x].innerHTML = 'Hallo ,' + username + '!';
         }
+
+        if(overviewIndividu.length > 30){
+            for(let x = 0; x<overviewIndividu.length; x++){
+                if(x > 29){
+                    let id = overviewIndividu[x].getAttribute('data-id');
+                    db.collection('overview').doc(id).delete();
+                }
+            }
+        }
+        for(let x = 0; x<daftarKaryawan.length; x++){
+        let overviewIndividuLain = document.querySelectorAll('.overview-' + daftarKaryawan[x].toLowerCase().replace(" ", "-"))
+        if(overviewIndividuLain.length > 30){
+            for(let i = 0; i<overviewIndividuLain.length; i++){
+                if(i > 29){
+                    let id = overviewIndividuLain[i].getAttribute('data-id');
+                    db.collection('overview').doc(id).delete();
+                }
+            }
+                }
+        }
+    
+
         if(username == "Admin Galaxy" && user.email == 'useradmin@galaxy.id'){
         setInterval(function(){
         document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
@@ -1181,6 +1292,8 @@ if($(window).width() <= 760){
         }
     }
 })
+
+
 
 
 let tabHalaman = document.querySelectorAll('.tab-halaman')
@@ -3111,6 +3224,10 @@ function renderOverview(doc){
     let bulan;
     let mm;
     let yyyy;
+    let produkRetur;
+    let keluhanCustomer;
+    let keteranganRetur;
+    let statusProduk;
     div.setAttribute('data-date', waktuOverview);
     if(perbandinganWaktu >= 31536000000){
         let perhitunganTahun = Math.floor(perbandinganWaktu/31536000000);
@@ -3757,13 +3874,72 @@ function renderOverview(doc){
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
         document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-return':
+        namaCustomer = doc.data().namaCustomer;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data retur penjualan dengan nama customer ${namaCustomer}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;       
+        case 'delete-return':
+        namaCustomer = doc.data().namaCustomer;
+        kontakCustomer = doc.data().kontakCustomer;
+        produkRetur = doc.data().produkRetur;
+        keluhanCustomer = doc.data().keluhanCustomer;
+        keteranganRetur = doc.data().keteranganRetur;
+        statusProduk = doc.data().statusProduk;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data retur penjualan customer ${namaCustomer}.</div>`        
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Informasi Retur ${namaCustomer}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-retur">
+                        <div>Nama Customer</div>
+                        <div>:</div>
+                        <div style="font-weight:bold;">${namaCustomer}</div>
+                        <div>Kontak Customer</div>
+                        <div>:</div>
+                        <div>${kontakCustomer}</div>
+                        <div>Status Produk</div>
+                        <div>:</div>
+                        <div>${statusProduk}</div>
+                        <div>Produk</div>
+                        <div>:</div>
+                        <div>${produkRetur}</div>
+                        <div>Keluhan Customer</div>
+                        <div>:</div>
+                        <div>${keluhanCustomer}</div>
+                        <div>Keterangan Tambahan</div>
+                        <div>:</div>
+                        <div>${keteranganRetur}</div>                                                                                                
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';        
         break;        
     }
 
     if(auth.currentUser != null){
     db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         if(document.querySelector('#pengguna-overview' + doc.id) == null){
-            console.log = function(){}
+            //console.log = function(){}
         } else if(penggunaOverview == docs.data().username){
             document.querySelector('#pengguna-overview' + doc.id).innerHTML = 'Anda';
         }
@@ -4392,7 +4568,7 @@ function renderCatatan(doc){
         <div class="waktu-catatan-dibuat" id="waktu-luncur-catatan${doc.id}">${perbandinganWaktu}</div>
     </div>
     <div class="dropdown">        
-        <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+        <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
         <div class="dropdown-menu menu-konfigurasi-catatan">
             <div class='edit-catatan dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalcatatan${doc.id}'><i class='fas fa-pen'></i> Edit</div>
             <div class='hapus-catatan dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
@@ -4885,8 +5061,9 @@ function renderPerpindahan(doc){
     <div class="header-perpindahan-barang">
         <div class="judul-perpindahan-barang">Perpindahan <span id="tanggal-perpindahan-barang-tampilan${doc.id}">Tanggal ${tanggal}</span></div>
         <div class="dropdown">        
-            <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
             <div class="dropdown-menu menu-konfigurasi-perpindahan-barang">
+                <div class='selesai-perpindahan-barang dropdown-item' id="selesai${doc.id}"><i class='fas fa-check'></i> Selesai</div>
                 <div class='edit-perpindahan-barang dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalperpindahanbarang${doc.id}'><i class='fas fa-pen'></i> Edit</div>
                 <div class='hapus-perpindahan-barang dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
             </div>
@@ -4932,6 +5109,23 @@ function renderPerpindahan(doc){
         listPerpindahanBarangPending.appendChild(div);
     }
     modalPerpindahanBarang.appendChild(perpindahan);    
+
+    let selesai = document.querySelector('#selesai' + doc.id);
+    selesai.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menyelesaikan perpindahan barang ini?');
+        if(konfirmasi == true){        
+        db.collection('perpindahan').doc(doc.id).get().then(function(item){
+        db.collection('perpindahanSelesai').add({
+            tanggal : item.data().tanggal,
+            kontenPerpindahan : item.data().kontenPerpindahan
+            }).then(() => {
+                db.collection('perpindahan').doc(doc.id).delete();
+                $('#modalperpindahanbarang' + doc.id).modal('hide')
+            })
+        })
+        }
+    })
 
     let hapus = document.querySelector('#hapus' + doc.id);
     hapus.addEventListener('click', (e) => {
@@ -5036,6 +5230,71 @@ function renderPerpindahan(doc){
 function renderUpdatePerpindahan(doc){
     let kontenPerpindahan = doc.data().kontenPerpindahan;
     document.querySelector('#konten-perpindahan-barang-tampilan' + doc.id).innerHTML = kontenPerpindahan;
+}
+
+
+function renderPerpindahanSelesai(doc){
+    let div = document.createElement('div')
+    div.setAttribute('data-id', doc.id)
+    div.setAttribute('id', 'perpindahanbarang' + doc.id)
+    div.classList.add('dokumentasi-perpindahan' + doc.id, 'perpindahan-barang');
+    let tanggal = doc.data().tanggal;
+    let kontenPerpindahan = doc.data().kontenPerpindahan;
+    div.setAttribute('data-date', new Date(tanggal).getTime())
+    let kalkulasiTanggal = new Date(tanggal);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggal = dd + ' ' + mm + ' ' + yyyy;
+    let mm1 = String(kalkulasiTanggal.getMonth() + 1).padStart(2, '0');
+    let tampilanTanggal = yyyy + '-' + mm1 + '-' + dd;
+    let tanggalPerpindahan = yyyy + mm1 + dd;
+    dd = String(new Date().getDate()).padStart(2, '0');
+    mm = String(new Date().getMonth() + 1).padStart(2, '0');
+    yyyy = new Date().getFullYear();
+    let tanggalSekarang = yyyy + mm + dd;
+    div.innerHTML = `
+    <div class="header-perpindahan-barang">
+        <div class="judul-perpindahan-barang">Perpindahan <span id="tanggal-perpindahan-barang-tampilan${doc.id}">Tanggal ${tanggal}</span></div>
+        <div class="dropdown">        
+            <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
+            <div class="dropdown-menu menu-konfigurasi-perpindahan-barang">
+                <div class='hapus-perpindahan-barang dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+            </div>
+        </div>
+    </div>
+    <div id="konten-perpindahan-barang-tampilan${doc.id}" class="konten-perpindahan-barang-tampilan">${kontenPerpindahan}</div>
+    `    
+    listPerpindahanBarangSelesai.appendChild(div);
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus data perpindahan barang(selesai) ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-perpindahan' + doc.id).getAttribute('data-id');
+        db.collection('perpindahanSelesai').doc(id).delete();
+        }
+    })
+
+        $(document).ready(function() {
+        db.collection('perpindahan').onSnapshot(snapshot =>{
+        let items = $('#list-perpindahan-barang-selesai > .perpindahan-barang').get();
+        items.sort(function(a, b) {
+        let keyA = $(a).data('date');
+        let keyB = $(b).data('date');
+        if (keyA < keyB) return 1;
+        if (keyA > keyB) return -1;
+        return 0;
+        })
+        let daftarPerpindahanBarangSelesai = $('#list-perpindahan-barang-selesai');
+        $.each(items, function(i, div) {
+        daftarPerpindahanBarangSelesai.append(div);
+        })
+      })
+    })
+
 }
 
 const modalTenor = document.querySelector('#modal-edit-tenor');
@@ -5603,7 +5862,7 @@ function renderReturPending(doc){
     <div class="header-retur">
         <div class="judul-retur"><i class='fas fa-history'></i> Retur Penjualan ${tanggal}</div>
         <div class="dropdown">        
-            <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
             <div class="dropdown-menu menu-konfigurasi-retur">
                 <div class='edit-retur dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalretur${doc.id}'><i class='fas fa-pen'></i> Edit</div>
                 <div class='hapus-retur dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
@@ -5701,6 +5960,7 @@ function renderReturPending(doc){
                 penggunaOverview : docs.data().username,
                 waktuOverview : tanggal,
                 namaCustomer : item.data().namaCustomer,
+                kontakCustomer : item.data().kontakCustomer,
                 produkRetur : item.data().produkRetur,
                 keluhanCustomer : item.data().keluhanCustomer,
                 keteranganRetur : item.data().keteranganRetur,
@@ -5814,7 +6074,7 @@ function renderReturSelesai(doc){
     <div class="header-retur">
         <div class="judul-retur"><i class='fas fa-pallet'></i> Retur Penjualan ${tanggal}</div>
         <div class="dropdown">        
-            <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
             <div class="dropdown-menu menu-konfigurasi-retur">
                 <div class='edit-retur dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalretur${doc.id}'><i class='fas fa-pen'></i> Edit</div>
                 <div class='hapus-retur dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
@@ -5912,6 +6172,7 @@ function renderReturSelesai(doc){
                 penggunaOverview : docs.data().username,
                 waktuOverview : tanggal,
                 namaCustomer : item.data().namaCustomer,
+                kontakCustomer : item.data().kontakCustomer,
                 produkRetur : item.data().produkRetur,
                 keluhanCustomer : item.data().keluhanCustomer,
                 keteranganRetur : item.data().keteranganRetur,

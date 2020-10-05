@@ -443,7 +443,19 @@ auth.onAuthStateChanged(user => {
                         renderUpdatePerpindahan(change.doc);
                     }
                 })
-    }, err => console.log(err.message))        
+    }, err => console.log(err.message))
+
+        db.collection('perpindahanSelesai').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderPerpindahanSelesai(change.doc);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        div.remove();
+                    }
+                })
+    }, err => console.log(err.message))            
 
         db.collection('tenorKalkulator').onSnapshot(snapshot =>{
                 let changes = snapshot.docChanges();
@@ -546,7 +558,6 @@ auth.onAuthStateChanged(user => {
     }, err => console.log(err.message))                 
 
         $(document).ready(function(){
-            setInterval(function(){ reload_page(); }, 90*60000);
             setInterval(function(){ refreshOnPengumuman(); }, 60000);
             setInterval(function(){ refreshOnOverview(); }, 0);
             setInterval(function(){ refreshOnCatatan(); }, 60000);
@@ -557,9 +568,6 @@ auth.onAuthStateChanged(user => {
             setInterval(function(){ refreshOnRetur(); }, 0)
         });
 
-        function reload_page(){
-            window.location.reload(true);
-        }
 
         function refreshOnPengumuman(){
           db.collection('pengumuman').get().then(function(querySnapshot){
