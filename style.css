@@ -1438,7 +1438,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 .info-tugas{
 	display: grid;
-	grid-template-columns: 170px 15px auto;
+	grid-template-columns: 150px 15px auto;
 	padding-bottom: 12px;
 	overflow-wrap: anywhere;
 }
@@ -2114,7 +2114,7 @@ input:checked + .slider:after {
 	font-size: 15px;
 }
 
-.label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor, th{
+.label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor, th, .info-tugas{
 	font-size: 15px;
 }
 
@@ -2135,7 +2135,7 @@ input:checked + .slider:after {
 }
 
 .modal-title{
-	font-size: 18px;
+	font-size: 16px;
 }
 
 }
