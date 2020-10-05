@@ -973,7 +973,7 @@ const setupUI = (user) => {
             document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:block !important;');
-            document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:block !important;');
+            document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:block !important;');            
         } else if(daftarKaryawan.includes(username.toLowerCase().replace(" ", "-")) && daftarEmailKaryawan.includes(user.email)){
             setInterval(function(){
             document.querySelector('#pengguna-overview').innerHTML = 'anda';
@@ -1116,6 +1116,8 @@ const setupUI = (user) => {
             document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:none !important;');
+            document.querySelector('#lihatperpindahanpending').style.setProperty('display', 'none', 'important');
+            document.querySelector('#lihatperpindahanselesai').style.setProperty('display', 'none', 'important');            
         } else {
             for(let x = 0; x<editPeserta.length;x++){
             editPeserta[x].setAttribute('style','display:none !important;');
