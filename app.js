@@ -669,23 +669,6 @@ const setupUI = (user) => {
         let hapusPengumuman = document.querySelectorAll('.hapuspengumuman');
         let editPengumuman = document.querySelectorAll('.editpengumuman');
 
-        setInterval(function(){
-        for(let x = 0; x<catatan.length; x++){
-            let id = catatan[x].getAttribute('data-id')
-            db.collection('catatan').doc(id).get().then(function(item){
-                if(item.data().pembuatCatatan.toLowerCase().replace(" ", "-") == username.toLowerCase().replace(" ", "-")){
-                    if(document.querySelector('#tombol-pengaturan' + id)){
-                    document.querySelector('#tombol-pengaturan' + id).style.setProperty('display', 'flex', 'important')
-                    }
-                } else {
-                    if(document.querySelector('#tombol-pengaturan' + id)){
-                    document.querySelector('#tombol-pengaturan' + id).style.setProperty('display', 'none', 'important')
-                    }
-                }
-            })
-        }
-        },10)
-
         for(let x = 0; x<kataSambut.length; x++){
             kataSambut[x].innerHTML = 'Hallo ,' + username + '!';
         }
@@ -979,7 +962,23 @@ const setupUI = (user) => {
             document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:block !important;');
             document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:block !important;');            
         } else if(daftarKaryawan.includes(username.toLowerCase().replace(" ", "-")) && daftarEmailKaryawan.includes(user.email)){
-            setInterval(function(){
+        setInterval(function(){
+        for(let x = 0; x<catatan.length; x++){
+            let id = catatan[x].getAttribute('data-id')
+            db.collection('catatan').doc(id).get().then(function(item){
+                if(item.data().pembuatCatatan.toLowerCase().replace(" ", "-") == username.toLowerCase().replace(" ", "-")){
+                    if(document.querySelector('#tombol-pengaturan' + id)){
+                    document.querySelector('#tombol-pengaturan' + id).style.setProperty('display', 'flex', 'important')
+                    }
+                } else {
+                    if(document.querySelector('#tombol-pengaturan' + id)){
+                    document.querySelector('#tombol-pengaturan' + id).style.setProperty('display', 'none', 'important')
+                    }
+                }
+            })
+        }
+        },10)            
+        setInterval(function(){
             document.querySelector('#pengguna-overview').innerHTML = 'anda';
         },10)
             myFunction(x);
@@ -4633,7 +4632,7 @@ function renderIndent(doc){
     let yyyy = kalkulasiTanggal.getFullYear();
     tanggal = dd + ' ' + mm + ' ' + yyyy;
 
-    div.innerHTML = `<div style="display:flex;">Indent ${tanggal}</div>
+    div.innerHTML = `<div style="display:flex;font-weight:bold;color:powderblue;">Indent ${tanggal}</div>
     <div class="produk-indent-tampilan">
     <div>Produk</div>
     <div>:</div>

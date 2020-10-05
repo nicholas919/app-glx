@@ -2137,6 +2137,14 @@ input:checked + .slider:after {
 	display: block;
 }
 
+.menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur{
+	transform: translate3d(-120px, 44px, 0px) !important;
+}
+
+.menu-konfigurasi-catatan{
+	transform: translate3d(-125px, 48px, 0px) !important;
+}
+
 }
 
 @media only screen and (max-width: 660px){
