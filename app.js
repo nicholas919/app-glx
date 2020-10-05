@@ -1649,7 +1649,7 @@ function renderTugas(doc){
             <textarea oninput="auto_grow(this)" class="form-control" id="bukti-penyelesaian${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)"></textarea>
         </div>
         <div class="form-group">
-            <input type="file" accept="file_extension,image/*" id="file-penyelesaian${doc.id}" class="inputfile">
+            <input type="file" accept="docx/*,xls/*,pdf/*,pptx/*,txt/*,html*/,css/*,js/*,image/*" id="file-penyelesaian${doc.id}" class="inputfile">
         </div>
 </form>
         <div id="selesai${doc.id}" class="btn btn-success selesai">Selesaikan Tugas</div>
