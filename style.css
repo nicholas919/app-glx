@@ -2,6 +2,11 @@ body{
 	background-color: #eeeeee !important;
 }
 
+#list-indent-cust{
+	display: grid;
+	grid-template-columns: 50% 50%;
+}
+
 #lihat-performa-peserta{
 	border-radius: 0 !important;
 	border:1px solid lightgray;
@@ -516,6 +521,7 @@ input:checked + .slider:after {
 	color: white;
 	border-radius: 5px;
 	cursor: pointer;
+	overflow-wrap: anywhere;
 }
 
 .indent-cust:hover{
@@ -2143,6 +2149,10 @@ input:checked + .slider:after {
 
 label, #peringatan-perpindahan-kedua, .info-indent-cust{
 	font-size: 15px;
+}
+
+#list-indent-cust{
+	display: block;
 }
 
 }
