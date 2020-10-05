@@ -2139,7 +2139,7 @@ input:checked + .slider:after {
 	font-size: 16px;
 }
 
-label, #peringatan-perpindahan-kedua{
+label, #peringatan-perpindahan-kedua, .info-indent-cust{
 	font-size: 15px;
 }
 
