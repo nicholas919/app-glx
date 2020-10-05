@@ -1396,6 +1396,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	display: grid;
 	grid-template-columns: 150px 15px auto;
 	padding-bottom: 12px;
+	overflow-wrap: anywhere;
 }
 
 .info-analisis{
