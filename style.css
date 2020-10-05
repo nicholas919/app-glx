@@ -1391,7 +1391,8 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 .konten-retur-tampilan{
 	display: grid;
-	grid-template-columns: 165px 15px auto;	
+	grid-template-columns: 165px 15px auto;
+	overflow-wrap: anywhere;	
 }
 
 .info-peserta > div {
