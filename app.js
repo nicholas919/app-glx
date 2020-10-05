@@ -5811,7 +5811,7 @@ function renderReturPending(doc){
         <div id="produk-retur-tampilan${doc.id}">${produkRetur}</div>
         <div>Status Produk</div>
         <div>:</div>
-        <div style="color:#c72424;font-weight:bold;">Belum Diterima</div>
+        <div style="color:#c72424;font-weight:bold;">Belum Selesai</div>
         <div>Keluhan Customer</div>
         <div>:</div>
         <div id="keluhan-retur-tampilan${doc.id}">${keluhanCustomer}</div>
@@ -5843,10 +5843,10 @@ function renderReturPending(doc){
                   <input type="number" value="${kontakCustomer}" class="form-control your_class" id="kontak-retur${doc.id}" autocomplete="off">
                 </div>            
                 <div class="form-group col">
-                  <label class="col-form-label">Status Produk</label>
+                  <label class="col-form-label">Status Retur</label>
                 <select class="form-control" id="status-retur${doc.id}" required>
-                    <option>Sudah Diterima</option>
-                    <option selected>Belum Diterima</option>
+                    <option>Sudah Selesai</option>
+                    <option selected>Belum Selesai</option>
                     </select>
                 </div>                
             </div>
@@ -5894,7 +5894,7 @@ function renderReturPending(doc){
                 produkRetur : item.data().produkRetur,
                 keluhanCustomer : item.data().keluhanCustomer,
                 keteranganRetur : item.data().keteranganRetur,
-                statusProduk : 'Belum Diterima',
+                statusProduk : 'Belum Selesai',
                 overview : 'delete-return'
                 })
         }).then(() => {
@@ -5922,7 +5922,7 @@ function renderReturPending(doc){
         produkRetur = item.data().produkRetur;
         keluhanCustomer = item.data().keluhanCustomer;
         keteranganRetur = item.data().keteranganRetur;
-        if(statusProdukUpdate == 'Sudah Diterima'){
+        if(statusProdukUpdate == 'Sudah Selesai'){
             db.collection('returSelesai').add({
                 tanggal : tanggal,
                 namaCustomer : namaCustomerUpdate,
@@ -6023,7 +6023,7 @@ function renderReturSelesai(doc){
         <div id="produk-retur-tampilan${doc.id}">${produkRetur}</div>
         <div>Status Produk</div>
         <div>:</div>
-        <div style="color:#13eb5e;font-weight:bold;">Sudah Diterima</div>
+        <div style="color:#13eb5e;font-weight:bold;">Sudah Selesai</div>
         <div>Keluhan Customer</div>
         <div>:</div>
         <div id="keluhan-retur-tampilan${doc.id}">${keluhanCustomer}</div>
@@ -6057,8 +6057,8 @@ function renderReturSelesai(doc){
                 <div class="form-group col">
                   <label class="col-form-label">Status Produk</label>
                 <select class="form-control" id="status-retur${doc.id}" required>
-                    <option selected>Sudah Diterima</option>
-                    <option>Belum Diterima</option>
+                    <option selected>Sudah Selesai</option>
+                    <option>Belum Selesai</option>
                     </select>
                 </div>                
             </div>
@@ -6106,7 +6106,7 @@ function renderReturSelesai(doc){
                 produkRetur : item.data().produkRetur,
                 keluhanCustomer : item.data().keluhanCustomer,
                 keteranganRetur : item.data().keteranganRetur,
-                statusProduk : 'Sudah Diterima',
+                statusProduk : 'Sudah Selesai',
                 overview : 'delete-return'
                 })
         }).then(() => {
@@ -6134,7 +6134,7 @@ function renderReturSelesai(doc){
         produkRetur = item.data().produkRetur;
         keluhanCustomer = item.data().keluhanCustomer;
         keteranganRetur = item.data().keteranganRetur;
-        if(statusProdukUpdate == 'Belum Diterima'){
+        if(statusProdukUpdate == 'Belum Selesai'){
             db.collection('returPending').add({
                 tanggal : tanggal,
                 namaCustomer : namaCustomerUpdate,

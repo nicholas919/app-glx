@@ -1370,7 +1370,7 @@ daftarTransaksiBerjalan.addEventListener('submit', function(e){
 const daftarRetur = document.querySelector('#tambah-retur');
 daftarRetur.addEventListener('submit', function(e){
     e.preventDefault();
-if(daftarRetur['status-retur'].value == 'Belum Diterima'){
+if(daftarRetur['status-retur'].value == 'Belum Selesai'){
     db.collection('returPending').add({
         tanggal: new Date().getTime(),
         namaCustomer: daftarRetur['customer-retur'].value,
