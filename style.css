@@ -1438,7 +1438,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 .info-tugas{
 	display: grid;
-	grid-template-columns: 150px 15px auto;
+	grid-template-columns: 130px 15px auto;
 	padding-bottom: 12px;
 	overflow-wrap: anywhere;
 }
@@ -2136,6 +2136,10 @@ input:checked + .slider:after {
 
 .modal-title{
 	font-size: 16px;
+}
+
+label{
+	font-size: 15px;
 }
 
 }
