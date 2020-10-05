@@ -535,7 +535,8 @@ input:checked + .slider:after {
 }
 
 .konten-catatan-body{
-	padding: 8px 8px 8px 16px
+	padding: 8px 8px 8px 16px;
+	overflow-wrap: anywhere;
 }
 
 .catatan{
