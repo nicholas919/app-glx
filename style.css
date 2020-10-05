@@ -440,6 +440,7 @@ input:checked + .slider:after {
 	background-color: white;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
+	overflow-wrap: anywhere;
 }
 
 .header-perpindahan-barang, .header-retur{
@@ -1391,8 +1392,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 .konten-retur-tampilan{
 	display: grid;
-	grid-template-columns: 165px 15px auto;
-	overflow-wrap: anywhere;	
+	grid-template-columns: 165px 15px auto;	
 }
 
 .info-peserta > div {
@@ -1499,6 +1499,10 @@ th,td{
 
 th{
 	vertical-align: middle !important;
+}
+
+td{
+	overflow-wrap: anywhere;
 }
 
 .peserta{
