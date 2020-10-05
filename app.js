@@ -257,7 +257,7 @@ let status = document.querySelector('#status-peserta' + doc.id).innerHTML;
     }
         document.querySelector('#target-peserta-kedua').appendChild(opsiTugasKedua);
 
-let refreshPerformaPeserta = setInterval(refreshOnPerformaPeserta,0);
+let refreshPerformaPeserta = setInterval(refreshOnPerformaPeserta,10);
 
 function refreshOnPerformaPeserta(){
     let performaPeserta = document.querySelectorAll('.performa-peserta');    
@@ -322,7 +322,7 @@ setInterval(function(){
             refreshOnPerformaPeserta()
         } 
     }
-},0)
+},10)
 
     let edit = document.querySelector('#edit' + doc.id);
     edit.addEventListener('click', function(e){
@@ -662,7 +662,13 @@ const setupUI = (user) => {
         let hapusMenu = document.querySelectorAll('.hapus-menu');
         let tombolTambahMenu = document.querySelectorAll('.tombol-tambah-menu');
         let dataMenu = document.querySelectorAll('.data-menu');
-        let catatan = document.querySelectorAll('.catatan')
+        let catatan = document.querySelectorAll('.catatan');
+        let menuKonfigurasiPerpindahanBarang = document.querySelectorAll('.menu-konfigurasi-perpindahan-barang');
+        let selesaiPerpindahan = document.querySelectorAll('.selesai-perpindahan-barang');
+        let hapusPerpindahan = document.querySelectorAll('.hapus-perpindahan-barang');
+        let editPerpindahan = document.querySelectorAll('.edit-perpindahan-barang');
+        let hapusPengumuman = document.querySelectorAll('.hapuspengumuman');
+        let editPengumuman = document.querySelectorAll('.editpengumuman');
 
         setInterval(function(){
         for(let x = 0; x<catatan.length; x++){
@@ -675,7 +681,7 @@ const setupUI = (user) => {
                 }
             })
         }
-        },0)
+        },10)
 
         for(let x = 0; x<kataSambut.length; x++){
             kataSambut[x].innerHTML = 'Hallo ,' + username + '!';
@@ -705,7 +711,7 @@ const setupUI = (user) => {
         if(username == "Admin Galaxy" && user.email == 'useradmin@galaxy.id'){
         setInterval(function(){
         document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
-    },0)
+    },10)
             myFunction(x);
             x.addListener(myFunction);
             function myFunction(x){
@@ -804,7 +810,16 @@ const setupUI = (user) => {
             }
             for(let x = 0; x<tombolTambahMenu.length;x++){
             tombolTambahMenu[x].setAttribute('style','display:block !important;');
-            }                  
+            }
+            for(let x = 0; x<editPengumuman.length;x++){
+            editPengumuman[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<hapusPengumuman.length;x++){
+            hapusPengumuman[x].setAttribute('style','display:block !important;');
+            }            
+            for(let x = 0; x<menuKonfigurasiPerpindahanBarang.length;x++){
+            menuKonfigurasiPerpindahanBarang[x].setAttribute('style','display:block !important;');
+            }                                       
             document.querySelector('#tambahpengumuman').style.display = 'block';
             document.querySelector('#myTabContent').style.display = 'block';                              
             document.querySelector('#home').style.display = 'block';
@@ -834,7 +849,7 @@ const setupUI = (user) => {
         } else if(username == "Admin Kantor" && user.email == 'useradminkantor@galaxy.id'){
             setInterval(function(){
             document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
-        },0)
+        },10)
             myFunction(x);
             x.addListener(myFunction);
             function myFunction(x){
@@ -929,7 +944,16 @@ const setupUI = (user) => {
             }
             for(let x = 0; x<tombolTambahMenu.length;x++){
             tombolTambahMenu[x].setAttribute('style','display:block !important;');
-            }                        
+            }
+            for(let x = 0; x<editPengumuman.length;x++){
+            editPengumuman[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusPengumuman.length;x++){
+            hapusPengumuman[x].setAttribute('style','display:none !important;');
+            }            
+            for(let x = 0; x<menuKonfigurasiPerpindahanBarang.length;x++){
+            menuKonfigurasiPerpindahanBarang[x].setAttribute('style','display:block !important;');
+            }                                                
             document.querySelector('#tambahpengumuman').style.display = 'none';
             document.querySelector('#myTabContent').style.display = 'block';
             document.querySelector('#th-email').style.display = 'none';
@@ -960,7 +984,7 @@ const setupUI = (user) => {
         } else if(daftarKaryawan.includes(username.toLowerCase().replace(" ", "-")) && daftarEmailKaryawan.includes(user.email)){
             setInterval(function(){
             document.querySelector('#pengguna-overview').innerHTML = 'anda';
-        },0)
+        },10)
             myFunction(x);
             x.addListener(myFunction);
             function myFunction(x){
@@ -1058,6 +1082,21 @@ const setupUI = (user) => {
             for(let x = 0; x<tombolTambahMenu.length;x++){
             tombolTambahMenu[x].setAttribute('style','display:none !important;');
             }
+            for(let x = 0; x<editPengumuman.length;x++){
+            editPengumuman[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusPengumuman.length;x++){
+            hapusPengumuman[x].setAttribute('style','display:none !important;');
+            }            
+            for(let x = 0; x<selesaiPerpindahan.length;x++){
+            selesaiPerpindahan[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusPerpindahan.length;x++){
+            hapusPerpindahan[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<editPerpindahan.length;x++){
+            editPerpindahan[x].setAttribute('style','display:none !important;');
+            }            
             document.querySelector('#tambahpengumuman').style.display = 'none';
             document.querySelector('#myTabContent').style.display = 'block';
             document.querySelector('#home').style.display = 'block';
@@ -3939,7 +3978,7 @@ function renderOverview(doc){
     if(auth.currentUser != null){
     db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         if(document.querySelector('#pengguna-overview' + doc.id) == null){
-            //console.log = function(){}
+            console.log = function(){}
         } else if(penggunaOverview == docs.data().username){
             document.querySelector('#pengguna-overview' + doc.id).innerHTML = 'Anda';
         }
@@ -5064,6 +5103,7 @@ function renderPerpindahan(doc){
             <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
             <div class="dropdown-menu menu-konfigurasi-perpindahan-barang">
                 <div class='selesai-perpindahan-barang dropdown-item' id="selesai${doc.id}"><i class='fas fa-check'></i> Selesai</div>
+                <div class='copy-perpindahan-barang dropdown-item' id="copy${doc.id}"><i class='far fa-copy'></i> Copy</div>
                 <div class='edit-perpindahan-barang dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalperpindahanbarang${doc.id}'><i class='fas fa-pen'></i> Edit</div>
                 <div class='hapus-perpindahan-barang dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
             </div>
@@ -5125,6 +5165,14 @@ function renderPerpindahan(doc){
             })
         })
         }
+    })
+
+    let copy = document.querySelector("#copy" + doc.id);
+    copy.addEventListener('click', function (e) {
+    let range = document.getSelection().getRangeAt(0);
+    range.selectNode(document.querySelector("#konten-perpindahan-barang-tampilan" + doc.id));
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
     })
 
     let hapus = document.querySelector('#hapus' + doc.id);

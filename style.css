@@ -507,7 +507,7 @@ input:checked + .slider:after {
 	font-size: 14px;
 }
 
-.hapus-catatan, .edit-catatan, .hapus-perpindahan-barang, .edit-perpindahan-barang, .selesai-perpindahan-barang, .edit-retur, .hapus-retur{
+.hapus-catatan, .edit-catatan, .hapus-perpindahan-barang, .edit-perpindahan-barang, .selesai-perpindahan-barang, .copy-perpindahan-barang, .edit-retur, .hapus-retur{
 	cursor: pointer;
 }
 
