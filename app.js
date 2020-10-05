@@ -669,7 +669,7 @@ const setupUI = (user) => {
             let id = catatan[x].getAttribute('data-id')
             db.collection('catatan').doc(id).get().then(function(item){
                 if(item.data().pembuatCatatan.toLowerCase().replace(" ", "-") == username.toLowerCase().replace(" ", "-")){
-                    document.querySelector('#tombol-pengaturan' + id).style.setProperty('display', 'block', 'important')
+                    document.querySelector('#tombol-pengaturan' + id).style.setProperty('display', 'flex', 'important')
                 } else {
                     document.querySelector('#tombol-pengaturan' + id).style.setProperty('display', 'none', 'important')
                 }
