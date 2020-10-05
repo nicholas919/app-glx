@@ -2017,15 +2017,15 @@ div.induk-kategori-menu{
 	font-size: 13px;
 }
 
-.nama-pembuat-catatan{
+.nama-pembuat-catatan, #list-performa-peserta div, #jumlah-data-swot, #jumlah-data-achievement-kosong, .modal-title{
 	font-size: 16px;
 }
 
-.tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur, .tombol-lihat-perpindahan, #lihat-performa-peserta, .konten-perpindahan-barang-tampilan, .judul-perpindahan-barang{
+.tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur, .tombol-lihat-perpindahan, #lihat-performa-peserta, .konten-perpindahan-barang-tampilan, .judul-perpindahan-barang, .label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor, th, .info-tugas, label, #peringatan-perpindahan-kedua, .info-indent-cust{
 	font-size: 15px;
 }
 
-.note-kalkulator{
+.note-kalkulator, .konten-retur-tampilan, .konten-catatan-body, td, .indent-cust{
 	grid-column:1/2 span;
 	font-size: 14px;
 }
@@ -2034,15 +2034,11 @@ div.induk-kategori-menu{
 	margin: 4px 20px;
 }
 
-.konten-retur-tampilan, .konten-catatan-body, td, .indent-cust{
-	font-size: 14px;
-}
-
 #list-tenor-kalkulator{
 	display: block;
 }
 
-.tombol-tenor-kalkulator{
+.tombol-tenor-kalkulator, #tombol-tambah-tenor-kalkulator{
 	width: 200px;
 }
 
@@ -2129,32 +2125,8 @@ input:checked + .slider:after {
 	font-size: 15px;
 }
 
-.label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor, th, .info-tugas{
-	font-size: 15px;
-}
-
-#tombol-tambah-tenor-kalkulator{
-	width: 200px;
-}
-
 #form-kalkulator{
 	margin: 5px;
-}
-
-#list-performa-peserta div, #jumlah-data-swot, #jumlah-data-achievement-kosong{
-	font-size: 16px;
-}
-
-.info-peserta{
-	grid-template-columns: 170px 15px auto;
-}
-
-.modal-title{
-	font-size: 16px;
-}
-
-label, #peringatan-perpindahan-kedua, .info-indent-cust{
-	font-size: 15px;
 }
 
 #list-indent-cust{
