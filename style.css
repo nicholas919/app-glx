@@ -375,10 +375,6 @@ input:checked + .slider:after {
 	animation: updown 1s infinite !important;
 }
 
-{
-	animation: updown 1s infinite !important;
-}
-
 #list-perpindahan-barang-pending, #list-perpindahan-barang-selesai{
 	display: none;
 }
@@ -1124,28 +1120,6 @@ div.induk-kategori-menu:nth-child(4n+0){
 	padding:10px;
 }
 
-.navbar-collapse {
-    position: fixed !important;
-    width: 250px;
-    transition: all 0.4s ease;
-    height: 100%;
-    background-color:#343a40;
-    z-index: 3 !important;
-    margin-top: 57px;
-}
-.navbar-collapse.collapsing {
-    height: auto !important;
-    position: fixed !important;
-    left: -250px;
-    transition: all 0.4s ease;
-    height: 100% !important;
-    background-color:#343a40 !important;
-    z-index: 3 !important;
-}
-.navbar-collapse.show {
-    left: 0;
-}
-
 #judul-login, #judul-register{
 	text-align: center;
 	font-weight: bold;
@@ -1330,21 +1304,6 @@ div.induk-kategori-menu:nth-child(4n+0){
     z-index: 0;
 }
 
-.tombol-tambah-kedua{
-    border: 1px solid #007bff;
-    background-color: #007bff;
-    display: flex;
-    text-align: center;
-    cursor: pointer;
-    color: white !important;
-    padding:5px 0px;
-    font-size: 30px;
-    z-index: 0;
-    width: calc(100% - 40px);
-    margin:0px 20px;
-    border-radius: 0 !important;
-    margin-bottom: 5px;
-}
 
 #tombol-tambah-lihat-perpindahan-kedua > .tombol-tambah-kedua:nth-last-child(1), #tombol-tambah-lihat-retur-kedua > .tombol-tambah-kedua:nth-last-child(1){
 	margin-bottom: 0px;
@@ -1418,7 +1377,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	align-items: center;
 }
 
-.info-kesalahan, .info-achievement, .info-akun, .info-tenor, .info-transaksi, .info-perpindahan-barang, .info-retur{
+.info-kesalahan, .info-achievement, .info-akun, .info-tenor, .info-transaksi, .info-perpindahan-barang, .info-retur, .info-indent-cust{
 	display: grid;
 	grid-template-columns: 150px 15px auto;
 	padding-bottom: 12px;
@@ -1462,7 +1421,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	border-bottom: 1px solid rgba(0,0,0,.2);
 }
 
-.info-tugas, .info-indent-cust{
+.info-tugas{
 	display: grid;
 	grid-template-columns: 200px 15px auto;
 	padding-bottom: 12px;

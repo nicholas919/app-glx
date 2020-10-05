@@ -3210,6 +3210,792 @@ function renderUpdatePengumuman(doc){
 
 const listOverview = document.querySelector('#list-overview');
 const listInfoOverview = document.querySelector('#list-info-overview')
+function renderOverview(doc){
+    let div = document.createElement('div');
+    let info = document.createElement('div');
+    let penggunaOverview = doc.data().penggunaOverview;
+    let waktuOverview = doc.data().waktuOverview;
+    let overview = doc.data().overview;
+    div.setAttribute('data-id', doc.id);
+    div.setAttribute('id', 'overview' + doc.id);
+    div.classList.add('overview');
+    let waktuSekarang = new Date().getTime();
+    let perbandinganWaktu = waktuSekarang - overview;
+    let judulPengumuman;
+    let kontenPengumuman;
+    let overviewCadangan;
+    let tanggalPencapaian;
+    let kontenPencapaian;
+    let analisisSwot;
+    let kontenAnalisis;
+    let penggunaKesalahan;
+    let tanggalKesalahan;
+    let kontenKesalahan;
+    let penggunaTugas;
+    let kontenTugas;
+    let tanggalLuncurTugas;
+    let tanggalDeadlineTugas;
+    let pengguna;
+    let namaKategoriMenu;
+    let namaMenu;
+    let linkMenu;
+    let namaEkspedisiCetakLabel;
+    let pembuatCatatan;
+    let kontenCatatan;
+    let kontenIndent;
+    let produkIndent;
+    let namaCustomer;
+    let kontakCustomer;
+    let tanggalPerpindahan;
+    let kontenPerpindahan;
+    let tenor;
+    let biayaAdmin;
+    let bunga;
+    let kalkulasiTanggal;
+    let dd;
+    let bulan;
+    let mm;
+    let yyyy;
+    let produkRetur;
+    let keluhanCustomer;
+    let keteranganRetur;
+    let statusProduk;
+    div.setAttribute('data-date', waktuOverview);
+    if(perbandinganWaktu >= 31536000000){
+        let perhitunganTahun = Math.floor(perbandinganWaktu/31536000000);
+        perbandinganWaktu = 'pada ' + perhitunganTahun + ' tahun yang lalu';
+    } else if(perbandinganWaktu >= 2629800000){
+        let perhitunganBulan = Math.floor(perbandinganWaktu/2629800000);
+        perbandinganWaktu = 'pada ' + perhitunganBulan + ' bulan yang lalu';
+    } else if(perbandinganWaktu >= 604800000){
+        let perhitunganMinggu = Math.floor(perbandinganWaktu/604800000);
+        perbandinganWaktu = 'pada ' + perhitunganMinggu + ' minggu yang lalu';
+    } else if(perbandinganWaktu >= 86400000){
+        let perhitunganHari = Math.floor(perbandinganWaktu/86400000);
+        perbandinganWaktu = 'pada ' + perhitunganHari + ' hari yang lalu';
+    } else if(perbandinganWaktu >= 3600000){
+        let perhitunganJam = Math.floor(perbandinganWaktu/3600000);
+        perbandinganWaktu = 'pada ' + perhitunganJam + ' jam yang lalu';
+    } else if(perbandinganWaktu >= 60000){
+        let perhitunganMenit = Math.floor(perbandinganWaktu/60000);
+        perbandinganWaktu = 'pada ' + perhitunganMenit + ' menit yang lalu';
+    } else if(perbandinganWaktu < 60000){
+        perbandinganWaktu = 'baru saja';
+    }
+
+    switch(overview){
+        case 'sign-out':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> keluar dari website.`
+        listOverview.appendChild(div);
+        break;
+        case 'sign-in':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> masuk kedalam website.`
+        listOverview.appendChild(div);
+        break;
+        case 'sign-up':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> bergabung kedalam website.`
+        listOverview.appendChild(div);
+        break;
+        case 'change-password':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> mengganti password akun.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-account':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus akun.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-announcement':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;        
+        case 'add-announcement':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        judulPengumuman = doc.data().judulPengumuman;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan pengumuman "${judulPengumuman}".`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-announcement':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        judulPengumuman = doc.data().judulPengumuman;
+        kontenPengumuman = doc.data().kontenPengumuman;
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus pengumuman "${judulPengumuman}".</div>`
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Pengumuman</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <div class="modal-body">
+                <div class="judul-pengumuman-body">${judulPengumuman}</div>
+                <div class="konten-pengumuman-body">${kontenPengumuman}</div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white'
+        break;        
+        case 'add-achievement':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan suatu achievement.`
+        listOverview.appendChild(div)
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-achievement':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        tanggalPencapaian = doc.data().tanggalPencapaian;
+        kalkulasiTanggal = new Date(tanggalPencapaian);
+        dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+        bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        mm = bulan[kalkulasiTanggal.getMonth()]
+        yyyy = kalkulasiTanggal.getFullYear();
+        tanggalPencapaian = dd + ' ' + mm + ' ' + yyyy;
+        kontenPencapaian = doc.data().kontenPencapaian;
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus suatu achievement.</div>`
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Achievement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-achievement">
+                            <div>Tanggal</div>
+                            <div>:</div>
+                            <div style="font-weight:bold;">${tanggalPencapaian}</div>
+                            <div>Konten Achievement</div>
+                            <div>:</div> 
+                            <div>${kontenPencapaian}</div>
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-achievement':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;        
+        case 'add-swot':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        analisisSwot = doc.data().analisisSwot;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data analisa swot pada ${analisisSwot}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-swot':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        kontenAnalisis = doc.data().kontenAnalisis;
+        analisisSwot = doc.data().analisisSwot;
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data analisa swot pada ${analisisSwot}.</div>`
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Analisis Swot</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-analisis">
+                            <div style="text-align:center;font-size:24px;font-weight:bold;">${analisisSwot}</div>
+                            <div>${kontenAnalisis}</div>
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-swot':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-mistake':
+        penggunaKesalahan = doc.data().penggunaKesalahan;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaKesalahan.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data kesalahan pada karyawan ${penggunaKesalahan}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-mistake':
+        penggunaKesalahan = doc.data().penggunaKesalahan;
+        tanggalKesalahan = doc.data().tanggalKesalahan;
+        kontenKesalahan = doc.data().kontenKesalahan;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaKesalahan.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data kesalahan pada karyawan ${penggunaKesalahan}.</div>`
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Kesalahan ${penggunaKesalahan}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-kesalahan">
+                        <div>Karyawan</div>
+                        <div>:</div>
+                        <div style="font-weight:bold;">${penggunaKesalahan.toUpperCase()}</div>
+                        <div>Waktu Kejadian</div>
+                        <div>:</div>        
+                        <div style="font-weight:bold;">${tanggalKesalahan}</div>
+                        <div>Konten Kesalahan</div>
+                        <div>:</div> 
+                        <div>${kontenKesalahan}</div>
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;       
+        case 'update-mistake':
+        penggunaKesalahan = doc.data().penggunaKesalahan;
+        overviewCadangan = doc.data().overviewCadangan;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaKesalahan.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-task':
+        penggunaTugas = doc.data().penggunaTugas;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaTugas.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan tugas kepada ${penggunaTugas}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;         
+        case 'delete-task':
+        penggunaTugas = doc.data().penggunaTugas;
+        tanggalLuncurTugas = doc.data().tanggalLuncurTugas;
+        tanggalDeadlineTugas = doc.data().tanggalDeadlineTugas;
+        kontenTugas = doc.data().kontenTugas;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaTugas.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus tugas ${penggunaTugas}.</div>`
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Tugas ${tanggalLuncurTugas}, CC : ${penggunaTugas}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-tugas">
+                        <div>CC</div>
+                        <div>:</div>
+                        <div style="font-weight:bold;">${penggunaTugas.toUpperCase()}</div>
+                        <div>Waktu Peluncuran</div>
+                        <div>:</div>        
+                        <div style="font-weight:bold;">${tanggalLuncurTugas}</div>
+                        <div>Waktu Deadline</div>
+                        <div>:</div>        
+                        <div style="font-weight:bold;">${tanggalDeadlineTugas}</div>
+                        <div>Status</div>
+                        <div>:</div> 
+                        <div style="font-weight:bold;color:#c72424;">PENDING</div>
+                        <div>Konten Tugas</div>
+                        <div>:</div> 
+                        <div>${kontenTugas}</div>
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-task':
+        penggunaTugas = doc.data().penggunaTugas;
+        overviewCadangan = doc.data().overviewCadangan;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaTugas.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-user':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        pengguna = doc.data().pengguna;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data karyawan a.n ${pengguna}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-user':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        pengguna = doc.data().pengguna;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data karyawan a.n ${pengguna}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-user':
+        pengguna = doc.data().pengguna;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + pengguna.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-menu-category':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        namaKategoriMenu = doc.data().namaKategoriMenu;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan kategori menu ${namaKategoriMenu}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-menu-category':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        namaKategoriMenu = doc.data().namaKategoriMenu;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus kategori menu ${namaKategoriMenu}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-menu-category':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-menu':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        namaKategoriMenu = doc.data().namaKategoriMenu;
+        namaMenu = doc.data().namaMenu;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan menu "${namaMenu}" pada kategori menu ${namaKategoriMenu}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-menu':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        namaKategoriMenu = doc.data().namaKategoriMenu;
+        namaMenu = doc.data().namaMenu;
+        linkMenu = doc.data().linkMenu;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus menu "<a style="text-decoration:none;color:#961515;" href="${linkMenu}" target="_blank">${namaMenu}</a>" pada kategori menu ${namaKategoriMenu}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-menu':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-print-label-expedition':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        namaEkspedisiCetakLabel = doc.data().namaEkspedisiCetakLabel;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan ekspedisi "${namaEkspedisiCetakLabel}" pada fitur cetak label.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-print-label-expedition':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        namaEkspedisiCetakLabel = doc.data().namaEkspedisiCetakLabel;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus ekspedisi "${namaEkspedisiCetakLabel}" dari fitur cetak label.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'update-print-label-expedition':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-note':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan suatu catatan.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-note':
+        pembuatCatatan = doc.data().pembuatCatatan;
+        kontenCatatan = doc.data().kontenCatatan;        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + pembuatCatatan.toLowerCase().replace(" ", "-"));        
+        if(penggunaOverview.toLowerCase().replace(" ", "-") == pembuatCatatan.toLowerCase().replace(" ", "-")){
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus catatan milik anda.</div>`
+        } else {
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus catatan milik ${pembuatCatatan}.</div>`    
+        }
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Catatan <span style="font-weight:bold;">${pembuatCatatan}</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                      <div>${kontenCatatan}</div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';        
+        break;
+        case 'update-note':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-indent':
+        namaCustomer = doc.data().namaCustomer;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data indent cust "${namaCustomer}".`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-indent':
+        kontenIndent = doc.data().kontenIndent;
+        produkIndent = doc.data().produkIndent;
+        namaCustomer = doc.data().namaCustomer;
+        kontakCustomer = doc.data().kontakCustomer;        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data indent cust "${namaCustomer}".</div>`        
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Indent Cust ${namaCustomer}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-indent-cust">
+                        <div>Nama Customer</div>
+                        <div>:</div>
+                        <div style="font-weight:bold;">${namaCustomer}</div>
+                        <div>Kontak Customer</div>
+                        <div>:</div>        
+                        <div >${kontakCustomer}</div>
+                        <div>Indent Produk</div>
+                        <div>:</div>        
+                        <div style="font-weight:bold;">${produkIndent}</div>
+                        <div>Konten Indent</div>
+                        <div>:</div> 
+                        <div>${kontenIndent}</div>
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';        
+        break;
+        case 'update-indent':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-transport':
+        tanggalPerpindahan = doc.data().tanggalPerpindahan;
+        kalkulasiTanggal = new Date(tanggalPerpindahan);
+        dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+        bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        mm = bulan[kalkulasiTanggal.getMonth()]
+        yyyy = kalkulasiTanggal.getFullYear();
+        tanggalPerpindahan = dd + ' ' + mm + ' ' + yyyy;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data perpindahan barang untuk tanggal ${tanggalPerpindahan}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-transport':
+        tanggalPerpindahan = doc.data().tanggalPerpindahan;
+        kontenPerpindahan = doc.data().kontenPerpindahan;
+        kalkulasiTanggal = new Date(tanggalPerpindahan);
+        dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+        bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        mm = bulan[kalkulasiTanggal.getMonth()]
+        yyyy = kalkulasiTanggal.getFullYear();
+        tanggalPerpindahan = dd + ' ' + mm + ' ' + yyyy;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data perpindahan ${tanggalPerpindahan}.</div>`        
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Perpindahan ${tanggalPerpindahan}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-perpindahan-barang">
+                        <div>Tanggal Perpindahan</div>
+                        <div>:</div>
+                        <div>${tanggalPerpindahan}</div>
+                        <div>Konten Perpindahan</div>
+                        <div>:</div>        
+                        <div>${kontenPerpindahan}</div>
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';        
+        break;
+        case 'update-transport':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-tenor-calculator':
+        tenor = doc.data().tenor;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan tenor ${tenor} bulan pada konfigurasi kalkulator.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'delete-tenor-calculator':
+        tenor = doc.data().tenor;
+        biayaAdmin = doc.data().biayaAdmin;
+        bunga = doc.data().bunga;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus tenor ${tenor} bulan pada konfigurasi Kalkulator.</div>`        
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Informasi Tenor</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-tenor">
+                        <div>Tenor</div>
+                        <div>:</div>
+                        <div>${tenor} Bulan</div>
+                        <div>Biaya Admin</div>
+                        <div>:</div>        
+                        <div>${"Rp " + Number(biayaAdmin).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"}</div>
+                        <div>Biaya Bunga</div>
+                        <div>:</div>        
+                        <div>${bunga}%</div>                        
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';        
+        break;
+        case 'update-tenor-calculator':
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        overviewCadangan = doc.data().overviewCadangan;
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;
+        case 'add-return':
+        namaCustomer = doc.data().namaCustomer;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data retur penjualan dengan nama customer ${namaCustomer}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;       
+        case 'delete-return':
+        namaCustomer = doc.data().namaCustomer;
+        kontakCustomer = doc.data().kontakCustomer;
+        produkRetur = doc.data().produkRetur;
+        keluhanCustomer = doc.data().keluhanCustomer;
+        keteranganRetur = doc.data().keteranganRetur;
+        statusProduk = doc.data().statusProduk;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data retur penjualan customer ${namaCustomer}.</div>`        
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Informasi Retur ${namaCustomer}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-retur">
+                        <div>Nama Customer</div>
+                        <div>:</div>
+                        <div style="font-weight:bold;">${namaCustomer}</div>
+                        <div>Kontak Customer</div>
+                        <div>:</div>
+                        <div>${kontakCustomer}</div>
+                        <div>Status Produk</div>
+                        <div>:</div>
+                        <div>${statusProduk}</div>
+                        <div>Produk</div>
+                        <div>:</div>
+                        <div>${produkRetur}</div>
+                        <div>Keluhan Customer</div>
+                        <div>:</div>
+                        <div>${keluhanCustomer}</div>
+                        <div>Keterangan Tambahan</div>
+                        <div>:</div>
+                        <div>${keteranganRetur}</div>                                                                                                
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';        
+        break;        
+    }
+
+    if(auth.currentUser != null){
+    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        if(document.querySelector('#pengguna-overview' + doc.id) == null){
+            console.log = function(){}
+        } else if(penggunaOverview == docs.data().username){
+            document.querySelector('#pengguna-overview' + doc.id).innerHTML = 'Anda';
+        }
+    })
+    }
+
+    $(document).ready(function() {
+    db.collection('overview').onSnapshot(snapshot =>{
+    let items = $('#list-overview > .overview').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('date');
+    let keyB = $(b).data('date');
+    if (keyA < keyB) return 1;
+    if (keyA > keyB) return -1;
+    return 0;
+    })
+    let daftarOverview = $('#list-overview');
+    $.each(items, function(i, div) {
+    daftarOverview.append(div);
+    })
+  })
+})
+
+}
 
 const listKategoriMenu = document.querySelector('#list-kategori-menu');
 const modalMenu = document.querySelector('#modal-edit-menu');
