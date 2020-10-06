@@ -2,6 +2,13 @@ body{
 	background-color: #eeeeee !important;
 }
 
+#halaman-belanja{
+	margin: 5px 20px;
+	background-color: white;
+	border-radius: 5px;
+	padding: 10px 20px;
+}
+
 #list-indent-cust{
 	display: grid;
 	grid-template-columns: 50% 50%;
@@ -223,7 +230,7 @@ input:checked + .slider:after {
 	cursor: pointer;	
 }
 
-#tombol-tambah-tenor-kalkulator{
+#dtenor-kalkulator{
 	width: 140px;
 	border:2px solid rgba(0, 3, 5, 0.64);
 	border-radius: 10px;
@@ -380,11 +387,7 @@ input:checked + .slider:after {
 	animation: updown 1s infinite !important;
 }
 
-#list-perpindahan-barang-pending, #list-perpindahan-barang-selesai{
-	display: none;
-}
-
-#list-retur-selesai{
+#list-perpindahan-barang-pending, #list-perpindahan-barang-selesai, #list-daftar-belanja, #list-retur-selesai{
 	display: none;
 }
 
@@ -919,7 +922,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 }
 
 
-.tombol-tambah-menu, #tombol-tambah-cetak-label, #tombol-print-cetak-label{
+.tombol-tambah-menu, #tombol-tambah-cetak-label, #tombol-print-cetak-label, #tombol-tambah-daftar-belanja, #tombol-lihat-daftar-belanja{
 	width: 100%;
 	display: block;
 	border-radius: 0 !important;
@@ -1025,6 +1028,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	position: absolute;
 	bottom: 10px;
 	width:100%;
+	left: 0px;
 }
 
 .nama-pembuat-pengumuman{
@@ -1398,7 +1402,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 .konten-retur-tampilan{
 	display: grid;
-	grid-template-columns: 150px 15px auto;
+	grid-template-columns: 170px 15px auto;
 }
 
 .info-kesalahan, .info-achievement, .info-akun, .info-tenor, .info-transaksi, .info-perpindahan-barang, .info-retur, .info-indent-cust{
@@ -1441,6 +1445,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 .konten-pengumuman-body{
 	padding: 0px 8px;
+	overflow-wrap: anywhere;
 }
 
 .garis{
@@ -1828,7 +1833,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 		font-size: 34px !important;
 	}
 
-	#judul-jumbotron-performa-peserta-individu, #judul-jumbotron-swot, #judul-jumbotron-achievement, #judul-jumbotron-pengumuman, #judul-jumbotron-overview, #judul-jumbotron-perpindahan-barang, #judul-jumbotron-cetak-label, #judul-jumbotron-catatan, #judul-jumbotron-indent-cust, #judul-jumbotron-retur, #judul-jumbotron-transaksi-berjalan{
+	#judul-jumbotron-performa-peserta-individu, #judul-jumbotron-swot, #judul-jumbotron-achievement, #judul-jumbotron-pengumuman, #judul-jumbotron-overview, #judul-jumbotron-perpindahan-barang, #judul-jumbotron-cetak-label, #judul-jumbotron-catatan, #judul-jumbotron-indent-cust, #judul-jumbotron-retur, #judul-jumbotron-transaksi-berjalan, #judul-jumbotron-daftar-belanja{
 		font-size: 32px !important;
 	}
 
@@ -1913,7 +1918,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 	font-size: 14px !important;
 }
 
-#list-performa-peserta, #list-performa-peserta-individu, #list-swot, #list-achievement, #jumlah-data-pengumuman-kosong, #jumbotron-keterangan-cetak-label, #jumbotron-keterangan-catatan, #jumbotron-keterangan-indent-cust, #jumbotron-keterangan-transaksi-berjalan{
+#list-performa-peserta, #list-performa-peserta-individu, #list-swot, #list-achievement, #jumlah-data-pengumuman-kosong, #jumbotron-keterangan-cetak-label, #jumbotron-keterangan-catatan, #jumbotron-keterangan-indent-cust, #jumbotron-keterangan-transaksi-berjalan, #jumbotron-keterangan-daftar-belanja{
 	font-size: 18px !important;
 	margin-top: 5px;
 }
@@ -2028,6 +2033,11 @@ div.induk-kategori-menu{
 .note-kalkulator, .konten-retur-tampilan, .konten-catatan-body, td, .indent-cust{
 	grid-column:1/2 span;
 	font-size: 14px;
+}
+
+.konten-retur-tampilan{
+	display: grid;
+	grid-template-columns: 150px 15px auto;
 }
 
 .indent-cust{
