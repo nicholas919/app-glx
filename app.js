@@ -670,7 +670,7 @@ const setupUI = (user) => {
         let editPengumuman = document.querySelectorAll('.editpengumuman');
 
         for(let x = 0; x<kataSambut.length; x++){
-            kataSambut[x].innerHTML = 'Hallo ,' + username + '!';
+            kataSambut[x].innerHTML = 'Hallo ' + username + '!';
         }
 
         if(overviewIndividu.length > 30){
