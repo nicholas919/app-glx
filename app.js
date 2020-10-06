@@ -630,7 +630,7 @@ const itemKeluar = document.querySelectorAll('.item-keluar');
 const itemMasuk = document.querySelectorAll('.item-masuk');
 const setupUI = (user) => {    
   if (user) {
-        let x = window.matchMedia("(max-width: 700px)");
+        let x = window.matchMedia("(max-width: 900px)");
         db.collection('pengguna').doc(user.uid).get().then(doc => {
         let editPeserta = document.querySelectorAll('.edit-peserta');
         let hapusPeserta = document.querySelectorAll('.hapus-peserta');
@@ -668,6 +668,10 @@ const setupUI = (user) => {
         let editPerpindahan = document.querySelectorAll('.edit-perpindahan-barang');
         let hapusPengumuman = document.querySelectorAll('.hapuspengumuman');
         let editPengumuman = document.querySelectorAll('.editpengumuman');
+        let pengeluaran = document.querySelectorAll('.pengeluaran');
+        let pengeluaranSelesai = document.querySelectorAll('.pengeluaran-selesai');
+        let selesaiPengeluaran = document.querySelectorAll('.selesai-pengeluaran');
+        let selesaiPengeluaranKedua = document.querySelectorAll('.selesai-pengeluaran-kedua');
 
         for(let x = 0; x<kataSambut.length; x++){
             kataSambut[x].innerHTML = 'Hallo ' + username + '!';
@@ -692,6 +696,18 @@ const setupUI = (user) => {
             }
                 }
         }
+
+        for(let x = 0; x<daftarKaryawan.length; x++){
+        let pengeluaranSelesaiIndividuLain = document.querySelectorAll('.pengeluaran-selesai-' + daftarKaryawan[x].toLowerCase().replace(" ", "-"))
+        if(pengeluaranSelesaiIndividuLain.length > 15){
+            for(let i = 0; i<pengeluaranSelesaiIndividuLain.length; i++){
+                if(i > 14){
+                    let id = pengeluaranSelesaiIndividuLain[i].getAttribute('data-id');
+                    db.collection('overview').doc(id).delete();
+                }
+            }
+                }
+        }        
     
 
         if(username == "Admin Galaxy" && user.email == 'useradmin@galaxy.id'){
@@ -802,7 +818,19 @@ const setupUI = (user) => {
             }
             for(let x = 0; x<hapusPengumuman.length;x++){
             hapusPengumuman[x].setAttribute('style','display:block !important;');
-            }                            
+            }
+            for(let x = 0; x<pengeluaran.length;x++){
+            pengeluaran[x].setAttribute('style','display:grid !important;');
+            }
+            for(let x = 0; x<pengeluaranSelesai.length;x++){
+            pengeluaranSelesai[x].setAttribute('style','display:grid !important;');
+            }
+            for(let x = 0; x<selesaiPengeluaran.length;x++){
+            selesaiPengeluaran[x].setAttribute('style','display:flex !important;');
+            }
+            for(let x = 0; x<selesaiPengeluaranKedua.length;x++){
+            selesaiPengeluaranKedua[x].setAttribute('style','display:block !important;');
+            }                                                                            
             document.querySelector('#tambahpengumuman').style.display = 'block';
             document.querySelector('#myTabContent').style.display = 'block';                              
             document.querySelector('#home').style.display = 'block';
@@ -933,7 +961,19 @@ const setupUI = (user) => {
             }
             for(let x = 0; x<hapusPengumuman.length;x++){
             hapusPengumuman[x].setAttribute('style','display:none !important;');
-            }                                            
+            }
+            for(let x = 0; x<pengeluaran.length;x++){
+            pengeluaran[x].setAttribute('style','display:grid !important;');
+            }
+            for(let x = 0; x<pengeluaranSelesai.length;x++){
+            pengeluaranSelesai[x].setAttribute('style','display:grid !important;');
+            }
+            for(let x = 0; x<selesaiPengeluaran.length;x++){
+            selesaiPengeluaran[x].setAttribute('style','display:flex !important;');
+            }
+            for(let x = 0; x<selesaiPengeluaranKedua.length;x++){
+            selesaiPengeluaranKedua[x].setAttribute('style','display:block !important;');
+            }                                                                                
             document.querySelector('#tambahpengumuman').style.display = 'none';
             document.querySelector('#myTabContent').style.display = 'block';
             document.querySelector('#th-email').style.display = 'none';
@@ -1092,7 +1132,28 @@ const setupUI = (user) => {
             }
             for(let x = 0; x<editPerpindahan.length;x++){
             editPerpindahan[x].setAttribute('style','display:none !important;');
-            }            
+            }
+            for(let x = 0; x<pengeluaran.length;x++){
+                if(pengeluaran[x].classList.contains('pengeluaran-' + username.toLowerCase().replace(" ", "-"))){
+                    pengeluaran[x].style.display = 'grid';
+                    pengeluaran[x].style.gridTemplateColumns = 'auto 50px';
+                } else {
+                    pengeluaran[x].style.display = 'none';
+                }
+            }
+            for(let x = 0; x<pengeluaranSelesai.length;x++){
+                if(pengeluaranSelesai[x].classList.contains('pengeluaran-selesai-' + username.toLowerCase().replace(" ", "-"))){
+                    pengeluaranSelesai[x].style.display = 'grid';
+                } else {
+                    pengeluaranSelesai[x].style.display = 'none';
+                }
+            }
+            for(let x = 0; x<selesaiPengeluaran.length;x++){
+            selesaiPengeluaran[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<selesaiPengeluaranKedua.length;x++){
+            selesaiPengeluaranKedua[x].setAttribute('style','display:none !important;');
+            }                                                
             document.querySelector('#tambahpengumuman').style.display = 'none';
             document.querySelector('#myTabContent').style.display = 'block';
             document.querySelector('#home').style.display = 'block';
@@ -1472,6 +1533,11 @@ document.querySelector('#search-menu').addEventListener('input', function(e){
             tombolTambah[x].style.marginLeft = '0';
             tombolTambah[x].style.transition = '0';
         }
+    let tombolKembali = document.querySelectorAll('.tombol-kembali');
+    for(let x = 0; x<tombolKembali.length; x++){
+            tombolKembali[x].style.marginLeft = '0';
+            tombolKembali[x].style.transition = '0';
+        }        
     document.querySelector('.navbar-collapse').classList.remove('show')
     document.querySelector('#myTabContent').style.display = 'none';
     document.querySelector('#home').style.display = 'none';
@@ -6191,6 +6257,269 @@ function renderUpdateReturSelesai(doc){
     document.querySelector('#produk-retur-tampilan' + doc.id).innerHTML = produkRetur;
     document.querySelector('#keluhan-retur-tampilan' + doc.id).innerHTML = keluhanCustomer;
     document.querySelector('#keterangan-retur-tampilan' + doc.id).innerHTML = keteranganRetur;
+}
+
+const listBelanja = document.querySelector('#list-daftar-belanja');
+const modalPengeluaran = document.querySelector('#modal-edit-daftar-belanja');
+function renderPengeluaran(doc){
+    let div = document.createElement('div')
+    let pengeluaran = document.createElement('div');
+    div.setAttribute('data-id', doc.id)
+    div.setAttribute('id', 'pengeluaran' + doc.id)
+    let tanggal = doc.data().tanggal;
+    let penggunaBelanja = doc.data().penggunaBelanja;
+    let deskripsiItem = doc.data().deskripsiItem;
+    let jumlahPengeluaran = doc.data().jumlahPengeluaran;
+    div.classList.add('dokumentasi-pengeluaran' + doc.id, 'pengeluaran', 'pengeluaran-' + penggunaBelanja.toLowerCase().replace(" ", "-"));    
+    div.setAttribute('data-date', tanggal);
+    let kalkulasiTanggal = new Date(tanggal);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggal = dd + ' ' + mm + ' ' + yyyy;
+
+    div.innerHTML = `
+    <div class="keterangan-pengeluaran-tampilan" data-toggle="modal" data-target="#modalpengeluaran${doc.id}"><i class='fas fa-user'></i> ${penggunaBelanja}, <span id="jumlah-pengeluaran-belanja-tampilan${doc.id}">${"Rp " + Number(jumlahPengeluaran).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"}</span></div><i class='fas fa-check selesai-pengeluaran' id="selesai${doc.id}"></i><i class='fas fa-trash-alt hapus-pengeluaran' id="hapus${doc.id}"></i>
+    `
+    pengeluaran.innerHTML = `
+<div class="modal fade" id="modalpengeluaran${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pengeluaran ${tanggal}, ${penggunaBelanja}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+        <div class="data-pengeluaran">
+        <div class="info-pengeluaran">
+        <div>Karyawan</div>
+        <div>:</div>
+        <div style="font-weight:bold;" id="pengeluaran-karyawan${doc.id}">${penggunaBelanja.toUpperCase()}</div>
+        <div>Deskripsi Pengeluaran</div>
+        <div>:</div>        
+        <div id="deskripsi-item-belanja-body${doc.id}">${deskripsiItem}</div>
+        <div>Jumlah Pengeluaran</div>
+        <div>:</div>        
+        <div id="jumlah-pengeluaran-belanja-body${doc.id}">${"Rp " + Number(jumlahPengeluaran).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"}</div>        
+        </div>
+        <div id="selesai-kedua${doc.id}" class="btn btn-success selesai selesai-pengeluaran-kedua">Selesaikan Pengeluaran</div>
+        <div id="edit${doc.id}" class="btn btn-warning edit">Edit Pengeluaran</div>
+        <div id="hapus-kedua${doc.id}" class="btn btn-danger hapus">Hapus Pengeluaran</div>
+      </div>
+    <form id="modal-pengeluaran${doc.id}" class="modal-pengeluaran">
+      <div class="form-group">
+        <label class="col-form-label">Deskripsi Item</label>
+        <textarea oninput="auto_grow(this)" class="form-control" id="deskripsi-item-belanja${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required>${deskripsiItem.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label">Jumlah Pengeluaran</label>
+        <input type="number" value="${jumlahPengeluaran}" class="form-control your_class" id="jumlah-pengeluaran-belanja${doc.id}" autocomplete="off" required>
+      </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>    
+    `
+
+    listBelanja.appendChild(div);
+    modalPengeluaran.appendChild(pengeluaran);
+
+    let selesai = document.querySelector('#selesai' + doc.id);
+    selesai.addEventListener('click', function(e){
+        e.stopPropagation();
+        db.collection('pengeluaran').doc(doc.id).get().then(function(item){
+            db.collection('pengeluaranSelesai').add({
+                tanggalPengeluaran : tanggal,
+                tanggal : new Date().getTime(),
+                deskripsiItem : item.data().deskripsiItem,
+                jumlahPengeluaran : item.data().jumlahPengeluaran,
+                penggunaBelanja : item.data().penggunaBelanja
+            }).then(() => {
+                db.collection('pengeluaran').doc(doc.id).delete();
+                $('#modalpengeluaran' + doc.id).modal('hide')
+            })
+        })
+    })
+
+    let edit = document.querySelector('#edit' + doc.id);
+    edit.addEventListener('click', function(e){
+        let formEdit = document.querySelector('#modal-pengeluaran' + doc.id);
+        formEdit.style.display = "block";
+        formEdit.addEventListener('submit', function(e){
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            db.collection('pengeluaran').doc(doc.id).update({
+                deskripsiItem: document.querySelector('#deskripsi-item-belanja' + doc.id).value.replace(/\n\r?/g, '<br/>'),
+                jumlahPengeluaran: document.querySelector('#jumlah-pengeluaran-belanja' + doc.id).value
+            }).then(() => {
+                formEdit.style.display = "none";
+            })
+        })
+    })
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', function(e){
+        let konfirmasi = confirm('Anda yakin ingin menghapus data pengeluaran ini?');
+        if(konfirmasi == true){
+        db.collection('pengeluaran').doc(doc.id).delete();
+        }
+    })
+
+    let hapusKedua = document.querySelector('#hapus-kedua' + doc.id);
+    hapusKedua.addEventListener('click', function(e){
+        let konfirmasi = confirm('Anda yakin ingin menghapus data pengeluaran ini?');
+        if(konfirmasi == true){
+        db.collection('pengeluaran').doc(doc.id).delete();
+        $('#modalpengeluaran' + doc.id).modal('hide')
+        }
+    })    
+
+        $(document).ready(function() {
+        db.collection('pengeluaran').onSnapshot(snapshot =>{
+        let items = $('#list-daftar-belanja > .pengeluaran').get();
+        items.sort(function(a, b) {
+        let keyA = $(a).data('date');
+        let keyB = $(b).data('date');
+        if (keyA < keyB) return 1;
+        if (keyA > keyB) return -1;
+        return 0;
+        })
+        let daftarPengeluaran = $('#list-daftar-belanja');
+        $.each(items, function(i, div) {
+        daftarPengeluaran.append(div);
+        })
+      })
+    })
+
+}
+
+function renderUpdatePengeluaran(doc){
+    let deskripsiItem = doc.data().deskripsiItem;
+    let jumlahPengeluaran = doc.data().jumlahPengeluaran;
+    document.querySelector('#deskripsi-item-belanja-body' + doc.id).innerHTML = deskripsiItem;
+    document.querySelector('#jumlah-pengeluaran-belanja-body' + doc.id).innerHTML = "Rp " + Number(jumlahPengeluaran).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"
+    document.querySelector('#jumlah-pengeluaran-belanja-tampilan' + doc.id).innerHTML = "Rp " + Number(jumlahPengeluaran).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"
+
+}
+
+const listBelanjaSelesai = document.querySelector('#list-daftar-belanja-selesai');
+function renderPengeluaranSelesai(doc){
+    let div = document.createElement('div')
+    let pengeluaran = document.createElement('div');
+    div.setAttribute('data-id', doc.id)
+    div.setAttribute('id', 'pengeluaran-selesai' + doc.id)
+    let tanggalPengeluaran = doc.data().tanggalPengeluaran;
+    let tanggal = doc.data().tanggal;
+    let penggunaBelanja = doc.data().penggunaBelanja;
+    let deskripsiItem = doc.data().deskripsiItem;
+    let jumlahPengeluaran = doc.data().jumlahPengeluaran;
+    div.setAttribute('data-date', tanggal);
+    div.classList.add('dokumentasi-pengeluaran' + doc.id, 'pengeluaran-selesai', 'pengeluaran-selesai-' + penggunaBelanja.toLowerCase().replace(" ", "-"));
+    let kalkulasiTanggal = new Date(tanggal);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggal = dd + ' ' + mm + ' ' + yyyy;
+
+    div.innerHTML = `
+    <div class="keterangan-pengeluaran-tampilan" data-toggle="modal" data-target="#modalpengeluaran${doc.id}"><i class='fas fa-user'></i> ${penggunaBelanja}, <span id="jumlah-pengeluaran-belanja-tampilan${doc.id}">${"Rp " + Number(jumlahPengeluaran).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"}</span> <span class="badge badge-success">Sudah dibayar</span></div><i class='fas fa-trash-alt hapus-pengeluaran' id="hapus${doc.id}"></i>
+    `
+    pengeluaran.innerHTML = `
+<div class="modal fade" id="modalpengeluaran${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pengeluaran ${tanggalPengeluaran}, ${penggunaBelanja}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+        <div class="data-pengeluaran">
+        <div class="info-pengeluaran">
+        <div>Karyawan</div>
+        <div>:</div>
+        <div style="font-weight:bold;" id="pengeluaran-karyawan${doc.id}">${penggunaBelanja.toUpperCase()}</div>
+        <div>Deskripsi Pengeluaran</div>
+        <div>:</div>        
+        <div id="deskripsi-item-belanja-body${doc.id}">${deskripsiItem}</div>
+        <div>Jumlah Pengeluaran</div>
+        <div>:</div>        
+        <div id="jumlah-pengeluaran-belanja-body${doc.id}">${"Rp " + Number(jumlahPengeluaran).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"} (Sudah dilunasi pada ${tanggal})</div>        
+        </div>
+        <div id="hapus-kedua${doc.id}" class="btn btn-danger hapus">Hapus Pengeluaran</div>
+      </div>
+            </div>
+          </div>
+       </div>
+     </div>    
+    `
+
+    listBelanjaSelesai.appendChild(div);
+    modalPengeluaran.appendChild(pengeluaran);
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', function(e){
+        let konfirmasi = confirm('Anda yakin ingin menghapus data pengeluaran ini?');
+        if(konfirmasi == true){
+        db.collection('pengeluaranSelesai').doc(doc.id).delete();
+        $('#modalpengeluaran' + doc.id).modal('hide')
+        }
+    })
+
+    let hapusKedua = document.querySelector('#hapus-kedua' + doc.id);
+    hapusKedua.addEventListener('click', function(e){
+        let konfirmasi = confirm('Anda yakin ingin menghapus data pengeluaran ini?');
+        if(konfirmasi == true){
+        db.collection('pengeluaranSelesai').doc(doc.id).delete();
+        $('#modalpengeluaran' + doc.id).modal('hide')
+        }
+    })
+
+        $(document).ready(function() {
+        db.collection('pengeluaranSelesai').onSnapshot(snapshot =>{
+        let items = $('#list-daftar-belanja-selesai > .pengeluaran').get();
+        items.sort(function(a, b) {
+        let keyA = $(a).data('date');
+        let keyB = $(b).data('date');
+        if (keyA > keyB) return 1;
+        if (keyA < keyB) return -1;
+        return 0;
+        })
+        let daftarPengeluaranSelesai = $('#list-daftar-belanja-selesai');
+        $.each(items, function(i, div) {
+        daftarPengeluaranSelesai.append(div);
+        })
+      })
+    })
+
 }
 
 function auto_grow(element){

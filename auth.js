@@ -557,6 +557,32 @@ auth.onAuthStateChanged(user => {
                 })
     }, err => console.log(err.message))                 
 
+        db.collection('pengeluaran').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderPengeluaran(change.doc);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        div.remove();
+                    } else if(change.type == 'modified'){
+                        renderUpdatePengeluaran(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('pengeluaranSelesai').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderPengeluaranSelesai(change.doc);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        div.remove();
+                    }
+                })
+    }, err => console.log(err.message))        
+
         $(document).ready(function(){
             setInterval(function(){ refreshOnPengumuman(); }, 60000);
             setInterval(function(){ refreshOnOverview(); }, 10);
@@ -1415,7 +1441,27 @@ if(daftarRetur['status-retur'].value == 'Belum Selesai'){
     }
 })
 
-
+const daftarBelanja = document.querySelector('#form-daftar-belanja');
+daftarBelanja.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let tanggal = new Date().getTime();
+    let konfirmasi = confirm(`Apa anda yakin untuk men-submit rincian berikut dengan jumlah pengeluaran sebesar ${    "Rp " + Number(daftarBelanja['jumlah-pengeluaran-belanja'].value).toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00"}`);
+    if(konfirmasi == true){
+    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+    db.collection('pengeluaran').add({
+        tanggal: tanggal,
+        penggunaBelanja: doc.data().username,
+        deskripsiItem: daftarBelanja['deskripsi-item-belanja'].value.replace(/\n\r?/g, '<br/>'),
+        jumlahPengeluaran: daftarBelanja['jumlah-pengeluaran-belanja'].value
+    }).then(() => {
+        document.querySelector('#form-daftar-belanja').reset();
+        })
+    })
+    }
+})
 
 const formDaftar = document.querySelector('#form-daftar');
 formDaftar.addEventListener('submit', (e) => {

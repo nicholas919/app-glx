@@ -2,6 +2,70 @@ body{
 	background-color: #eeeeee !important;
 }
 
+.hapus-pengeluaran, .selesai-pengeluaran{
+	justify-content: center;
+	align-items: center;
+	display: flex !important;
+	border-top:1px solid rgba(0,0,0,.2);
+	border-right:1px solid rgba(0,0,0,.2);
+	border-bottom:1px solid rgba(0,0,0,.2);	
+	color:white;
+	cursor: pointer;
+}
+
+.hapus-pengeluaran{	
+	background-color: #dc3545;
+}
+
+.selesai-pengeluaran{
+	background-color: #28A745;
+}
+
+.hapus-pengeluaran:hover , .hapus-pengeluaran:active{
+	background-color: white;
+	color: #dc3545;
+}
+
+.selesai-pengeluaran:hover, .selesai-pengeluaran:active{
+	background-color: white;
+	color: #28A745;
+}
+
+.keterangan-pengeluaran-tampilan{
+	align-items: center;
+	display: flex;
+	text-align: left;
+	border:1px solid rgba(0,0,0,.2);
+	background-color: white;
+	padding: 2px 10px;
+	cursor: pointer;
+	gap:5px;
+}
+
+.pengeluaran{
+	display: grid;
+	grid-template-columns: auto 50px 50px;
+	height: 50px;
+	overflow-wrap: anywhere;
+	margin: 5px 0px 0px;
+}
+
+.pengeluaran-selesai{
+	display: grid;
+	grid-template-columns: auto 50px;
+	height: 50px;
+	overflow-wrap: anywhere;
+	margin: 5px 0px 0px;
+}
+
+#list-daftar-belanja{
+	margin: 0px 20px 0px;
+}
+
+#list-daftar-belanja-selesai{
+	margin: 0px 20px 50px;	
+}
+
 #halaman-belanja{
 	margin: 5px 20px;
 	background-color: white;
@@ -387,7 +451,7 @@ input:checked + .slider:after {
 	animation: updown 1s infinite !important;
 }
 
-#list-perpindahan-barang-pending, #list-perpindahan-barang-selesai, #list-daftar-belanja, #list-retur-selesai{
+#list-perpindahan-barang-pending, #list-perpindahan-barang-selesai, #list-daftar-belanja, #list-daftar-belanja-selesai, #list-retur-selesai{
 	display: none;
 }
 
@@ -928,6 +992,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	border-radius: 0 !important;
 	font-weight: bold !important;
 	margin-bottom: 5px;
+	box-shadow: none;
 }
 
 .kategori-menu{
@@ -1248,7 +1313,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	display: none;
 }
 
-#jumbotron-form-cetak-label, #jumbotron-ekspedisi-cetak-label{
+#jumbotron-form-cetak-label, #jumbotron-ekspedisi-cetak-label, #jumbotron-form-daftar-belanja{
 	padding: 32px !important;
 }
 
@@ -1360,6 +1425,33 @@ div.induk-kategori-menu:nth-child(4n+0){
     color:white !important;
 }
 
+.tombol-kembali{
+    border: 1px solid #dc3545;
+    background-color: #dc3545;
+    display: block;
+    position: fixed;
+    bottom: 0px;
+    right:0;
+    left:0;
+    text-align: center;
+    cursor: pointer;
+    color: white !important;
+    padding:10px 0px;
+    font-size: 16px;
+    z-index: 0;
+    font-weight: bold;
+    display: none;
+}
+
+.tombol-kembali:hover{
+    background-color: white !important;
+    color:#dc3545 !important;	
+}
+
+.tombol-kembali:active{
+    background-color: #dc3545 !important;
+    color:white !important;	
+}
 
 .tugasseseorang, .tugasseseorangselesai, .kesalahanseseorang{
 	display: none;
@@ -1404,7 +1496,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	grid-template-columns: 170px 15px auto;
 }
 
-.info-kesalahan, .info-achievement, .info-akun, .info-tenor, .info-transaksi, .info-perpindahan-barang, .info-retur, .info-indent-cust{
+.info-kesalahan, .info-achievement, .info-akun, .info-tenor, .info-transaksi, .info-perpindahan-barang, .info-retur, .info-indent-cust, .info-pengeluaran{
 	display: grid;
 	grid-template-columns: 150px 15px auto;
 	padding-bottom: 12px;
@@ -1464,7 +1556,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	color:white !important;
 }
 
-.modal-peserta,.modal-analisis, .modal-tenor, .modal-transaksi-berjalan{
+.modal-peserta,.modal-analisis, .modal-tenor, .modal-transaksi-berjalan, .modal-pengeluaran{
 	display: none;
 }
 
@@ -2025,7 +2117,7 @@ div.induk-kategori-menu{
 	font-size: 16px;
 }
 
-.tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur, .tombol-lihat-perpindahan, #lihat-performa-peserta, .konten-perpindahan-barang-tampilan, .judul-perpindahan-barang, .label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor, th, .info-tugas, label, #peringatan-perpindahan-kedua, .info-indent-cust{
+.tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur, .tombol-lihat-perpindahan, #lihat-performa-peserta, .konten-perpindahan-barang-tampilan, .judul-perpindahan-barang, .label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor, th, .info-tugas, label, #peringatan-perpindahan-kedua, .info-indent-cust, .info-pengeluaran, .keterangan-pengeluaran-tampilan{
 	font-size: 15px;
 }
 
