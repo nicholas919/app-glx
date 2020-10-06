@@ -230,7 +230,7 @@ input:checked + .slider:after {
 	cursor: pointer;	
 }
 
-#dtenor-kalkulator{
+#tombol-tambah-tenor-kalkulator{
 	width: 140px;
 	border:2px solid rgba(0, 3, 5, 0.64);
 	border-radius: 10px;
@@ -1028,7 +1028,6 @@ div.induk-kategori-menu:nth-child(4n+0){
 	position: absolute;
 	bottom: 10px;
 	width:100%;
-	left: 0px;
 }
 
 .nama-pembuat-pengumuman{
