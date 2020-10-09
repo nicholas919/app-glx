@@ -2,6 +2,74 @@ body{
 	background-color: #eeeeee !important;
 }
 
+#preview-print-retur-dealer{
+	margin-bottom: 80px;
+}
+
+.produk-retur-surat{
+	padding: 10px 80px;
+}
+
+.body-surat{
+	padding: 20px;
+	margin:0px 10px 60px;
+}
+
+.footer-surat{
+	display: grid;
+	grid-template-columns: 50% 50%;
+}
+
+.footer-menyerahkan-surat{
+	padding-left:120px;
+}
+
+.footer-menerima-surat{
+	text-align: right;
+	padding-right: 120px;
+}
+
+.sub-header-surat{
+	padding: 20px 30px;
+}
+
+.isi-header-surat{
+	padding: 0px 0px 0px 30px;
+}
+
+.alamat-header-surat{
+	margin-top: -5px;
+}
+
+.nama-header-surat{
+	font-size: 34px;
+	font-weight: bold;
+}
+
+.alamat-header-surat, .kontak-header-surat, .email-header-surat{
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.preview-print-retur{
+	background-color: white;
+	margin: 0px 20px;
+	padding: 50px;
+	display: flex;
+	justify-content: center;
+	flex-flow: column;
+	font-size: 22px;
+}
+
+.header-surat{
+	display: grid;
+	grid-template-columns: 50px 800px;
+	text-align: center;
+	padding-bottom: 10px;
+	border-bottom:thick solid black;
+	justify-content: center;
+}
+
 .hapus-pengeluaran, .selesai-pengeluaran{
 	justify-content: center;
 	align-items: center;
@@ -451,7 +519,7 @@ input:checked + .slider:after {
 	animation: updown 1s infinite !important;
 }
 
-#list-perpindahan-barang-pending, #list-perpindahan-barang-selesai, #list-daftar-belanja, #list-daftar-belanja-selesai, #list-retur-selesai{
+#list-perpindahan-barang-pending, #list-perpindahan-barang-selesai, #list-daftar-belanja, #list-daftar-belanja-selesai, #list-retur-selesai, #list-retur-dealer-selesai{
 	display: none;
 }
 
@@ -576,7 +644,7 @@ input:checked + .slider:after {
 	font-size: 14px;
 }
 
-.hapus-catatan, .edit-catatan, .hapus-perpindahan-barang, .edit-perpindahan-barang, .selesai-perpindahan-barang, .copy-perpindahan-barang, .edit-retur, .hapus-retur{
+.hapus-catatan, .edit-catatan, .hapus-perpindahan-barang, .edit-perpindahan-barang, .selesai-perpindahan-barang, .copy-perpindahan-barang, .edit-retur, .hapus-retur, .print-retur{
 	cursor: pointer;
 }
 
@@ -613,7 +681,7 @@ input:checked + .slider:after {
 	display: block;
 }
 
-#catatan, #indent-cust{
+#catatan, #indent-cust, #retur-customer, #retur-dealer{
 	padding-left: 48px !important;
 }
 
@@ -785,12 +853,16 @@ input:checked + .slider:after {
 	padding: 4px;
 }
 
-.potongan-kertas-cetak-label:nth-child(odd){
+.potongan-kertas-cetak-label{
+	overflow-wrap: anywhere;
+}
+
+.potongan-kertas-cetak-label:nth-child(odd), .potongan-kertas-retur:nth-child(odd){
 	border-bottom:1px dashed black;
 	border-right: 1px dashed black; 
 }
 
-.potongan-kertas-cetak-label:nth-child(even){
+.potongan-kertas-cetak-label:nth-child(even), .potongan-kertas-retur:nth-child(even){
 	border-bottom:1px dashed black;
 }
 
@@ -1322,7 +1394,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	grid-template-columns: 50% 50%;
 }
 
-#halaman-kesalahan, #list-perpindahan-barang, #list-perpindahan-barang-pending, #list-perpindahan-barang-selesai, #list-retur-pending, #list-retur-selesai{
+#halaman-kesalahan, #list-perpindahan-barang, #list-perpindahan-barang-pending, #list-perpindahan-barang-selesai, #list-retur-pending, #list-retur-selesai, #list-retur-dealer-pending, #list-retur-dealer-selesai{
 	margin-bottom: 90px;
 }
 
@@ -1788,7 +1860,7 @@ td{
 	cursor: pointer;
 }
 
-.potongan-kertas-cetak-label:nth-child(1n+0){
+.potongan-kertas-cetak-label:nth-child(1n+0), .potongan-kertas-retur:nth-child(1n+0){
 	border-bottom:1px dashed black;
 	border-right: 0;
 }
@@ -1924,7 +1996,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 		font-size: 34px !important;
 	}
 
-	#judul-jumbotron-performa-peserta-individu, #judul-jumbotron-swot, #judul-jumbotron-achievement, #judul-jumbotron-pengumuman, #judul-jumbotron-overview, #judul-jumbotron-perpindahan-barang, #judul-jumbotron-cetak-label, #judul-jumbotron-catatan, #judul-jumbotron-indent-cust, #judul-jumbotron-retur, #judul-jumbotron-transaksi-berjalan, #judul-jumbotron-daftar-belanja{
+	#judul-jumbotron-performa-peserta-individu, #judul-jumbotron-swot, #judul-jumbotron-achievement, #judul-jumbotron-pengumuman, #judul-jumbotron-overview, #judul-jumbotron-perpindahan-barang, #judul-jumbotron-cetak-label, #judul-jumbotron-catatan, #judul-jumbotron-indent-cust, #judul-jumbotron-retur, #judul-jumbotron-retur-dealer, #judul-jumbotron-transaksi-berjalan, #judul-jumbotron-daftar-belanja{
 		font-size: 32px !important;
 	}
 

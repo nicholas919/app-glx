@@ -3216,6 +3216,7 @@ function renderOverview(doc){
     let keluhanCustomer;
     let keteranganRetur;
     let statusProduk;
+    let namaDealer;
     div.setAttribute('data-date', waktuOverview);
     if(perbandinganWaktu >= 31536000000){
         let perhitunganTahun = Math.floor(perbandinganWaktu/31536000000);
@@ -3899,7 +3900,7 @@ function renderOverview(doc){
                         <div>Kontak Customer</div>
                         <div>:</div>
                         <div>${kontakCustomer}</div>
-                        <div>Status Produk</div>
+                        <div>Status Return</div>
                         <div>:</div>
                         <div>${statusProduk}</div>
                         <div>Produk</div>
@@ -3921,7 +3922,58 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
         document.querySelector('#overview' + doc.id).style.color = 'white';        
-        break;        
+        break;
+        case 'add-return-dealer':
+        namaDealer = doc.data().namaDealer;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data retur pembelian dealer ${namaDealer}.`
+        listOverview.appendChild(div);
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
+        document.querySelector('#overview' + doc.id).style.color = 'white';
+        break;       
+        case 'delete-return-dealer':
+        namaDealer = doc.data().namaDealer;
+        produkRetur = doc.data().produkRetur;
+        keteranganRetur = doc.data().keteranganRetur;
+        statusProduk = doc.data().statusProduk;
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data retur pembelian dealer ${namaDealer}.</div>`        
+        listOverview.appendChild(div);
+        info.innerHTML = `
+        <div class="modal fade" id="modalinfo${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Informasi Retur ${namaDealer}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                    <div class="modal-body">
+                        <div class="info-retur">
+                        <div>Nama Dealer</div>
+                        <div>:</div>
+                        <div style="font-weight:bold;">${namaCustomer}</div>
+                        <div>Status Return</div>
+                        <div>:</div>
+                        <div>${statusProduk}</div>
+                        <div>Produk Return</div>
+                        <div>:</div>
+                        <div>${produkRetur}</div>
+                        <div>Keterangan Tambahan</div>
+                        <div>:</div>
+                        <div>${keteranganRetur}</div>                                                                                                
+                        </div>
+                    </div>
+                  </div>
+               </div>
+             </div>
+        `
+        listInfoOverview.appendChild(info);
+        document.querySelector('#overview' + doc.id).style.cursor = 'pointer';        
+        document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
+        document.querySelector('#overview' + doc.id).style.color = 'white';        
+        break;                
     }
 
     if(auth.currentUser != null){
@@ -5856,7 +5908,7 @@ function renderReturPending(doc){
     tanggal = dd + ' ' + mm + ' ' + yyyy;
     div.innerHTML = `
     <div class="header-retur">
-        <div class="judul-retur"><i class='fas fa-history'></i> Retur Penjualan ${tanggal}</div>
+        <div class="judul-retur"><i class='fas fa-history'></i> Return Customer ${tanggal}</div>
         <div class="dropdown">        
             <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
             <div class="dropdown-menu menu-konfigurasi-retur">
@@ -5872,10 +5924,10 @@ function renderReturPending(doc){
         <div>Kontak Customer</div>
         <div>:</div>
         <div id="kontak-retur-tampilan${doc.id}">${kontakCustomer}</div>
-        <div>Produk</div>
+        <div>Produk Return</div>
         <div>:</div>
         <div id="produk-retur-tampilan${doc.id}">${produkRetur}</div>
-        <div>Status Produk</div>
+        <div>Status Return</div>
         <div>:</div>
         <div style="color:#c72424;font-weight:bold;">Belum Selesai</div>
         <div>Keluhan Customer</div>
@@ -5892,7 +5944,7 @@ function renderReturPending(doc){
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Pengaturan Data Retur</h5>
+            <h5 class="modal-title">Pengaturan Data Return</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -5909,7 +5961,7 @@ function renderReturPending(doc){
                   <input type="number" value="${kontakCustomer}" class="form-control your_class" id="kontak-retur${doc.id}" autocomplete="off">
                 </div>            
                 <div class="form-group col">
-                  <label class="col-form-label">Status Retur</label>
+                  <label class="col-form-label">Status Return</label>
                 <select class="form-control" id="status-retur${doc.id}" required>
                     <option>Sudah Selesai</option>
                     <option selected>Belum Selesai</option>
@@ -5917,7 +5969,7 @@ function renderReturPending(doc){
                 </div>                
             </div>
                 <div class="form-group">
-                  <label class="col-form-label">Produk</label>
+                  <label class="col-form-label">Produk Return</label>
                   <textarea oninput="auto_grow(this)" class="form-control" id="produk-retur${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required>${produkRetur.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
                 </div>            
                 <div class="form-group">
@@ -6068,7 +6120,7 @@ function renderReturSelesai(doc){
     tanggal = dd + ' ' + mm + ' ' + yyyy;
     div.innerHTML = `
     <div class="header-retur">
-        <div class="judul-retur"><i class='fas fa-pallet'></i> Retur Penjualan ${tanggal}</div>
+        <div class="judul-retur"><i class='fas fa-pallet'></i> Return Customer ${tanggal}</div>
         <div class="dropdown">        
             <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
             <div class="dropdown-menu menu-konfigurasi-retur">
@@ -6084,10 +6136,10 @@ function renderReturSelesai(doc){
         <div>Kontak Customer</div>
         <div>:</div>
         <div id="kontak-retur-tampilan${doc.id}">${kontakCustomer}</div>
-        <div>Produk</div>
+        <div>Produk Return</div>
         <div>:</div>
         <div id="produk-retur-tampilan${doc.id}">${produkRetur}</div>
-        <div>Status Produk</div>
+        <div>Status Return</div>
         <div>:</div>
         <div style="color:#13eb5e;font-weight:bold;">Sudah Selesai</div>
         <div>Keluhan Customer</div>
@@ -6104,7 +6156,7 @@ function renderReturSelesai(doc){
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Pengaturan Data Retur</h5>
+            <h5 class="modal-title">Pengaturan Data Return</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -6121,7 +6173,7 @@ function renderReturSelesai(doc){
                   <input type="number" value="${kontakCustomer}" class="form-control your_class" id="kontak-retur${doc.id}" autocomplete="off">
                 </div>            
                 <div class="form-group col">
-                  <label class="col-form-label">Status Produk</label>
+                  <label class="col-form-label">Status Return</label>
                 <select class="form-control" id="status-retur${doc.id}" required>
                     <option selected>Sudah Selesai</option>
                     <option>Belum Selesai</option>
@@ -6129,7 +6181,7 @@ function renderReturSelesai(doc){
                 </div>                
             </div>
                 <div class="form-group">
-                  <label class="col-form-label">Produk</label>
+                  <label class="col-form-label">Produk Return</label>
                   <textarea oninput="auto_grow(this)" class="form-control" id="produk-retur${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required>${produkRetur.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
                 </div>            
                 <div class="form-group">
@@ -6236,9 +6288,9 @@ function renderReturSelesai(doc){
         if (keyA > keyB) return -1;
         return 0;
         })
-        let daftarReturPending = $('#list-retur-selesai');
+        let daftarReturSelesai = $('#list-retur-selesai');
         $.each(items, function(i, div) {
-        daftarReturPending.append(div);
+        daftarReturSelesai.append(div);
         })
       })
     })
@@ -6257,6 +6309,540 @@ function renderUpdateReturSelesai(doc){
     document.querySelector('#produk-retur-tampilan' + doc.id).innerHTML = produkRetur;
     document.querySelector('#keluhan-retur-tampilan' + doc.id).innerHTML = keluhanCustomer;
     document.querySelector('#keterangan-retur-tampilan' + doc.id).innerHTML = keteranganRetur;
+}
+
+const listReturDealerPending = document.querySelector('#list-retur-dealer-pending');
+const listReturDealerSelesai = document.querySelector('#list-retur-dealer-selesai');
+const modalReturDealer = document.querySelector('#modal-edit-retur-dealer');
+const previewPrintReturDealer = document.querySelector('#preview-print-retur-dealer');
+function renderReturDealerPending(doc){
+    let div = document.createElement('div')
+    let retur = document.createElement('div');
+    let previewPrint = document.createElement('div');
+    previewPrint.setAttribute('id', 'print-retur' + doc.id);
+    previewPrint.classList.add('preview-print-retur');
+    div.setAttribute('data-id', doc.id);
+    div.setAttribute('id', 'retur' + doc.id);
+    div.classList.add('dokumentasi-retur' + doc.id, 'retur');
+    let tanggal = doc.data().tanggal;
+    let namaDealer = doc.data().namaDealer;
+    let produkRetur = doc.data().produkRetur;
+    let keteranganRetur = doc.data().keteranganRetur;
+    div.setAttribute('data-date', tanggal)
+    let kalkulasiTanggal = new Date(tanggal);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggal = dd + ' ' + mm + ' ' + yyyy;
+    let hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    dd = String(new Date().getDate()).padStart(2, '0');
+    mm = bulan[new Date().getMonth()]
+    yyyy = new Date().getFullYear();
+    let tanggalSekarang = dd + ' ' + mm + ' ' + yyyy;
+    div.innerHTML = `
+    <div class="header-retur">
+        <div class="judul-retur"><i class='fas fa-history'></i> Return Dealer ${tanggal}</div>
+        <div class="dropdown">        
+            <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
+            <div class="dropdown-menu menu-konfigurasi-retur">
+                <div class='print-retur dropdown-item' id='print${doc.id}'><i class="fa fa-print"></i> Print</div>
+                <div class='edit-retur dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalreturdealer${doc.id}'><i class='fas fa-pen'></i> Edit</div>
+                <div class='hapus-retur dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+            </div>
+        </div>
+    </div>
+    <div id="konten-retur-tampilan${doc.id}" class="konten-retur-tampilan">
+        <div>Nama Dealer</div>
+        <div>:</div>
+        <div id="dealer-retur-tampilan${doc.id}" style="font-weight:bold;">${namaDealer}</div>
+        <div>Status Return</div>
+        <div>:</div>
+        <div style="color:#c72424;font-weight:bold;">Belum Selesai</div>        
+        <div>Produk Return</div>
+        <div>:</div>
+        <div id="produk-retur-dealer-tampilan${doc.id}">${produkRetur}</div>
+        <div>Keterangan Tambahan</div>
+        <div>:</div>
+        <div id="keterangan-retur-dealer-tampilan${doc.id}">${keteranganRetur}</div>                      
+    </div>
+    `
+
+    retur.innerHTML = `
+    <div class="modal fade" id="modalreturdealer${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Pengaturan Data Return</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body">
+              <form id="tambah-retur-dealer${doc.id}">
+                <div class="form-group">
+                  <label class="col-form-label">Nama Dealer</label>
+                  <input type="text" value="${namaDealer}" class="form-control" id="dealer-retur${doc.id}" autocomplete="off" required>
+                </div> 
+                <div class="form-group">
+                  <label class="col-form-label">Status Return</label>
+                <select class="form-control" id="status-retur-dealer${doc.id}" required>
+                    <option>Sudah Selesai</option>
+                    <option selected>Belum Selesai</option>
+                    </select>
+                </div>                
+                <div class="form-group">
+                  <label class="col-form-label">Produk Return</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="produk-retur-dealer${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required>${produkRetur.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Keterangan Tambahan</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="keterangan-retur-dealer${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off">${keteranganRetur.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                </div>                            
+                    <div class="modal-footer">
+                          <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+           </div>
+         </div>
+    `
+
+    previewPrint.innerHTML = `
+    <div class="header-surat">
+      <div class="kop-surat">LOGO</div>
+      <div class="isi-header-surat">
+      <div class="nama-header-surat">PT GALAXY DIGITAL NIAGA</div>
+      <div class="alamat-header-surat">Jl. Hartono Raya Modern Ruko Mall Metropolis Townsquare Blok Blok GM3 No.6, RT.003/RW.006, Klp. Indah, Kec. Tangerang, Kota Tangerang, Banten 15117</div>
+      <div class="email-header-surat">E-mail : galaxycameraid@gmail.com</div>
+      <div class="kontak-header-surat">Telp. 082111311131</div>
+      </div>
+    </div>
+    <div class="sub-header-surat">
+      <div style="display: grid;grid-template-columns: 50% 50%;">
+        <div>Lampiran : 1 Berkas </div>
+        <div style="text-align: right;">${hari[new Date().getDay()]}, ${tanggalSekarang}</div>
+      </div>
+      <div>Perihal : Pengembalian Barang</div>
+    </div>
+    <div class="body-surat">
+      <div style="padding: 20px 0px;">
+      <div>Yth,</div>
+      <div id="dealer-retur-surat${doc.id}">${namaDealer}</div>
+      </div>
+      <div style="padding: 20px 0px;">Dengan hormat,</div>
+      <div style="text-indent: 30px;">Pada hari ini, ${hari[new Date().getDay()]}, ${tanggalSekarang} di PT Galaxy DIGITAL NIAGA mengembalikan barang kepada saudara berupa :</div>      
+      <div class="produk-retur-surat" id="produk-retur-surat${doc.id}">${produkRetur}</div>
+      <div style="text-indent: 30px;padding:0px 10px 10px 10px;">Barang sudah kami cek dan dinyatakan dalam kondisi rusak atau tidak layak. Sehingga dengan adanya kasus ini, kami merasa kecewa karena barang tersebut tidak dapat dijual atau dipergunakan lagi dan mendapatkan kerugian terkait barang rusak tersebut.</div>
+      <div style="text-indent: 30px;padding: 10px;">Berdasarkan hal diatas, dengan penuh kesungguhan kami meminta agar saudara mengganti barang tersebut dengan nilai barang yang ada.</div>
+      <div style="text-indent: 30px;padding: 10px;">Demikian surat pengembalian barang ini kami buat dengan harapan adanya perbaikan kualitas barang, sehingga kedepannya tidak terjadi masalah yang sama. Atas perhatian dan kerjasamanya kami ucapkan terima kasih.</div>
+    </div>
+    <div class="footer-surat">
+      <div class="footer-menyerahkan-surat">
+        <div>Yang Menyerahkan</div>
+        <div style="padding: 80px;"></div>
+      </div>
+      <div class="footer-menerima-surat">
+        <div>Yang Menerima</div>
+        <div style="padding: 80px;"></div>
+      </div>
+    </div>
+    `
+
+    listReturDealerPending.appendChild(div);
+    
+    modalReturDealer.appendChild(retur);    
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus data retur ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-retur' + doc.id).getAttribute('data-id');
+        db.collection('returDealerPending').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                namaDealer : item.data().namaDealer,
+                produkRetur : item.data().produkRetur,
+                keteranganRetur : item.data().keteranganRetur,
+                statusProduk : 'Belum Selesai',
+                overview : 'delete-return-dealer'
+                })
+        }).then(() => {
+            db.collection('returDealerPending').doc(id).delete();
+            $('#modalreturdealer' + doc.id).modal('hide')
+                })
+            })
+        }
+    })
+
+    let print = document.querySelector('#print' + doc.id);
+    print.addEventListener('click', (e) => {
+        e.stopPropagation();
+        previewPrintReturDealer.appendChild(previewPrint);
+        db.collection('returDealerPending').doc(doc.id).get().then(function(item){
+        document.querySelector('#dealer-retur-surat' + doc.id).innerHTML = item.data().namaDealer;
+        document.querySelector('#produk-retur-surat' + doc.id).innerHTML = item.data().produkRetur;     
+        }).then(() => {        
+        document.body.style.visibility = 'hidden';
+        previewPrintReturDealer.style.visibility = 'visible';
+        document.body.style.setProperty("background-color", "white", "important");
+        document.querySelector('#tombol-burger').style.visibility = 'hidden';
+        previewPrintReturDealer.style.position = 'absolute';
+        previewPrintReturDealer.style.width = '100%';
+        previewPrintReturDealer.style.top = '0';
+        previewPrintReturDealer.style.left = '0';
+        document.querySelector('#myTabContent').style.marginLeft = '0';
+        window.print();
+        document.querySelector('#print-retur' + doc.id).remove();
+        document.querySelector('#tombol-burger').style.visibility = 'visible';
+        document.body.style.visibility = 'visible';
+        document.querySelector('#preview-print-cetak-label').style.position = 'relative';
+        document.body.style.setProperty("background-color", "#eeeeee", "important");
+        setTimeout(function(){
+        document.querySelector('#darken').style.backgroundColor = '0';
+        document.querySelector('#darken').style.width = '0';
+        document.querySelector('#darken').style.height = '0';
+        document.querySelector('#darken').style.position = '0';
+        document.querySelector('#darken').style.opacity = '0';
+        document.querySelector('#darken').style.zIndex = '0';
+        },0)
+        })        
+    })
+
+    let edit = document.querySelector('#tambah-retur-dealer' + doc.id);
+    edit.addEventListener('submit', (e) =>{
+        e.preventDefault();
+        let namaDealerUpdate = document.querySelector('#dealer-retur' + doc.id).value;
+        let produkReturUpdate = document.querySelector('#produk-retur-dealer' + doc.id).value;
+        let statusProdukUpdate = document.querySelector('#status-retur-dealer' + doc.id).value;
+        let keteranganReturUpdate = document.querySelector('#keterangan-retur-dealer' + doc.id).value;
+        let overviewCadangan;
+        db.collection('returDealerPending').doc(doc.id).get().then(function(item) {
+        tanggal = item.data().tanggal;
+        namaDealer = item.data().namaDealer;
+        produkRetur = item.data().produkRetur;
+        keteranganRetur = item.data().keteranganRetur;
+        if(statusProdukUpdate == 'Sudah Selesai'){
+            db.collection('returDealerSelesai').add({
+                tanggal : tanggal,
+                namaDealer : namaDealerUpdate,
+                produkRetur : produkReturUpdate.replace(/\n\r?/g, '<br/>'),
+                keteranganRetur : keteranganReturUpdate.replace(/\n\r?/g, '<br/>')
+            }).then(() => {
+                db.collection('returDealerPending').doc(doc.id).delete();
+                $('#modalreturdealer' + doc.id).modal('hide');
+            })
+        } else {
+            db.collection('returDealerPending').doc(doc.id).update({
+                tanggal : tanggal,
+                namaDealer : namaDealerUpdate,
+                produkRetur : produkReturUpdate.replace(/\n\r?/g, '<br/>'),
+                keteranganRetur : keteranganReturUpdate.replace(/\n\r?/g, '<br/>')
+            }).then(() => {
+                $('#modalreturdealer' + doc.id).modal('hide');
+            })
+        }
+            })
+    })
+
+        $(document).ready(function() {
+        db.collection('returDealerPending').onSnapshot(snapshot =>{
+        let items = $('#list-retur-dealer-pending > .retur').get();
+        items.sort(function(a, b) {
+        let keyA = $(a).data('date');
+        let keyB = $(b).data('date');
+        if (keyA < keyB) return 1;
+        if (keyA > keyB) return -1;
+        return 0;
+        })
+        let daftarReturDealerPending = $('#list-retur-dealer-pending');
+        $.each(items, function(i, div) {
+        daftarReturDealerPending.append(div);
+        })
+      })
+    })
+
+
+}
+
+function renderUpdateReturDealerPending(doc){
+    let namaDealer = doc.data().namaDealer;
+    let produkRetur = doc.data().produkRetur;
+    let keteranganRetur = doc.data().keteranganRetur; 
+    document.querySelector('#dealer-retur-tampilan' + doc.id).innerHTML = namaDealer;
+    document.querySelector('#produk-retur-dealer-tampilan' + doc.id).innerHTML = produkRetur;
+    document.querySelector('#keterangan-retur-dealer-tampilan' + doc.id).innerHTML = keteranganRetur;
+}
+
+function renderReturDealerSelesai(doc){
+    let div = document.createElement('div')
+    let retur = document.createElement('div');
+    let previewPrint = document.createElement('div');
+    previewPrint.setAttribute('id', 'print-retur' + doc.id);
+    previewPrint.classList.add('preview-print-retur');
+    div.setAttribute('data-id', doc.id)
+    div.setAttribute('id', 'retur' + doc.id)
+    div.classList.add('dokumentasi-retur' + doc.id, 'retur');
+    let tanggal = doc.data().tanggal;
+    let namaDealer = doc.data().namaDealer;
+    let produkRetur = doc.data().produkRetur;
+    let keteranganRetur = doc.data().keteranganRetur;    
+    div.setAttribute('data-date', tanggal)
+    let kalkulasiTanggal = new Date(tanggal);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggal = dd + ' ' + mm + ' ' + yyyy;
+    let hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    dd = String(new Date().getDate()).padStart(2, '0');
+    mm = bulan[new Date().getMonth()]
+    yyyy = new Date().getFullYear();
+    let tanggalSekarang = dd + ' ' + mm + ' ' + yyyy;    
+    div.innerHTML = `
+    <div class="header-retur">
+        <div class="judul-retur"><i class='fas fa-history'></i> Return Dealer ${tanggal}</div>
+        <div class="dropdown">        
+            <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
+            <div class="dropdown-menu menu-konfigurasi-retur">
+                <div class='print-retur dropdown-item' id='print${doc.id}'><i class="fa fa-print"></i> Print</div>
+                <div class='edit-retur dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalreturdealer${doc.id}'><i class='fas fa-pen'></i> Edit</div>
+                <div class='hapus-retur dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+            </div>
+        </div>
+    </div>
+    <div id="konten-retur-tampilan${doc.id}" class="konten-retur-tampilan">
+        <div>Nama Dealer</div>
+        <div>:</div>
+        <div id="dealer-retur-tampilan${doc.id}" style="font-weight:bold;">${namaDealer}</div>
+        <div>Status Return</div>
+        <div>:</div>
+        <div style="color:#13eb5e;font-weight:bold;">Sudah Selesai</div>        
+        <div>Produk Return</div>
+        <div>:</div>
+        <div id="produk-retur-dealer-tampilan${doc.id}">${produkRetur}</div>
+        <div>Keterangan Tambahan</div>
+        <div>:</div>
+        <div id="keterangan-retur-dealer-tampilan${doc.id}">${keteranganRetur}</div>                      
+    </div>
+    `
+
+    retur.innerHTML = `
+    <div class="modal fade" id="modalreturdealer${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Pengaturan Data Return</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body">
+              <form id="tambah-retur-dealer${doc.id}">
+                <div class="form-group">
+                  <label class="col-form-label">Nama Dealer</label>
+                  <input type="text" value="${namaDealer}" class="form-control" id="dealer-retur${doc.id}" autocomplete="off" required>
+                </div> 
+                <div class="form-group">
+                  <label class="col-form-label">Status Return</label>
+                <select class="form-control" id="status-retur-dealer${doc.id}" required>
+                    <option selected>Sudah Selesai</option>
+                    <option>Belum Selesai</option>
+                    </select>
+                </div>                
+                <div class="form-group">
+                  <label class="col-form-label">Produk Return</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="produk-retur-dealer${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required>${produkRetur.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Keterangan Tambahan</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="keterangan-retur-dealer${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off">${keteranganRetur.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                </div>                            
+                    <div class="modal-footer">
+                          <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+           </div>
+         </div>
+    `
+
+    previewPrint.innerHTML = `
+    <div class="header-surat">
+      <div class="kop-surat">LOGO</div>
+      <div class="isi-header-surat">
+      <div class="nama-header-surat">PT GALAXY DIGITAL NIAGA</div>
+      <div class="alamat-header-surat">Jl. Hartono Raya Modern Ruko Mall Metropolis Townsquare Blok Blok GM3 No.6, RT.003/RW.006, Klp. Indah, Kec. Tangerang, Kota Tangerang, Banten 15117</div>
+      <div class="email-header-surat">E-mail : galaxycameraid@gmail.com</div>
+      <div class="kontak-header-surat">Telp. 082111311131</div>
+      </div>
+    </div>
+    <div class="sub-header-surat">
+      <div style="display: grid;grid-template-columns: 50% 50%;">
+        <div>Lampiran : 1 Berkas </div>
+        <div style="text-align: right;">${hari[new Date().getDay()]}, ${tanggalSekarang}</div>
+      </div>
+      <div>Perihal : Pengembalian Barang</div>
+    </div>
+    <div class="body-surat">
+      <div style="padding: 20px 0px;">
+      <div>Yth,</div>
+      <div id="dealer-retur-surat${doc.id}">${namaDealer}</div>
+      </div>
+      <div style="padding: 20px 0px;">Dengan hormat,</div>
+      <div style="text-indent: 30px;">Pada hari ini, ${hari[new Date().getDay()]}, ${tanggalSekarang} di PT Galaxy DIGITAL NIAGA mengembalikan barang kepada saudara berupa :</div>      
+      <div class="produk-retur-surat" id="produk-retur-surat${doc.id}">${produkRetur}</div>
+      <div style="text-indent: 30px;padding:0px 10px 10px 10px;">Barang sudah kami cek dan dinyatakan dalam kondisi rusak atau tidak layak. Sehingga dengan adanya kasus ini, kami merasa kecewa karena barang tersebut tidak dapat dijual atau dipergunakan lagi dan mendapatkan kerugian terkait barang rusak tersebut.</div>
+      <div style="text-indent: 30px;padding: 10px;">Berdasarkan hal diatas, dengan penuh kesungguhan kami meminta agar saudara mengganti barang tersebut dengan nilai barang yang ada.</div>
+      <div style="text-indent: 30px;padding: 10px;">Demikian surat pengembalian barang ini kami buat dengan harapan adanya perbaikan kualitas barang, sehingga kedepannya tidak terjadi masalah yang sama. Atas perhatian dan kerjasamanya kami ucapkan terima kasih.</div>
+    </div>
+    <div class="footer-surat">
+      <div class="footer-menyerahkan-surat">
+        <div>Yang Menyerahkan</div>
+        <div style="padding: 80px;"></div>
+      </div>
+      <div class="footer-menerima-surat">
+        <div>Yang Menerima</div>
+        <div style="padding: 80px;"></div>
+      </div>
+    </div>
+    `
+
+    listReturDealerSelesai.appendChild(div);
+    
+    modalReturDealer.appendChild(retur);    
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus data retur ini?');
+        if(konfirmasi == true){
+        let id = document.querySelector('.dokumentasi-retur' + doc.id).getAttribute('data-id');
+        db.collection('returDealerSelesai').doc(id).get().then(function(item){
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
+        let tanggal = new Date().getTime();
+            db.collection('overview').add({
+                penggunaOverview : docs.data().username,
+                waktuOverview : tanggal,
+                namaDealer : item.data().namaDealer,
+                produkRetur : item.data().produkRetur,
+                keteranganRetur : item.data().keteranganRetur,
+                statusProduk : 'Sudah Selesai',
+                overview : 'delete-return-dealer'
+                })
+        }).then(() => {
+            db.collection('returDealerSelesai').doc(id).delete();
+            $('#modalreturdealer' + doc.id).modal('hide')
+                })
+            })
+        }
+    })
+
+    let print = document.querySelector('#print' + doc.id);
+    print.addEventListener('click', (e) => {
+        e.stopPropagation();
+        previewPrintReturDealer.appendChild(previewPrint);
+        db.collection('returDealerSelesai').doc(doc.id).get().then(function(item){
+        document.querySelector('#dealer-retur-surat' + doc.id).innerHTML = item.data().namaDealer;
+        document.querySelector('#produk-retur-surat' + doc.id).innerHTML = item.data().produkRetur;     
+        }).then(() => {        
+        document.body.style.visibility = 'hidden';
+        previewPrintReturDealer.style.visibility = 'visible';
+        document.body.style.setProperty("background-color", "white", "important");
+        document.querySelector('#tombol-burger').style.visibility = 'hidden';
+        previewPrintReturDealer.style.position = 'absolute';
+        previewPrintReturDealer.style.width = '100%';
+        previewPrintReturDealer.style.top = '0';
+        previewPrintReturDealer.style.left = '0';
+        document.querySelector('#myTabContent').style.marginLeft = '0';
+        window.print();
+        document.querySelector('#print-retur' + doc.id).remove();
+        document.querySelector('#tombol-burger').style.visibility = 'visible';
+        document.body.style.visibility = 'visible';
+        document.querySelector('#preview-print-cetak-label').style.position = 'relative';
+        document.body.style.setProperty("background-color", "#eeeeee", "important");
+        setTimeout(function(){
+        document.querySelector('#darken').style.backgroundColor = '0';
+        document.querySelector('#darken').style.width = '0';
+        document.querySelector('#darken').style.height = '0';
+        document.querySelector('#darken').style.position = '0';
+        document.querySelector('#darken').style.opacity = '0';
+        document.querySelector('#darken').style.zIndex = '0';
+        },0)
+        })        
+    })
+
+    let edit = document.querySelector('#tambah-retur-dealer' + doc.id);
+    edit.addEventListener('submit', (e) =>{
+        e.preventDefault();
+        let namaDealerUpdate = document.querySelector('#dealer-retur' + doc.id).value;
+        let produkReturUpdate = document.querySelector('#produk-retur-dealer' + doc.id).value;
+        let statusProdukUpdate = document.querySelector('#status-retur-dealer' + doc.id).value;
+        let keteranganReturUpdate = document.querySelector('#keterangan-retur-dealer' + doc.id).value;
+        let overviewCadangan;
+        db.collection('returDealerSelesai').doc(doc.id).get().then(function(item) {
+        tanggal = item.data().tanggal;
+        namaDealer = item.data().namaDealer;
+        produkRetur = item.data().produkRetur;
+        keteranganRetur = item.data().keteranganRetur;
+        if(statusProdukUpdate == 'Belum Selesai'){
+            db.collection('returDealerPending').add({
+                tanggal : tanggal,
+                namaDealer : namaDealerUpdate,
+                produkRetur : produkReturUpdate.replace(/\n\r?/g, '<br/>'),
+                keteranganRetur : keteranganReturUpdate.replace(/\n\r?/g, '<br/>')
+            }).then(() => {
+                db.collection('returDealerSelesai').doc(doc.id).delete();
+                $('#modalreturdealer' + doc.id).modal('hide');
+            })
+        } else {
+            db.collection('returDealerSelesai').doc(doc.id).update({
+                tanggal : tanggal,
+                namaDealer : namaDealerUpdate,
+                produkRetur : produkReturUpdate.replace(/\n\r?/g, '<br/>'),
+                keteranganRetur : keteranganReturUpdate.replace(/\n\r?/g, '<br/>')
+            }).then(() => {
+                $('#modalreturdealer' + doc.id).modal('hide');
+            })
+        }
+            })
+    })
+
+        $(document).ready(function() {
+        db.collection('returDealerSelesai').onSnapshot(snapshot =>{
+        let items = $('#list-retur-dealer-selesai > .retur').get();
+        items.sort(function(a, b) {
+        let keyA = $(a).data('date');
+        let keyB = $(b).data('date');
+        if (keyA < keyB) return 1;
+        if (keyA > keyB) return -1;
+        return 0;
+        })
+        let daftarReturDealerSelesai = $('#list-retur-dealer-selesai');
+        $.each(items, function(i, div) {
+        daftarReturDealerSelesai.append(div);
+        })
+      })
+    })
+
+
+}
+
+function renderUpdateReturDealerSelesai(doc){
+    let namaDealer = doc.data().namaDealer;
+    let produkRetur = doc.data().produkRetur;
+    let keteranganRetur = doc.data().keteranganRetur; 
+    document.querySelector('#dealer-retur-tampilan' + doc.id).innerHTML = namaDealer;
+    document.querySelector('#produk-retur-dealer-tampilan' + doc.id).innerHTML = produkRetur;
+    document.querySelector('#keterangan-retur-dealer-tampilan' + doc.id).innerHTML = keteranganRetur;
 }
 
 const listBelanja = document.querySelector('#list-daftar-belanja');

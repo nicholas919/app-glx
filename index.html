@@ -49,6 +49,11 @@
       <div class="tab-halaman text-white menu" id="catatan" data-toggle="pill" href="#halaman-catatan" role="tab" aria-controls="halaman-catatan" aria-selected="true"><i class='far fa-sticky-note'></i> Catatan</div>
       <div class="tab-halaman text-white menu" id="indent-cust" data-toggle="pill" href="#halaman-indent-cust" role="tab" aria-controls="halaman-indent-cust" aria-selected="true"><i class="fa fa-address-book"></i> Indent Cust</div>
       </div>
+      <div class="text-white menu" id="retur" data-toggle="collapse" data-target="#tab-halaman-retur" aria-expanded="true" aria-controls="tab-halaman-retur"><i class='fas fa-reply'></i> Return <i class='fas fa-caret-up ikon-collapse ikon-collapse-bawah'></i></div>
+      <div id="tab-halaman-retur" class="collapse show nav-pills" role="tablist" aria-orientation="vertical">
+      <div class="tab-halaman text-white menu" id="retur-customer" data-toggle="pill" href="#halaman-retur-customer" role="tab" aria-controls="halaman-retur-customer" aria-selected="true"><i class="material-icons" style="font-size: 20px;vertical-align: text-bottom;">shop</i> Return Customer</div>
+      <div class="tab-halaman text-white menu" id="retur-dealer" data-toggle="pill" href="#halaman-retur-dealer" role="tab" aria-controls="halaman-retur-dealer" aria-selected="true"><i class="material-icons" style="font-size: 20px;vertical-align: text-bottom;">shop_two</i> Return Dealer</div>      
+      </div>
       <div class="tab-halaman text-white menu" id="swot" data-toggle="pill" href="#halaman-swot" role="tab" aria-controls="halaman-swot" aria-selected="true"><i class='fas fa-seedling'></i> SWOT Analysis</div>
       <div class="tab-halaman text-white menu" id="achievement" data-toggle="pill" href="#halaman-achievement" role="tab" aria-controls="halaman-achievement" aria-selected="true"> <i class='fas fa-crown'></i> Achievement</div>
       <div class="tab-halaman text-white menu" id="list-gaji" data-toggle="pill" href="#halaman-list-gaji" role="tab" aria-controls="halaman-list-gaji" aria-selected="true"><i class='fas fa-clipboard-list'></i> List Gaji</div>
@@ -57,7 +62,6 @@
       <div class="tab-halaman text-white menu" id="kalkulator" data-toggle="pill" href="#halaman-kalkulator" role="tab" aria-controls="halaman-kalkulator" aria-selected="true"><i class="fa fa-calculator"></i> Kalkulator</div>
       <div class="tab-halaman text-white menu" id="transaksi-berjalan" data-toggle="pill" href="#halaman-transaksi-berjalan" role="tab" aria-controls="halaman-transaksi-berjalan" aria-selected="true"><i class='fas fa-coins'></i> Transaksi Berjalan</div>
       <div class="tab-halaman text-white menu" id="daftar-belanja" data-toggle="pill" href="#halaman-daftar-belanja" role="tab" aria-controls="halaman-daftar-belanja" aria-selected="true"><i class="fa fa-shopping-basket"></i> List Belanja/Pengeluaran</div>
-      <div class="tab-halaman text-white menu" id="retur" data-toggle="pill" href="#halaman-retur" role="tab" aria-controls="halaman-retur" aria-selected="true"><i class='fas fa-reply'></i> Return Customer</div>
       <div id="setting" class="tab-halaman text-white menu item-masuk" id="account" data-toggle="modal" data-target="#modalpengaturanakun"><i class="fa fa-gear"></i> Pengaturan Akun</div>
       <div class="item-masuk text-white menu" id="sign-out"><i class='fas fa-sign-out-alt'></i> Keluar</div>
     </div>
@@ -1091,10 +1095,10 @@
 
 </div>
 
-<div class="halaman tab-pane fade" id="halaman-retur" role="tabpanel">
+<div class="halaman tab-pane fade" id="halaman-retur-customer" role="tabpanel">
 
 <div class="jumbotron" id="jumbotron-retur">
-  <div id="judul-jumbotron-retur" class="display-4"><i class='fas fa-database'></i> Retur</div>
+  <div id="judul-jumbotron-retur" class="display-4"><i class='fas fa-database'></i> Return Customer</div>
   <div class="lead">
     <div id="tombol-tambah-lihat-retur">
       <div id="lihatreturselesai" class="tombol-lihat-retur btn btn-primary pull-right">Lihat Retur Selesai <span class="badge badge-success" id="jumlah-retur-selesai"></span></div>
@@ -1113,7 +1117,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Menambahkan Data Retur</h5>
+        <h5 class="modal-title">Menambahkan Data Return</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -1130,7 +1134,7 @@
                   <input type="number" class="form-control your_class" id="kontak-retur" autocomplete="off">
                 </div>            
                 <div class="form-group col">
-                  <label class="col-form-label">Status Produk</label>
+                  <label class="col-form-label">Status Return</label>
                 <select class="form-control" id="status-retur" required>
                     <option value="" disabled selected hidden>-</option>
                     <option>Sudah Selesai</option>
@@ -1139,7 +1143,7 @@
                 </div>                
             </div>
                 <div class="form-group">
-                  <label class="col-form-label">Produk</label>
+                  <label class="col-form-label">Produk Return</label>
                   <textarea oninput="auto_grow(this)" class="form-control" id="produk-retur" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required></textarea>
                 </div>            
                 <div class="form-group">
@@ -1161,6 +1165,73 @@
      </div>
 
 <div id="modal-edit-retur"></div>
+
+</div>
+
+<div class="halaman tab-pane fade" id="halaman-retur-dealer" role="tabpanel">
+
+<div class="jumbotron" id="jumbotron-retur-dealer">
+  <div id="judul-jumbotron-retur-dealer" class="display-4"><i class='fas fa-database'></i> Return Dealer</div>
+  <div class="lead">
+    <div id="tombol-tambah-lihat-retur-dealer">
+      <div id="lihatreturdealerselesai" class="tombol-lihat-retur btn btn-primary pull-right">Lihat Retur Selesai <span class="badge badge-success" id="jumlah-retur-dealer-selesai"></span></div>
+      <div id="lihatreturdealerpending" class="tombol-lihat-retur btn btn-primary pull-right">Lihat Retur Pending <span class="badge badge-danger" id="jumlah-retur-dealer-pending"></span></div>    
+    </div>
+  </div>
+</div>
+<div id="tombol-tambah-lihat-retur-dealer-kedua"></div>
+
+<div id="list-retur-dealer-pending"></div>
+<div id="list-retur-dealer-selesai"></div>
+
+<a id="tambahreturdealer" class="tombol-tambah" data-toggle="modal" data-target="#modalreturdealer">+</a>
+
+<div class="modal fade" id="modalreturdealer" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menambahkan Data Return</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-retur-dealer">
+                <div class="form-group">
+                  <label class="col-form-label">Nama Dealer</label>
+                  <input type="text" class="form-control" id="dealer-retur" autocomplete="off" required>
+                </div>          
+                <div class="form-group">
+                  <label class="col-form-label">Status Return</label>
+                <select class="form-control" id="status-retur-dealer" required>
+                    <option value="" disabled selected hidden>-</option>
+                    <option>Sudah Selesai</option>
+                    <option>Belum Selesai</option>
+                    </select>
+                </div>                
+                <div class="form-group">
+                  <label class="col-form-label">Produk Return</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="produk-retur-dealer" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Keterangan Tambahan</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="keterangan-retur-dealer" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off"></textarea>
+                </div>                                                                  
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+<div id="preview-print-retur-dealer">
+
+</div>
+
+<div id="modal-edit-retur-dealer"></div>
 
 </div>
 
@@ -1248,13 +1319,21 @@ window.addEventListener('resize', function(e){
               tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturpending'))
               tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturselesai'))
             }
+            if(document.querySelector('#lihatreturdealerpending') && document.querySelector('#lihatreturdealerselesai')){
+              tombolTambahLihatReturDealerKedua.appendChild(document.querySelector('#lihatreturdealerpending'))
+              tombolTambahLihatReturDealerKedua.appendChild(document.querySelector('#lihatreturdealerselesai'))
+            }            
             document.querySelector('#lihatreturpending').classList.add('tombol-tambah-kedua');
-            document.querySelector('#lihatreturselesai').classList.add('tombol-tambah-kedua');            
+            document.querySelector('#lihatreturselesai').classList.add('tombol-tambah-kedua');
+            document.querySelector('#lihatreturdealerpending').classList.add('tombol-tambah-kedua');
+            document.querySelector('#lihatreturdealerselesai').classList.add('tombol-tambah-kedua');                         
             document.querySelector('#lihatperpindahanpending').classList.add('tombol-tambah-kedua');
             document.querySelector('#lihatperpindahanselesai').classList.add('tombol-tambah-kedua');            
             document.querySelector('#tambahpengumuman').classList.add('tombol-tambah-kedua');
             document.querySelector('#lihatreturpending').classList.remove('pull-right');
-            document.querySelector('#lihatreturselesai').classList.remove('pull-right');            
+            document.querySelector('#lihatreturselesai').classList.remove('pull-right');
+            document.querySelector('#lihatreturdealerpending').classList.remove('pull-right');
+            document.querySelector('#lihatreturdealerselesai').classList.remove('pull-right');                        
             document.querySelector('#lihatperpindahanpending').classList.remove('pull-right');
             document.querySelector('#lihatperpindahanselesai').classList.remove('pull-right');            
             document.querySelector('#tambahpengumuman').classList.remove('pull-right');
@@ -1383,15 +1462,24 @@ window.addEventListener('resize', function(e){
               tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturselesai'))              
               tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturpending'))
             }
+            if(document.querySelector('#lihatreturdealerpending') && document.querySelector('#lihatreturdealerselesai')){
+              tombolTambahLihatReturDealer.appendChild(document.querySelector('#lihatreturdealerselesai'))              
+              tombolTambahLihatReturDealer.appendChild(document.querySelector('#lihatreturdealerpending'))
+            }            
             document.querySelector('#lihatreturpending').classList.add('pull-right');
             document.querySelector('#lihatreturpending').style.marginRight = '5px';
-            document.querySelector('#lihatreturselesai').classList.add('pull-right');                        
+            document.querySelector('#lihatreturselesai').classList.add('pull-right');
+            document.querySelector('#lihatreturdealerpending').classList.add('pull-right');
+            document.querySelector('#lihatreturdealerpending').style.marginRight = '5px';
+            document.querySelector('#lihatreturdealerselesai').classList.add('pull-right');                                    
             document.querySelector('#lihatperpindahanpending').classList.add('pull-right');
             document.querySelector('#lihatperpindahanpending').style.marginRight = '5px';
             document.querySelector('#lihatperpindahanselesai').classList.add('pull-right');
             document.querySelector('#tambahpengumuman').classList.add('pull-right');
             document.querySelector('#lihatreturpending').classList.remove('tombol-tambah-kedua');
-            document.querySelector('#lihatreturselesai').classList.remove('tombol-tambah-kedua');            
+            document.querySelector('#lihatreturselesai').classList.remove('tombol-tambah-kedua');
+            document.querySelector('#lihatreturdealerpending').classList.remove('tombol-tambah-kedua');
+            document.querySelector('#lihatreturdealerselesai').classList.remove('tombol-tambah-kedua');                        
             document.querySelector('#lihatperpindahanpending').classList.remove('tombol-tambah-kedua');
             document.querySelector('#lihatperpindahanselesai').classList.remove('tombol-tambah-kedua');
             document.querySelector('#tambahpengumuman').classList.remove('tombol-tambah-kedua');
@@ -1519,6 +1607,8 @@ let tombolTambahLihatPerpindahan = document.querySelector('#tombol-tambah-lihat-
 let tombolTambahLihatPerpindahanKedua = document.querySelector('#tombol-tambah-lihat-perpindahan-kedua');
 let tombolTambahLihatRetur = document.querySelector('#tombol-tambah-lihat-retur');
 let tombolTambahLihatReturKedua = document.querySelector('#tombol-tambah-lihat-retur-kedua');
+let tombolTambahLihatReturDealer = document.querySelector('#tombol-tambah-lihat-retur-dealer');
+let tombolTambahLihatReturDealerKedua = document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua');
 
 $(document).ready(function(e){
     if($(window).width() <= 840){
@@ -1542,7 +1632,15 @@ $(document).ready(function(e){
           document.querySelector('#lihatreturselesai').classList.remove('pull-right');
           tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturpending'));
           tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturselesai'));       
-        }        
+        }
+        if(document.querySelector('#lihatreturdealerpending') && document.querySelector('#lihatreturdealerselesai')){
+          document.querySelector('#lihatreturdealerpending').classList.add('tombol-tambah-kedua');
+          document.querySelector('#lihatreturdealerselesai').classList.add('tombol-tambah-kedua');
+          document.querySelector('#lihatreturdealerpending').classList.remove('pull-right');
+          document.querySelector('#lihatreturdealerselesai').classList.remove('pull-right');
+          tombolTambahLihatReturDealerKedua.appendChild(document.querySelector('#lihatreturdealerpending'));
+          tombolTambahLihatReturDealerKedua.appendChild(document.querySelector('#lihatreturdealerselesai'));       
+        }                
         let formCetakLabel = document.createElement('form');
         formCetakLabel.setAttribute('id','form-cetak-label');
         formCetakLabel.innerHTML = `
@@ -1679,7 +1777,16 @@ $(document).ready(function(e){
           document.querySelector('#lihatreturselesai').classList.remove('tombol-tambah-kedua');
           tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturselesai'))          
           tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturpending'))
-        }        
+        }
+        if(document.querySelector('#lihatreturdealerpending') && document.querySelector('#lihatreturdealerselesai')){
+          document.querySelector('#lihatreturdealerpending').classList.add('pull-right');
+          document.querySelector('#lihatreturdealerpending').style.marginRight = '5px';
+          document.querySelector('#lihatreturdealerselesai').classList.add('pull-right');
+          document.querySelector('#lihatreturdealerpending').classList.remove('tombol-tambah-kedua');
+          document.querySelector('#lihatreturdealerselesai').classList.remove('tombol-tambah-kedua');
+          tombolTambahLihatReturDealer.appendChild(document.querySelector('#lihatreturdealerselesai'))          
+          tombolTambahLihatReturDealer.appendChild(document.querySelector('#lihatreturdealerpending'))
+        }                
         let formCetakLabel = document.createElement('form');
         formCetakLabel.setAttribute('id','form-cetak-label');
         formCetakLabel.innerHTML = `
@@ -1895,8 +2002,8 @@ setInterval(function(){
     document.querySelector('#preview-print-cetak-label').style.width = '100%';
     document.querySelector('#preview-print-cetak-label').style.top = '0';
     document.querySelector('#preview-print-cetak-label').style.left = '0';
-    document.querySelector('#jumbotron-preview-print-cetak-label').style.margin = '0'
-    document.querySelector('#myTabContent').style.marginLeft = '0'
+    document.querySelector('#jumbotron-preview-print-cetak-label').style.margin = '0';
+    document.querySelector('#myTabContent').style.marginLeft = '0';
     window.print();
     document.querySelector('#tombol-burger').style.visibility = 'visible';
     document.body.style.visibility = 'visible';
@@ -1943,6 +2050,18 @@ setInterval(function(){
     }
     },0)
   })
+
+  document.querySelector('#retur').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(e.target.children[1].classList.contains('fa-caret-down') && e.target.getAttribute('aria-expanded') == 'true'){
+        e.target.children[1].classList.remove('fa-caret-down')
+        e.target.children[1].classList.add('fa-caret-up')
+    } else if(e.target.children[1].classList.contains('fa-caret-up') && e.target.getAttribute('aria-expanded') == 'false'){
+        e.target.children[1].classList.remove('fa-caret-up')
+        e.target.children[1].classList.add('fa-caret-down')
+    }
+    },0)
+  })  
 
     document.querySelector('#lihatperpindahanpending').addEventListener('click', function(e){
     setTimeout(function(){
@@ -2006,7 +2125,33 @@ setInterval(function(){
         }
     }
     },0)
-  })        
+  })
+
+    document.querySelector('#lihatreturdealerpending').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-retur-dealer-pending').style.display == '' || document.querySelector('#list-retur-dealer-pending').style.display == 'none'){
+        document.querySelector('#list-retur-dealer-pending').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-retur-dealer-selesai').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatreturdealerpending').classList.add('active')
+        if(document.querySelector('#lihatreturdealerselesai').classList.contains('active')){
+        document.querySelector('#lihatreturdealerselesai').classList.remove('active')
+        }
+    }
+    },0)
+  })
+
+    document.querySelector('#lihatreturdealerselesai').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-retur-dealer-selesai').style.display == '' || document.querySelector('#list-retur-dealer-selesai').style.display == 'none'){
+        document.querySelector('#list-retur-dealer-selesai').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-retur-dealer-pending').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatreturdealerselesai').classList.add('active');
+        if(document.querySelector('#lihatreturdealerpending').classList.contains('active')){
+        document.querySelector('#lihatreturdealerpending').classList.remove('active');
+        }
+    }
+    },0)
+  })          
 
   let inputNumber = document.querySelectorAll('.your_class');
   for(let i = 0; i<inputNumber.length ; i++){

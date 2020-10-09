@@ -555,7 +555,35 @@ auth.onAuthStateChanged(user => {
                         renderUpdateReturSelesai(change.doc);
                     }
                 })
-    }, err => console.log(err.message))                 
+    }, err => console.log(err.message))  
+
+        db.collection('returDealerPending').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderReturDealerPending(change.doc);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        div.remove();
+                    } else if(change.type == 'modified'){
+                        renderUpdateReturDealerPending(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))
+
+        db.collection('returDealerSelesai').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderReturDealerSelesai(change.doc);
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        div.remove();
+                    } else if(change.type == 'modified'){
+                        renderUpdateReturDealerSelesai(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))                    
 
         db.collection('pengeluaran').onSnapshot(snapshot =>{
                 let changes = snapshot.docChanges();
@@ -592,6 +620,7 @@ auth.onAuthStateChanged(user => {
             setInterval(function(){ refreshOnJumlahTenor(); }, 10);
             setInterval(function(){ refreshOnOpsiEkspedisi(); }, 10);
             setInterval(function(){ refreshOnRetur(); }, 10)
+            setInterval(function(){ refreshOnReturDealer(); }, 10)
         });
 
 
@@ -887,6 +916,11 @@ auth.onAuthStateChanged(user => {
             document.querySelector('#jumlah-retur-pending').innerHTML = document.querySelector('#list-retur-pending').childNodes.length;
             document.querySelector('#jumlah-retur-selesai').innerHTML = document.querySelector('#list-retur-selesai').childNodes.length;
         }
+
+        function refreshOnReturDealer(e){
+            document.querySelector('#jumlah-retur-dealer-pending').innerHTML = document.querySelector('#list-retur-dealer-pending').childNodes.length;
+            document.querySelector('#jumlah-retur-dealer-selesai').innerHTML = document.querySelector('#list-retur-dealer-selesai').childNodes.length;
+        }        
 
     setupUI(user);    
   } else {
@@ -1396,7 +1430,7 @@ daftarTransaksiBerjalan.addEventListener('submit', function(e){
 const daftarRetur = document.querySelector('#tambah-retur');
 daftarRetur.addEventListener('submit', function(e){
     e.preventDefault();
-if(daftarRetur['status-retur'].value == 'Belum Selesai'){
+if(daftarReturDealer['status-retur'].value == 'Belum Selesai'){
     db.collection('returPending').add({
         tanggal: new Date().getTime(),
         namaCustomer: daftarRetur['customer-retur'].value,
@@ -1440,6 +1474,51 @@ if(daftarRetur['status-retur'].value == 'Belum Selesai'){
     })
     }
 })
+
+const daftarReturDealer = document.querySelector('#tambah-retur-dealer');
+daftarReturDealer.addEventListener('submit', function(e){
+    e.preventDefault();
+if(daftarReturDealer['status-retur-dealer'].value == 'Belum Selesai'){
+    db.collection('returDealerPending').add({
+        tanggal: new Date().getTime(),
+        namaDealer: daftarReturDealer['dealer-retur'].value,
+        produkRetur: daftarReturDealer['produk-retur-dealer'].value.replace(/\n\r?/g, '<br/>'),
+        keteranganRetur: daftarReturDealer['keterangan-retur-dealer'].value.replace(/\n\r?/g, '<br/>')
+    }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : new Date().getTime(),
+                namaDealer : daftarReturDealer['dealer-retur'].value,
+                overview : 'add-return-dealer'
+            })
+        }).then(() => {
+        $('#modalreturdealer').modal('hide');
+        document.querySelector('#tambah-retur-dealer').reset();
+        })
+    })
+    } else {
+    db.collection('returDealerSelesai').add({
+        tanggal: new Date().getTime(),
+        namaDealer: daftarReturDealer['dealer-retur'].value,
+        produkRetur: daftarReturDealer['produk-retur-dealer'].value.replace(/\n\r?/g, '<br/>'),
+        keteranganRetur: daftarReturDealer['keterangan-retur-dealer'].value.replace(/\n\r?/g, '<br/>')
+    }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : new Date().getTime(),
+                namaDealer : daftarReturDealer['dealer-retur'].value,
+                overview : 'add-return-dealer'
+            })
+        }).then(() => {
+        $('#modalreturdealer').modal('hide');
+        document.querySelector('#tambah-retur-dealer').reset();
+        })        
+    })
+    }
+})
+
 
 const daftarBelanja = document.querySelector('#form-daftar-belanja');
 daftarBelanja.addEventListener('submit', (e) => {
