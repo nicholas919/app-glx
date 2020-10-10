@@ -841,8 +841,8 @@
   <div id="judul-jumbotron-perpindahan-barang" class="display-4"><i class="fa fa-calendar-times-o"></i> Perpindahan</div>
   <div class="lead"></div>
     <div id="tombol-tambah-lihat-perpindahan">
-      <div id="lihatperpindahanselesai" class="tombol-lihat-perpindahan btn btn-primary pull-right">Lihat Perpindahan Selesai <span class="badge badge-success" id="jumlah-perpindahan-selesai"></span></div>
-      <div id="lihatperpindahanpending" class="tombol-lihat-perpindahan btn btn-primary pull-right">Lihat Perpindahan Pending <span class="badge badge-danger" id="jumlah-perpindahan-pending"></span></div>      
+      <div id="lihatperpindahanselesai" class="tombol-lihat-perpindahan btn btn-primary pull-right">Perpindahan Selesai <span class="badge badge-success" id="jumlah-perpindahan-selesai"></span></div>
+      <div id="lihatperpindahanpending" class="tombol-lihat-perpindahan btn btn-primary pull-right">Perpindahan Pending <span class="badge badge-danger" id="jumlah-perpindahan-pending"></span></div>      
     </div>
 </div>
 <div id="tombol-tambah-lihat-perpindahan-kedua"></div>
@@ -1082,7 +1082,7 @@
         <input type="number" class="form-control your_class" id="jumlah-pengeluaran-belanja" autocomplete="off" required>
       </div>
       <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-daftar-belanja">Submit Rincian Belanja/Pengeluaran</button>
-      <div class="btn btn-success mx-auto d-block" id="tombol-lihat-daftar-belanja">Lihat List Belanja/Pengeluaran</div>
+      <div class="btn btn-success mx-auto d-block" id="tombol-lihat-daftar-belanja">List Belanja/Pengeluaran</div>
   </form>
 </div>
 
@@ -1101,8 +1101,8 @@
   <div id="judul-jumbotron-retur" class="display-4"><i class='fas fa-database'></i> Return Customer</div>
   <div class="lead">
     <div id="tombol-tambah-lihat-retur">
-      <div id="lihatreturselesai" class="tombol-lihat-retur btn btn-primary pull-right">Lihat Retur Selesai <span class="badge badge-success" id="jumlah-retur-selesai"></span></div>
-      <div id="lihatreturpending" class="tombol-lihat-retur btn btn-primary pull-right">Lihat Retur Pending <span class="badge badge-danger" id="jumlah-retur-pending"></span></div>    
+      <div id="lihatreturselesai" class="tombol-lihat-retur btn btn-primary pull-right">Retur Selesai <span class="badge badge-success" id="jumlah-retur-selesai"></span></div>
+      <div id="lihatreturpending" class="tombol-lihat-retur btn btn-primary pull-right">Retur Pending <span class="badge badge-danger" id="jumlah-retur-pending"></span></div>    
     </div>
   </div>
 </div>
@@ -1174,8 +1174,8 @@
   <div id="judul-jumbotron-retur-dealer" class="display-4"><i class='fas fa-database'></i> Return Dealer</div>
   <div class="lead">
     <div id="tombol-tambah-lihat-retur-dealer">
-      <div id="lihatreturdealerselesai" class="tombol-lihat-retur btn btn-primary pull-right">Lihat Retur Selesai <span class="badge badge-success" id="jumlah-retur-dealer-selesai"></span></div>
-      <div id="lihatreturdealerpending" class="tombol-lihat-retur btn btn-primary pull-right">Lihat Retur Pending <span class="badge badge-danger" id="jumlah-retur-dealer-pending"></span></div>    
+      <div id="lihatreturdealerselesai" class="tombol-lihat-retur btn btn-primary pull-right">Retur Selesai <span class="badge badge-success" id="jumlah-retur-dealer-selesai"></span></div>
+      <div id="lihatreturdealerpending" class="tombol-lihat-retur btn btn-primary pull-right">Retur Pending <span class="badge badge-danger" id="jumlah-retur-dealer-pending"></span></div>    
     </div>
   </div>
 </div>
@@ -1304,6 +1304,9 @@ window.addEventListener('resize', function(e){
         document.querySelector('#list-menu-tambahan-ketiga').style.paddingRight = '0';
         document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = '0';
         document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '0';
+        document.querySelector('#tombol-tambah-lihat-retur-kedua').style.width = '100%';
+        document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua').style.width = '100%';
+        document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').style.width = '100%';
         if(document.querySelector('#peringatan-perpindahan-kedua')){
         document.querySelector('#peringatan-perpindahan-kedua').style.width = '100%';
         }
@@ -1313,15 +1316,69 @@ window.addEventListener('resize', function(e){
             }
             if(document.querySelector('#lihatperpindahanpending') && document.querySelector('#lihatperpindahanselesai')){
               tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanpending'))
+              document.querySelector('#lihatperpindahanpending').classList.remove('btn-primary');
+              document.querySelector('#lihatperpindahanpending').classList.add('btn-dark');
+              document.querySelector('#lihatperpindahanpending').style.marginRight = '0px';
+              document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '8px 12px', 'important');
+              if(document.querySelector('#lihatperpindahanpending').classList.contains('active')){
+                document.querySelector('#lihatperpindahanpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+              }
               tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanselesai'))
+              document.querySelector('#lihatperpindahanselesai').classList.remove('btn-primary');
+              document.querySelector('#lihatperpindahanselesai').classList.add('btn-dark');
+              document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '8px 12px', 'important');
+              if(document.querySelector('#lihatperpindahanselesai').classList.contains('active')){
+                document.querySelector('#lihatperpindahanselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+              }
+                tombolTambahLihatPerpindahanKedua.style.display = 'grid';
+                tombolTambahLihatPerpindahanKedua.style.gridTemplateColumns = '50% 50%';
+                tombolTambahLihatPerpindahanKedua.style.position = 'fixed';
+                tombolTambahLihatPerpindahanKedua.style.top = '57px';     
+                document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '50px', 'important')
             }
             if(document.querySelector('#lihatreturpending') && document.querySelector('#lihatreturselesai')){
               tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturpending'))
+              document.querySelector('#lihatreturpending').classList.remove('btn-primary');
+              document.querySelector('#lihatreturpending').classList.add('btn-dark');
+              document.querySelector('#lihatreturpending').style.marginRight = '0px';
+              document.querySelector('#lihatreturpending').style.setProperty('padding', '8px 12px', 'important');
+              if(document.querySelector('#lihatreturpending').classList.contains('active')){
+                document.querySelector('#lihatreturpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+              }              
               tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturselesai'))
+              document.querySelector('#lihatreturselesai').classList.remove('btn-primary');
+              document.querySelector('#lihatreturselesai').classList.add('btn-dark');
+              document.querySelector('#lihatreturselesai').style.setProperty('padding', '8px 12px', 'important');
+              if(document.querySelector('#lihatreturselesai').classList.contains('active')){
+                document.querySelector('#lihatreturselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+              }
+                tombolTambahLihatReturKedua.style.display = 'grid';
+                tombolTambahLihatReturKedua.style.gridTemplateColumns = '50% 50%';
+                tombolTambahLihatReturKedua.style.position = 'fixed';
+                tombolTambahLihatReturKedua.style.top = '57px';     
+                document.querySelector('#jumbotron-retur').style.setProperty('margin-top', '55px', 'important')              
             }
             if(document.querySelector('#lihatreturdealerpending') && document.querySelector('#lihatreturdealerselesai')){
               tombolTambahLihatReturDealerKedua.appendChild(document.querySelector('#lihatreturdealerpending'))
+              document.querySelector('#lihatreturdealerpending').classList.remove('btn-primary');
+              document.querySelector('#lihatreturdealerpending').classList.add('btn-dark');
+              document.querySelector('#lihatreturdealerpending').style.marginRight = '0px';
+              document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '8px 12px', 'important');
+              if(document.querySelector('#lihatreturdealerpending').classList.contains('active')){
+                document.querySelector('#lihatreturdealerpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+              }              
               tombolTambahLihatReturDealerKedua.appendChild(document.querySelector('#lihatreturdealerselesai'))
+              document.querySelector('#lihatreturdealerselesai').classList.remove('btn-primary');
+              document.querySelector('#lihatreturdealerselesai').classList.add('btn-dark');
+              document.querySelector('#lihatreturdealerselesai').style.setProperty('padding', '8px 12px', 'important');
+              if(document.querySelector('#lihatreturdealerselesai').classList.contains('active')){
+                document.querySelector('#lihatreturdealerselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+              }
+                tombolTambahLihatReturDealerKedua.style.display = 'grid';
+                tombolTambahLihatReturDealerKedua.style.gridTemplateColumns = '50% 50%';
+                tombolTambahLihatReturDealerKedua.style.position = 'fixed';
+                tombolTambahLihatReturDealerKedua.style.top = '57px';     
+                document.querySelector('#jumbotron-retur-dealer').style.setProperty('margin-top', '55px', 'important')              
             }            
             document.querySelector('#lihatreturpending').classList.add('tombol-tambah-kedua');
             document.querySelector('#lihatreturselesai').classList.add('tombol-tambah-kedua');
@@ -1457,14 +1514,44 @@ window.addEventListener('resize', function(e){
             if(document.querySelector('#lihatperpindahanpending') && document.querySelector('#lihatperpindahanselesai')){
               tombolTambahLihatPerpindahan.appendChild(document.querySelector('#lihatperpindahanselesai'))              
               tombolTambahLihatPerpindahan.appendChild(document.querySelector('#lihatperpindahanpending'))
+              document.querySelector('#lihatperpindahanpending').classList.add('btn-primary');
+              document.querySelector('#lihatperpindahanpending').classList.remove('btn-dark');
+              document.querySelector('#lihatperpindahanpending').style.marginRight = '5px';
+              document.querySelector('#lihatperpindahanpending').style.setProperty('border-bottom', '0', 'important');
+              document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
+              document.querySelector('#lihatperpindahanselesai').classList.add('btn-primary');
+              document.querySelector('#lihatperpindahanselesai').classList.remove('btn-dark');   
+              document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '10px', 'important');         
+              document.querySelector('#lihatperpindahanselesai').style.setProperty('border-bottom', '0', 'important');     
+              document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important');
             }
             if(document.querySelector('#lihatreturpending') && document.querySelector('#lihatreturselesai')){
               tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturselesai'))              
               tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturpending'))
+              document.querySelector('#lihatreturpending').classList.add('btn-primary');
+              document.querySelector('#lihatreturpending').classList.remove('btn-dark');
+              document.querySelector('#lihatreturpending').style.marginRight = '5px';
+              document.querySelector('#lihatreturpending').style.setProperty('border-bottom', '0', 'important');
+              document.querySelector('#lihatreturpending').style.setProperty('padding', '6px 12px', 'important');
+              document.querySelector('#lihatreturselesai').classList.add('btn-primary');
+              document.querySelector('#lihatreturselesai').classList.remove('btn-dark');   
+              document.querySelector('#jumbotron-retur').style.setProperty('margin-top', '10px', 'important');         
+              document.querySelector('#lihatreturselesai').style.setProperty('border-bottom', '0', 'important');     
+              document.querySelector('#lihatreturselesai').style.setProperty('padding', '6px 12px', 'important');              
             }
             if(document.querySelector('#lihatreturdealerpending') && document.querySelector('#lihatreturdealerselesai')){
               tombolTambahLihatReturDealer.appendChild(document.querySelector('#lihatreturdealerselesai'))              
               tombolTambahLihatReturDealer.appendChild(document.querySelector('#lihatreturdealerpending'))
+              document.querySelector('#lihatreturdealerpending').classList.add('btn-primary');
+              document.querySelector('#lihatreturdealerpending').classList.remove('btn-dark');
+              document.querySelector('#lihatreturdealerpending').style.marginRight = '5px';
+              document.querySelector('#lihatreturdealerpending').style.setProperty('border-bottom', '0', 'important');
+              document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '6px 12px', 'important');
+              document.querySelector('#lihatreturdealerselesai').classList.add('btn-primary');
+              document.querySelector('#lihatreturdealerselesai').classList.remove('btn-dark');   
+              document.querySelector('#jumbotron-retur-dealer').style.setProperty('margin-top', '10px', 'important');         
+              document.querySelector('#lihatreturdealerselesai').style.setProperty('border-bottom', '0', 'important');     
+              document.querySelector('#lihatreturdealerselesai').style.setProperty('padding', '6px 12px', 'important');              
             }            
             document.querySelector('#lihatreturpending').classList.add('pull-right');
             document.querySelector('#lihatreturpending').style.marginRight = '5px';
@@ -1622,8 +1709,20 @@ $(document).ready(function(e){
           document.querySelector('#lihatperpindahanselesai').classList.add('tombol-tambah-kedua');
           document.querySelector('#lihatperpindahanpending').classList.remove('pull-right');
           document.querySelector('#lihatperpindahanselesai').classList.remove('pull-right');
-          tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanpending'));
-          tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanselesai'));       
+          tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanpending'))
+          document.querySelector('#lihatperpindahanpending').classList.remove('btn-primary');
+          document.querySelector('#lihatperpindahanpending').classList.add('btn-dark');
+          document.querySelector('#lihatperpindahanpending').style.marginRight = '0px';
+          document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '8px 12px', 'important');
+          tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanselesai'))
+          document.querySelector('#lihatperpindahanselesai').classList.remove('btn-primary');
+          document.querySelector('#lihatperpindahanselesai').classList.add('btn-dark');
+          document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '8px 12px', 'important');
+          tombolTambahLihatPerpindahanKedua.style.display = 'grid';
+          tombolTambahLihatPerpindahanKedua.style.gridTemplateColumns = '50% 50%';
+          tombolTambahLihatPerpindahanKedua.style.position = 'fixed';
+          tombolTambahLihatPerpindahanKedua.style.top = '57px';
+          document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '50px', 'important')
         }
         if(document.querySelector('#lihatreturpending') && document.querySelector('#lihatreturselesai')){
           document.querySelector('#lihatreturpending').classList.add('tombol-tambah-kedua');
@@ -1631,7 +1730,19 @@ $(document).ready(function(e){
           document.querySelector('#lihatreturpending').classList.remove('pull-right');
           document.querySelector('#lihatreturselesai').classList.remove('pull-right');
           tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturpending'));
-          tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturselesai'));       
+          document.querySelector('#lihatreturpending').classList.remove('btn-primary');
+          document.querySelector('#lihatreturpending').classList.add('btn-dark');
+          document.querySelector('#lihatreturpending').style.marginRight = '0px';
+          document.querySelector('#lihatreturpending').style.setProperty('padding', '8px 12px', 'important');          
+          tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturselesai'));
+          document.querySelector('#lihatreturselesai').classList.remove('btn-primary');
+          document.querySelector('#lihatreturselesai').classList.add('btn-dark');
+          document.querySelector('#lihatreturselesai').style.setProperty('padding', '8px 12px', 'important');          
+          tombolTambahLihatReturKedua.style.display = 'grid';
+          tombolTambahLihatReturKedua.style.gridTemplateColumns = '50% 50%';
+          tombolTambahLihatReturKedua.style.position = 'fixed';
+          tombolTambahLihatReturKedua.style.top = '57px';
+          document.querySelector('#jumbotron-retur').style.setProperty('margin-top', '55px', 'important')                 
         }
         if(document.querySelector('#lihatreturdealerpending') && document.querySelector('#lihatreturdealerselesai')){
           document.querySelector('#lihatreturdealerpending').classList.add('tombol-tambah-kedua');
@@ -1639,7 +1750,19 @@ $(document).ready(function(e){
           document.querySelector('#lihatreturdealerpending').classList.remove('pull-right');
           document.querySelector('#lihatreturdealerselesai').classList.remove('pull-right');
           tombolTambahLihatReturDealerKedua.appendChild(document.querySelector('#lihatreturdealerpending'));
-          tombolTambahLihatReturDealerKedua.appendChild(document.querySelector('#lihatreturdealerselesai'));       
+          document.querySelector('#lihatreturdealerpending').classList.remove('btn-primary');
+          document.querySelector('#lihatreturdealerpending').classList.add('btn-dark');
+          document.querySelector('#lihatreturdealerpending').style.marginRight = '0px';
+          document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '8px 12px', 'important');          
+          tombolTambahLihatReturDealerKedua.appendChild(document.querySelector('#lihatreturdealerselesai'));
+          document.querySelector('#lihatreturdealerselesai').classList.remove('btn-primary');
+          document.querySelector('#lihatreturdealerselesai').classList.add('btn-dark');
+          document.querySelector('#lihatreturdealerselesai').style.setProperty('padding', '8px 12px', 'important');          
+          tombolTambahLihatReturDealerKedua.style.display = 'grid';
+          tombolTambahLihatReturDealerKedua.style.gridTemplateColumns = '50% 50%';
+          tombolTambahLihatReturDealerKedua.style.position = 'fixed';
+          tombolTambahLihatReturDealerKedua.style.top = '57px';
+          document.querySelector('#jumbotron-retur-dealer').style.setProperty('margin-top', '55px', 'important')                 
         }                
         let formCetakLabel = document.createElement('form');
         formCetakLabel.setAttribute('id','form-cetak-label');
@@ -2066,6 +2189,12 @@ setInterval(function(){
     document.querySelector('#lihatperpindahanpending').addEventListener('click', function(e){
     setTimeout(function(){
     if(document.querySelector('#list-perpindahan-barang-pending').style.display == '' || document.querySelector('#list-perpindahan-barang-pending').style.display == 'none'){
+      if($(window).width() <= 840){
+        document.querySelector('#lihatperpindahanpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important');
+      }
         document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'none', 'important');
         document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'none', 'important');
@@ -2074,6 +2203,14 @@ setInterval(function(){
         document.querySelector('#lihatperpindahanselesai').classList.remove('active')
         }
     } else {
+      if($(window).width() <= 840){
+        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '8px 12px', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '8px 12px', 'important');
+      } else {
+        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important'); 
+      }
+        document.querySelector('#lihatperpindahanpending').style.setProperty('border', '0', 'important');
         document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'none', 'important');
         document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'none', 'important');
@@ -2085,6 +2222,12 @@ setInterval(function(){
     document.querySelector('#lihatperpindahanselesai').addEventListener('click', function(e){
     setTimeout(function(){
     if(document.querySelector('#list-perpindahan-barang-selesai').style.display == '' || document.querySelector('#list-perpindahan-barang-selesai').style.display == 'none'){
+      if($(window).width() <= 840){
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatperpindahanpending').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important');    
+      }
         document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'none', 'important');
         document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'none', 'important');
@@ -2093,6 +2236,14 @@ setInterval(function(){
         document.querySelector('#lihatperpindahanpending').classList.remove('active');
         }
     } else {
+      if($(window).width() <= 840){
+        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '8px 12px', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '8px 12px', 'important');
+      } else {
+        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important');
+      }      
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('border', '0', 'important');
         document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'none', 'important');
         document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'none', 'important');
@@ -2104,6 +2255,12 @@ setInterval(function(){
     document.querySelector('#lihatreturpending').addEventListener('click', function(e){
     setTimeout(function(){
     if(document.querySelector('#list-retur-pending').style.display == '' || document.querySelector('#list-retur-pending').style.display == 'none'){
+      if($(window).width() <= 840){
+        document.querySelector('#lihatreturpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatreturselesai').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatreturpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatreturselesai').style.setProperty('padding', '6px 12px', 'important');
+      }      
         document.querySelector('#list-retur-pending').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-retur-selesai').style.setProperty('display', 'none', 'important');
         document.querySelector('#lihatreturpending').classList.add('active')
@@ -2117,6 +2274,12 @@ setInterval(function(){
     document.querySelector('#lihatreturselesai').addEventListener('click', function(e){
     setTimeout(function(){
     if(document.querySelector('#list-retur-selesai').style.display == '' || document.querySelector('#list-retur-selesai').style.display == 'none'){
+      if($(window).width() <= 840){
+        document.querySelector('#lihatreturselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatreturpending').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatreturpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatreturselesai').style.setProperty('padding', '6px 12px', 'important');    
+      }    
         document.querySelector('#list-retur-selesai').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-retur-pending').style.setProperty('display', 'none', 'important');
         document.querySelector('#lihatreturselesai').classList.add('active');
@@ -2130,6 +2293,12 @@ setInterval(function(){
     document.querySelector('#lihatreturdealerpending').addEventListener('click', function(e){
     setTimeout(function(){
     if(document.querySelector('#list-retur-dealer-pending').style.display == '' || document.querySelector('#list-retur-dealer-pending').style.display == 'none'){
+      if($(window).width() <= 840){
+        document.querySelector('#lihatreturdealerpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatreturdealerselesai').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatreturdealerselesai').style.setProperty('padding', '6px 12px', 'important');
+      }      
         document.querySelector('#list-retur-dealer-pending').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-retur-dealer-selesai').style.setProperty('display', 'none', 'important');
         document.querySelector('#lihatreturdealerpending').classList.add('active')
@@ -2143,6 +2312,12 @@ setInterval(function(){
     document.querySelector('#lihatreturdealerselesai').addEventListener('click', function(e){
     setTimeout(function(){
     if(document.querySelector('#list-retur-dealer-selesai').style.display == '' || document.querySelector('#list-retur-dealer-selesai').style.display == 'none'){
+      if($(window).width() <= 840){
+        document.querySelector('#lihatreturdealerselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatreturdealerpending').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatreturdealerselesai').style.setProperty('padding', '6px 12px', 'important');    
+      }      
         document.querySelector('#list-retur-dealer-selesai').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-retur-dealer-pending').style.setProperty('display', 'none', 'important');
         document.querySelector('#lihatreturdealerselesai').classList.add('active');
@@ -2568,7 +2743,7 @@ kalkulator.addEventListener('submit', function(e){
 
 let menu = document.querySelector('#tombol-burger');
 menu.addEventListener('click', function(e){
-if($(window).width() <= 760){
+if($(window).width() <= 700){
         document.querySelector('#myTabContent').style.marginLeft = '0';
         document.querySelector('#myTabContent').style.transition = '0';
         let tombolTambah = document.querySelectorAll('.tombol-tambah');
@@ -2636,6 +2811,12 @@ if($(window).width() <= 760){
         document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = 'border-box';
         document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '250px';
         document.querySelector('#list-menu-tambahan-keempat').style.transition = 'all 0.4s ease';
+        document.querySelector('#tombol-tambah-lihat-retur-kedua').style.setProperty('width', '-webkit-calc(100% - 250px)', 'important');
+        document.querySelector('#tombol-tambah-lihat-retur-kedua').style.transition = 'all 0.4s ease';
+        document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua').style.setProperty('width', '-webkit-calc(100% - 250px)', 'important');
+        document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua').style.transition = 'all 0.4s ease';                
+        document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').style.setProperty('width', '-webkit-calc(100% - 250px)', 'important');
+        document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').style.transition = 'all 0.4s ease';
         if(document.querySelector('#peringatan-perpindahan-kedua')){
         document.querySelector('#peringatan-perpindahan-kedua').style.width = '-webkit-calc(100% - 250px)';
         document.querySelector('#peringatan-perpindahan-kedua').style.transition = 'all 0.4s ease';
@@ -2666,6 +2847,12 @@ if($(window).width() <= 760){
         document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = '0';
         document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '0';
         document.querySelector('#list-menu-tambahan-keempat').style.transition = 'all 0.4s ease';
+        document.querySelector('#tombol-tambah-lihat-retur-kedua').style.setProperty('width','100%', 'important');
+        document.querySelector('#tombol-tambah-lihat-retur-kedua').style.transition = 'all 0.4s ease';
+        document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua').style.setProperty('width','100%', 'important');
+        document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua').style.transition = 'all 0.4s ease';                
+        document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').style.setProperty('width','100%', 'important');
+        document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').style.transition = 'all 0.4s ease';
         if(document.querySelector('#peringatan-perpindahan-kedua')){    
         document.querySelector('#peringatan-perpindahan-kedua').style.width =  '100%';
         document.querySelector('#peringatan-perpindahan-kedua').style.transition = 'all 0.4s ease';                            
