@@ -6415,7 +6415,7 @@ function renderReturDealerPending(doc){
       <div class="kop-surat">LOGO</div>
       <div class="isi-header-surat">
       <div class="nama-header-surat">PT GALAXY DIGITAL NIAGA</div>
-      <div class="alamat-header-surat">Jl. Hartono Raya Modern Ruko Mall Metropolis Townsquare Blok Blok GM3 No.6, RT.003/RW.006, Klp. Indah, Kec. Tangerang, Kota Tangerang, Banten 15117</div>
+      <div class="alamat-header-surat">Ruko Mall Metropolis Townsquare Block GM3 No.6, Cikokol, Tangerang</div>
       <div class="email-header-surat">E-mail : galaxycameraid@gmail.com</div>
       <div class="kontak-header-surat">Telp. 082111311131</div>
       </div>
@@ -6680,7 +6680,7 @@ function renderReturDealerSelesai(doc){
       <div class="kop-surat">LOGO</div>
       <div class="isi-header-surat">
       <div class="nama-header-surat">PT GALAXY DIGITAL NIAGA</div>
-      <div class="alamat-header-surat">Jl. Hartono Raya Modern Ruko Mall Metropolis Townsquare Blok Blok GM3 No.6, RT.003/RW.006, Klp. Indah, Kec. Tangerang, Kota Tangerang, Banten 15117</div>
+      <div class="alamat-header-surat">Ruko Mall Metropolis Townsquare Block GM3 No.6, Cikokol, Tangerang</div>
       <div class="email-header-surat">E-mail : galaxycameraid@gmail.com</div>
       <div class="kontak-header-surat">Telp. 082111311131</div>
       </div>
