@@ -1277,7 +1277,1629 @@
 </script> 
 
 <script>
+window.addEventListener('resize', function(e){
+        document.querySelector('#darken').style.backgroundColor = '0';
+        document.querySelector('#darken').style.width = '0';
+        document.querySelector('#darken').style.height = '0';
+        document.querySelector('#darken').style.position = '0';
+        document.querySelector('#darken').style.opacity = '0';
+        $( ".navbar-collapse" ).collapse('hide');
+        document.querySelector('#myTabContent').style.marginLeft = '0';
+        document.querySelector('#myTabContent').style.transition = '0';
+        let tombolTambah = document.querySelectorAll('.tombol-tambah');
+        for(let x = 0; x<tombolTambah.length; x++){
+            tombolTambah[x].style.marginLeft = '0';
+            tombolTambah[x].style.transition = '0';
+            }
+        let tombolKembali = document.querySelectorAll('.tombol-kembali');
+        for(let x = 0; x<tombolKembali.length; x++){
+                tombolKembali[x].style.marginLeft = '0';
+                tombolKembali[x].style.transition = '0';
+            }        
+        document.querySelector('#list-menu-tambahan').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-kedua').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-kedua').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-ketiga').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-ketiga').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '0';
+        document.querySelector('#tombol-tambah-lihat-retur-kedua').style.width = '100%';
+        document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua').style.width = '100%';
+        document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').style.width = '100%';
+        if(document.querySelector('#peringatan-perpindahan-kedua')){
+        document.querySelector('#peringatan-perpindahan-kedua').style.width = '100%';
+        }
+        if($(window).width() <= 840){
+            if(document.querySelector('#tambahpengumuman')){
+            tombolTambahPengumumanKedua.appendChild(document.querySelector('#tambahpengumuman'));
+            }
+            if(document.querySelector('#lihatperpindahanpending') && document.querySelector('#lihatperpindahanselesai')){
+              tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanpending'))
+              document.querySelector('#lihatperpindahanpending').classList.remove('btn-primary');
+              document.querySelector('#lihatperpindahanpending').classList.add('btn-dark');
+              document.querySelector('#lihatperpindahanpending').style.marginRight = '0px';
+              document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '8px 12px', 'important');
+              if(document.querySelector('#lihatperpindahanpending').classList.contains('active')){
+                document.querySelector('#lihatperpindahanpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+              }
+              tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanselesai'))
+              document.querySelector('#lihatperpindahanselesai').classList.remove('btn-primary');
+              document.querySelector('#lihatperpindahanselesai').classList.add('btn-dark');
+              document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '8px 12px', 'important');
+              if(document.querySelector('#lihatperpindahanselesai').classList.contains('active')){
+                document.querySelector('#lihatperpindahanselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+              }
+                tombolTambahLihatPerpindahanKedua.style.display = 'grid';
+                tombolTambahLihatPerpindahanKedua.style.gridTemplateColumns = '50% 50%';
+                tombolTambahLihatPerpindahanKedua.style.position = 'fixed';
+                tombolTambahLihatPerpindahanKedua.style.top = '57px';     
+                document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '50px', 'important')
+            }
+            if(document.querySelector('#lihatreturpending') && document.querySelector('#lihatreturselesai')){
+              tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturpending'))
+              document.querySelector('#lihatreturpending').classList.remove('btn-primary');
+              document.querySelector('#lihatreturpending').classList.add('btn-dark');
+              document.querySelector('#lihatreturpending').style.marginRight = '0px';
+              document.querySelector('#lihatreturpending').style.setProperty('padding', '8px 12px', 'important');
+              if(document.querySelector('#lihatreturpending').classList.contains('active')){
+                document.querySelector('#lihatreturpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+              }              
+              tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturselesai'))
+              document.querySelector('#lihatreturselesai').classList.remove('btn-primary');
+              document.querySelector('#lihatreturselesai').classList.add('btn-dark');
+              document.querySelector('#lihatreturselesai').style.setProperty('padding', '8px 12px', 'important');
+              if(document.querySelector('#lihatreturselesai').classList.contains('active')){
+                document.querySelector('#lihatreturselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+              }
+                tombolTambahLihatReturKedua.style.display = 'grid';
+                tombolTambahLihatReturKedua.style.gridTemplateColumns = '50% 50%';
+                tombolTambahLihatReturKedua.style.position = 'fixed';
+                tombolTambahLihatReturKedua.style.top = '57px';     
+                document.querySelector('#jumbotron-retur').style.setProperty('margin-top', '55px', 'important')              
+            }
+            if(document.querySelector('#lihatreturdealerpending') && document.querySelector('#lihatreturdealerselesai')){
+              tombolTambahLihatReturDealerKedua.appendChild(document.querySelector('#lihatreturdealerpending'))
+              document.querySelector('#lihatreturdealerpending').classList.remove('btn-primary');
+              document.querySelector('#lihatreturdealerpending').classList.add('btn-dark');
+              document.querySelector('#lihatreturdealerpending').style.marginRight = '0px';
+              document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '8px 12px', 'important');
+              if(document.querySelector('#lihatreturdealerpending').classList.contains('active')){
+                document.querySelector('#lihatreturdealerpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+              }              
+              tombolTambahLihatReturDealerKedua.appendChild(document.querySelector('#lihatreturdealerselesai'))
+              document.querySelector('#lihatreturdealerselesai').classList.remove('btn-primary');
+              document.querySelector('#lihatreturdealerselesai').classList.add('btn-dark');
+              document.querySelector('#lihatreturdealerselesai').style.setProperty('padding', '8px 12px', 'important');
+              if(document.querySelector('#lihatreturdealerselesai').classList.contains('active')){
+                document.querySelector('#lihatreturdealerselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+              }
+                tombolTambahLihatReturDealerKedua.style.display = 'grid';
+                tombolTambahLihatReturDealerKedua.style.gridTemplateColumns = '50% 50%';
+                tombolTambahLihatReturDealerKedua.style.position = 'fixed';
+                tombolTambahLihatReturDealerKedua.style.top = '57px';     
+                document.querySelector('#jumbotron-retur-dealer').style.setProperty('margin-top', '55px', 'important')              
+            }            
+            document.querySelector('#lihatreturpending').classList.add('tombol-tambah-kedua');
+            document.querySelector('#lihatreturselesai').classList.add('tombol-tambah-kedua');
+            document.querySelector('#lihatreturdealerpending').classList.add('tombol-tambah-kedua');
+            document.querySelector('#lihatreturdealerselesai').classList.add('tombol-tambah-kedua');                         
+            document.querySelector('#lihatperpindahanpending').classList.add('tombol-tambah-kedua');
+            document.querySelector('#lihatperpindahanselesai').classList.add('tombol-tambah-kedua');            
+            document.querySelector('#tambahpengumuman').classList.add('tombol-tambah-kedua');
+            document.querySelector('#lihatreturpending').classList.remove('pull-right');
+            document.querySelector('#lihatreturselesai').classList.remove('pull-right');
+            document.querySelector('#lihatreturdealerpending').classList.remove('pull-right');
+            document.querySelector('#lihatreturdealerselesai').classList.remove('pull-right');                        
+            document.querySelector('#lihatperpindahanpending').classList.remove('pull-right');
+            document.querySelector('#lihatperpindahanselesai').classList.remove('pull-right');            
+            document.querySelector('#tambahpengumuman').classList.remove('pull-right');
+            let formCetakLabel = document.createElement('form');
+            formCetakLabel.setAttribute('id','form-cetak-label');
+            formCetakLabel.innerHTML = `
+                <div class="form-group">
+                  <label>Nama Customer</label>
+                <input type="text" class="form-control" id="nama-customer-cetak-label" autocomplete="off" required>
+                </div>
 
+                <div class="form-group">
+                  <label>No HP Customer</label>
+                <input type="number" class="form-control your_class" id="kontak-customer-cetak-label" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Ekspedisi</label>
+                <div style="display:grid;grid-template-columns:75% 25%;">
+                <select class="form-control" id="ekspedisi-customer-cetak-label">
+                    <option value="" disabled selected hidden>-</option>
+                </select>
+                <div class="btn btn-warning tombol-tambah-ekspedisi-cetak-label" data-target="#modalekspedisicetaklabel" data-toggle="modal">Add</div>
+                </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Alamat Customer</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="alamat-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Produk</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="produk-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+            <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-cetak-label">Tambah</button>
+            `
+            if(document.querySelector('#form-cetak-label')){
+            document.querySelector('#form-cetak-label').remove();
+            document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })
+                        })
+                    }
+                })
+            } else {
+                document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                            
+                        })
+                    }
+                })                
+            }
+        } else {
+            if(document.querySelector('#tambahpengumuman')){
+            tombolTambahPengumuman.appendChild(document.querySelector('#tambahpengumuman'));
+            }
+            if(document.querySelector('#lihatperpindahanpending') && document.querySelector('#lihatperpindahanselesai')){
+              tombolTambahLihatPerpindahan.appendChild(document.querySelector('#lihatperpindahanselesai'))              
+              tombolTambahLihatPerpindahan.appendChild(document.querySelector('#lihatperpindahanpending'))
+              document.querySelector('#lihatperpindahanpending').classList.add('btn-primary');
+              document.querySelector('#lihatperpindahanpending').classList.remove('btn-dark');
+              document.querySelector('#lihatperpindahanpending').style.marginRight = '5px';
+              document.querySelector('#lihatperpindahanpending').style.setProperty('border-bottom', '0', 'important');
+              document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
+              document.querySelector('#lihatperpindahanselesai').classList.add('btn-primary');
+              document.querySelector('#lihatperpindahanselesai').classList.remove('btn-dark');   
+              document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '10px', 'important');         
+              document.querySelector('#lihatperpindahanselesai').style.setProperty('border-bottom', '0', 'important');     
+              document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important');
+            }
+            if(document.querySelector('#lihatreturpending') && document.querySelector('#lihatreturselesai')){
+              tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturselesai'))              
+              tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturpending'))
+              document.querySelector('#lihatreturpending').classList.add('btn-primary');
+              document.querySelector('#lihatreturpending').classList.remove('btn-dark');
+              document.querySelector('#lihatreturpending').style.marginRight = '5px';
+              document.querySelector('#lihatreturpending').style.setProperty('border-bottom', '0', 'important');
+              document.querySelector('#lihatreturpending').style.setProperty('padding', '6px 12px', 'important');
+              document.querySelector('#lihatreturselesai').classList.add('btn-primary');
+              document.querySelector('#lihatreturselesai').classList.remove('btn-dark');   
+              document.querySelector('#jumbotron-retur').style.setProperty('margin-top', '10px', 'important');         
+              document.querySelector('#lihatreturselesai').style.setProperty('border-bottom', '0', 'important');     
+              document.querySelector('#lihatreturselesai').style.setProperty('padding', '6px 12px', 'important');              
+            }
+            if(document.querySelector('#lihatreturdealerpending') && document.querySelector('#lihatreturdealerselesai')){
+              tombolTambahLihatReturDealer.appendChild(document.querySelector('#lihatreturdealerselesai'))              
+              tombolTambahLihatReturDealer.appendChild(document.querySelector('#lihatreturdealerpending'))
+              document.querySelector('#lihatreturdealerpending').classList.add('btn-primary');
+              document.querySelector('#lihatreturdealerpending').classList.remove('btn-dark');
+              document.querySelector('#lihatreturdealerpending').style.marginRight = '5px';
+              document.querySelector('#lihatreturdealerpending').style.setProperty('border-bottom', '0', 'important');
+              document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '6px 12px', 'important');
+              document.querySelector('#lihatreturdealerselesai').classList.add('btn-primary');
+              document.querySelector('#lihatreturdealerselesai').classList.remove('btn-dark');   
+              document.querySelector('#jumbotron-retur-dealer').style.setProperty('margin-top', '10px', 'important');         
+              document.querySelector('#lihatreturdealerselesai').style.setProperty('border-bottom', '0', 'important');     
+              document.querySelector('#lihatreturdealerselesai').style.setProperty('padding', '6px 12px', 'important');              
+            }            
+            document.querySelector('#lihatreturpending').classList.add('pull-right');
+            document.querySelector('#lihatreturpending').style.marginRight = '5px';
+            document.querySelector('#lihatreturselesai').classList.add('pull-right');
+            document.querySelector('#lihatreturdealerpending').classList.add('pull-right');
+            document.querySelector('#lihatreturdealerpending').style.marginRight = '5px';
+            document.querySelector('#lihatreturdealerselesai').classList.add('pull-right');                                    
+            document.querySelector('#lihatperpindahanpending').classList.add('pull-right');
+            document.querySelector('#lihatperpindahanpending').style.marginRight = '5px';
+            document.querySelector('#lihatperpindahanselesai').classList.add('pull-right');
+            document.querySelector('#tambahpengumuman').classList.add('pull-right');
+            document.querySelector('#lihatreturpending').classList.remove('tombol-tambah-kedua');
+            document.querySelector('#lihatreturselesai').classList.remove('tombol-tambah-kedua');
+            document.querySelector('#lihatreturdealerpending').classList.remove('tombol-tambah-kedua');
+            document.querySelector('#lihatreturdealerselesai').classList.remove('tombol-tambah-kedua');                        
+            document.querySelector('#lihatperpindahanpending').classList.remove('tombol-tambah-kedua');
+            document.querySelector('#lihatperpindahanselesai').classList.remove('tombol-tambah-kedua');
+            document.querySelector('#tambahpengumuman').classList.remove('tombol-tambah-kedua');
+            let formCetakLabel = document.createElement('form');
+            formCetakLabel.setAttribute('id','form-cetak-label');
+            formCetakLabel.innerHTML = `
+            <div class="row">
+                <div class="form-group col-4">
+                  <label>Nama Customer</label>
+                <input type="text" class="form-control" id="nama-customer-cetak-label" autocomplete="off" required>
+                </div>
+
+                <div class="form-group col-4">
+                  <label>No HP Customer</label>
+                <input type="number" class="form-control your_class" id="kontak-customer-cetak-label" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" required>
+                </div>
+
+                <div class="form-group col-4">
+                  <label>Ekspedisi</label>
+                <div style="display:grid;grid-template-columns:75% 25%;">
+                <select class="form-control" id="ekspedisi-customer-cetak-label">
+                    <option value="" disabled selected hidden>-</option>
+                </select>
+                <div class="btn btn-warning tombol-tambah-ekspedisi-cetak-label" data-target="#modalekspedisicetaklabel" data-toggle="modal">Add</div>
+                </div>
+                </div>
+
+            </div>
+                <div class="form-group">
+                  <label>Alamat Customer</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="alamat-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Produk</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="produk-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+            <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-cetak-label">Tambah</button>
+            `
+            if(document.querySelector('#form-cetak-label')){
+            document.querySelector('#form-cetak-label').remove();
+            document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                            
+                        })
+                    }
+                })            
+            } else {
+                document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                            
+                        })
+                    }
+                })                
+            }            
+        }
+})
+
+let tombolTambahPengumuman = document.querySelector('#tombol-tambah-pengumuman');
+let tombolTambahPengumumanKedua = document.querySelector('#tombol-tambah-pengumuman-kedua');
+let tombolTambahLihatPerpindahan = document.querySelector('#tombol-tambah-lihat-perpindahan');
+let tombolTambahLihatPerpindahanKedua = document.querySelector('#tombol-tambah-lihat-perpindahan-kedua');
+let tombolTambahLihatRetur = document.querySelector('#tombol-tambah-lihat-retur');
+let tombolTambahLihatReturKedua = document.querySelector('#tombol-tambah-lihat-retur-kedua');
+let tombolTambahLihatReturDealer = document.querySelector('#tombol-tambah-lihat-retur-dealer');
+let tombolTambahLihatReturDealerKedua = document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua');
+
+$(document).ready(function(e){
+    if($(window).width() <= 840){
+        if(document.querySelector('#tambahpengumuman')){
+        document.querySelector('#tambahpengumuman').classList.add('tombol-tambah-kedua');
+        document.querySelector('#tambahpengumuman').classList.remove('pull-right');
+        tombolTambahPengumumanKedua.appendChild(document.querySelector('#tambahpengumuman'));
+        }
+        if(document.querySelector('#lihatperpindahanpending') && document.querySelector('#lihatperpindahanselesai')){
+          document.querySelector('#lihatperpindahanpending').classList.add('tombol-tambah-kedua');
+          document.querySelector('#lihatperpindahanselesai').classList.add('tombol-tambah-kedua');
+          document.querySelector('#lihatperpindahanpending').classList.remove('pull-right');
+          document.querySelector('#lihatperpindahanselesai').classList.remove('pull-right');
+          tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanpending'))
+          document.querySelector('#lihatperpindahanpending').classList.remove('btn-primary');
+          document.querySelector('#lihatperpindahanpending').classList.add('btn-dark');
+          document.querySelector('#lihatperpindahanpending').style.marginRight = '0px';
+          document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '8px 12px', 'important');
+          tombolTambahLihatPerpindahanKedua.appendChild(document.querySelector('#lihatperpindahanselesai'))
+          document.querySelector('#lihatperpindahanselesai').classList.remove('btn-primary');
+          document.querySelector('#lihatperpindahanselesai').classList.add('btn-dark');
+          document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '8px 12px', 'important');
+          tombolTambahLihatPerpindahanKedua.style.display = 'grid';
+          tombolTambahLihatPerpindahanKedua.style.gridTemplateColumns = '50% 50%';
+          tombolTambahLihatPerpindahanKedua.style.position = 'fixed';
+          tombolTambahLihatPerpindahanKedua.style.top = '57px';
+          document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '50px', 'important')
+        }
+        if(document.querySelector('#lihatreturpending') && document.querySelector('#lihatreturselesai')){
+          document.querySelector('#lihatreturpending').classList.add('tombol-tambah-kedua');
+          document.querySelector('#lihatreturselesai').classList.add('tombol-tambah-kedua');
+          document.querySelector('#lihatreturpending').classList.remove('pull-right');
+          document.querySelector('#lihatreturselesai').classList.remove('pull-right');
+          tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturpending'));
+          document.querySelector('#lihatreturpending').classList.remove('btn-primary');
+          document.querySelector('#lihatreturpending').classList.add('btn-dark');
+          document.querySelector('#lihatreturpending').style.marginRight = '0px';
+          document.querySelector('#lihatreturpending').style.setProperty('padding', '8px 12px', 'important');          
+          tombolTambahLihatReturKedua.appendChild(document.querySelector('#lihatreturselesai'));
+          document.querySelector('#lihatreturselesai').classList.remove('btn-primary');
+          document.querySelector('#lihatreturselesai').classList.add('btn-dark');
+          document.querySelector('#lihatreturselesai').style.setProperty('padding', '8px 12px', 'important');          
+          tombolTambahLihatReturKedua.style.display = 'grid';
+          tombolTambahLihatReturKedua.style.gridTemplateColumns = '50% 50%';
+          tombolTambahLihatReturKedua.style.position = 'fixed';
+          tombolTambahLihatReturKedua.style.top = '57px';
+          document.querySelector('#jumbotron-retur').style.setProperty('margin-top', '55px', 'important')                 
+        }
+        if(document.querySelector('#lihatreturdealerpending') && document.querySelector('#lihatreturdealerselesai')){
+          document.querySelector('#lihatreturdealerpending').classList.add('tombol-tambah-kedua');
+          document.querySelector('#lihatreturdealerselesai').classList.add('tombol-tambah-kedua');
+          document.querySelector('#lihatreturdealerpending').classList.remove('pull-right');
+          document.querySelector('#lihatreturdealerselesai').classList.remove('pull-right');
+          tombolTambahLihatReturDealerKedua.appendChild(document.querySelector('#lihatreturdealerpending'));
+          document.querySelector('#lihatreturdealerpending').classList.remove('btn-primary');
+          document.querySelector('#lihatreturdealerpending').classList.add('btn-dark');
+          document.querySelector('#lihatreturdealerpending').style.marginRight = '0px';
+          document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '8px 12px', 'important');          
+          tombolTambahLihatReturDealerKedua.appendChild(document.querySelector('#lihatreturdealerselesai'));
+          document.querySelector('#lihatreturdealerselesai').classList.remove('btn-primary');
+          document.querySelector('#lihatreturdealerselesai').classList.add('btn-dark');
+          document.querySelector('#lihatreturdealerselesai').style.setProperty('padding', '8px 12px', 'important');          
+          tombolTambahLihatReturDealerKedua.style.display = 'grid';
+          tombolTambahLihatReturDealerKedua.style.gridTemplateColumns = '50% 50%';
+          tombolTambahLihatReturDealerKedua.style.position = 'fixed';
+          tombolTambahLihatReturDealerKedua.style.top = '57px';
+          document.querySelector('#jumbotron-retur-dealer').style.setProperty('margin-top', '55px', 'important')                 
+        }                
+        let formCetakLabel = document.createElement('form');
+        formCetakLabel.setAttribute('id','form-cetak-label');
+        formCetakLabel.innerHTML = `
+                <div class="form-group">
+                  <label>Nama Customer</label>
+                <input type="text" class="form-control" id="nama-customer-cetak-label" autocomplete="off" required>
+                </div>
+
+                <div class="form-group">
+                  <label>No HP Customer</label>
+                <input type="number" class="form-control your_class" id="kontak-customer-cetak-label" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" required>
+                </div>
+
+                <div class="form-group">
+                  <label>Ekspedisi</label>
+                <div style="display:grid;grid-template-columns:75% 25%;">
+                <select class="form-control" id="ekspedisi-customer-cetak-label">
+                    <option value="" disabled selected hidden>-</option>
+                </select>
+                <div class="btn btn-warning tombol-tambah-ekspedisi-cetak-label" data-target="#modalekspedisicetaklabel" data-toggle="modal">Add</div>
+                </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Alamat Customer</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="alamat-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Produk</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="produk-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+            <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-cetak-label">Tambah</button>
+            `
+        if(document.querySelector('#form-cetak-label')){
+        document.querySelector('#form-cetak-label').remove();
+        document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                                                       
+                        })
+                    }
+                })        
+        } else {
+            document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                                                        
+                        })
+                    }
+                })            
+        }
+    } else {
+        if(document.querySelector('#tambahpengumuman')){
+            document.querySelector('#tambahpengumuman').classList.add('pull-right');
+            document.querySelector('#tambahpengumuman').classList.remove('tombol-tambah-kedua');
+            tombolTambahPengumuman.appendChild(document.querySelector('#tambahpengumuman'));    
+        }
+        if(document.querySelector('#lihatperpindahanpending') && document.querySelector('#lihatperpindahanselesai')){
+          document.querySelector('#lihatperpindahanpending').classList.add('pull-right');
+          document.querySelector('#lihatperpindahanpending').style.marginRight = '5px';
+          document.querySelector('#lihatperpindahanselesai').classList.add('pull-right');
+          document.querySelector('#lihatperpindahanpending').classList.remove('tombol-tambah-kedua');
+          document.querySelector('#lihatperpindahanselesai').classList.remove('tombol-tambah-kedua');
+          tombolTambahLihatPerpindahan.appendChild(document.querySelector('#lihatperpindahanselesai'))          
+          tombolTambahLihatPerpindahan.appendChild(document.querySelector('#lihatperpindahanpending'))
+        }
+        if(document.querySelector('#lihatreturpending') && document.querySelector('#lihatreturselesai')){
+          document.querySelector('#lihatreturpending').classList.add('pull-right');
+          document.querySelector('#lihatreturpending').style.marginRight = '5px';
+          document.querySelector('#lihatreturselesai').classList.add('pull-right');
+          document.querySelector('#lihatreturpending').classList.remove('tombol-tambah-kedua');
+          document.querySelector('#lihatreturselesai').classList.remove('tombol-tambah-kedua');
+          tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturselesai'))          
+          tombolTambahLihatRetur.appendChild(document.querySelector('#lihatreturpending'))
+        }
+        if(document.querySelector('#lihatreturdealerpending') && document.querySelector('#lihatreturdealerselesai')){
+          document.querySelector('#lihatreturdealerpending').classList.add('pull-right');
+          document.querySelector('#lihatreturdealerpending').style.marginRight = '5px';
+          document.querySelector('#lihatreturdealerselesai').classList.add('pull-right');
+          document.querySelector('#lihatreturdealerpending').classList.remove('tombol-tambah-kedua');
+          document.querySelector('#lihatreturdealerselesai').classList.remove('tombol-tambah-kedua');
+          tombolTambahLihatReturDealer.appendChild(document.querySelector('#lihatreturdealerselesai'))          
+          tombolTambahLihatReturDealer.appendChild(document.querySelector('#lihatreturdealerpending'))
+        }                
+        let formCetakLabel = document.createElement('form');
+        formCetakLabel.setAttribute('id','form-cetak-label');
+        formCetakLabel.innerHTML = `
+            <div class="row">
+                <div class="form-group col-4">
+                  <label>Nama Customer</label>
+                <input type="text" class="form-control" id="nama-customer-cetak-label" autocomplete="off" required>
+                </div>
+
+                <div class="form-group col-4">
+                  <label>No HP Customer</label>
+                <input type="number" class="form-control your_class" id="kontak-customer-cetak-label" autocomplete="off" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "13" required>
+                </div>
+
+                <div class="form-group col-4">
+                  <label>Ekspedisi</label>
+                <div style="display:grid;grid-template-columns:75% 25%;">
+                <select class="form-control" id="ekspedisi-customer-cetak-label">
+                    <option value="" disabled selected hidden>-</option>
+                </select>
+                <div class="btn btn-warning tombol-tambah-ekspedisi-cetak-label" data-target="#modalekspedisicetaklabel" data-toggle="modal">Add</div>
+                </div>
+                </div>
+
+            </div>
+                <div class="form-group">
+                  <label>Alamat Customer</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="alamat-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Produk</label>
+                <textarea oninput="auto_grow(this)" class="form-control" id="produk-customer-cetak-label" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+                </div>
+
+            <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-cetak-label">Tambah</button>
+            `
+            if(document.querySelector('#form-cetak-label')){
+            document.querySelector('#form-cetak-label').remove();
+            document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option');
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                                                        
+                        })
+                    }
+                })            
+            } else {
+                document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                if(auth.currentUser != null){
+                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+                    if(querySnapshot.docs.length != 0){
+                        querySnapshot.docs.map((item) => {
+                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            let opsi = document.createElement('option')
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
+                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
+                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
+                            let opsi = document.createElement('option');
+                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
+                            opsi.setAttribute('data-date', item.data().tanggal);
+                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
+                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
+                            }
+                                $(document).ready(function() {
+                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+                                let items = $('#ekspedisi-customer-cetak-label > option').get();
+                                items.sort(function(a, b) {
+                                let keyA = $(a).data('date');
+                                let keyB = $(b).data('date');
+                                if (keyA > keyB) return 1;
+                                if (keyA < keyB) return -1;
+                                return 0;
+                                })
+                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
+                                $.each(items, function(i, div) {
+                                daftarOpsiEkspedisiCetakLabel.append(div)
+                                })
+                              })
+                            })                                                        
+                        })
+                    }
+                })  
+                }              
+            }
+    }
+})
+const previewPrintCetakLabel = document.querySelector('#preview-print-cetak-label')
+$(document).ready(function(){
+setInterval(function(){
+  const formCetakLabel = document.querySelector('#form-cetak-label')
+  formCetakLabel.addEventListener('submit', function(e){
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    let namaCustomer = formCetakLabel['nama-customer-cetak-label'].value;
+    let kontakCustomer = formCetakLabel['kontak-customer-cetak-label'].value;
+    let ekspedisiCustomer = formCetakLabel['ekspedisi-customer-cetak-label'].value;
+    let alamatCustomer = formCetakLabel['alamat-customer-cetak-label'].value.replace(/\n\r?/g, '<br/>');
+    let produkCustomer = formCetakLabel['produk-customer-cetak-label'].value.replace(/\n\r?/g, '<br/>');
+    let div = document.createElement('div');
+    let print = document.createElement('button');
+    print.classList.add('btn', 'btn-success', 'mx-auto', 'd-block')
+    print.setAttribute('id', 'tombol-print-cetak-label')
+    print.setAttribute('type', 'button')
+    div.classList.add('potongan-kertas-cetak-label');
+    div.innerHTML = `
+        <div class="super-header-cetak">
+          <img src="logo.png" class="logo-cetak">
+          <div class="label-pengiriman">Label Pengiriman<div class="hapus-potongan-kertas-cetak-label"></div></div>          
+        </div>
+        <div class="header-cetak">
+            <div class="penjual">From</div>
+            <div>:</div>
+            <div>
+              <div class="nama-penjual"><span class="nama-logo">GALAXYCAMERA.ID</span></div>
+              <div class="alamat-penjual">Mall Metropolis Townsquare, Lantai Dasar Blok GC1 No.7, Cikokol, Tangerang</div>
+              <div class="kontak-penjual">082111311131</div>
+            </div>
+          </div>
+        <div class="body-cetak">
+          <div class="ship-to">
+            <div>Ship to</div>
+            <div>:</div>
+            <div>
+              <div class="nama-pembeli">${namaCustomer}</div>
+              <div class="alamat-pembeli">${alamatCustomer}</div>
+              <div class="kontak-pembeli">${kontakCustomer}</div>
+            </div>
+            <div>Ekspedisi</div>
+            <div>:</div>
+              <div class="ekspedisi-terpilih">${ekspedisiCustomer}</div>
+          </div>
+      </div>
+      <div class="footer-cetak">
+        <div class="keterangan-footer">Terima Kasih Sudah Berbelanja di <span class="nama-logo">GALAXYCAMERA.ID</span></div>
+        <div class="keterangan-footer-kedua">
+        <div class="footer-cetak-label-produk">Produk :</div>
+        <div class="footer-cetak-label-konten-produk">${produkCustomer}</div>
+        </div>
+      </div>
+    `
+    print.innerHTML = `Print`
+
+    formCetakLabel.reset();
+    formCetakLabel['ekspedisi-customer-cetak-label'].selectedIndex = null;
+    if(!document.querySelector('#tombol-print-cetak-label')){
+    document.querySelector('#tombol-tambah-cetak-label').parentNode.insertBefore(print, document.querySelector('#tombol-tambah-cetak-label').nextSibling);
+    document.querySelector('#judul-preview-print-cetak-label').style.setProperty("display", "block", "important");    
+    window.addEventListener('resize', function(e){
+        if(document.querySelector('#preview-print-cetak-label').childNodes.length != 0){
+          document.querySelector('#tombol-tambah-cetak-label').parentNode.insertBefore(print, document.querySelector('#tombol-tambah-cetak-label').nextSibling);
+        }
+      })
+    }
+
+    previewPrintCetakLabel.appendChild(div)
+
+    })
+
+  let hapus = document.querySelectorAll('.hapus-potongan-kertas-cetak-label');
+  for(let x = 0; x<hapus.length; x++){
+    hapus[x].addEventListener('click', function(e){
+      e.stopImmediatePropagation();
+      e.target.parentElement.parentElement.parentElement.remove();
+      if(document.querySelector('#preview-print-cetak-label').childNodes.length == 0){
+        document.querySelector('#tombol-print-cetak-label').remove();
+        document.querySelector('#judul-preview-print-cetak-label').style.setProperty("display", "none", "important");
+      }
+    })
+  }
+
+  let print = document.querySelector('#tombol-print-cetak-label');
+  if(print){
+  print.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    document.body.style.visibility = 'hidden';
+    document.querySelector('#preview-print-cetak-label').style.visibility = 'visible';
+    document.body.style.setProperty("background-color", "white", "important");
+    document.querySelector('#tombol-burger').style.visibility = 'hidden';
+    document.querySelector('#preview-print-cetak-label').style.position = 'absolute';
+    document.querySelector('#preview-print-cetak-label').style.width = '100%';
+    document.querySelector('#preview-print-cetak-label').style.top = '0';
+    document.querySelector('#preview-print-cetak-label').style.left = '0';
+    document.querySelector('#jumbotron-preview-print-cetak-label').style.margin = '0';
+    document.querySelector('#myTabContent').style.marginLeft = '0';
+    window.print();
+    document.querySelector('#tombol-burger').style.visibility = 'visible';
+    document.body.style.visibility = 'visible';
+    document.querySelector('#preview-print-cetak-label').style.position = 'relative';
+    document.body.style.setProperty("background-color", "#eeeeee", "important");
+    document.querySelector('#jumbotron-preview-print-cetak-label').style.margin = '20px';
+    setTimeout(function(){
+    document.querySelector('#darken').style.backgroundColor = '0';
+    document.querySelector('#darken').style.width = '0';
+    document.querySelector('#darken').style.height = '0';
+    document.querySelector('#darken').style.position = '0';
+    document.querySelector('#darken').style.opacity = '0';
+    document.querySelector('#darken').style.zIndex = '0';
+    },0)
+  })
+  }
+
+  let hapusPeringatanPerpindahanKedua = document.querySelector('#hapus-peringatan-perpindahan-kedua');
+  if(document.querySelector('#hapus-peringatan-perpindahan-kedua')){
+  hapusPeringatanPerpindahanKedua.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    document.querySelector('#peringatan-perpindahan-kedua').remove();
+    setInterval(function(){
+    if(!document.querySelector('#peringatan-perpindahan-kedua')){
+    document.querySelector('#jumbotron-performa-peserta').style.setProperty('margin-top', '10px', 'important')
+    document.querySelector('#jumbotron-performa-peserta-individu').style.setProperty('margin-top', '10px', 'important')    
+    }
+    },10)      
+  })
+
+  }
+  },10)
+
+  })
+
+  document.querySelector('#informasi').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(e.target.children[1].classList.contains('fa-caret-down') && e.target.getAttribute('aria-expanded') == 'true'){
+        e.target.children[1].classList.remove('fa-caret-down')
+        e.target.children[1].classList.add('fa-caret-up')
+    } else if(e.target.children[1].classList.contains('fa-caret-up') && e.target.getAttribute('aria-expanded') == 'false'){
+        e.target.children[1].classList.remove('fa-caret-up')
+        e.target.children[1].classList.add('fa-caret-down')
+    }
+    },0)
+  })
+
+  document.querySelector('#retur').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(e.target.children[1].classList.contains('fa-caret-down') && e.target.getAttribute('aria-expanded') == 'true'){
+        e.target.children[1].classList.remove('fa-caret-down')
+        e.target.children[1].classList.add('fa-caret-up')
+    } else if(e.target.children[1].classList.contains('fa-caret-up') && e.target.getAttribute('aria-expanded') == 'false'){
+        e.target.children[1].classList.remove('fa-caret-up')
+        e.target.children[1].classList.add('fa-caret-down')
+    }
+    },0)
+  })  
+
+    document.querySelector('#lihatperpindahanpending').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-perpindahan-barang-pending').style.display == '' || document.querySelector('#list-perpindahan-barang-pending').style.display == 'none'){
+      if($(window).width() <= 840){
+        document.querySelector('#lihatperpindahanpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important');
+      }
+        document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'none', 'important');
+        document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatperpindahanpending').classList.add('active')
+        if(document.querySelector('#lihatperpindahanselesai').classList.contains('active')){
+        document.querySelector('#lihatperpindahanselesai').classList.remove('active')
+        }
+    } else {
+      if($(window).width() <= 840){
+        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '8px 12px', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '8px 12px', 'important');
+      } else {
+        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important'); 
+      }
+        document.querySelector('#lihatperpindahanpending').style.setProperty('border', '0', 'important');
+        document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'none', 'important');
+        document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatperpindahanpending').classList.remove('active')        
+    }
+    },0)
+  })
+
+    document.querySelector('#lihatperpindahanselesai').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-perpindahan-barang-selesai').style.display == '' || document.querySelector('#list-perpindahan-barang-selesai').style.display == 'none'){
+      if($(window).width() <= 840){
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatperpindahanpending').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important');    
+      }
+        document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'none', 'important');
+        document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatperpindahanselesai').classList.add('active');
+        if(document.querySelector('#lihatperpindahanpending').classList.contains('active')){
+        document.querySelector('#lihatperpindahanpending').classList.remove('active');
+        }
+    } else {
+      if($(window).width() <= 840){
+        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '8px 12px', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '8px 12px', 'important');
+      } else {
+        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important');
+      }      
+        document.querySelector('#lihatperpindahanselesai').style.setProperty('border', '0', 'important');
+        document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'none', 'important');
+        document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatperpindahanselesai').classList.remove('active');
+    }
+    },0)
+  })    
+
+    document.querySelector('#lihatreturpending').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-retur-pending').style.display == '' || document.querySelector('#list-retur-pending').style.display == 'none'){
+      if($(window).width() <= 840){
+        document.querySelector('#lihatreturpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatreturselesai').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatreturpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatreturselesai').style.setProperty('padding', '6px 12px', 'important');
+      }      
+        document.querySelector('#list-retur-pending').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-retur-selesai').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatreturpending').classList.add('active')
+        if(document.querySelector('#lihatreturselesai').classList.contains('active')){
+        document.querySelector('#lihatreturselesai').classList.remove('active')
+        }
+    }
+    },0)
+  })
+
+    document.querySelector('#lihatreturselesai').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-retur-selesai').style.display == '' || document.querySelector('#list-retur-selesai').style.display == 'none'){
+      if($(window).width() <= 840){
+        document.querySelector('#lihatreturselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatreturpending').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatreturpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatreturselesai').style.setProperty('padding', '6px 12px', 'important');    
+      }    
+        document.querySelector('#list-retur-selesai').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-retur-pending').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatreturselesai').classList.add('active');
+        if(document.querySelector('#lihatreturpending').classList.contains('active')){
+        document.querySelector('#lihatreturpending').classList.remove('active');
+        }
+    }
+    },0)
+  })
+
+    document.querySelector('#lihatreturdealerpending').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-retur-dealer-pending').style.display == '' || document.querySelector('#list-retur-dealer-pending').style.display == 'none'){
+      if($(window).width() <= 840){
+        document.querySelector('#lihatreturdealerpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatreturdealerselesai').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatreturdealerselesai').style.setProperty('padding', '6px 12px', 'important');
+      }      
+        document.querySelector('#list-retur-dealer-pending').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-retur-dealer-selesai').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatreturdealerpending').classList.add('active')
+        if(document.querySelector('#lihatreturdealerselesai').classList.contains('active')){
+        document.querySelector('#lihatreturdealerselesai').classList.remove('active')
+        }
+    }
+    },0)
+  })
+
+    document.querySelector('#lihatreturdealerselesai').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-retur-dealer-selesai').style.display == '' || document.querySelector('#list-retur-dealer-selesai').style.display == 'none'){
+      if($(window).width() <= 840){
+        document.querySelector('#lihatreturdealerselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatreturdealerpending').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '6px 12px', 'important');
+        document.querySelector('#lihatreturdealerselesai').style.setProperty('padding', '6px 12px', 'important');    
+      }      
+        document.querySelector('#list-retur-dealer-selesai').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-retur-dealer-pending').style.setProperty('display', 'none', 'important');
+        document.querySelector('#lihatreturdealerselesai').classList.add('active');
+        if(document.querySelector('#lihatreturdealerpending').classList.contains('active')){
+        document.querySelector('#lihatreturdealerpending').classList.remove('active');
+        }
+    }
+    },0)
+  })          
+
+  let inputNumber = document.querySelectorAll('.your_class');
+  for(let i = 0; i<inputNumber.length ; i++){
+      inputNumber[i].addEventListener("keypress", function (evt) {
+      if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57){
+          evt.preventDefault();
+        }
+    })
+  }
+
+  let editBiayaAdmin = document.querySelector('#tombol-edit-biaya-admin');
+  editBiayaAdmin.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    setTimeout(function(){
+      if(document.querySelector('#biaya-admin-kalkulator').hasAttribute('disabled')){
+        let simpan = document.createElement('div');
+        simpan.classList.add('btn','btn-success');
+        simpan.setAttribute('id','tombol-simpan-edit-biaya-admin');
+        simpan.innerHTML = 'Simpan Perubahan';
+        editBiayaAdmin.parentNode.insertBefore(simpan, editBiayaAdmin.nextSibling);
+        document.querySelector('#edit-biaya-admin').style.setProperty("display", "block", "important");
+        document.querySelector('#biaya-admin-kalkulator').removeAttribute('disabled');
+        editBiayaAdmin.classList.remove('btn-primary');
+        editBiayaAdmin.classList.add('btn-danger');
+        editBiayaAdmin.style.setProperty("border-radius", "5px");
+        editBiayaAdmin.innerHTML = 'Batalkan Perubahan'
+        document.querySelector('#biaya-admin-kalkulator').style.setProperty("margin-bottom", "5px");
+        simpan.addEventListener('click', function(e){
+          e.stopPropagation();
+        db.collection('biayaAdminKalkulator').get().then(function(querySnapshot){
+          if(querySnapshot.docs.length == 0){
+          db.collection('biayaAdminKalkulator').add({
+              biayaAdmin: document.querySelector('#biaya-admin-kalkulator').value
+          }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : new Date().getTime(),
+                biayaAdmin : document.querySelector('#biaya-admin-kalkulator').value,
+                overview : 'change-adm-calculator'
+            })
+        }).then(() => {
+          editBiayaAdmin.click();
+            })
+          })
+          } else {
+            querySnapshot.docs.map((doc) => {
+              db.collection('biayaAdminKalkulator').doc(doc.id).update({
+                biayaAdmin: document.querySelector('#biaya-admin-kalkulator').value
+              }).then(() => {
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+                db.collection('overview').add({
+                    penggunaOverview : doc.data().username,
+                    waktuOverview : new Date().getTime(),
+                    biayaAdmin : document.querySelector('#biaya-admin-kalkulator').value,
+                    overview : 'change-adm-calculator'
+                })
+            }).then(() => {
+              editBiayaAdmin.click();
+                })
+              })
+            })
+          }
+        })
+      })
+      } else {
+        document.querySelector('#tombol-simpan-edit-biaya-admin').remove();
+        document.querySelector('#edit-biaya-admin').style.setProperty("display", "flex", "important");
+        document.querySelector('#biaya-admin-kalkulator').setAttribute('disabled', 'disabled')
+        editBiayaAdmin.classList.remove('btn-danger');
+        editBiayaAdmin.classList.add('btn-primary');
+        editBiayaAdmin.style.setProperty("border-top-left-radius", "0px");
+        editBiayaAdmin.style.setProperty("border-bottom-left-radius", "0px");
+        editBiayaAdmin.innerHTML = "<i class='fas fa-pen'></i> Ubah</div>"
+        document.querySelector('#biaya-admin-kalkulator').style.setProperty("margin-bottom", "0px");
+      }
+    },0)
+  })
+
+  let editBiayaBunga = document.querySelector('#tombol-edit-biaya-bunga');
+  editBiayaBunga.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    setTimeout(function(){
+      if(document.querySelector('#biaya-bunga-kalkulator').hasAttribute('disabled')){
+        let simpan = document.createElement('div');
+        simpan.classList.add('btn','btn-success');
+        simpan.setAttribute('id','tombol-simpan-edit-biaya-bunga');
+        simpan.innerHTML = 'Simpan Perubahan';
+        editBiayaBunga.parentNode.insertBefore(simpan, editBiayaBunga.nextSibling);
+        document.querySelector('#edit-biaya-bunga').style.setProperty("display", "block", "important");
+        document.querySelector('#biaya-bunga-kalkulator').removeAttribute('disabled');
+        editBiayaBunga.classList.remove('btn-primary');
+        editBiayaBunga.classList.add('btn-danger');
+        editBiayaBunga.style.setProperty("border-radius", "5px");
+        editBiayaBunga.innerHTML = 'Batalkan Perubahan'
+        document.querySelector('#biaya-bunga-kalkulator').style.setProperty("margin-bottom", "5px");
+        simpan.addEventListener('click', function(e){
+          e.stopPropagation();
+        if(document.querySelector('#biaya-bunga-kalkulator').value.match(/[a-z]/g) != null || document.querySelector('#biaya-bunga-kalkulator').value.match(/[-!$%^&*()_+|~=`{}\[\]:";'<>?,\/]/) != null){
+          alert('Pastikan untuk tidak menggunakan huruf atau karakter spesial pada kolom biaya bunga, karakter spesial yang hanya diperbolehkan adalah tanda titik.')
+        } else {
+        db.collection('biayaBungaKalkulator').get().then(function(querySnapshot){
+          if(querySnapshot.docs.length == 0){
+          db.collection('biayaBungaKalkulator').add({
+              biayaBunga: document.querySelector('#biaya-bunga-kalkulator').value
+          }).then(() => {
+        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+            db.collection('overview').add({
+                penggunaOverview : doc.data().username,
+                waktuOverview : new Date().getTime(),
+                biayaBunga : document.querySelector('#biaya-bunga-kalkulator').value,
+                overview : 'change-interest-calculator'
+            })
+        }).then(() => {
+          editBiayaBunga.click();
+            })
+          })
+          } else {
+            querySnapshot.docs.map((doc) => {
+              db.collection('biayaBungaKalkulator').doc(doc.id).update({
+                biayaBunga: document.querySelector('#biaya-bunga-kalkulator').value
+              }).then(() => {
+            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+                db.collection('overview').add({
+                    penggunaOverview : doc.data().username,
+                    waktuOverview : new Date().getTime(),
+                    biayaBunga : document.querySelector('#biaya-bunga-kalkulator').value,
+                    overview : 'change-interest-calculator'
+                })
+            }).then(() => {
+              editBiayaBunga.click();
+                })
+              })
+            })
+          }
+        })
+        }
+      })
+      } else {
+        document.querySelector('#tombol-simpan-edit-biaya-bunga').remove();
+        document.querySelector('#edit-biaya-bunga').style.setProperty("display", "flex", "important");
+        document.querySelector('#biaya-bunga-kalkulator').setAttribute('disabled', 'disabled')
+        editBiayaBunga.classList.remove('btn-danger');
+        editBiayaBunga.classList.add('btn-primary');
+        editBiayaBunga.style.setProperty("border-top-left-radius", "0px");
+        editBiayaBunga.style.setProperty("border-bottom-left-radius", "0px");
+        editBiayaBunga.innerHTML = "<i class='fas fa-pen'></i> Ubah</div>"
+        document.querySelector('#biaya-bunga-kalkulator').style.setProperty("margin-bottom", "0px");
+      }
+    },0)
+  })  
+
+  let aktivasiBiayaAdmin = document.querySelector('#tombol-aktivasi-biaya-admin-kalkulator')
+  aktivasiBiayaAdmin.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    setTimeout(function(){
+  db.collection('aktivasiBiayaAdminKalkulator').get().then(function(querySnapshot){
+    if(querySnapshot.docs.length == 0){      
+      if(aktivasiBiayaAdmin.checked == true){
+            db.collection('aktivasiBiayaAdminKalkulator').add({
+              aktivasi : 'YA'
+            })
+          }
+        } else {
+        querySnapshot.docs.map((doc) => {          
+          if(aktivasiBiayaAdmin.checked == true){
+              db.collection('aktivasiBiayaAdminKalkulator').doc(doc.id).update({
+                aktivasi : 'YA'
+              })            
+            } else {
+              db.collection('aktivasiBiayaAdminKalkulator').doc(doc.id).update({
+                aktivasi : 'TIDAK'
+              })              
+            } 
+          })                   
+        }
+      })
+    },0)
+  })
+
+  let aktivasiBiayaBunga = document.querySelector('#tombol-aktivasi-biaya-bunga-kalkulator')
+  aktivasiBiayaBunga.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    setTimeout(function(){
+  db.collection('aktivasiBiayaBungaKalkulator').get().then(function(querySnapshot){
+    if(querySnapshot.docs.length == 0){      
+      if(aktivasiBiayaBunga.checked == true){
+            db.collection('aktivasiBiayaBungaKalkulator').add({
+              aktivasi : 'YA'
+            })
+          }
+        } else {
+        querySnapshot.docs.map((doc) => {          
+          if(aktivasiBiayaBunga.checked == true){
+              db.collection('aktivasiBiayaBungaKalkulator').doc(doc.id).update({
+                aktivasi : 'YA'
+              })            
+            } else {
+              db.collection('aktivasiBiayaBungaKalkulator').doc(doc.id).update({
+                aktivasi : 'TIDAK'
+              })              
+            } 
+          })                   
+        }
+      })
+    },0)
+  })  
+
+const kalkulator = document.querySelector('#hitung-angsuran');
+kalkulator.addEventListener('submit', function(e){
+  e.preventDefault();
+  if(document.querySelector('#hasil-perhitungan-kalkulator')){
+    document.querySelector('#hasil-perhitungan-kalkulator').remove();
+  }
+  let hargaProduk = kalkulator['harga-produk'].value;
+  let dpProduk = kalkulator['dp-produk'].value;
+  let hargaSetelahDP = hargaProduk - dpProduk;
+  let hasilPerhitungan = document.createElement('div');
+  hasilPerhitungan.setAttribute('id', 'hasil-perhitungan-kalkulator');
+  let daftarCicilan = [];
+  let daftarCicilanTampilan = ""
+  if(document.querySelector('#tombol-aktivasi-biaya-admin-kalkulator').checked == true && document.querySelector('#tombol-aktivasi-biaya-bunga-kalkulator').checked == true){
+    hargaProduk = hargaProduk - dpProduk;
+    db.collection('tenorKalkulator').get().then(function(firstQuerySnapshot){
+      firstQuerySnapshot.docs.map((firstDoc) => {
+        let tenor = firstDoc.data().tenor;
+        let cicilanAkhir = 0;
+        db.collection('biayaBungaKalkulator').get().then(function(secondQuerySnapshot){
+          secondQuerySnapshot.docs.map((secondDoc) => {
+            let bunga = secondDoc.data().biayaBunga;
+            db.collection('biayaAdminKalkulator').get().then(function(thirdQuerySnapshot){
+              thirdQuerySnapshot.docs.map((thirdDoc) => {
+                let biayaAdmin = thirdDoc.data().biayaAdmin;
+                let biayaBunga = hargaSetelahDP * Number(bunga)/100;
+                let cicilan = (hargaSetelahDP/Number(tenor)) + biayaBunga + 5000;
+                if(tenor == 6){
+                  cicilanAkhir = (Math.floor(cicilan/100)*100) + Number(biayaAdmin);
+                } else {
+                  cicilanAkhir = (Math.ceil(cicilan/100)*100) + Number(biayaAdmin);
+                }
+                let div = `<div data-sort="${tenor}">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}</div>`
+                daftarCicilan.push(div)
+                if(firstQuerySnapshot.docs.length == daftarCicilan.length){
+                  for(let x = 0; x<daftarCicilan.length; x++){
+                    daftarCicilanTampilan += daftarCicilan[x];
+                    hasilPerhitungan.innerHTML = `<div id="deskripsi-cicilan">
+                    <div id="header-hasil-kalkulator">Berikut cicilan dengan DP ${Number(dpProduk).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}</div>
+                    ${daftarCicilanTampilan}
+                    <div id="footer-hasil-kalkulator">Untuk info promo dan list angsuran lainnya silahkan klik link berikut https://galaxycamera.id/cicilan-tanpa-cc</div>
+                    </div>
+                    <div class="btn btn-success" id="copy-hasil-perhitungan-kalkulator">Copy</div>
+                    `                    
+                    console.log(daftarCicilan)
+                    document.querySelector('#notice-kalkulator').parentNode.insertBefore(hasilPerhitungan, document.querySelector('#notice-kalkulator').nextSibling);
+
+                      let copy = document.querySelector("#copy-hasil-perhitungan-kalkulator");
+                      copy.addEventListener('click', function (e) {
+                      let range = document.getSelection().getRangeAt(0);
+                      range.selectNode(document.querySelector("#deskripsi-cicilan"));
+                      window.getSelection().addRange(range);
+                      document.execCommand("copy");
+                    })                    
+
+                  }
+                }
+
+              })
+            })
+
+          })
+        })
+
+      })
+    })
+
+  } else if(document.querySelector('#tombol-aktivasi-biaya-admin-kalkulator').checked == false && document.querySelector('#tombol-aktivasi-biaya-bunga-kalkulator').checked == false){
+    hargaProduk = hargaProduk - dpProduk;
+    db.collection('tenorKalkulator').get().then(function(firstQuerySnapshot){
+      firstQuerySnapshot.docs.map((firstDoc) => {
+        let tenor = firstDoc.data().tenor;
+        let biayaAdmin = firstDoc.data().biayaAdmin;
+        let bunga = firstDoc.data().bunga;
+        let cicilanAkhir = 0;
+        let biayaBunga = hargaSetelahDP * Number(bunga)/100;
+        let cicilan = (hargaSetelahDP/Number(tenor)) + biayaBunga + 5000;
+        if(tenor == 6){
+          cicilanAkhir = (Math.floor(cicilan/100)*100) + Number(biayaAdmin);
+        } else {
+          cicilanAkhir = (Math.ceil(cicilan/100)*100) + Number(biayaAdmin);
+        }
+        let div = `<div data-sort="${tenor}">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>`
+        daftarCicilan.push(div)
+        if(firstQuerySnapshot.docs.length == daftarCicilan.length){
+          for(let x = 0; x<daftarCicilan.length; x++){
+            daftarCicilanTampilan += daftarCicilan[x];
+            hasilPerhitungan.innerHTML = `<div id="deskripsi-cicilan"><div id="header-hasil-kalkulator">Berikut cicilan dengan DP ${Number(dpProduk).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}</div>
+            ${daftarCicilanTampilan}
+            <div id="footer-hasil-kalkulator">Untuk info promo dan list angsuran lainnya silahkan klik link berikut https://galaxycamera.id/cicilan-tanpa-cc</div>
+            </div>
+            <div class="btn btn-success" id="copy-hasil-perhitungan-kalkulator">Copy</div>
+            `                    
+            console.log(daftarCicilan)
+            document.querySelector('#notice-kalkulator').parentNode.insertBefore(hasilPerhitungan, document.querySelector('#notice-kalkulator').nextSibling);
+
+            let copy = document.querySelector("#copy-hasil-perhitungan-kalkulator");
+            copy.addEventListener('click', function (e) {
+            let range = document.getSelection().getRangeAt(0);
+            range.selectNode(document.querySelector("#deskripsi-cicilan"));
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+            })
+          }
+        }
+
+      })
+    })    
+  } else if(document.querySelector('#tombol-aktivasi-biaya-admin-kalkulator').checked == false){
+    hargaProduk = hargaProduk - dpProduk;
+    db.collection('tenorKalkulator').get().then(function(firstQuerySnapshot){
+      firstQuerySnapshot.docs.map((firstDoc) => {
+        let tenor = firstDoc.data().tenor;
+        let biayaAdmin = firstDoc.data().biayaAdmin;
+        let cicilanAkhir = 0;        
+        db.collection('biayaBungaKalkulator').get().then(function(secondQuerySnapshot){
+          secondQuerySnapshot.docs.map((secondDoc) => {
+            let bunga = secondDoc.data().biayaBunga;
+            let biayaBunga = hargaSetelahDP * Number(bunga)/100;
+            let cicilan = (hargaSetelahDP/Number(tenor)) + biayaBunga + 5000;
+            if(tenor == 6){
+              cicilanAkhir = (Math.floor(cicilan/100)*100) + Number(biayaAdmin);
+            } else {
+              cicilanAkhir = (Math.ceil(cicilan/100)*100) + Number(biayaAdmin);
+            }
+            let div = `<div data-sort="${tenor}">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>`
+            daftarCicilan.push(div)
+            if(firstQuerySnapshot.docs.length == daftarCicilan.length){
+              for(let x = 0; x<daftarCicilan.length; x++){
+                daftarCicilanTampilan += daftarCicilan[x];
+                hasilPerhitungan.innerHTML = `<div id="deskripsi-cicilan"><div id="header-hasil-kalkulator">Berikut cicilan dengan DP ${Number(dpProduk).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}</div>
+                ${daftarCicilanTampilan}
+                <div id="footer-hasil-kalkulator">Untuk info promo dan list angsuran lainnya silahkan klik link berikut https://galaxycamera.id/cicilan-tanpa-cc</div>
+                </div>
+                <div class="btn btn-success" id="copy-hasil-perhitungan-kalkulator">Copy</div>
+                `                    
+                console.log(daftarCicilan)
+                document.querySelector('#notice-kalkulator').parentNode.insertBefore(hasilPerhitungan, document.querySelector('#notice-kalkulator').nextSibling);
+
+                let copy = document.querySelector("#copy-hasil-perhitungan-kalkulator");
+                copy.addEventListener('click', function (e) {
+                let range = document.getSelection().getRangeAt(0);
+                range.selectNode(document.querySelector("#deskripsi-cicilan"));
+                window.getSelection().addRange(range);
+                document.execCommand("copy");
+                })
+              }
+            }            
+
+          })
+        })
+
+      })
+    })
+
+  } else if(document.querySelector('#tombol-aktivasi-biaya-bunga-kalkulator').checked == false){
+    hargaProduk = hargaProduk - dpProduk;
+    db.collection('tenorKalkulator').get().then(function(firstQuerySnapshot){
+      firstQuerySnapshot.docs.map((firstDoc) => {
+        let tenor = firstDoc.data().tenor;
+        let bunga = firstDoc.data().bunga;        
+        let cicilanAkhir = 0;        
+          db.collection('biayaAdminKalkulator').get().then(function(thirdQuerySnapshot){
+            thirdQuerySnapshot.docs.map((thirdDoc) => {
+            let biayaAdmin = thirdDoc.data().biayaAdmin;
+            let biayaBunga = hargaSetelahDP * Number(bunga)/100;
+            let cicilan = (hargaSetelahDP/Number(tenor)) + biayaBunga + 5000;
+            if(tenor == 6){
+              cicilanAkhir = (Math.floor(cicilan/100)*100) + Number(biayaAdmin);
+            } else {
+              cicilanAkhir = (Math.ceil(cicilan/100)*100) + Number(biayaAdmin);
+            }
+            let div = `<div data-sort="${tenor}">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>`
+            daftarCicilan.push(div)
+            if(firstQuerySnapshot.docs.length == daftarCicilan.length){
+              for(let x = 0; x<daftarCicilan.length; x++){
+                daftarCicilanTampilan += daftarCicilan[x];
+                hasilPerhitungan.innerHTML = `<div id="deskripsi-cicilan"><div id="header-hasil-kalkulator">Berikut cicilan dengan DP ${Number(dpProduk).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}</div>
+                ${daftarCicilanTampilan}
+                <div id="footer-hasil-kalkulator">Untuk info promo dan list angsuran lainnya silahkan klik link berikut https://galaxycamera.id/cicilan-tanpa-cc</div>
+                </div>
+                <div class="btn btn-success" id="copy-hasil-perhitungan-kalkulator">Copy</div>
+                `                    
+                console.log(daftarCicilan)
+                document.querySelector('#notice-kalkulator').parentNode.insertBefore(hasilPerhitungan, document.querySelector('#notice-kalkulator').nextSibling);
+
+                let copy = document.querySelector("#copy-hasil-perhitungan-kalkulator");
+                copy.addEventListener('click', function (e) {
+                let range = document.getSelection().getRangeAt(0);
+                range.selectNode(document.querySelector("#deskripsi-cicilan"));
+                window.getSelection().addRange(range);
+                document.execCommand("copy");
+                })
+              }
+            }            
+
+          })
+        })
+
+      })
+    })
+
+
+  }
+})
+
+let menu = document.querySelector('#tombol-burger');
+menu.addEventListener('click', function(e){
+if($(window).width() <= 700){
+        document.querySelector('#myTabContent').style.marginLeft = '0';
+        document.querySelector('#myTabContent').style.transition = '0';
+        let tombolTambah = document.querySelectorAll('.tombol-tambah');
+        for(let x = 0; x<tombolTambah.length; x++){
+            tombolTambah[x].style.marginLeft = '0';
+            tombolTambah[x].style.transition = '0';
+            }
+        let tombolKembali = document.querySelectorAll('.tombol-kembali');
+        for(let x = 0; x<tombolKembali.length; x++){
+            tombolKembali[x].style.marginLeft = '0';
+            tombolKembali[x].style.transition = '0';
+            }
+        document.querySelector('#list-menu-tambahan').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan').style.transition = '0';
+        if($( ".navbar-collapse" ).is( ":hidden" )){
+        document.querySelector('#darken').style.backgroundColor = 'black';
+        document.querySelector('#darken').style.width = '100%';
+        document.querySelector('#darken').style.height = '100%';
+        document.querySelector('#darken').style.position = 'fixed';
+        document.querySelector('#darken').style.opacity = '0.8';
+        document.querySelector('#darken').style.zIndex = '2';
+        document.querySelector('#darken').addEventListener('click', function(e){
+            e.stopImmediatePropagation()
+        document.querySelector('#darken').style.backgroundColor = '0';
+        document.querySelector('#darken').style.width = '0';
+        document.querySelector('#darken').style.height = '0';
+        document.querySelector('#darken').style.position = '0';
+        document.querySelector('#darken').style.opacity = '0';
+        document.querySelector('#darken').style.zIndex = '0';
+        $( ".navbar-collapse" ).collapse('hide');
+        })
+        } else {
+        document.querySelector('#darken').style.backgroundColor = '0';
+        document.querySelector('#darken').style.width = '0';
+        document.querySelector('#darken').style.height = '0';
+        document.querySelector('#darken').style.position = '0';
+        document.querySelector('#darken').style.opacity = '0';
+        document.querySelector('#darken').style.zIndex = '0';
+        }
+    } else {
+    if($( ".navbar-collapse" ).is( ":hidden" )){
+        setTimeout(function(){
+        document.querySelector('#myTabContent').style.marginLeft = '250px';
+        document.querySelector('#myTabContent').style.transition = 'all 0.4s ease';
+        let tombolTambah = document.querySelectorAll('.tombol-tambah');
+        for(let x = 0; x<tombolTambah.length; x++){
+            tombolTambah[x].style.marginLeft = '250px';
+            tombolTambah[x].style.transition = 'all 0.4s ease'
+        }
+        let tombolKembali = document.querySelectorAll('.tombol-kembali');
+        for(let x = 0; x<tombolKembali.length; x++){
+            tombolKembali[x].style.marginLeft = '250px';
+            tombolKembali[x].style.transition = 'all 0.4s ease'
+        }        
+        document.querySelector('#list-menu-tambahan').style.boxSizing = 'border-box';
+        document.querySelector('#list-menu-tambahan').style.paddingRight = '250px';
+        document.querySelector('#list-menu-tambahan').style.transition = 'all 0.4s ease';
+        document.querySelector('#list-menu-tambahan-kedua').style.boxSizing = 'border-box';
+        document.querySelector('#list-menu-tambahan-kedua').style.paddingRight = '250px';
+        document.querySelector('#list-menu-tambahan-kedua').style.transition = 'all 0.4s ease';
+        document.querySelector('#list-menu-tambahan-ketiga').style.boxSizing = 'border-box';
+        document.querySelector('#list-menu-tambahan-ketiga').style.paddingRight = '250px';
+        document.querySelector('#list-menu-tambahan-ketiga').style.transition = 'all 0.4s ease';
+        document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = 'border-box';
+        document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '250px';
+        document.querySelector('#list-menu-tambahan-keempat').style.transition = 'all 0.4s ease';
+        document.querySelector('#tombol-tambah-lihat-retur-kedua').style.setProperty('width', '-webkit-calc(100% - 250px)', 'important');
+        document.querySelector('#tombol-tambah-lihat-retur-kedua').style.transition = 'all 0.4s ease';
+        document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua').style.setProperty('width', '-webkit-calc(100% - 250px)', 'important');
+        document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua').style.transition = 'all 0.4s ease';                
+        document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').style.setProperty('width', '-webkit-calc(100% - 250px)', 'important');
+        document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').style.transition = 'all 0.4s ease';
+        if(document.querySelector('#peringatan-perpindahan-kedua')){
+        document.querySelector('#peringatan-perpindahan-kedua').style.width = '-webkit-calc(100% - 250px)';
+        document.querySelector('#peringatan-perpindahan-kedua').style.transition = 'all 0.4s ease';
+        }
+    },410)
+    } else {
+        document.querySelector('#myTabContent').style.marginLeft = '0';
+        document.querySelector('#myTabContent').style.transition = 'all 0.4s ease';
+        let tombolTambah = document.querySelectorAll('.tombol-tambah');
+        for(let x = 0; x<tombolTambah.length; x++){
+            tombolTambah[x].style.marginLeft = '0';
+            tombolTambah[x].style.transition = 'all 0.4s ease';
+        }
+        let tombolKembali = document.querySelectorAll('.tombol-kembali');
+        for(let x = 0; x<tombolKembali.length; x++){
+            tombolKembali[x].style.marginLeft = '0';
+            tombolKembali[x].style.transition = 'all 0.4s ease';
+        }        
+        document.querySelector('#list-menu-tambahan').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan').style.transition = 'all 0.4s ease';
+        document.querySelector('#list-menu-tambahan-kedua').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-kedua').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-kedua').style.transition = 'all 0.4s ease';
+        document.querySelector('#list-menu-tambahan-ketiga').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-ketiga').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-ketiga').style.transition = 'all 0.4s ease';
+        document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = '0';
+        document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '0';
+        document.querySelector('#list-menu-tambahan-keempat').style.transition = 'all 0.4s ease';
+        document.querySelector('#tombol-tambah-lihat-retur-kedua').style.setProperty('width','100%', 'important');
+        document.querySelector('#tombol-tambah-lihat-retur-kedua').style.transition = 'all 0.4s ease';
+        document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua').style.setProperty('width','100%', 'important');
+        document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua').style.transition = 'all 0.4s ease';                
+        document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').style.setProperty('width','100%', 'important');
+        document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').style.transition = 'all 0.4s ease';
+        if(document.querySelector('#peringatan-perpindahan-kedua')){    
+        document.querySelector('#peringatan-perpindahan-kedua').style.width =  '100%';
+        document.querySelector('#peringatan-perpindahan-kedua').style.transition = 'all 0.4s ease';                            
+        }        
+        }
+    }
+})
+
+let tabHalaman = document.querySelectorAll('.tab-halaman')
+for(let x = 0; x<tabHalaman.length; x++){
+    tabHalaman[x].addEventListener('click', function(e){
+        if($(window).width() <= 700){        
+        if($( ".navbar-collapse" ).is( ":visible" )){
+            document.querySelector('#darken').style.backgroundColor = '0';
+            document.querySelector('#darken').style.width = '0';
+            document.querySelector('#darken').style.height = '0';
+            document.querySelector('#darken').style.position = '0';
+            document.querySelector('#darken').style.opacity = '0';
+            $( ".navbar-collapse" ).collapse('hide');            
+            }
+        } else {            
+            if($( ".navbar-collapse" ).is( ":visible" )){
+               $( ".navbar-collapse" ).collapse('show'); 
+            }
+        }
+    })
+}
+
+let tombolLihatListPengeluaran = document.querySelector('#tombol-lihat-daftar-belanja');
+tombolLihatListPengeluaran.addEventListener('click', function(e){
+  e.stopPropagation();
+    listBelanja.style.display = 'block';
+    listBelanjaSelesai.style.display = 'block';
+    tombolKembaliListPengeluaran.style.display = 'block';
+    document.querySelector('#jumbotron-form-daftar-belanja').style.display = 'none';
+    document.querySelector('#jumbotron-daftar-belanja').style.display = 'none';
+})
+
+let tombolKembaliListPengeluaran = document.querySelector('#kembalipengeluaran');
+tombolKembaliListPengeluaran.addEventListener('click', function(e){
+  e.stopPropagation();
+    listBelanja.style.display = 'none';
+    listBelanjaSelesai.style.display = 'none';
+    tombolKembaliListPengeluaran.style.display = 'none';
+    document.querySelector('#jumbotron-form-daftar-belanja').style.display = 'block';
+    document.querySelector('#jumbotron-daftar-belanja').style.display = 'block';
+})
 
 </script>
 
