@@ -176,6 +176,11 @@
   <div class="lead" id="list-performa-peserta"></div>
 </div>
 
+<!--<form class="jumbotron" id="admin-web">
+  <input type="email" id="email-admin">
+  <button type="submit" class="tombol-tambah-kedua">Tambah</button>
+</form>-->
+
 <div class="jumbotron" id="jumbotron-performa-peserta-individu">
   <h1 id="judul-jumbotron-performa-peserta-individu" class="display-4">Noticement :</h1>
   <div class="lead" id="list-performa-peserta-individu">
@@ -186,7 +191,6 @@
 </div>
 
 <div id="tabel-peserta">
-<!--Modal Sign-Up Berakhir disini-->
 <div id="tombol-daftar-lokasi">
 <div class="tombol-lokasi btn btn-secondary" id="tombol-tangerang">Tangerang</div>
 <div class="tombol-lokasi btn btn-secondary" id="tombol-depok">Depok</div>
@@ -1241,6 +1245,7 @@
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-functions.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-storage.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -1265,6 +1270,7 @@
 
   const auth = firebase.auth();
   const db = firebase.firestore();
+  const functions = firebase.functions();
 </script>
 
 <script src="app.js"></script>

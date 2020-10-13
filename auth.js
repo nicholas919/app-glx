@@ -1,5 +1,11 @@
 auth.onAuthStateChanged(user => {
   if(user){
+    user.getIdTokenResult().then(idTokenResult => {
+        user.adminKantor = idTokenResult.claims.adminKantor;
+        user.member = idTokenResult.claims.member;
+        console.log(idTokenResult.claims)
+        setupUI(user);
+    })
     db.collection('peserta').onSnapshot(snapshot =>{
     let changes = snapshot.docChanges();
     changes.forEach(change =>{
@@ -609,7 +615,18 @@ auth.onAuthStateChanged(user => {
                         div.remove();
                     }
                 })
-    }, err => console.log(err.message))        
+    }, err => console.log(err.message))
+
+        db.collection('adminKantor').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        renderAdminKantor(change.doc);
+                    } else if(change.type == 'modified'){
+                        renderUpdateAdminKantor(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))            
 
         $(document).ready(function(){
             setInterval(function(){ refreshOnPengumuman(); }, 60000);
@@ -956,7 +973,8 @@ daftarPeserta.addEventListener('submit', (e) => {
         nama : daftarPeserta['nama-peserta'].value,
         libur : daftarPeserta['hari-libur'].value,
         lokasi : daftarPeserta['lokasi-berjaga'].value,
-        email : daftarPeserta['email-peserta'].value
+        email : daftarPeserta['email-peserta'].value,
+        role : "Member"
     }).then(() => {
         tanggal = new Date().getTime();
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){

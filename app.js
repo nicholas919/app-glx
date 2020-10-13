@@ -101,7 +101,7 @@ function renderPeserta(doc){
     opsiTugasKedua.classList.add('opsi-target-peserta-kedua' + doc.id, 'pemilihan-tugas-peserta-kedua');
     opsiTugas.innerHTML = nama;
     opsiTugasKedua.innerHTML = nama;            
-          
+
     tr.innerHTML = `
     <td style="font-weight:bold;" id="nama-table${doc.id}">${nama}</td>
     <td id="lokasi-table${doc.id}">${lokasi}</td>
@@ -144,6 +144,7 @@ function renderPeserta(doc){
         <div>:</div> 
         <div id="status-peserta${doc.id}" style="font-weight:bold;"></div> 
         </div>
+        <div id="adminKantor${doc.id}" class="btn btn-success edit role-peserta">Tambahkan Role Sebagai Admin Kantor</div>
         <div id="edit${doc.id}" class="btn btn-warning edit edit-peserta">Edit Data Karyawan</div>
         <div id="hapus${doc.id}" class="btn btn-danger hapus hapus-peserta">Hapus Data Karyawan</div>
         </div>
@@ -198,6 +199,20 @@ function renderPeserta(doc){
 
     listPerformaPeserta.appendChild(div);
     modalPeserta.appendChild(peserta);
+
+    db.collection('peserta').doc(doc.id).get().then((item) => {
+    if(item.data().role == null || item.data().role == "Member"){
+    let addMemberRole = functions.httpsCallable('addMemberRole');
+    addMemberRole({email: email})
+        } else if(item.data().role == "Admin Kantor"){
+    let addAdminRole = functions.httpsCallable('addAdminRole');
+    addAdminRole({email: email}).then(() => {
+    document.querySelector('#adminKantor' + doc.id).innerHTML = 'Hapus Role Sebagai Admin Kantor'
+    document.querySelector('#adminKantor' + doc.id).classList.remove('btn-success');
+    document.querySelector('#adminKantor' + doc.id).classList.add('btn-danger');        
+    })
+        }
+    })
 
     $(document).ready(function() {
     db.collection('tugas').onSnapshot(snapshot =>{
@@ -323,6 +338,37 @@ setInterval(function(){
         } 
     }
 },10)
+
+    let adminKantor = document.querySelector('#adminKantor' + doc.id);
+    adminKantor.addEventListener('click', function(e){
+        e.stopPropagation();
+            db.collection('peserta').doc(doc.id).get().then((item) => {
+                email = item.data().email;                
+                if(item.data().role == null || item.data().role == "Member"){
+                let addAdminRole = functions.httpsCallable('addAdminRole');
+                addAdminRole({email: email}).then(() => {
+                    db.collection('peserta').doc(doc.id).update({
+                        role : "Admin Kantor"
+                    }).then(() => {
+                    adminKantor.innerHTML = 'Hapus Role Sebagai Admin Kantor'
+                    adminKantor.classList.remove('btn-success');
+                    adminKantor.classList.add('btn-danger');
+                    })
+                })            
+            } else if(item.data().role == "Admin Kantor"){
+                let addMemberRole = functions.httpsCallable('addMemberRole');
+                addMemberRole({email: email}).then(() => {
+                    db.collection('peserta').doc(doc.id).update({
+                        role : "Member"
+                    }).then(() => {
+                    adminKantor.innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
+                    adminKantor.classList.remove('btn-danger');
+                    adminKantor.classList.add('btn-success');
+                    })
+                })
+            } 
+        })
+    })        
 
     let edit = document.querySelector('#edit' + doc.id);
     edit.addEventListener('click', function(e){
@@ -632,6 +678,7 @@ const setupUI = (user) => {
   if (user) {
         let x = window.matchMedia("(max-width: 900px)");
         db.collection('pengguna').doc(user.uid).get().then(doc => {
+        let rolePeserta = document.querySelectorAll('.role-peserta');
         let editPeserta = document.querySelectorAll('.edit-peserta');
         let hapusPeserta = document.querySelectorAll('.hapus-peserta');
         let editTugas = document.querySelectorAll('.edit-tugas');
@@ -753,6 +800,9 @@ const setupUI = (user) => {
             for(let x = 0; x<hapusPeserta.length;x++){
             hapusPeserta[x].setAttribute('style','display:block !important;');
             }
+            for(let x = 0; x<rolePeserta.length;x++){
+            rolePeserta[x].setAttribute('style','display:none !important;');
+            }
             for(let x = 0; x<editTugas.length;x++){
             editTugas[x].setAttribute('style','display:block !important;');
             }
@@ -836,14 +886,14 @@ const setupUI = (user) => {
             document.querySelector('#home').style.display = 'block';
             document.querySelector('#swot').style.display = 'block';
             document.querySelector('#achievement').style.display = 'block';
-            document.querySelector('#list-gaji').style.display = 'none';
             document.querySelector('#informasi').style.display = 'block';
             document.querySelector('#catatan').style.display = 'block';
             document.querySelector('#indent-cust').style.display = 'block';
             document.querySelector('#cetak-label').style.display = 'block';
             document.querySelector('#perpindahan-barang').style.display = 'block';
             document.querySelector('#kalkulator').style.display = 'block';
-            document.querySelector('#transaksi-berjalan').style.display = 'block';            
+            document.querySelector('#transaksi-berjalan').style.display = 'block';
+            document.querySelector('#list-gaji').style.display = 'none';            
             document.querySelector('#list-menu-tambahan').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
@@ -857,7 +907,8 @@ const setupUI = (user) => {
             document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:block !important;');
             document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:block !important;');
             document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:block !important;');
-        } else if(username == "Admin Kantor" && user.email == 'useradminkantor@galaxy.id'){
+            document.querySelector('#tambahperpindahanbarang').style.display = 'block';
+        } else if(user.adminKantor){
             setInterval(function(){
             document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
         },10)
@@ -883,6 +934,9 @@ const setupUI = (user) => {
                     document.querySelector('#th-keterangan-transaksi').style.display = 'table-cell';                    
             }
         }
+            for(let x = 0; x<rolePeserta.length;x++){
+            rolePeserta[x].setAttribute('style','display:none !important;');
+            }        
             for(let x = 0; x<editPeserta.length;x++){
             editPeserta[x].setAttribute('style','display:none !important;');
             }
@@ -980,14 +1034,14 @@ const setupUI = (user) => {
             document.querySelector('#home').style.display = 'block';
             document.querySelector('#swot').style.display = 'none';
             document.querySelector('#achievement').style.display = 'none';
-            document.querySelector('#list-gaji').style.display = 'none';
             document.querySelector('#informasi').style.display = 'block';
             document.querySelector('#catatan').style.display = 'block';
             document.querySelector('#indent-cust').style.display = 'block';
             document.querySelector('#cetak-label').style.display = 'block';
             document.querySelector('#perpindahan-barang').style.display = 'block';
             document.querySelector('#kalkulator').style.display = 'block';
-            document.querySelector('#transaksi-berjalan').style.display = 'block';            
+            document.querySelector('#transaksi-berjalan').style.display = 'block';
+            document.querySelector('#list-gaji').style.display = 'none';            
             document.querySelector('#list-menu-tambahan').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
@@ -1001,11 +1055,13 @@ const setupUI = (user) => {
             document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:block !important;');
             document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:block !important;');            
-        } else if(daftarKaryawan.includes(username.toLowerCase().replace(" ", "-")) && daftarEmailKaryawan.includes(user.email)){
+            document.querySelector('#tambahperpindahanbarang').style.display = 'block';
+        } else if(user.member){
         setInterval(function(){
         for(let x = 0; x<catatan.length; x++){
             let id = catatan[x].getAttribute('data-id')
             db.collection('catatan').doc(id).get().then(function(item){
+            if(document.querySelector('#catatan' + doc.id)){
                 if(item.data().pembuatCatatan.toLowerCase().replace(" ", "-") == username.toLowerCase().replace(" ", "-")){
                     if(document.querySelector('#tombol-pengaturan' + id)){
                     document.querySelector('#tombol-pengaturan' + id).style.setProperty('display', 'flex', 'important')
@@ -1015,6 +1071,7 @@ const setupUI = (user) => {
                     document.querySelector('#tombol-pengaturan' + id).style.setProperty('display', 'none', 'important')
                     }
                 }
+            }
             })
         }
         },10)            
@@ -1149,24 +1206,25 @@ const setupUI = (user) => {
                 }
             }
             for(let x = 0; x<selesaiPengeluaran.length;x++){
-            selesaiPengeluaran[x].setAttribute('style','display:none !important;');
+            selesaiPengeluaran[x].style.setProperty('display', 'none', 'important');
             }
             for(let x = 0; x<selesaiPengeluaranKedua.length;x++){
-            selesaiPengeluaranKedua[x].setAttribute('style','display:none !important;');
+            selesaiPengeluaranKedua[x].style.setProperty('display', 'none', 'important');
             }                                                
             document.querySelector('#tambahpengumuman').style.display = 'none';
             document.querySelector('#myTabContent').style.display = 'block';
             document.querySelector('#home').style.display = 'block';
             document.querySelector('#swot').style.display = 'none';
             document.querySelector('#achievement').style.display = 'none';
-            document.querySelector('#list-gaji').style.display = 'none';
             document.querySelector('#informasi').style.display = 'block';
             document.querySelector('#catatan').style.display = 'block';
             document.querySelector('#indent-cust').style.display = 'block';            
             document.querySelector('#cetak-label').style.display = 'block';
             document.querySelector('#perpindahan-barang').style.display = 'block';
             document.querySelector('#kalkulator').style.display = 'block';
-            document.querySelector('#transaksi-berjalan').style.display = 'none';            
+            document.querySelector('#transaksi-berjalan').style.display = 'none';
+            document.querySelector('#retur-dealer').style.display = 'none';
+            document.querySelector('#list-gaji').style.display = 'none';           
             document.querySelector('#list-menu-tambahan').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
@@ -1182,6 +1240,7 @@ const setupUI = (user) => {
             document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:none !important;');
             document.querySelector('#lihatperpindahanpending').style.setProperty('display', 'none', 'important');
             document.querySelector('#lihatperpindahanselesai').style.setProperty('display', 'none', 'important');            
+            document.querySelector('#tambahperpindahanbarang').style.display = 'none';
         } else {
             for(let x = 0; x<editPeserta.length;x++){
             editPeserta[x].setAttribute('style','display:none !important;');
@@ -1199,7 +1258,6 @@ const setupUI = (user) => {
             document.querySelector('#home').style.display = 'none';
             document.querySelector('#swot').style.display = 'none';
             document.querySelector('#achievement').style.display = 'none';
-            document.querySelector('#list-gaji').style.display = 'none';
             document.querySelector('#informasi').style.display = 'none';
             document.querySelector('#catatan').style.display = 'none';
             document.querySelector('#indent-cust').style.display = 'none';            
@@ -1207,6 +1265,11 @@ const setupUI = (user) => {
             document.querySelector('#perpindahan-barang').style.display = 'none';
             document.querySelector('#kalkulator').style.display = 'none';
             document.querySelector('#transaksi-berjalan').style.display = 'none';
+            document.querySelector('#retur').style.display = 'none';
+            document.querySelector('#retur-customer').style.display = 'none';
+            document.querySelector('#retur-dealer').style.display = 'none';
+            document.querySelector('#list-gaji').style.display = 'none';
+            document.querySelector('#daftar-belanja').style.display = 'none';            
             document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
             document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
             document.querySelector('#tabel-peserta').style.display = 'none';
@@ -1543,7 +1606,6 @@ document.querySelector('#search-menu').addEventListener('input', function(e){
     document.querySelector('#home').style.display = 'none';
     document.querySelector('#swot').style.display = 'none';
     document.querySelector('#achievement').style.display = 'none';
-    document.querySelector('#list-gaji').style.display = 'none';
     document.querySelector('#informasi').style.display = 'none';
     document.querySelector('#catatan').style.display = 'none';
     document.querySelector('#indent-cust').style.display = 'none';            
@@ -1551,6 +1613,11 @@ document.querySelector('#search-menu').addEventListener('input', function(e){
     document.querySelector('#perpindahan-barang').style.display = 'none';
     document.querySelector('#kalkulator').style.display = 'none';
     document.querySelector('#transaksi-berjalan').style.display = 'none';    
+    document.querySelector('#retur').style.display = 'none';
+    document.querySelector('#retur-customer').style.display = 'none';
+    document.querySelector('#retur-dealer').style.display = 'none';    
+    document.querySelector('#list-gaji').style.display = 'none';
+    document.querySelector('#daftar-belanja').style.display = 'none';
     document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
     document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
     document.querySelector('#tabel-peserta').style.display = 'none';
@@ -6412,7 +6479,7 @@ function renderReturDealerPending(doc){
 
     previewPrint.innerHTML = `
     <div class="header-surat">
-      <div class="kop-surat">LOGO</div>
+      <div class="kop-surat"></div>
       <div class="isi-header-surat">
       <div class="nama-header-surat">PT GALAXY DIGITAL NIAGA</div>
       <div class="alamat-header-surat">Ruko Mall Metropolis Townsquare Block GM3 No.6, Cikokol, Tangerang</div>
@@ -6677,7 +6744,7 @@ function renderReturDealerSelesai(doc){
 
     previewPrint.innerHTML = `
     <div class="header-surat">
-      <div class="kop-surat">LOGO</div>
+      <div class="kop-surat"></div>
       <div class="isi-header-surat">
       <div class="nama-header-surat">PT GALAXY DIGITAL NIAGA</div>
       <div class="alamat-header-surat">Ruko Mall Metropolis Townsquare Block GM3 No.6, Cikokol, Tangerang</div>
