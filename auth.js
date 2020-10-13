@@ -3,7 +3,6 @@ auth.onAuthStateChanged(user => {
     user.getIdTokenResult().then(idTokenResult => {
         user.adminKantor = idTokenResult.claims.adminKantor;
         user.member = idTokenResult.claims.member;
-        console.log(idTokenResult.claims)
         setupUI(user);
     })
     db.collection('peserta').onSnapshot(snapshot =>{

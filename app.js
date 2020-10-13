@@ -144,7 +144,7 @@ function renderPeserta(doc){
         <div>:</div> 
         <div id="status-peserta${doc.id}" style="font-weight:bold;"></div> 
         </div>
-        <div id="adminKantor${doc.id}" class="btn btn-success edit role-peserta">Tambahkan Role Sebagai Admin Kantor</div>
+        <div id="adminKantor${doc.id}" class="edit role-peserta"></div>
         <div id="edit${doc.id}" class="btn btn-warning edit edit-peserta">Edit Data Karyawan</div>
         <div id="hapus${doc.id}" class="btn btn-danger hapus hapus-peserta">Hapus Data Karyawan</div>
         </div>
@@ -204,12 +204,16 @@ function renderPeserta(doc){
     if(item.data().role == null || item.data().role == "Member"){
     let addMemberRole = functions.httpsCallable('addMemberRole');
     addMemberRole({email: email})
+
+    document.querySelector('#adminKantor' + doc.id).innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
+    document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
+    document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');    
         } else if(item.data().role == "Admin Kantor"){
     let addAdminRole = functions.httpsCallable('addAdminRole');
     addAdminRole({email: email}).then(() => {
     document.querySelector('#adminKantor' + doc.id).innerHTML = 'Hapus Role Sebagai Admin Kantor'
     document.querySelector('#adminKantor' + doc.id).classList.remove('btn-success');
-    document.querySelector('#adminKantor' + doc.id).classList.add('btn-danger');        
+    document.querySelector('#adminKantor' + doc.id).classList.add('btn','btn-info');        
     })
         }
     })
@@ -273,6 +277,7 @@ let status = document.querySelector('#status-peserta' + doc.id).innerHTML;
         document.querySelector('#target-peserta-kedua').appendChild(opsiTugasKedua);
 
 let refreshPerformaPeserta = setInterval(refreshOnPerformaPeserta,10);
+
 
 function refreshOnPerformaPeserta(){
     let performaPeserta = document.querySelectorAll('.performa-peserta');    
@@ -352,7 +357,8 @@ setInterval(function(){
                     }).then(() => {
                     adminKantor.innerHTML = 'Hapus Role Sebagai Admin Kantor'
                     adminKantor.classList.remove('btn-success');
-                    adminKantor.classList.add('btn-danger');
+                    adminKantor.classList.add('btn-info');
+                    alert('Karyawan ' + nama + ' berhasil diubah role sebagai member!');
                     })
                 })            
             } else if(item.data().role == "Admin Kantor"){
@@ -362,8 +368,9 @@ setInterval(function(){
                         role : "Member"
                     }).then(() => {
                     adminKantor.innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
-                    adminKantor.classList.remove('btn-danger');
+                    adminKantor.classList.remove('btn-info');
                     adminKantor.classList.add('btn-success');
+                    alert('Karyawan ' + nama + ' berhasil diubah role sebagai admin kantor!');
                     })
                 })
             } 
@@ -794,14 +801,14 @@ const setupUI = (user) => {
                     document.querySelector('#th-keterangan-transaksi').style.display = 'table-cell';                    
             }
         }
+            for(let x = 0; x<rolePeserta.length;x++){
+            rolePeserta[x].setAttribute('style','display:block !important;');
+            }
             for(let x = 0; x<editPeserta.length;x++){
             editPeserta[x].setAttribute('style','display:block !important;');
             }
             for(let x = 0; x<hapusPeserta.length;x++){
             hapusPeserta[x].setAttribute('style','display:block !important;');
-            }
-            for(let x = 0; x<rolePeserta.length;x++){
-            rolePeserta[x].setAttribute('style','display:none !important;');
             }
             for(let x = 0; x<editTugas.length;x++){
             editTugas[x].setAttribute('style','display:block !important;');
@@ -893,7 +900,11 @@ const setupUI = (user) => {
             document.querySelector('#perpindahan-barang').style.display = 'block';
             document.querySelector('#kalkulator').style.display = 'block';
             document.querySelector('#transaksi-berjalan').style.display = 'block';
-            document.querySelector('#list-gaji').style.display = 'none';            
+            document.querySelector('#retur').style.display = 'block';
+            document.querySelector('#retur-customer').style.display = 'block';
+            document.querySelector('#retur-dealer').style.display = 'block';
+            document.querySelector('#list-gaji').style.display = 'none';
+            document.querySelector('#daftar-belanja').style.display = 'block';          
             document.querySelector('#list-menu-tambahan').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
@@ -1041,7 +1052,11 @@ const setupUI = (user) => {
             document.querySelector('#perpindahan-barang').style.display = 'block';
             document.querySelector('#kalkulator').style.display = 'block';
             document.querySelector('#transaksi-berjalan').style.display = 'block';
-            document.querySelector('#list-gaji').style.display = 'none';            
+            document.querySelector('#retur').style.display = 'block';
+            document.querySelector('#retur-customer').style.display = 'block';
+            document.querySelector('#retur-dealer').style.display = 'block';
+            document.querySelector('#list-gaji').style.display = 'none';
+            document.querySelector('#daftar-belanja').style.display = 'block';            
             document.querySelector('#list-menu-tambahan').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
@@ -1223,7 +1238,10 @@ const setupUI = (user) => {
             document.querySelector('#perpindahan-barang').style.display = 'block';
             document.querySelector('#kalkulator').style.display = 'block';
             document.querySelector('#transaksi-berjalan').style.display = 'none';
+            document.querySelector('#retur').style.display = 'block';
+            document.querySelector('#retur-customer').style.display = 'block';
             document.querySelector('#retur-dealer').style.display = 'none';
+            document.querySelector('#daftar-belanja').style.display = 'block';
             document.querySelector('#list-gaji').style.display = 'none';           
             document.querySelector('#list-menu-tambahan').style.display = 'grid';
             document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
