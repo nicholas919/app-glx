@@ -201,20 +201,28 @@ function renderPeserta(doc){
     modalPeserta.appendChild(peserta);
 
     db.collection('peserta').doc(doc.id).get().then((item) => {
-    if(item.data().role == null || item.data().role == "Member"){
+    if(item.data().role == null){
+    db.collection('peserta').doc(doc.id).update({
+        role : "Member"
+    }).then(() => {
     let addMemberRole = functions.httpsCallable('addMemberRole');
-    addMemberRole({email: email})
-
+    addMemberRole({email: email}).then(() => {
     document.querySelector('#adminKantor' + doc.id).innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
     document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
-    document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');    
+    document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');
+    if(auth.currentUser.email == email){
+        window.location.reload();
+    }   
+        })
+    })
+        } else if(item.data().role == "Member"){
+    document.querySelector('#adminKantor' + doc.id).innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
+    document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
+    document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');
         } else if(item.data().role == "Admin Kantor"){
-    let addAdminRole = functions.httpsCallable('addAdminRole');
-    addAdminRole({email: email}).then(() => {
     document.querySelector('#adminKantor' + doc.id).innerHTML = 'Hapus Role Sebagai Admin Kantor'
     document.querySelector('#adminKantor' + doc.id).classList.remove('btn-success');
     document.querySelector('#adminKantor' + doc.id).classList.add('btn','btn-info');        
-    })
         }
     })
 
@@ -347,8 +355,7 @@ setInterval(function(){
     let adminKantor = document.querySelector('#adminKantor' + doc.id);
     adminKantor.addEventListener('click', function(e){
         e.stopPropagation();
-            db.collection('peserta').doc(doc.id).get().then((item) => {
-                email = item.data().email;                
+            db.collection('peserta').doc(doc.id).get().then((item) => {              
                 if(item.data().role == null || item.data().role == "Member"){
                 let addAdminRole = functions.httpsCallable('addAdminRole');
                 addAdminRole({email: email}).then(() => {
@@ -359,6 +366,9 @@ setInterval(function(){
                     adminKantor.classList.remove('btn-success');
                     adminKantor.classList.add('btn-info');
                     alert('Karyawan ' + nama + ' berhasil diubah role sebagai admin kantor!');
+                    if(auth.currentUser.email == email){
+                        window.location.reload();
+                    }                    
                     })
                 })            
             } else if(item.data().role == "Admin Kantor"){
@@ -371,6 +381,9 @@ setInterval(function(){
                     adminKantor.classList.remove('btn-info');
                     adminKantor.classList.add('btn-success');
                     alert('Karyawan ' + nama + ' berhasil diubah role sebagai member!');
+                    if(auth.currentUser.email == email){
+                        window.location.reload();
+                    }                    
                     })
                 })
             } 
@@ -479,10 +492,13 @@ setInterval(function(){
             let id = kesalahanPeserta[x].getAttribute('data-id')
             db.collection('kesalahan').doc(id).delete()
         }
-})
+    })
+    let removeRole = functions.httpsCallable('removeRole');
+    removeRole({email: email}).then(() => {
     let id = document.querySelector('.dokumentasi-peserta' + doc.id).getAttribute('data-id');    
     db.collection('peserta').doc(id).delete();
     $('#modaleditpeserta' + doc.id).modal('hide');
+    })
                 })
             }
         }

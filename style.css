@@ -981,6 +981,10 @@ div.induk-kategori-menu:nth-child(4n+0){
 	padding: 8px 5px;
 }
 
+.hapus-ekspedisi-cetak-label:hover, .edit-ekspedisi-cetak-label:hover{
+	color: white;
+}
+
 .nama-kategori-menu-tampilan{
 	color:white;
 	font-size: 18px;

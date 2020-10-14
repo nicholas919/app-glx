@@ -614,17 +614,6 @@ auth.onAuthStateChanged(user => {
                         div.remove();
                     }
                 })
-    }, err => console.log(err.message))
-
-        db.collection('adminKantor').onSnapshot(snapshot =>{
-                let changes = snapshot.docChanges();
-                changes.forEach(change =>{
-                    if(change.type == 'added'){
-                        renderAdminKantor(change.doc);
-                    } else if(change.type == 'modified'){
-                        renderUpdateAdminKantor(change.doc);
-                    }
-                })
     }, err => console.log(err.message))            
 
         $(document).ready(function(){
@@ -972,8 +961,7 @@ daftarPeserta.addEventListener('submit', (e) => {
         nama : daftarPeserta['nama-peserta'].value,
         libur : daftarPeserta['hari-libur'].value,
         lokasi : daftarPeserta['lokasi-berjaga'].value,
-        email : daftarPeserta['email-peserta'].value,
-        role : "Member"
+        email : daftarPeserta['email-peserta'].value
     }).then(() => {
         tanggal = new Date().getTime();
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
