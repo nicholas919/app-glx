@@ -1723,7 +1723,7 @@ $(document).ready(function(){
 })
 
     if(auth.currentUser.email == email){
-    window.location.reload();
+    location.reload();
     }
 
 }
