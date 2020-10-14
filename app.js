@@ -1717,57 +1717,38 @@ $(document).ready(function(){
 
 })
 
-    let adminKantor = document.querySelector('#adminKantor' + doc.id);
-    adminKantor.addEventListener('click', function(e){
-        e.stopPropagation();
-            db.collection('peserta').doc(doc.id).get().then((item) => {              
-                if(item.data().role == null || item.data().role == "Member"){
-                let addAdminRole = functions.httpsCallable('addAdminRole');
-                addAdminRole({email: email}).then(() => {
-                    db.collection('peserta').doc(doc.id).update({
-                        role : "Admin Kantor"
-                    }).then(() => {
-                    adminKantor.innerHTML = 'Hapus Role Sebagai Admin Kantor'
-                    adminKantor.classList.remove('btn-success');
-                    adminKantor.classList.add('btn-info');
-                    alert('Karyawan ' + nama + ' berhasil diubah role sebagai admin kantor!');                    
-                    })
-                })            
-            } else if(item.data().role == "Admin Kantor"){
-                let addMemberRole = functions.httpsCallable('addMemberRole');
-                addMemberRole({email: email}).then(() => {
-                    db.collection('peserta').doc(doc.id).update({
-                        role : "Member"
-                    }).then(() => {
-                    adminKantor.innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
-                    adminKantor.classList.remove('btn-info');
-                    adminKantor.classList.add('btn-success');
-                    alert('Karyawan ' + nama + ' berhasil diubah role sebagai member!');                                       
-                    })
-                })
-            } 
-        })
-    })
-
         switch(role){
         case "Member":
         let addMemberRole = functions.httpsCallable('addMemberRole');
         addMemberRole({email: email}).then(() => {        
-        if(auth.currentUser.email == email){
-        location.reload();
-        }
+            if(auth.currentUser.email == email){
+            setInterval(function(){ 
+            auth.onAuthStateChanged(user => {
+                user.getIdTokenResult().then(idTokenResult => {
+                if(idTokenResult.claims.member){
+                    location.reload();
+                }
+                })
+            })
+        },0)            
+            }
         })
         break;
         case "Admin Kantor":
         let addAdminRole = functions.httpsCallable('addAdminRole');
         addAdminRole({email: email}).then(() => {
-        if(auth.currentUser.email == email){
-        location.reload();
-        }            
-        })        
-    }
-
-
+            if(auth.currentUser.email == email){
+            setInterval(function(){                
+            auth.onAuthStateChanged(user => {
+                user.getIdTokenResult().then(idTokenResult => {
+                if(idTokenResult.claims.adminKantor){
+                    location.reload();
+                }
+                })            
+            })        
+        },0)
+            }
+        })
 
 }
 
