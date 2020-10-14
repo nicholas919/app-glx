@@ -1720,35 +1720,21 @@ $(document).ready(function(){
         switch(role){
         case "Member":
         let addMemberRole = functions.httpsCallable('addMemberRole');
-        addMemberRole({email: email}).then(() => {        
+        addMemberRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
-            setInterval(function(){ 
-            auth.onAuthStateChanged(user => {
-                user.getIdTokenResult().then(idTokenResult => {
-                if(idTokenResult.claims.member){
-                    location.reload();
+                    auth.signOut();
+                    window.location.reload();
                 }
-                })
-            })
-        },0)            
-            }
-        })
+            })           
         break;
         case "Admin Kantor":
         let addAdminRole = functions.httpsCallable('addAdminRole');
         addAdminRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
-            setInterval(function(){                
-            auth.onAuthStateChanged(user => {
-                user.getIdTokenResult().then(idTokenResult => {
-                if(idTokenResult.claims.adminKantor){
-                    location.reload();
+                    auth.signOut();
+                    window.location.reload();
                 }
-                })            
-            })        
-        },0)
-            }
-        })
+            })
 
 }
 
