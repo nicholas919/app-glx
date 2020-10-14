@@ -482,16 +482,15 @@ setInterval(function(){
     removeRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
-                        user.getIdToken(false).then(() => {
-                            alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali.')
-                            location.reload();                            
+                        user.getIdToken(true).then(() => {
+                            alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali.')                            
+                            let id = document.querySelector('.dokumentasi-peserta' + doc.id).getAttribute('data-id'); 
+                            db.collection('peserta').doc(id).delete();
+                            $('#modaleditpeserta' + doc.id).modal('hide');
+                            location.reload();    
                         })
                     })
                 }
-            }).then(() => {
-    let id = document.querySelector('.dokumentasi-peserta' + doc.id).getAttribute('data-id'); 
-    db.collection('peserta').doc(id).delete();
-    $('#modaleditpeserta' + doc.id).modal('hide');    
             })
                 })
             }
