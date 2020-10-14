@@ -490,8 +490,7 @@ setInterval(function(){
                         })
                     })
                 }
-            }).then(() => { 
-    db.collection('peserta').doc(id).delete();    
+            }).then(() => {     
             })
                 })
             }
