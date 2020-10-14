@@ -478,9 +478,6 @@ setInterval(function(){
             db.collection('kesalahan').doc(id).delete()
         }
     })
-    let id = document.querySelector('.dokumentasi-peserta' + doc.id).getAttribute('data-id'); 
-    db.collection('peserta').doc(id).delete();
-    $('#modaleditpeserta' + doc.id).modal('hide');    
     let removeRole = functions.httpsCallable('removeRole');
     removeRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
@@ -491,6 +488,10 @@ setInterval(function(){
                         })
                     })
                 }
+            }).then(() => {
+    let id = document.querySelector('.dokumentasi-peserta' + doc.id).getAttribute('data-id'); 
+    db.collection('peserta').doc(id).delete();
+    $('#modaleditpeserta' + doc.id).modal('hide');    
             })
                 })
             }
