@@ -1668,10 +1668,7 @@ function renderUpdatePeserta(doc){
     let nama = doc.data().nama;
     let email = doc.data().email;
     let libur = doc.data().libur;
-    let lokasi = doc.data().lokasi;
-    if(auth.currentUser.email == email){
-    alert('hello')
-    }    
+    let lokasi = doc.data().lokasi;    
     let opsiTugas = document.createElement('option');
     let opsiTugasKedua = document.createElement('option');
     opsiTugas.classList.add('opsi-target-peserta' + doc.id, 'pemilihan-tugas-peserta');
@@ -1724,6 +1721,10 @@ $(document).ready(function(){
     }
 
 })
+
+    if(auth.currentUser.email == email){
+    window.location.reload();
+    }
 
 }
 
