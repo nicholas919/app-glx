@@ -482,7 +482,7 @@ setInterval(function(){
     removeRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
-                        user.getIdToken(true).then(() => {
+                        user.getIdToken(false).then(() => {
                             alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali.')
                             location.reload();                            
                         })
