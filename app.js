@@ -1722,7 +1722,11 @@ $(document).ready(function(){
         let addMemberRole = functions.httpsCallable('addMemberRole');
         addMemberRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
-                alert('hello')
+                auth.onAuthStateChanged(user => {
+                        user.getidToken(true).then(() => {
+                            location.reload();
+                        })
+                    })                
                 }
             })           
         break;
@@ -1730,7 +1734,11 @@ $(document).ready(function(){
         let addAdminRole = functions.httpsCallable('addAdminRole');
         addAdminRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
-                alert('hello')
+                auth.onAuthStateChanged(user => {
+                        user.getidToken(true).then(() => {
+                            location.reload();
+                        })
+                    })
                 }
             })
 
