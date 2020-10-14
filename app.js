@@ -1724,6 +1724,7 @@ $(document).ready(function(){
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
                         user.getIdToken(true).then(() => {
+                            alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
                             location.reload();
                         })
                     })                
@@ -1736,6 +1737,7 @@ $(document).ready(function(){
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
                         user.getIdToken(true).then(() => {
+                            alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
                             location.reload();
                         })
                     })
