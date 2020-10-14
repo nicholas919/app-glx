@@ -1723,7 +1723,7 @@ $(document).ready(function(){
         addMemberRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
-                        user.getidToken(true).then(() => {
+                        user.getIdToken(true).then(() => {
                             location.reload();
                         })
                     })                
@@ -1735,7 +1735,7 @@ $(document).ready(function(){
         addAdminRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
-                        user.getidToken(true).then(() => {
+                        user.getIdToken(true).then(() => {
                             location.reload();
                         })
                     })
