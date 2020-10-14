@@ -211,7 +211,7 @@ function renderPeserta(doc){
     document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
     document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');
     if(auth.currentUser.email == email){
-        window.location.reload();
+        alert('hello')
     }   
         })
     })
@@ -367,7 +367,7 @@ setInterval(function(){
                     adminKantor.classList.add('btn-info');
                     alert('Karyawan ' + nama + ' berhasil diubah role sebagai admin kantor!');
                     if(auth.currentUser.email == email){
-                        window.location.reload();
+                        alert('hello')
                     }                    
                     })
                 })            
@@ -382,8 +382,8 @@ setInterval(function(){
                     adminKantor.classList.add('btn-success');
                     alert('Karyawan ' + nama + ' berhasil diubah role sebagai member!');
                     if(auth.currentUser.email == email){
-                        window.location.reload();
-                    }                    
+                        alert('hello')
+                    }                                       
                     })
                 })
             } 
