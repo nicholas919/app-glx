@@ -1720,28 +1720,11 @@ $(document).ready(function(){
         switch(role){
         case "Member":
         let addMemberRole = functions.httpsCallable('addMemberRole');
-        addMemberRole({email: email}).then(() => {
-            if(auth.currentUser.email == email){
-                auth.onAuthStateChanged(user => {
-                user.getIdToken(true).then(() => {
-                    window.location.reload();
-                    })
-                })
-                }
-            })           
+        addMemberRole({email: email})           
         break;
         case "Admin Kantor":
         let addAdminRole = functions.httpsCallable('addAdminRole');
-        addAdminRole({email: email}).then(() => {
-            if(auth.currentUser.email == email){
-                auth.onAuthStateChanged(user => {
-                user.getIdToken(true).then(() => {
-                    window.location.reload();
-                    })
-                })
-                }
-            })
-
+        addAdminRole({email: email})
 }
 
 }
