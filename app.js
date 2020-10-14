@@ -1722,8 +1722,9 @@ $(document).ready(function(){
         let addMemberRole = functions.httpsCallable('addMemberRole');
         addMemberRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
-                    auth.signOut();
-                    window.location.reload();
+                auth.onAuthStateChanged(user => {
+                user.getIdToken(true)
+                })
                 }
             })           
         break;
@@ -1731,8 +1732,9 @@ $(document).ready(function(){
         let addAdminRole = functions.httpsCallable('addAdminRole');
         addAdminRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
-                    auth.signOut();
-                    window.location.reload();
+                auth.onAuthStateChanged(user => {
+                user.getIdToken(true)
+                })
                 }
             })
 
