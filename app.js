@@ -209,10 +209,7 @@ function renderPeserta(doc){
     addMemberRole({email: email}).then(() => {
     document.querySelector('#adminKantor' + doc.id).innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
     document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
-    document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');
-    if(auth.currentUser.email == email){
-        alert('hello')
-    }   
+    document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');   
         })
     })
         } else if(item.data().role == "Member"){
@@ -365,10 +362,7 @@ setInterval(function(){
                     adminKantor.innerHTML = 'Hapus Role Sebagai Admin Kantor'
                     adminKantor.classList.remove('btn-success');
                     adminKantor.classList.add('btn-info');
-                    alert('Karyawan ' + nama + ' berhasil diubah role sebagai admin kantor!');
-                    if(auth.currentUser.email == email){
-                        alert('hello')
-                    }                    
+                    alert('Karyawan ' + nama + ' berhasil diubah role sebagai admin kantor!');                    
                     })
                 })            
             } else if(item.data().role == "Admin Kantor"){
@@ -380,10 +374,7 @@ setInterval(function(){
                     adminKantor.innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
                     adminKantor.classList.remove('btn-info');
                     adminKantor.classList.add('btn-success');
-                    alert('Karyawan ' + nama + ' berhasil diubah role sebagai member!');
-                    if(auth.currentUser.email == email){
-                        alert('hello')
-                    }                                       
+                    alert('Karyawan ' + nama + ' berhasil diubah role sebagai member!');                                       
                     })
                 })
             } 
@@ -1674,6 +1665,9 @@ document.querySelector('#search-menu').addEventListener('input', function(e){
 }
 
 function renderUpdatePeserta(doc){
+    if(auth.currentUser.email == email){
+    alert('hello')
+    }    
     let nama = doc.data().nama;
     let libur = doc.data().libur;
     let lokasi = doc.data().lokasi;
