@@ -1725,7 +1725,6 @@ $(document).ready(function(){
                 auth.onAuthStateChanged(user => {
                 user.getIdToken(true)
                 })
-                    location.reload();
                 }
             })           
         break;
@@ -1736,7 +1735,6 @@ $(document).ready(function(){
                 auth.onAuthStateChanged(user => {
                 user.getIdToken(true)
                 })
-                    location.reload();
                 }
             })
 
