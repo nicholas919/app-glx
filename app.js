@@ -358,7 +358,7 @@ setInterval(function(){
                     adminKantor.innerHTML = 'Hapus Role Sebagai Admin Kantor'
                     adminKantor.classList.remove('btn-success');
                     adminKantor.classList.add('btn-info');
-                    alert('Karyawan ' + nama + ' berhasil diubah role sebagai member!');
+                    alert('Karyawan ' + nama + ' berhasil diubah role sebagai admin kantor!');
                     })
                 })            
             } else if(item.data().role == "Admin Kantor"){
@@ -370,7 +370,7 @@ setInterval(function(){
                     adminKantor.innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
                     adminKantor.classList.remove('btn-info');
                     adminKantor.classList.add('btn-success');
-                    alert('Karyawan ' + nama + ' berhasil diubah role sebagai admin kantor!');
+                    alert('Karyawan ' + nama + ' berhasil diubah role sebagai member!');
                     })
                 })
             } 
