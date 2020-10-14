@@ -1752,6 +1752,7 @@ $(document).ready(function(){
 
 }
 
+}
 
 function renderUpdateSwot(doc){
     let analisis = doc.data().analisis;
