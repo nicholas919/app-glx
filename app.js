@@ -1724,6 +1724,8 @@ $(document).ready(function(){
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
                 user.getIdToken(true)
+                }).then(() => {
+                    location.reload();
                 })
                 }
             })           
@@ -1734,6 +1736,8 @@ $(document).ready(function(){
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
                 user.getIdToken(true)
+                }).then(() => {
+                    location.reload();
                 })
                 }
             })
