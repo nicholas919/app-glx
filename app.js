@@ -1757,7 +1757,7 @@ $(document).ready(function(){
                                     if(idTokenResult.claims.member == true){
                                     clearInterval(refreshRoleMember)
                                     alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                                    location.reload();
+                                    window.location.reload();
                                     }
                                 }                                
                             })
@@ -1777,7 +1777,7 @@ $(document).ready(function(){
                                     if(idTokenResult.claims.member == true){
                                     clearInterval(refreshRoleMember)
                                     alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                                    location.reload();
+                                    window.location.reload();
                                     }
                                 }                                 
                             })
@@ -1797,7 +1797,7 @@ $(document).ready(function(){
                                     if(idTokenResult.claims.adminKantor == true){
                                     clearInterval(refreshRoleAdminKantor)
                                     alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                                    location.reload();
+                                    window.location.reload();
                                     }
                                 }                                
                             })
