@@ -207,6 +207,14 @@ function renderPeserta(doc){
     }).then(() => {
     let addMemberRole = functions.httpsCallable('addMemberRole');
     addMemberRole({email: email}).then(() => {
+            if(auth.currentUser.email == email){
+                auth.onAuthStateChanged(user => {
+                        user.getIdToken(true).then(() => {
+                            alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+                            location.reload();
+                        })
+                    })
+                }        
     document.querySelector('#adminKantor' + doc.id).innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
     document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
     document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');   
