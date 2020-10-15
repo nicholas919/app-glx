@@ -501,8 +501,15 @@ function renderHapusPeserta(doc){
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
                         user.getIdToken(true).then(() => {
-                            alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                            location.reload();
+                            user.getIdTokenResult().then(idTokenResult => {
+                                if(idTokenResult.claims.adminKantor == false && idTokenResult.claims.member == false){
+                                alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+                                location.reload();
+                                } else {
+                                    auth.signOut();
+                                    location.reload();
+                                }
+                            })
                         })
                     })
                 }
@@ -1744,8 +1751,15 @@ $(document).ready(function(){
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
                         user.getIdToken(true).then(() => {
-                            alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                            location.reload();
+                            user.getIdTokenResult().then(idTokenResult => {
+                                if(idTokenResult.claims.member){
+                                alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+                                location.reload();
+                                } else {
+                                    auth.signOut();
+                                    location.reload();
+                                }
+                            })
                         })
                     })                
                 }
@@ -1756,8 +1770,15 @@ $(document).ready(function(){
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
                         user.getIdToken(true).then(() => {
-                            alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                            location.reload();
+                            user.getIdTokenResult().then(idTokenResult => {
+                                if(idTokenResult.claims.member){
+                                alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+                                location.reload();
+                                } else {
+                                    auth.signOut();
+                                    location.reload();
+                                }
+                            })
                         })
                     })                
                 }
@@ -1768,8 +1789,15 @@ $(document).ready(function(){
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
                         user.getIdToken(true).then(() => {
-                            alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                            location.reload();
+                            user.getIdTokenResult().then(idTokenResult => {
+                                if(idTokenResult.claims.adminKantor){
+                                alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+                                location.reload();
+                                } else {
+                                    auth.signOut();
+                                    location.reload();
+                                }
+                            })
                         })
                     })
                 }
