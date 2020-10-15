@@ -1738,7 +1738,8 @@ $(document).ready(function(){
                         })
                     })                
                 }
-            })         
+            })
+        break;         
         case "Member":
         addMemberRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
