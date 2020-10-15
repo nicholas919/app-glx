@@ -484,7 +484,18 @@ setInterval(function(){
 }
 
 function renderHapusPeserta(doc){
-    let email = doc.data().email;
+    let nama = doc.data().nama;
+    let email = doc.data().email;    
+    for(let x = 0; x<daftarKaryawan.length; x++){
+        if(daftarKaryawan[x] == nama.toLowerCase().replace(" ", "-")){
+            daftarKaryawan.splice(x,1)
+        }
+    }
+    for(let x = 0; x<daftarEmailKaryawan.length; x++){
+        if(daftarEmailKaryawan[x] == email){
+            daftarEmailKaryawan.splice(x,1)
+        }
+    }    
     let removeRole = functions.httpsCallable('removeRole');
     removeRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
