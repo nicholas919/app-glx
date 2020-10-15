@@ -12,6 +12,7 @@ auth.onAuthStateChanged(user => {
             renderPeserta(change.doc);
             setupUI(user);
         } else if (change.type == 'removed'){
+            renderHapusPeserta(change.doc)
             let tr = document.querySelector('[data-id="' + change.doc.id + '"]');
             let div = document.querySelector('[data-info="' + change.doc.id + '"]');
             listPerformaPeserta.removeChild(div)
