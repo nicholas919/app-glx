@@ -204,22 +204,10 @@ function renderPeserta(doc){
     if(item.data().role == null){
     db.collection('peserta').doc(doc.id).update({
         role : "Member"
-    }).then(() => {
-    let addMemberRole = functions.httpsCallable('addMemberRole');
-    addMemberRole({email: email}).then(() => {
-            if(auth.currentUser.email == email){
-                auth.onAuthStateChanged(user => {
-                        user.getIdToken(true).then(() => {
-                            alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                            location.reload();
-                        })
-                    })
-                }        
+    })
     document.querySelector('#adminKantor' + doc.id).innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
     document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
     document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');   
-        })
-    })
         } else if(item.data().role == "Member"){
     document.querySelector('#adminKantor' + doc.id).innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
     document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
@@ -1688,6 +1676,8 @@ function renderUpdatePeserta(doc){
     let opsiTugasKedua = document.createElement('option');
     opsiTugas.classList.add('opsi-target-peserta' + doc.id, 'pemilihan-tugas-peserta');
     opsiTugas.innerHTML = nama;
+    let addMemberRole = functions.httpsCallable('addMemberRole');
+    let addAdminRole = functions.httpsCallable('addAdminRole');
     document.querySelector('#nama-table' + doc.id).innerHTML = nama;
     document.querySelector('#libur-table' + doc.id).innerHTML = libur;
     document.querySelector('#lokasi-table' + doc.id).innerHTML = lokasi;
@@ -1738,8 +1728,18 @@ $(document).ready(function(){
 })
 
         switch(role){
+        case null:
+        addMemberRole({email: email}).then(() => {
+            if(auth.currentUser.email == email){
+                auth.onAuthStateChanged(user => {
+                        user.getIdToken(true).then(() => {
+                            alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+                            location.reload();
+                        })
+                    })                
+                }
+            })         
         case "Member":
-        let addMemberRole = functions.httpsCallable('addMemberRole');
         addMemberRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
@@ -1752,7 +1752,6 @@ $(document).ready(function(){
             })           
         break;
         case "Admin Kantor":
-        let addAdminRole = functions.httpsCallable('addAdminRole');
         addAdminRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
