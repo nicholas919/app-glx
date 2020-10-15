@@ -502,14 +502,14 @@ function renderHapusPeserta(doc){
                 auth.onAuthStateChanged(user => {
                         user.getIdToken(true).then(() => {
                             user.getIdTokenResult().then(idTokenResult => {
-                                if(idTokenResult.claims.adminKantor == false && idTokenResult.claims.member == false){
-                                alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                                location.reload();
-                                } else {
-                                    auth.signOut().then(() => {
-                                      location.reload();  
-                                    })
-                                }
+//                                if(idTokenResult.claims.adminKantor == false && idTokenResult.claims.member == false){
+//                                alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+//                                location.reload();
+//                                } else {
+//                                    auth.signOut().then(() => {
+//                                      location.reload();  
+//                                    })
+//                                }
                             })
                         })
                     })
@@ -1753,14 +1753,15 @@ $(document).ready(function(){
                 auth.onAuthStateChanged(user => {
                         user.getIdToken(true).then(() => {
                             user.getIdTokenResult().then(idTokenResult => {
-                                if(idTokenResult.claims.member == true){
-                                alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                                location.reload();
-                                } else {
-                                    auth.signOut().then(() => {
-                                      location.reload();  
-                                    })
-                                }
+                                console.log(idTokenResult.claims)
+//                                if(idTokenResult.claims.member == true){
+//                                alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+//                                location.reload();
+//                                } else {
+//                                    auth.signOut().then(() => {
+//                                      location.reload();  
+//                                    })
+//                                }
                             })
                         })
                     })                
@@ -1773,14 +1774,15 @@ $(document).ready(function(){
                 auth.onAuthStateChanged(user => {
                         user.getIdToken(true).then(() => {
                             user.getIdTokenResult().then(idTokenResult => {
-                                if(idTokenResult.claims.member == true){
-                                alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                                location.reload();
-                                } else {
-                                    auth.signOut().then(() => {
-                                      location.reload();  
-                                    })
-                                }
+                                console.log(idTokenResult.claims)
+//                                if(idTokenResult.claims.member == true){
+//                                alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+//                                location.reload();
+//                                } else {
+//                                    auth.signOut().then(() => {
+//                                      location.reload();  
+//                                    })
+//                                }
                             })
                         })
                     })                
@@ -1793,14 +1795,15 @@ $(document).ready(function(){
                 auth.onAuthStateChanged(user => {
                         user.getIdToken(true).then(() => {
                             user.getIdTokenResult().then(idTokenResult => {
-                                if(idTokenResult.claims.adminKantor == true){
-                                alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                                location.reload();
-                                } else {
-                                    auth.signOut().then(() => {
-                                      location.reload();  
-                                    })
-                                }
+                                console.log(idTokenResult.claims)
+//                                if(idTokenResult.claims.member == true){
+//                                alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+//                                location.reload();
+//                                } else {
+//                                    auth.signOut().then(() => {
+//                                      location.reload();  
+//                                    })
+//                                }
                             })
                         })
                     })
