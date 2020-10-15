@@ -87,7 +87,7 @@ auth.onAuthStateChanged(user => {
                                 let perhitunganDetik = Math.floor((rataRataPenyelesaian%(60000))/1000) + ' Detik';
                                 if(perhitunganHari == '0 Hari '){
                                     perhitunganHari = '';
-                                } else if(perhitunganJam == ' 0 Jam '){
+                                } else if(perhitunganJam == '0 Jam '){
                                     perhitunganJam = '';
                                 } else if(perhitunganMenit == '0 Menit '){
                                     perhitunganMenit = '';
