@@ -1753,6 +1753,13 @@ $(document).ready(function(){
                         user.getIdToken(true).then(() => {
                             user.getIdTokenResult().then(idTokenResult => {
                                 refreshRoleMember = setInterval(refreshRoleMember,10);
+                                function refreshRoleMember(){
+                                    if(idTokenResult.claims.member == true){
+                                    clearInterval(refreshRoleMember)
+                                    alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+                                    location.reload();
+                                    }
+                                }                                
                             })
                         })
                     })                
@@ -1766,6 +1773,13 @@ $(document).ready(function(){
                         user.getIdToken(true).then(() => {
                             user.getIdTokenResult().then(idTokenResult => {
                                 refreshRoleMember = setInterval(refreshRoleMember,10);
+                                function refreshRoleMember(){
+                                    if(idTokenResult.claims.member == true){
+                                    clearInterval(refreshRoleMember)
+                                    alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+                                    location.reload();
+                                    }
+                                }                                 
                             })
                         })
                     })                
@@ -1779,28 +1793,19 @@ $(document).ready(function(){
                         user.getIdToken(true).then(() => {
                             user.getIdTokenResult().then(idTokenResult => {
                                 refreshRoleAdminKantor = setInterval(refreshRoleAdminKantor,10);
+                                function refreshRoleAdminKantor(){
+                                    if(idTokenResult.claims.adminKantor == true){
+                                    clearInterval(refreshRoleAdminKantor)
+                                    alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+                                    location.reload();
+                                    }
+                                }                                
                             })
                         })
                     })
                 }
             })
 
-}
-
-function refreshRoleMember(){
-    if(idTokenResult.claims.member == true){
-    clearInterval(refreshRoleMember)
-    alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-    location.reload();
-    }
-}
-
-function refreshRoleAdminKantor(){
-    if(idTokenResult.claims.adminKantor == true){
-    clearInterval(refreshRoleAdminKantor)
-    alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-    location.reload();
-    }
 }
 
 
