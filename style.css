@@ -103,16 +103,6 @@ body{
 	background-color: #28A745;
 }
 
-.hapus-pengeluaran:hover , .hapus-pengeluaran:active{
-	background-color: white;
-	color: #dc3545;
-}
-
-.selesai-pengeluaran:hover, .selesai-pengeluaran:active{
-	background-color: white;
-	color: #28A745;
-}
-
 .keterangan-pengeluaran-tampilan{
 	align-items: center;
 	display: flex;
@@ -125,16 +115,15 @@ body{
 }
 
 .pengeluaran{
-	display: grid;
 	grid-template-columns: auto 50px 50px;
-	height: 50px;
-	overflow-wrap: anywhere;
-	margin: 5px 0px 0px;
 }
 
 .pengeluaran-selesai{
-	display: grid;
 	grid-template-columns: auto 50px;
+}
+
+.pengeluaran, .pengeluaran-selesai{
+	display: grid;
 	height: 50px;
 	overflow-wrap: anywhere;
 	margin: 5px 0px 0px;
@@ -212,11 +201,7 @@ body{
 	color: #6c757d;
 }
 
-.note-kalkulator:nth-child(3){
-	grid-column: 1/2 span;
-}
-
-.note-kalkulator:nth-child(4){
+.note-kalkulator:nth-child(3), .note-kalkulator:nth-child(4){
 	grid-column: 1/2 span;
 }
 
@@ -693,14 +678,6 @@ input:checked + .slider:after {
 	color:#ed2121;
 }
 
-.hapus-potongan-kertas-cetak-label:active{
-	background-color: #ed2121;
-}
-
-.hapus-potongan-kertas-cetak-label:active:after{
-	color:white;
-}
-
 .hapus-potongan-kertas-cetak-label:after {
     position: absolute;
     top: 0;
@@ -764,11 +741,7 @@ input:checked + .slider:after {
 	padding:3px 18px;
 }
 
-.penjual{
-	font-weight: bold;
-}
-
-.nama-penjual{
+.penjual, .nama-penjual, .nama-pembeli, .ekspedisi-terpilih{
 	font-weight: bold;
 }
 
@@ -780,14 +753,6 @@ input:checked + .slider:after {
 	display: grid;
 	grid-template-columns: 80px 15px auto;
 	padding:30px 40px;
-}
-
-.nama-pembeli{
-	font-weight: bold;
-}
-
-.ekspedisi-terpilih{
-	font-weight: bold;
 }
 
 .keterangan-footer{
@@ -920,36 +885,23 @@ div.induk-kategori-menu:nth-child(4n+0){
 }
 
 .hapus-menu{
-	text-align: center;
-	justify-content: center;
-	align-items: center;
-	display: flex !important;
-	cursor: pointer;
 	color:#dc3545;
-	font-size: 20px;
 }
 
 .edit-menu{
+	color:#e0b122;	
+}
+
+.edit-menu, .hapus-menu{
 	text-align: center;
 	justify-content: center;
 	align-items: center;
 	display: flex !important;
 	cursor: pointer;
-	color:#e0b122;
 	font-size: 20px;
 }
 
-.hapus-kategori-menu{
-	text-align: center;
-	justify-content: center;
-	align-items: center;
-	display: flex !important;
-	cursor: pointer;
-	color:white;
-	font-size: 20px;
-}
-
-.edit-kategori-menu{
+.edit-kategori-menu, .hapus-kategori-menu{
 	text-align: center;
 	justify-content: center;
 	align-items: center;
@@ -960,23 +912,19 @@ div.induk-kategori-menu:nth-child(4n+0){
 }
 
 .hapus-ekspedisi-cetak-label{
-	text-align: center;
-	justify-content: center;
-	align-items: center;
-	display: flex !important;
-	cursor: pointer;
 	color:#d11717;
-	font-size: 20px;
-	padding: 8px 5px;
 }
 
 .edit-ekspedisi-cetak-label{
+	color:#34c421;
+}
+
+.edit-ekspedisi-cetak-label, .hapus-ekspedisi-cetak-label{
 	text-align: center;
 	justify-content: center;
 	align-items: center;
 	display: flex !important;
 	cursor: pointer;
-	color:#34c421;
 	font-size: 20px;
 	padding: 8px 5px;
 }
@@ -1227,14 +1175,6 @@ div.induk-kategori-menu:nth-child(4n+0){
 	display: inline-block;
 }
 
-#sign-up:hover, #sign-in:hover{
-	color:#05bbed;
-}
-
-#sign-up:active, #sign-in:active{
-	color:#009ac4;
-}
-
 .navbar, .isi-daftar-menu, .menu{
 	border-bottom: 1px solid rgba(255,255,255,.1);
 }
@@ -1262,17 +1202,9 @@ div.induk-kategori-menu:nth-child(4n+0){
 	padding: 0px !important;
 }
 
-#beranda:active, #pengaturan:active, #sign-in:active{
-	color:#4592d9 !important;
-}
-
 .jumbotron{
 	margin: 10px 20px 10px !important;
 	background-color: white !important;
-}
-
-#sign-out:active{
-	color:#eb0707 !important;
 }
 
 .form-login, .form-daftar{
@@ -1439,11 +1371,6 @@ div.induk-kategori-menu:nth-child(4n+0){
 .tombol-kembali:hover{
     background-color: white !important;
     color:#dc3545 !important;	
-}
-
-.tombol-kembali:active{
-    background-color: #dc3545 !important;
-    color:white !important;	
 }
 
 .tugasseseorang, .tugasseseorangselesai, .kesalahanseseorang{
@@ -1624,12 +1551,6 @@ td{
 	}
 
 	.data-menu{
-	padding: 0px;
-	background-color: white;
-	border-bottom: 1px solid rgba(0,0,0,.2);
-	border-left: 1px solid rgba(0,0,0,.2);
-	border-right: 1px solid rgba(0,0,0,.2);
-	display: grid;
 	grid-template-columns: 78% 11% 11%;
 }
 
@@ -1657,12 +1578,6 @@ td{
 }
 
 	.data-menu{
-	padding: 0px;
-	background-color: white;
-	border-bottom: 1px solid rgba(0,0,0,.2);
-	border-left: 1px solid rgba(0,0,0,.2);
-	border-right: 1px solid rgba(0,0,0,.2);
-	display: grid;
 	grid-template-columns: 76% 12% 12%;
 }
 
@@ -1875,16 +1790,11 @@ td{
 }
 
 	.tombol-menu-tambahan, .tombol-menu-tambahan-kedua, .tombol-menu-tambahan-ketiga, .tombol-menu-tambahan-keempat{
-	padding:10px 0px 5px;
   	background-image: radial-gradient(circle at 50% calc(70% - 20px),#d6d5d2 80%, transparent 50%);
-  	background-position:center;
-  	background-size:0% 50%;
-  	background-repeat:no-repeat;
-  	transition:all 0.4s;
 }
 
 	.grid-halaman{
-		display: block;
+	display: block;
 }
 
 	#grid-jumbotron-pengumuman{
@@ -2012,24 +1922,12 @@ td{
 	font-size: 18px;
 }
 
-.tombol-menu-tambahan:hover .ikon-menu-tambahan, .tombol-menu-tambahan-kedua:hover .ikon-menu-tambahan-kedua, .tombol-menu-tambahan-ketiga:hover .ikon-menu-tambahan-ketiga, .tombol-menu-tambahan-keempat:hover .ikon-menu-tambahan-keempat{
-	background-color:0;
-}
-
-.tombol-menu-tambahan:hover .menu-tambahan-teks, .tombol-menu-tambahan-kedua:hover .menu-tambahan-teks-kedua, .tombol-menu-tambahan-ketiga:hover .menu-tambahan-teks-ketiga, .tombol-menu-tambahan-keempat:hover .menu-tambahan-teks-keempat{
-	color:0;
-}
-
 .tombol-menu-tambahan:hover, .tombol-menu-tambahan-kedua:hover, .tombol-menu-tambahan-ketiga:hover, .tombol-menu-tambahan-keempat:hover{
 	background-size: 0;
 }
 
 .tombol-menu-tambahan:active .ikon-menu-tambahan, .tombol-menu-tambahan-kedua:active .ikon-menu-tambahan-kedua, .tombol-menu-tambahan-ketiga:active .ikon-menu-tambahan-ketiga, .tombol-menu-tambahan-keempat:active .ikon-menu-tambahan-keempat{
 	background-color:#4287f5;
-}
-
-.tombol-menu-tambahan:active .menu-tambahan-teks, .tombol-menu-tambahan-kedua:active .menu-tambahan-teks-kedua, .tombol-menu-tambahan-ketiga:active .menu-tambahan-teks-ketiga, .tombol-menu-tambahan-keempat:active .menu-tambahan-teks-keempat{
-	color:#4287f5;
 }
 
 .tombol-menu-tambahan:active, .tombol-menu-tambahan-kedua:active, .tombol-menu-tambahan-ketiga:active, .tombol-menu-tambahan-keempat:active{
@@ -2043,12 +1941,6 @@ td{
 }
 
 	.data-menu{
-	padding: 0px;
-	background-color: white;
-	border-bottom: 1px solid rgba(0,0,0,.2);
-	border-left: 1px solid rgba(0,0,0,.2);
-	border-right: 1px solid rgba(0,0,0,.2);
-	display: grid;
 	grid-template-columns: 80% 10% 10%;
 }
 
