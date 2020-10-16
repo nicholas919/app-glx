@@ -201,8 +201,6 @@ function renderPeserta(doc){
     listPerformaPeserta.appendChild(div);
     modalPeserta.appendChild(peserta);
 
-console.log(role)
-
     if(role == null){
     db.collection('peserta').doc(doc.id).update({
         role : "Member"
@@ -1760,8 +1758,8 @@ $(document).ready(function(){
                             user.getIdTokenResult().then(idTokenResult => {
                                 refreshRoleMember = setInterval(refreshRoleMember,10);
                                 function refreshRoleMember(){
+                                    console.log(idTokenResult.claims.member)
                                     if(idTokenResult.claims.member == true){
-                                    console.log(idTokenResult.claims)
                                     clearInterval(refreshRoleMember)
                                     alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali. Jika tidak terdapat perubahan apapun pada tampilan website, Diharapkan anda keluar dan masuk lagi kembali pada website.')
                                     window.location.reload();
