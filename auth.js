@@ -10,7 +10,6 @@ auth.onAuthStateChanged(user => {
     changes.forEach(change =>{
         if(change.type == 'added'){
             renderPeserta(change.doc);
-            renderRolePeserta(change.doc);
             setupUI(user);
         } else if (change.type == 'removed'){
             renderHapusPeserta(change.doc)

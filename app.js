@@ -201,6 +201,25 @@ function renderPeserta(doc){
     listPerformaPeserta.appendChild(div);
     modalPeserta.appendChild(peserta);
 
+console.log(role)
+
+    if(role == null){
+    db.collection('peserta').doc(doc.id).update({
+        role : "Member"
+    })
+    document.querySelector('#adminKantor' + doc.id).innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
+    document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
+    document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');   
+        } else if(role == "Member"){
+    document.querySelector('#adminKantor' + doc.id).innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
+    document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
+    document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');
+        } else if(role == "Admin Kantor"){
+    document.querySelector('#adminKantor' + doc.id).innerHTML = 'Hapus Role Sebagai Admin Kantor'
+    document.querySelector('#adminKantor' + doc.id).classList.remove('btn-success');
+    document.querySelector('#adminKantor' + doc.id).classList.add('btn','btn-info');        
+        }
+
     $(document).ready(function() {
     db.collection('tugas').onSnapshot(snapshot =>{
     let items = $('#list-tugas-peserta > .tugasseseorang').get();
@@ -463,26 +482,6 @@ setInterval(function(){
             }
         }
     })
-}
-
-function renderRolePeserta(doc){
-    let role = doc.data().role;
-    if(role == null){
-    db.collection('peserta').doc(doc.id).update({
-        role : "Member"
-    })
-    document.querySelector('#adminKantor' + doc.id).innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
-    document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
-    document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');   
-        } else if(role == "Member"){
-    document.querySelector('#adminKantor' + doc.id).innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
-    document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
-    document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');
-        } else if(role == "Admin Kantor"){
-    document.querySelector('#adminKantor' + doc.id).innerHTML = 'Hapus Role Sebagai Admin Kantor'
-    document.querySelector('#adminKantor' + doc.id).classList.remove('btn-success');
-    document.querySelector('#adminKantor' + doc.id).classList.add('btn','btn-info');        
-        }
 }
 
 function renderHapusPeserta(doc){
