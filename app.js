@@ -486,6 +486,7 @@ setInterval(function(){
 function renderHapusPeserta(doc){
     let nama = doc.data().nama;
     let email = doc.data().email;    
+    let refreshRemoveRole;
     for(let x = 0; x<daftarKaryawan.length; x++){
         if(daftarKaryawan[x] == nama.toLowerCase().replace(" ", "-")){
             daftarKaryawan.splice(x,1)
@@ -502,9 +503,13 @@ function renderHapusPeserta(doc){
                 auth.onAuthStateChanged(user => {
                         user.getIdToken(true).then(() => {
                             user.getIdTokenResult().then(idTokenResult => {
-                                if(idTokenResult.claims.adminKantor == false && idTokenResult.claims.member == false){
-                                alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                                location.reload();
+                                refreshRemoveRole = setInterval(refreshRemoveRole,10);
+                                function refreshRemoveRole(){
+                                    if(idTokenResult.claims.adminKantor == false && idTokenResult.claims.member == false){
+                                    clearInterval(refreshRemoveRole)
+                                    alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+                                    window.location.reload();
+                                    }
                                 }
                             })
                         })
