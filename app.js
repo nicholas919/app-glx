@@ -84,6 +84,7 @@ function renderPeserta(doc){
     let libur = doc.data().libur;
     let lokasi = doc.data().lokasi;
     let email = doc.data().email;
+    let role = doc.data().role;
     daftarEmailKaryawan.push(email);
     daftarKaryawan.push(nama.toLowerCase().replace(" ", "-"));
     let opsiTugas = document.createElement('option');
@@ -200,24 +201,22 @@ function renderPeserta(doc){
     listPerformaPeserta.appendChild(div);
     modalPeserta.appendChild(peserta);
 
-    db.collection('peserta').doc(doc.id).get().then((item) => {
-    if(item.data().role == null){
+    if(role == null){
     db.collection('peserta').doc(doc.id).update({
         role : "Member"
     })
     document.querySelector('#adminKantor' + doc.id).innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
     document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
     document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');   
-        } else if(item.data().role == "Member"){
+        } else if(role == "Member"){
     document.querySelector('#adminKantor' + doc.id).innerHTML = 'Tambahkan Role Sebagai Admin Kantor'
     document.querySelector('#adminKantor' + doc.id).classList.add('btn', 'btn-success');
     document.querySelector('#adminKantor' + doc.id).classList.remove('btn-info');
-        } else if(item.data().role == "Admin Kantor"){
+        } else if(role == "Admin Kantor"){
     document.querySelector('#adminKantor' + doc.id).innerHTML = 'Hapus Role Sebagai Admin Kantor'
     document.querySelector('#adminKantor' + doc.id).classList.remove('btn-success');
     document.querySelector('#adminKantor' + doc.id).classList.add('btn','btn-info');        
         }
-    })
 
     $(document).ready(function() {
     db.collection('tugas').onSnapshot(snapshot =>{
