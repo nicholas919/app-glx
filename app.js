@@ -508,7 +508,7 @@ function renderHapusPeserta(doc){
                                 function refreshRemoveRole(){
                                     if(idTokenResult.claims.adminKantor == false && idTokenResult.claims.member == false){
                                     clearInterval(refreshRemoveRole)
-                                    alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+                                    alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali. Jika tidak terdapat perubahan apapun pada tampilan website, Diharapkan anda keluar dan masuk lagi kembali pada website.')
                                     window.location.reload();
                                     }
                                 }
@@ -1763,7 +1763,7 @@ $(document).ready(function(){
                                     if(idTokenResult.claims.member == true){
                                     console.log(idTokenResult.claims)
                                     clearInterval(refreshRoleMember)
-                                    alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+                                    alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali. Jika tidak terdapat perubahan apapun pada tampilan website, Diharapkan anda keluar dan masuk lagi kembali pada website.')
                                     window.location.reload();
                                     }
                                 }                                 
@@ -1783,7 +1783,7 @@ $(document).ready(function(){
                                 function refreshRoleAdminKantor(){
                                     if(idTokenResult.claims.adminKantor == true){
                                     clearInterval(refreshRoleAdminKantor)
-                                    alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
+                                    alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali. Jika tidak terdapat perubahan apapun pada tampilan website, Diharapkan anda keluar dan masuk lagi kembali pada website.')
                                     window.location.reload();
                                     }
                                 }                                
