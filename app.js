@@ -1750,27 +1750,7 @@ $(document).ready(function(){
 
 })
 
-        switch(role){
-        case null:
-        addMemberRole({email: email}).then(() => {
-            if(auth.currentUser.email == email){
-                auth.onAuthStateChanged(user => {
-                        user.getIdToken(true).then(() => {
-                            user.getIdTokenResult().then(idTokenResult => {
-                                refreshRoleMember = setInterval(refreshRoleMember,10);
-                                function refreshRoleMember(){
-                                    if(idTokenResult.claims.member == true){
-                                    clearInterval(refreshRoleMember)
-                                    alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
-                                    window.location.reload();
-                                    }
-                                }                                
-                            })
-                        })
-                    })                
-                }
-            })
-        break;         
+        switch(role){         
         case "Member":
         addMemberRole({email: email}).then(() => {
             if(auth.currentUser.email == email){
