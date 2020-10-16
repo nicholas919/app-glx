@@ -1760,6 +1760,7 @@ $(document).ready(function(){
                                 refreshRoleMember = setInterval(refreshRoleMember,10);
                                 function refreshRoleMember(){
                                     if(idTokenResult.claims.member == true){
+                                    console.log(idTokenResult.claims)
                                     clearInterval(refreshRoleMember)
                                     alert('Terdapat suatu perubahan pada tampilan halaman website anda, halaman akan direfresh kembali')
                                     window.location.reload();
