@@ -1710,7 +1710,7 @@ td{
 	display: block;
 }
 
-.ekspedisicetaklabel{
+	.ekspedisicetaklabel{
 	background-color:#ffc107;
 	display: grid;
 	grid-template-columns: 86% 7% 7%;
@@ -1718,10 +1718,16 @@ td{
 	cursor: pointer;
 }
 
-.potongan-kertas-cetak-label:nth-child(1n+0), .potongan-kertas-retur:nth-child(1n+0){
+	.potongan-kertas-cetak-label:nth-child(1n+0), .potongan-kertas-retur:nth-child(1n+0){
 	border-bottom:1px dashed black;
 	border-right: 0;
 }
+
+	#list-tenor-kalkulator{
+	grid-template-columns: 145px 145px 145px;
+}
+
+
 }
 
 @media only screen and (max-width: 960px){
@@ -1750,10 +1756,6 @@ td{
 	div.induk-kategori-menu:nth-child(2n+0){
 		margin-right: 0px !important;
 		margin-bottom: 5px !important;
-}
-
-	#list-tenor-kalkulator{
-	grid-template-columns: 145px 145px 145px;
 }
 
 }
