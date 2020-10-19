@@ -2,6 +2,18 @@ body{
 	background-color: #eeeeee !important;
 }
 
+#th-tanggal-transaksi, #th-nominal-transaksi{
+	width: 18%;
+}
+
+#th-produk-transaksi, #th-keterangan-transaksi{
+	width: 25%;
+}
+
+#th-action-transaksi{
+	width: 14%;
+}
+
 .lihat-transaksi-berjalan{
 	border-radius: 0px !important;
 	cursor: pointer;
@@ -19,6 +31,7 @@ body{
 
 #tombol-tambah-lihat-retur-dealer-kedua, #tombol-tambah-lihat-retur-kedua, #tombol-tambah-lihat-perpindahan-kedua{
 	width: 100%;
+	z-index: 1;
 }
 
 #preview-print-retur-dealer{
@@ -525,18 +538,18 @@ input:checked + .slider:after {
 
 .perpindahan-barang, .retur{
 	margin: 10px 20px;
-	z-index: -1;
-	position: relative;
 }
 
 .menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur{
 	border-radius: 0 !important;
 	transform: translate3d(-120px, 45px, 0px) !important;
+	z-index: 0 !important;
 }
 
 .menu-konfigurasi-catatan{
 	border-radius: 0 !important;
 	transform: translate3d(-125px, 50px, 0px) !important;
+	z-index: 0 !important;
 }
 
 .tombol-pengaturan{
@@ -1261,8 +1274,12 @@ div.induk-kategori-menu:nth-child(4n+0){
 	grid-template-columns: 50% 50%;
 }
 
-#halaman-kesalahan, #list-perpindahan-barang, #list-perpindahan-barang-pending, #list-perpindahan-barang-selesai, #list-retur-pending, #list-retur-selesai, #list-retur-dealer-pending, #list-retur-dealer-selesai{
+#halaman-kesalahan, #list-retur-pending, #list-retur-selesai, #list-retur-dealer-pending, #list-retur-dealer-selesai{
 	margin-bottom: 90px;
+}
+
+#list-perpindahan-barang, #list-perpindahan-barang-pending, #list-perpindahan-barang-selesai{
+	margin-bottom: 160px;
 }
 
 #list-tugas, #list-tugas-selesai{
@@ -1798,6 +1815,14 @@ td{
 
 	#tabel-transaksi{
 	width: 160%;
+}
+
+	#th-tanggal-transaksi, #th-nominal-transaksi{
+	width: 20%;
+}
+
+	#th-produk-transaksi, #th-keterangan-transaksi{
+	width: 25%;
 }
 
 
