@@ -2008,8 +2008,11 @@ div.induk-kategori-menu{
 }
 
 .note-kalkulator, .konten-retur-tampilan, .konten-catatan-body, th, td, .indent-cust{
-	grid-column:1/2 span;
 	font-size: 14px;
+}
+
+.note-kalkulator{
+	grid-column:1/2 span;
 }
 
 .konten-retur-tampilan{
