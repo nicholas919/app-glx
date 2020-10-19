@@ -1002,7 +1002,7 @@
 <table class="table garis" id="tabel-transaksi" style="margin-bottom: 0px;">
   <thead class="thead-dark">
     <tr>
-      <th scope="col" id="th-tanggal-transaksi">Tanggal Transaksi</th>
+      <th scope="col" id="th-tanggal-transaksi">Tanggal Transaksi <i class='fas fa-exchange-alt'></i></th>
       <th scope="col" id="th-nominal-transaksi">Nominal Transaksi</th>
       <th scope="col" id="th-produk-transaksi">Produk</th>
       <th scope="col" id="th-keterangan-transaksi">Keterangan Transaksi</th>
@@ -2911,6 +2911,42 @@ tombolKembaliListPengeluaran.addEventListener('click', function(e){
     tombolKembaliListPengeluaran.style.display = 'none';
     document.querySelector('#jumbotron-form-daftar-belanja').style.display = 'block';
     document.querySelector('#jumbotron-daftar-belanja').style.display = 'block';
+})
+
+let thTT = document.querySelector('#th-tanggal-transaksi');
+thTT.addEventListener('click', function(e){
+  e.stopPropagation();
+    if($('#list-transaksi-berjalan').hasClass('sorted-by-newest')){
+    let items = $('#list-transaksi-berjalan > .transaksi-berjalan').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('date');
+    let keyB = $(b).data('date');
+    if (keyA > keyB) return 1;
+    if (keyA < keyB) return -1;
+    return 0;
+    })
+    let daftarTransaksiBerjalan = $('#list-transaksi-berjalan');
+    $.each(items, function(i, tr) {
+    daftarTransaksiBerjalan.append(tr)
+    daftarTransaksiBerjalan.removeClass('sorted-by-newest');
+    daftarTransaksiBerjalan.addClass('sorted-by-oldest');
+    })  
+  } else {
+    let items = $('#list-transaksi-berjalan > .transaksi-berjalan').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('date');
+    let keyB = $(b).data('date');
+    if (keyA < keyB) return 1;
+    if (keyA > keyB) return -1;
+    return 0;
+    })
+    let daftarTransaksiBerjalan = $('#list-transaksi-berjalan');
+    $.each(items, function(i, tr) {
+    daftarTransaksiBerjalan.append(tr)
+    daftarTransaksiBerjalan.removeClass('sorted-by-oldest');
+    daftarTransaksiBerjalan.addClass('sorted-by-newest');
+    })    
+  }
 })
 
 </script>

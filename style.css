@@ -2,6 +2,15 @@ body{
 	background-color: #eeeeee !important;
 }
 
+th:hover{
+	color:coral !important;
+	cursor: pointer;
+}
+
+.fa-exchange-alt{
+	transform: rotate(90deg);
+}
+
 #th-tanggal-transaksi, #th-nominal-transaksi{
 	width: 18%;
 }
@@ -495,6 +504,7 @@ input:checked + .slider:after {
 	width: 100%;
 	top:57px;
 	position: fixed;
+	z-index: 1;
 }
 
 .ikon-notice{

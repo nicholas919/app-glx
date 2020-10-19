@@ -4115,7 +4115,7 @@ function renderOverview(doc){
     if(auth.currentUser != null){
     db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         if(document.querySelector('#pengguna-overview' + doc.id) == null){
-            console.log = function(){}
+            //console.log = function(){}
         } else if(penggunaOverview == docs.data().username){
             document.querySelector('#pengguna-overview' + doc.id).innerHTML = 'Anda';
         }
@@ -5780,6 +5780,7 @@ function renderTransaksiBerjalan(doc){
     tanggalTransaksi = dd + ' ' + mm + ' ' + yyyy;
     let mm1 = String(kalkulasiTanggal.getMonth() + 1).padStart(2, '0');
     let tampilanTanggal = yyyy + '-' + mm1 + '-' + dd;
+    tr.setAttribute('data-date', new Date(yyyy + ',' + mm1 + ',' + dd).getTime())
 
     tr.innerHTML = `
     <td style="font-weight:bold;" id="tanggal-transaksi-table${doc.id}">${tanggalTransaksi}</td>

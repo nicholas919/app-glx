@@ -445,6 +445,13 @@ auth.onAuthStateChanged(user => {
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         div.remove();
+                        console.log(listPerpindahanBarang.childNodes.length)
+                        if(listPerpindahanBarang.childNodes.length == 0){
+                            if(document.querySelector('#peringatan-perpindahan') && document.querySelector('#peringatan-perpindahan-kedua')){
+                            document.querySelector('#peringatan-perpindahan').remove();
+                            document.querySelector('#peringatan-perpindahan-kedua').remove();  
+                            }
+                        }
                     } else if(change.type == 'modified'){
                         renderUpdatePerpindahan(change.doc);
                     }
