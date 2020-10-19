@@ -1995,7 +1995,7 @@ div.induk-kategori-menu{
 	padding: 10px 10px 30px;
 }
 
-.note-kalkulator, #tabel-transaksi td{
+.note-kalkulator{
 	font-size: 13px;
 }
 
@@ -2003,7 +2003,7 @@ div.induk-kategori-menu{
 	font-size: 16px;
 }
 
-.menu, .tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur, .tombol-lihat-perpindahan, #lihat-performa-peserta, .konten-perpindahan-barang-tampilan, .judul-perpindahan-barang, .label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor, .info-tugas, label, #peringatan-perpindahan-kedua, .info-indent-cust, .info-pengeluaran, .keterangan-pengeluaran-tampilan, .info-kesalahan, .info-achievement, .info-akun, .info-tenor, .info-transaksi, .info-perpindahan-barang, .info-retur, .info-indent-cust, .info-pengeluaran{
+.menu, .tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur, .tombol-lihat-perpindahan, #lihat-performa-peserta, .konten-perpindahan-barang-tampilan, .judul-perpindahan-barang, .label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor, .info-tugas, label, #peringatan-perpindahan-kedua, .info-indent-cust, .info-pengeluaran, .keterangan-pengeluaran-tampilan, .info-kesalahan, .info-achievement, .info-akun, .info-tenor, .info-transaksi, .info-perpindahan-barang, .info-retur, .info-indent-cust, .info-pengeluaran, #tombol-edit-biaya-bunga, #tombol-edit-biaya-admin{
 	font-size: 15px;
 }
 
@@ -2112,7 +2112,6 @@ input:checked + .slider:after {
 
 #tombol-edit-biaya-bunga, #tombol-edit-biaya-admin{
 	margin-right: 0px;
-	font-size: 15px;
 }
 
 #form-kalkulator{
