@@ -731,8 +731,8 @@ const setupUI = (user) => {
         let kesalahan = document.querySelectorAll('.kesalahanseseorang');
         let bodyEmail = document.querySelectorAll('.body-email');
         let emailTable = document.querySelectorAll('.email-table');
-        let produkTransaksiTable = document.querySelectorAll('.produk-transaksi-table');
-        let keteranganTransaksiTable = document.querySelectorAll('.keterangan-transaksi-table');
+        //let produkTransaksiTable = document.querySelectorAll('.produk-transaksi-table');
+        //let keteranganTransaksiTable = document.querySelectorAll('.keterangan-transaksi-table');
         let username = doc.data().username;
         let kataSambut = document.querySelectorAll('.kata-sambutan');
         let overview = document.querySelectorAll('.overview');
@@ -805,28 +805,28 @@ const setupUI = (user) => {
                     emailTable[x].setAttribute('style','display:none !important;');
                     }
                     document.querySelector('#th-email').style.display = 'none';
-                    for(let x = 0; x<produkTransaksiTable.length;x++){
-                    produkTransaksiTable[x].setAttribute('style','display:none !important;');
-                    }
-                    for(let x = 0; x<keteranganTransaksiTable.length;x++){
-                    keteranganTransaksiTable[x].setAttribute('style','display:none !important;');
-                    }                    
-                    document.querySelector('#th-produk-transaksi').style.display = 'none';
-                    document.querySelector('#th-keterangan-transaksi').style.display = 'none';                    
+                    //for(let x = 0; x<produkTransaksiTable.length;x++){
+                    //produkTransaksiTable[x].setAttribute('style','display:none !important;');
+                    //}
+                    //for(let x = 0; x<keteranganTransaksiTable.length;x++){
+                    //keteranganTransaksiTable[x].setAttribute('style','display:none !important;');
+                    //}                    
+                    //document.querySelector('#th-produk-transaksi').style.display = 'none';
+                    //document.querySelector('#th-keterangan-transaksi').style.display = 'none';                    
             } else {
                     document.querySelector('#halaman-tugas').style.display = 'grid';
                     for(let x = 0; x<emailTable.length;x++){
                     emailTable[x].setAttribute('style','display:block !important;');
                     }
                     document.querySelector('#th-email').style.display = 'table-cell';
-                    for(let x = 0; x<produkTransaksiTable.length;x++){
-                    produkTransaksiTable[x].setAttribute('style','display:table-cell !important;');
-                    }
-                    for(let x = 0; x<keteranganTransaksiTable.length;x++){
-                    keteranganTransaksiTable[x].setAttribute('style','display:table-cell !important;');
-                    }
-                    document.querySelector('#th-produk-transaksi').style.display = 'table-cell';
-                    document.querySelector('#th-keterangan-transaksi').style.display = 'table-cell';                    
+                    //for(let x = 0; x<produkTransaksiTable.length;x++){
+                    //produkTransaksiTable[x].setAttribute('style','display:table-cell !important;');
+                    //}
+                    //for(let x = 0; x<keteranganTransaksiTable.length;x++){
+                    //keteranganTransaksiTable[x].setAttribute('style','display:table-cell !important;');
+                    //}
+                    //document.querySelector('#th-produk-transaksi').style.display = 'table-cell';
+                    //document.querySelector('#th-keterangan-transaksi').style.display = 'table-cell';                    
             }
         }
             for(let x = 0; x<rolePeserta.length;x++){
@@ -956,21 +956,21 @@ const setupUI = (user) => {
             function myFunction(x){
             if (x.matches) { // If media query matches
                     document.querySelector('#halaman-tugas').style.display = 'block';
-                    for(let x = 0; x<produkTransaksiTable.length;x++){
-                    produkTransaksiTable[x].setAttribute('style','display:none !important;');
-                    }
-                    for(let x = 0; x<keteranganTransaksiTable.length;x++){
-                    keteranganTransaksiTable[x].setAttribute('style','display:none !important;');
-                    }                    
-                    document.querySelector('#th-produk-transaksi').style.display = 'none';
-                    document.querySelector('#th-keterangan-transaksi').style.display = 'none';                    
+                    //for(let x = 0; x<produkTransaksiTable.length;x++){
+                    //produkTransaksiTable[x].setAttribute('style','display:none !important;');
+                    //}
+                    //for(let x = 0; x<keteranganTransaksiTable.length;x++){
+                    //keteranganTransaksiTable[x].setAttribute('style','display:none !important;');
+                    //}                    
+                    //document.querySelector('#th-produk-transaksi').style.display = 'none';
+                    //document.querySelector('#th-keterangan-transaksi').style.display = 'none';                    
             } else {
                     document.querySelector('#halaman-tugas').style.display = 'grid';
-                    for(let x = 0; x<produkTransaksiTable.length;x++){
-                    produkTransaksiTable[x].setAttribute('style','display:block !important;');
-                    }
-                    document.querySelector('#th-produk-transaksi').style.display = 'table-cell';
-                    document.querySelector('#th-keterangan-transaksi').style.display = 'table-cell';                    
+                    //for(let x = 0; x<produkTransaksiTable.length;x++){
+                    //produkTransaksiTable[x].setAttribute('style','display:block !important;');
+                    //}
+                    //document.querySelector('#th-produk-transaksi').style.display = 'table-cell';
+                    //document.querySelector('#th-keterangan-transaksi').style.display = 'table-cell';                    
             }
         }
             for(let x = 0; x<rolePeserta.length;x++){
@@ -5811,8 +5811,8 @@ function renderTransaksiBerjalan(doc){
     let tampilanTanggal = yyyy + '-' + mm1 + '-' + dd;
 
     tr.innerHTML = `
-    <td style="font-weight:bold;" id="tanggal-transaksi-table${doc.id}">${tanggalTransaksi}</td>
-    <td id="nominal-transaksi-table${doc.id}">${"Rp " + Number(nominalTransaksi).toLocaleString(undefined, {
+    <td style="font-weight:bold;vertical-align:middle;" id="tanggal-transaksi-table${doc.id}">${tanggalTransaksi}</td>
+    <td id="nominal-transaksi-table${doc.id}" style="vertical-align:middle;">${"Rp " + Number(nominalTransaksi).toLocaleString(undefined, {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
     }) + ",00"}</td>

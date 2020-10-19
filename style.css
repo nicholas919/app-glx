@@ -1535,7 +1535,7 @@ td{
 	display: none;
 }
 
-#th-email, #th-produk-transaksi, #th-keterangan-transaksi{
+#th-email{
 	display: none;
 }
 
@@ -2003,11 +2003,11 @@ div.induk-kategori-menu{
 	font-size: 16px;
 }
 
-.menu, .tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur, .tombol-lihat-perpindahan, #lihat-performa-peserta, .konten-perpindahan-barang-tampilan, .judul-perpindahan-barang, .label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor, th, .info-tugas, label, #peringatan-perpindahan-kedua, .info-indent-cust, .info-pengeluaran, .keterangan-pengeluaran-tampilan{
+.menu, .tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur, .tombol-lihat-perpindahan, #lihat-performa-peserta, .konten-perpindahan-barang-tampilan, .judul-perpindahan-barang, .label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor, .info-tugas, label, #peringatan-perpindahan-kedua, .info-indent-cust, .info-pengeluaran, .keterangan-pengeluaran-tampilan{
 	font-size: 15px;
 }
 
-.note-kalkulator, .konten-retur-tampilan, .konten-catatan-body, td, .indent-cust{
+.note-kalkulator, .konten-retur-tampilan, .konten-catatan-body, th, td, .indent-cust{
 	grid-column:1/2 span;
 	font-size: 14px;
 }
@@ -2130,6 +2130,10 @@ input:checked + .slider:after {
 
 .menu-konfigurasi-catatan{
 	transform: translate3d(-125px, 48px, 0px) !important;
+}
+
+#tabel-transaksi{
+	width: 140%;
 }
 
 }
