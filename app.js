@@ -1366,7 +1366,6 @@ const setupUI = (user) => {
                     $('#modalpengaturanakun').modal('hide');
                     alert('Akun anda berhasil dihapus!');
                     formHapusAkun.style.display = 'none';
-                    console.log(username);
                     let waktuOverview = new Date().getTime();
                     db.collection('overview').add({
                         penggunaOverview : username,
@@ -4115,7 +4114,7 @@ function renderOverview(doc){
     if(auth.currentUser != null){
     db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         if(document.querySelector('#pengguna-overview' + doc.id) == null){
-            //console.log = function(){}
+            console.log = function(){}
         } else if(penggunaOverview == docs.data().username){
             document.querySelector('#pengguna-overview' + doc.id).innerHTML = 'Anda';
         }
