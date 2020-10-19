@@ -1042,7 +1042,7 @@ const setupUI = (user) => {
             }                                                                                
             document.querySelector('#tambahpengumuman').style.display = 'none';
             document.querySelector('#myTabContent').style.display = 'block';
-            //document.querySelector('#th-email').style.display = 'none';
+            document.querySelector('#th-email').style.display = 'none';
             document.querySelector('#home').style.display = 'block';
             document.querySelector('#swot').style.display = 'none';
             document.querySelector('#achievement').style.display = 'none';
