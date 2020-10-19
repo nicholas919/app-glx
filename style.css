@@ -525,6 +525,8 @@ input:checked + .slider:after {
 
 .perpindahan-barang, .retur{
 	margin: 10px 20px;
+	z-index: -1;
+	position: relative;
 }
 
 .menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur{
