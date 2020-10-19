@@ -1241,7 +1241,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	font-size: 17px;
 }
 
-#tabel-peserta{
+#daftar-peserta{
 	display: none;
 }
 
@@ -1528,10 +1528,6 @@ td{
 }
 
 #swot, #achievement, #home, #setting, #transaksi-berjalan, #informasi, #perpindahan-barang, #kalkulator, #cetak-label, #catatan, #indent-cust{
-	display: none;
-}
-
-#th-email{
 	display: none;
 }
 
