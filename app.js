@@ -5763,8 +5763,6 @@ function renderTransaksiBerjalan(doc){
     let transaksi = document.createElement('div');
     tr.setAttribute('data-id', doc.id);
     tr.setAttribute('id', 'transaksi' + doc.id);
-    tr.setAttribute('data-toggle', 'modal');
-    tr.setAttribute('data-target', '#modaltransaksiberjalan' + doc.id);
     tr.classList.add('dokumentasi-transaksi' + doc.id, 'transaksi-berjalan');
     let namaCustomer = doc.data().namaCustomer;
     let kontakCustomer = doc.data().kontakCustomer;
@@ -5784,13 +5782,14 @@ function renderTransaksiBerjalan(doc){
     let tampilanTanggal = yyyy + '-' + mm1 + '-' + dd;
 
     tr.innerHTML = `
-    <td style="font-weight:bold;vertical-align:middle;" id="tanggal-transaksi-table${doc.id}">${tanggalTransaksi}</td>
-    <td id="nominal-transaksi-table${doc.id}" style="vertical-align:middle;">${"Rp " + Number(nominalTransaksi).toLocaleString(undefined, {
+    <td style="font-weight:bold;" id="tanggal-transaksi-table${doc.id}">${tanggalTransaksi}</td>
+    <td id="nominal-transaksi-table${doc.id}">${"Rp " + Number(nominalTransaksi).toLocaleString(undefined, {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
     }) + ",00"}</td>
     <td id="produk-transaksi-table${doc.id}" class="produk-transaksi-table">${produkTransaksi}</td>
     <td id="keterangan-transaksi-table${doc.id}" class="keterangan-transaksi-table">${keteranganTransaksi}</td>
+    <td><div data-target="#modaltransaksiberjalan${doc.id}" data-toggle="modal" class="btn btn-success lihat-transaksi-berjalan">View</div></td>
     `
 
     transaksi.innerHTML = `

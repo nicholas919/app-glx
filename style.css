@@ -2,6 +2,11 @@ body{
 	background-color: #eeeeee !important;
 }
 
+.lihat-transaksi-berjalan{
+	border-radius: 0px !important;
+	cursor: pointer;
+}
+
 #navbarToggleExternalContent{
 	overflow-y: auto;
 }
@@ -166,10 +171,6 @@ body{
 
 .keterangan-footer-kedua{
 	border-top:1px dashed black;
-}
-
-.transaksi-berjalan{
-	cursor: pointer;
 }
 
 #copy-hasil-perhitungan-kalkulator{
@@ -1510,7 +1511,7 @@ th,td{
 	text-align: center !important;
 }
 
-th{
+th, #tabel-transaksi td{
 	vertical-align: middle !important;
 }
 
@@ -1793,6 +1794,9 @@ td{
 	display: block;
 }
 
+	#tabel-transaksi{
+	width: 160%;
+}
 
 
 }
@@ -1999,8 +2003,8 @@ div.induk-kategori-menu{
 	font-size: 15px;
 }
 
-.note-kalkulator, .konten-retur-tampilan, .konten-catatan-body, th, td, .indent-cust{
-	font-size: 14px;
+.note-kalkulator, .konten-retur-tampilan, .konten-catatan-body, th, td, .indent-cust, .lihat-transaksi-berjalan{
+	font-size: 14px !important;
 }
 
 .note-kalkulator{
@@ -2124,10 +2128,6 @@ input:checked + .slider:after {
 
 .menu-konfigurasi-catatan{
 	transform: translate3d(-125px, 48px, 0px) !important;
-}
-
-#tabel-transaksi{
-	width: 160%;
 }
 
 }
