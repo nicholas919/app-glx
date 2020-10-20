@@ -281,7 +281,7 @@ let refreshPerformaPeserta = setInterval(refreshOnPerformaPeserta,10);
 
 function refreshOnPerformaPeserta(){
     let performaPeserta = document.querySelectorAll('.performa-peserta');    
-    if($(window).width() <= 1000){
+    if(window.innerWidth <= 1000){
     if(listPerformaPeserta.childNodes.length > 3){
     for(let x = 0; x<performaPeserta.length; x++){
     if(x > 2){
@@ -333,7 +333,7 @@ function refreshOnPerformaPeserta(){
 }
 
 setInterval(function(){
-    if($(window).width() >= 1000){
+    if(window.innerWidth >= 1000){
         if(document.querySelector('#lihat-performa-peserta')){
             refreshOnPerformaPeserta()
         }
