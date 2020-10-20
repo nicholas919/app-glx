@@ -2,10 +2,6 @@ body{
 	background-color: #eeeeee !important;
 }
 
-.fa-exchange-alt{
-	transform: rotate(90deg);
-}
-
 #th-tanggal-transaksi, #th-nominal-transaksi{
 	width: 18%;
 }
@@ -1181,10 +1177,6 @@ div.induk-kategori-menu:nth-child(4n+0){
 	margin-bottom: 57px;
 }
 
-#form-daftar, #form-masuk{
-	display: none !important;
-}
-
 #sign-up, #sign-in{
 	color:#69c7e0;
 	cursor: pointer;
@@ -1233,7 +1225,10 @@ div.induk-kategori-menu:nth-child(4n+0){
 #form-masuk, #form-daftar{
 	background-color: white !important;
 	padding:50px !important;
-	margin:140px 450px 80px!important;
+	margin:140px auto 80px!important;
+	width: 400px;
+	position: relative;
+	display: none !important;
 }
 
 #form-tombol-masuk, #form-tombol-daftar{
@@ -1587,12 +1582,6 @@ td{
 	margin-right: auto !important;
 }
 
-#form-masuk, #form-daftar{
-	background-color: white !important;
-	padding:50px !important;
-	margin:140px 350px 80px!important;
-}
-
 .data-menu{
 	grid-template-columns: 76% 12% 12%;
 }
@@ -1617,12 +1606,6 @@ td{
 .navbar-brand{
 	margin-left: 42.5% !important;
 	margin-right: auto !important;
-}
-
-#form-masuk, #form-daftar{
-	background-color: white !important;
-	padding:50px !important;
-	margin:140px 300px 80px !important;
 }
 
 #list-kategori-menu{
@@ -1656,24 +1639,12 @@ div.induk-kategori-menu:nth-child(3n+0){
 	margin-right: auto !important;
 }
 
-#form-masuk, #form-daftar{
-	background-color: white !important;
-	padding:50px !important;
-	margin:140px 280px 80px !important;
-}
-
 }
 
 @media only screen and (max-width: 1050px){
 .navbar-brand{
 	margin-left: 41.5% !important;
 	margin-right: auto !important;
-}
-
-#form-masuk, #form-daftar{
-	background-color: white !important;
-	padding:50px !important;
-	margin:140px 260px 80px !important;
 }
 
 #list-tenor-kalkulator{
@@ -1687,12 +1658,6 @@ div.induk-kategori-menu:nth-child(3n+0){
 .navbar-brand{
 	margin-left: 41% !important;
 	margin-right: auto !important;
-}
-
-#form-masuk, #form-daftar{
-	background-color: white !important;
-	padding:50px !important;
-	margin:140px 240px 80px !important;
 }
 
 #list-jumbotron-cetak-label{
@@ -1731,12 +1696,6 @@ div.induk-kategori-menu:nth-child(3n+0){
 	margin-right: auto !important;
 	}
 
-#form-masuk, #form-daftar{
-	background-color: white !important;
-	padding:50px !important;
-	margin:140px 220px 80px !important;
-}
-
 #list-kategori-menu{
 	margin: 5px 20px 150px;
 	display: grid;
@@ -1761,13 +1720,6 @@ div.induk-kategori-menu:nth-child(2n+0){
 	margin-right: auto !important;
 }
 
-#form-masuk, #form-daftar{
-	background-color: white !important;
-	padding:50px !important;
-	margin:140px 200px 80px !important;
-}
-
-
 .ekspedisicetaklabel{
 	background-color:#ffc107;
 	display: grid;
@@ -1784,12 +1736,6 @@ div.induk-kategori-menu:nth-child(2n+0){
 	margin-right: auto !important;
 }
 
-#form-masuk, #form-daftar{
-	background-color: white !important;
-	padding:50px !important;
-	margin:140px 180px 80px !important;
-}
-
 #list-tenor-kalkulator{
 	grid-template-columns: 145px 145px;
 }
@@ -1800,12 +1746,6 @@ div.induk-kategori-menu:nth-child(2n+0){
 .navbar-brand{
 	margin-left: 39% !important;
 	margin-right: auto !important;
-}
-
-#form-masuk, #form-daftar{
-	background-color: white !important;
-	padding:50px !important;
-	margin:140px 160px 80px !important;
 }
 
 .tombol-menu-tambahan, .tombol-menu-tambahan-kedua, .tombol-menu-tambahan-ketiga, .tombol-menu-tambahan-keempat{
@@ -1839,12 +1779,6 @@ div.induk-kategori-menu:nth-child(2n+0){
 .navbar-brand{
 	margin-left: 38.5% !important;
 	margin-right: auto !important;
-}
-
-#form-masuk, #form-daftar{
-	background-color: white !important;
-	padding:50px !important;
-	margin:140px 140px 80px!important;
 }
 
 .catatan{
@@ -1881,12 +1815,6 @@ div.induk-kategori-menu:nth-child(2n+0){
 	margin-right: auto !important;
 	}
 
-	#form-masuk, #form-daftar{
-	background-color: white !important;
-	padding:50px !important;
-	margin:140px 120px 80px !important;
-	}
-
 }
 
 @media only screen and (max-width: 750px){
@@ -1903,11 +1831,6 @@ div.induk-kategori-menu:nth-child(2n+0){
 	background-color: #fff;
 	margin:15px 20px;
 	border: 1px solid rgba(0,0,0,.2);
-}
-	#form-masuk, #form-daftar{
-	background-color: white !important;
-	padding:30px !important;
-	margin:140px 30px 80px !important;
 }
 
 #myTabContent{
