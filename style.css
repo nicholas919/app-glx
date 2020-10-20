@@ -458,10 +458,6 @@ input:checked + .slider:after {
 	color:orangered !important;
 }
 
-.tombol-lihat-perpindahan:hover> .badge, .tombol-lihat-retur:hover> .badge{
-	animation: updown 1s infinite !important;
-}
-
 #list-perpindahan-barang-pending, #list-perpindahan-barang-selesai, #list-daftar-belanja, #list-daftar-belanja-selesai, #list-retur-selesai, #list-retur-dealer-selesai{
 	display: none;
 }
@@ -1029,14 +1025,6 @@ div.induk-kategori-menu:nth-child(4n+0){
 	vertical-align: super !important;
 	font-size: 16px !important;
 	cursor: default;
-}
-
-@keyframes updown {
-    0%{transform: translateY(-2px);}
-    25%{transform: translateY(-5px);}
-    50%{transform: translateY(-2px);}
-    75%{transform: translateY(-5px);}
-    100%{transform: translateY(-2px);}
 }
 
 .bg-dark.p-4.daftar-menu{
