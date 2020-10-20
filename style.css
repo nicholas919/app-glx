@@ -1440,16 +1440,6 @@ div.induk-kategori-menu:nth-child(4n+0){
 	margin-bottom: 100px;
 }
 
-.info-overview{
-	color:#3f78eb;
-	cursor: pointer;
-	overflow-wrap: anywhere;
-}
-
-.info-overview:hover{
-	text-decoration: underline;
-}
-
 .judul-pengumuman-body{
 	font-weight: bold;
 	font-size: 24px;
