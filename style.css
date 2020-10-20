@@ -2,11 +2,6 @@ body{
 	background-color: #eeeeee !important;
 }
 
-th:hover{
-	color:coral !important;
-	cursor: pointer;
-}
-
 .fa-exchange-alt{
 	transform: rotate(90deg);
 }
@@ -1829,7 +1824,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 	width: 170%;
 }
 
-#th-tanggal-transaksi, #th-nominal-transaksi{
+#th-nominal-transaksi{
 	width: 20%;
 }
 
