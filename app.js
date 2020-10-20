@@ -687,8 +687,7 @@ for(let x = 0; x<pilihanAnalisis.options.length; x++){
     e.stopPropagation();
     let konfirmasi = confirm('Anda yakin ingin menghapus data analisis swot ini?');
     if(konfirmasi == true){
-    let id = document.querySelector('.dokumentasi-swot' + doc.id).getAttribute('data-id');
-    db.collection('swot').doc(id).get().then(function(item){
+    db.collection('swot').doc(doc.id).get().then(function(item){
     db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
     let tanggal = new Date().getTime();
         db.collection('overview').add({
@@ -2008,8 +2007,7 @@ function renderTugas(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus tugas ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-tugas-peserta' + doc.id).getAttribute('data-id');
-        db.collection('tugas').doc(id).get().then(function(item){
+        db.collection('tugas').doc(doc.id).get().then(function(item){
             perMinggu = item.data().perMinggu;
             perHari = item.data().perHari;
             perJam = item.data().perJam;
@@ -2101,8 +2099,7 @@ function renderTugas(doc){
             document.querySelector('#status-tugas' + doc.id).innerHTML = "COMPLETED";
             alert("Tugas berhasil diselesaikan!")
             $('#modaltugas' + doc.id).modal('hide');
-            let id = document.querySelector('.dokumentasi-tugas-peserta' + doc.id).getAttribute('data-id');
-            db.collection('tugas').doc(id).delete();
+            db.collection('tugas').doc(doc.id).delete();
       })
         }
     } else {
@@ -2142,8 +2139,7 @@ function renderTugas(doc){
             document.querySelector('#status-tugas' + doc.id).innerHTML = "COMPLETED";
             alert("Tugas berhasil diselesaikan!")
             $('#modaltugas' + doc.id).modal('hide');
-            let id = document.querySelector('.dokumentasi-tugas-peserta' + doc.id).getAttribute('data-id');
-            db.collection('tugas').doc(id).delete();
+            db.collection('tugas').doc(doc.id).delete();
       })
      }
    }
@@ -2468,8 +2464,7 @@ function renderTugasSelesai(doc){
         if(konfirmasi == true){
             let konfirmasiKedua = confirm('Menghapus tugas ini akan mempengaruhi performa karyawan individu dan hilangnya file penyelesaian tugas tersebut. Lanjutkan proses?');
             if(konfirmasiKedua == true){
-        let id = document.querySelector('.dokumentasi-tugas-peserta-selesai' + doc.id).getAttribute('data-id');
-        db.collection('tugasSelesai').doc(id).delete();
+        db.collection('tugasSelesai').doc(doc.id).delete();
         document.querySelector('#waktu-penyelesaian-' + doc.id).remove();
         $('#modaltugasselesai' + doc.id).modal('hide');
         let refPenyimpanan = firebase.storage().ref('Tugas ' + doc.id + ' ' + tanggalLuncur.replace(/\//g,'-') + ' ' + namaPeserta +  '/');
@@ -2786,8 +2781,7 @@ function renderKesalahan(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus kesalahan ' + nama + ' ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-kesalahan-peserta' + doc.id).getAttribute('data-id');
-        db.collection('kesalahan').doc(id).get().then(function(item){
+        db.collection('kesalahan').doc(doc.id).get().then(function(item){
             let tanggalKesalahan = new Date(item.data().tanggal);
             let hariKesalahan = String(tanggalKesalahan.getDate()).padStart(2, '0');
             let bulanKesalahan = String(tanggalKesalahan.getMonth() + 1).padStart(2, '0');
@@ -3020,8 +3014,7 @@ function renderAchievement(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus pencapaian ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-pencapaian' + doc.id).getAttribute('data-id');
-        db.collection('achievement').doc(id).get().then(function(item){
+        db.collection('achievement').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -3253,8 +3246,7 @@ function renderPengumuman(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus pengumuman ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-pengumuman' + doc.id).getAttribute('data-id');
-        db.collection('pengumuman').doc(id).get().then(function(item){
+        db.collection('pengumuman').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -4307,8 +4299,7 @@ function renderKategoriMenu(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus kategori menu ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-kategori-menu' + doc.id).getAttribute('data-id');
-        db.collection('kategoriMenu').doc(id).get().then(function(item){
+        db.collection('kategoriMenu').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -4327,7 +4318,7 @@ function renderKategoriMenu(doc){
             })
         })
     }).then(() => {
-        db.collection('kategoriMenu').doc(id).delete();
+        db.collection('kategoriMenu').doc(doc.id).delete();
     })
         }
     })
@@ -4476,8 +4467,7 @@ function renderMenu(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus menu ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-menu' + doc.id).getAttribute('data-id');
-        db.collection('menu').doc(id).get().then(function(item){
+        db.collection('menu').doc(doc.id).get().then(function(item){
         db.collection('kategoriMenu').doc(item.data().kategoriMenu).get().then(function(items){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
@@ -4490,7 +4480,7 @@ function renderMenu(doc){
                 overview : 'delete-menu'
                 })
         }).then(() => {
-        db.collection('menu').doc(id).delete();
+        db.collection('menu').doc(doc.id).delete();
         })
     })
         })
@@ -4640,8 +4630,7 @@ function renderEkspedisiCetakLabel(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus ekspedisi ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-ekspedisi-cetak-label' + doc.id).getAttribute('data-id');
-        db.collection('ekspedisiCetakLabel').doc(id).get().then(function(item){
+        db.collection('ekspedisiCetakLabel').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -4652,7 +4641,7 @@ function renderEkspedisiCetakLabel(doc){
                 })
         }).then(() => {
 
-            db.collection('ekspedisiCetakLabel').doc(id).delete();
+            db.collection('ekspedisiCetakLabel').doc(doc.id).delete();
             })
         })
     }
@@ -4787,8 +4776,7 @@ function renderCatatan(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus catatan ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-catatan' + doc.id).getAttribute('data-id');
-        db.collection('catatan').doc(id).get().then(function(item){
+        db.collection('catatan').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -4799,7 +4787,7 @@ function renderCatatan(doc){
                 overview : 'delete-note'
                 })
         }).then(() => {
-            db.collection('catatan').doc(id).delete();
+            db.collection('catatan').doc(doc.id).delete();
             })
         })
     }
@@ -5170,8 +5158,7 @@ function renderIndent(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus data indent cust ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-indent' + doc.id).getAttribute('data-id');
-        db.collection('indent').doc(id).get().then(function(item){
+        db.collection('indent').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -5184,7 +5171,7 @@ function renderIndent(doc){
                 overview : 'delete-indent'
                 })
         }).then(() => {
-            db.collection('indent').doc(id).delete();
+            db.collection('indent').doc(doc.id).delete();
             $('#modalindentcust' + doc.id).modal('hide')
             })
         })
@@ -5315,8 +5302,7 @@ function renderPerpindahan(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus data perpindahan barang ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-perpindahan' + doc.id).getAttribute('data-id');
-        db.collection('perpindahan').doc(id).get().then(function(item){
+        db.collection('perpindahan').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -5327,7 +5313,7 @@ function renderPerpindahan(doc){
                 overview : 'delete-transport'
                 })
         }).then(() => {
-            db.collection('perpindahan').doc(id).delete();
+            db.collection('perpindahan').doc(doc.id).delete();
             $('#modalperpindahanbarang' + doc.id).modal('hide')
                 })
             })
@@ -5456,8 +5442,7 @@ function renderPerpindahanSelesai(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus data perpindahan barang(selesai) ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-perpindahan' + doc.id).getAttribute('data-id');
-        db.collection('perpindahanSelesai').doc(id).delete();
+        db.collection('perpindahanSelesai').doc(doc.id).delete();
         }
     })
 
@@ -5617,8 +5602,7 @@ function renderTenorKalkulator(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus tenor ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-tenor-kalkulator' + doc.id).getAttribute('data-id');
-        db.collection('tenorKalkulator').doc(id).get().then(function(item){
+        db.collection('tenorKalkulator').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -5630,7 +5614,7 @@ function renderTenorKalkulator(doc){
                 overview : 'delete-tenor-calculator'
                 })
         }).then(() => {
-            db.collection('tenorKalkulator').doc(id).delete();
+            db.collection('tenorKalkulator').doc(doc.id).delete();
                 })
             })
         }
@@ -5641,8 +5625,7 @@ function renderTenorKalkulator(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus tenor ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-tenor-kalkulator' + doc.id).getAttribute('data-id');
-        db.collection('tenorKalkulator').doc(id).get().then(function(item){
+        db.collection('tenorKalkulator').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -5941,8 +5924,7 @@ function renderTransaksiBerjalan(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus transaksi ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-transaksi' + doc.id).getAttribute('data-id');
-        db.collection('transaksiBerjalan').doc(id).get().then(function(item){
+        db.collection('transaksiBerjalan').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -5955,7 +5937,7 @@ function renderTransaksiBerjalan(doc){
                 overview : 'delete-transaction'
                 })
         }).then(() => {
-            db.collection('transaksiBerjalan').doc(id).delete();
+            db.collection('transaksiBerjalan').doc(doc.id).delete();
             $('#modaltransaksiberjalan' + doc.id).modal('hide');
             })
         })
@@ -6135,8 +6117,7 @@ function renderReturPending(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus data retur ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-retur' + doc.id).getAttribute('data-id');
-        db.collection('returPending').doc(id).get().then(function(item){
+        db.collection('returPending').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -6151,7 +6132,7 @@ function renderReturPending(doc){
                 overview : 'delete-return'
                 })
         }).then(() => {
-            db.collection('returPending').doc(id).delete();
+            db.collection('returPending').doc(doc.id).delete();
             $('#modalretur' + doc.id).modal('hide')
                 })
             })
@@ -6347,8 +6328,7 @@ function renderReturSelesai(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus data retur ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-retur' + doc.id).getAttribute('data-id');
-        db.collection('returSelesai').doc(id).get().then(function(item){
+        db.collection('returSelesai').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -6363,7 +6343,7 @@ function renderReturSelesai(doc){
                 overview : 'delete-return'
                 })
         }).then(() => {
-            db.collection('returSelesai').doc(id).delete();
+            db.collection('returSelesai').doc(doc.id).delete();
             $('#modalretur' + doc.id).modal('hide')
                 })
             })
@@ -6595,8 +6575,7 @@ function renderReturDealerPending(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus data retur ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-retur' + doc.id).getAttribute('data-id');
-        db.collection('returDealerPending').doc(id).get().then(function(item){
+        db.collection('returDealerPending').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -6609,7 +6588,7 @@ function renderReturDealerPending(doc){
                 overview : 'delete-return-dealer'
                 })
         }).then(() => {
-            db.collection('returDealerPending').doc(id).delete();
+            db.collection('returDealerPending').doc(doc.id).delete();
             $('#modalreturdealer' + doc.id).modal('hide')
                 })
             })
@@ -6860,8 +6839,7 @@ function renderReturDealerSelesai(doc){
         e.stopPropagation();
         let konfirmasi = confirm('Anda yakin ingin menghapus data retur ini?');
         if(konfirmasi == true){
-        let id = document.querySelector('.dokumentasi-retur' + doc.id).getAttribute('data-id');
-        db.collection('returDealerSelesai').doc(id).get().then(function(item){
+        db.collection('returDealerSelesai').doc(doc.id).get().then(function(item){
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         let tanggal = new Date().getTime();
             db.collection('overview').add({
@@ -6874,7 +6852,7 @@ function renderReturDealerSelesai(doc){
                 overview : 'delete-return-dealer'
                 })
         }).then(() => {
-            db.collection('returDealerSelesai').doc(id).delete();
+            db.collection('returDealerSelesai').doc(doc.id).delete();
             $('#modalreturdealer' + doc.id).modal('hide')
                 })
             })
