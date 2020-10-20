@@ -2,6 +2,30 @@ body{
 	background-color: #eeeeee !important;
 }
 
+.navbar-collapse {
+    position: fixed !important;
+    width: 250px;
+    transition: all 0.4s ease;
+    height: 100%;
+    background-color:#343a40;
+    z-index: 3 !important;
+    margin-top: 57px;
+}
+
+.navbar-collapse.collapsing {
+    height: auto !important;
+    position: fixed !important;
+    left: -250px;
+    transition: all 0.4s ease;
+    height: 100% !important;
+    background-color:#343a40 !important;
+    z-index: 3 !important;
+}
+
+.navbar-collapse.show {
+    left: 0;
+}
+
 #th-tanggal-transaksi, #th-nominal-transaksi{
 	width: 18%;
 }
@@ -2064,6 +2088,11 @@ input:checked + .slider:after {
 .menu-konfigurasi-catatan{
 	transform: translate3d(-125px, 48px, 0px) !important;
 }
+
+.navbar-collapse, .navbar-collapse.collapsing{
+    transition: all 0.2s ease;
+}
+
 
 }
 
