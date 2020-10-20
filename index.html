@@ -2913,42 +2913,6 @@ tombolKembaliListPengeluaran.addEventListener('click', function(e){
     document.querySelector('#jumbotron-daftar-belanja').style.display = 'block';
 })
 
-let thTT = document.querySelector('#th-tanggal-transaksi');
-thTT.addEventListener('click', function(e){
-  e.stopPropagation();
-    if($('#list-transaksi-berjalan').hasClass('sorted-by-newest')){
-    let items = $('#list-transaksi-berjalan > .transaksi-berjalan').get();
-    items.sort(function(a, b) {
-    let keyA = $(a).data('date');
-    let keyB = $(b).data('date');
-    if (keyA > keyB) return 1;
-    if (keyA < keyB) return -1;
-    return 0;
-    })
-    let daftarTransaksiBerjalan = $('#list-transaksi-berjalan');
-    $.each(items, function(i, tr) {
-    daftarTransaksiBerjalan.append(tr)
-    daftarTransaksiBerjalan.removeClass('sorted-by-newest');
-    daftarTransaksiBerjalan.addClass('sorted-by-oldest');
-    })  
-  } else {
-    let items = $('#list-transaksi-berjalan > .transaksi-berjalan').get();
-    items.sort(function(a, b) {
-    let keyA = $(a).data('date');
-    let keyB = $(b).data('date');
-    if (keyA < keyB) return 1;
-    if (keyA > keyB) return -1;
-    return 0;
-    })
-    let daftarTransaksiBerjalan = $('#list-transaksi-berjalan');
-    $.each(items, function(i, tr) {
-    daftarTransaksiBerjalan.append(tr)
-    daftarTransaksiBerjalan.removeClass('sorted-by-oldest');
-    daftarTransaksiBerjalan.addClass('sorted-by-newest');
-    })    
-  }
-})
-
 </script>
 
 </body>
