@@ -35,6 +35,7 @@
       <div class="tab-halaman text-white menu" id="achievement" data-toggle="pill" href="#halaman-achievement" role="tab" aria-controls="halaman-achievement" aria-selected="true"> <i class='fas fa-crown'></i> Achievement</div>
       <div class="tab-halaman text-white menu" id="list-gaji" data-toggle="pill" href="#halaman-list-gaji" role="tab" aria-controls="halaman-list-gaji" aria-selected="true"><i class='fas fa-clipboard-list'></i> List Gaji</div>
       <div class="tab-halaman text-white menu" id="cetak-label" data-toggle="pill" href="#halaman-cetak-label" role="tab" aria-controls="halaman-cetak-label" aria-selected="true"><i class="fa fa-print"></i> Cetak Label</div>
+      <div class="tab-halaman text-white menu" id="surat-jalan" data-toggle="pill" href="#halaman-surat-jalan" role="tab" aria-controls="halaman-surat-jalan" aria-selected="true"><i class='fas fa-dove'></i> Surat Jalan</div>
       <div class="tab-halaman text-white menu" id="perpindahan-barang" data-toggle="pill" href="#halaman-perpindahan-barang" role="tab" aria-controls="halaman-perpindahan-barang" aria-selected="true"><i class='fas fa-boxes'></i> Perpindahan</div>
       <div class="tab-halaman text-white menu" id="kalkulator" data-toggle="pill" href="#halaman-kalkulator" role="tab" aria-controls="halaman-kalkulator" aria-selected="true"><i class="fa fa-calculator"></i> Kalkulator</div>
       <div class="tab-halaman text-white menu" id="transaksi-berjalan" data-toggle="pill" href="#halaman-transaksi-berjalan" role="tab" aria-controls="halaman-transaksi-berjalan" aria-selected="true"><i class='fas fa-coins'></i> Transaksi Berjalan</div>
@@ -727,6 +728,80 @@
              </div>
 </div>
 
+<div class="halaman tab-pane fade" id="halaman-surat-jalan" role="tabpanel">
+
+<div id="preview-surat-jalan"> 
+  <div>
+    <i class="fa fa-angle-left tombol-posisi-geser geser-kiri" id="geser-kiri-sj"></i>
+    <i class="fa fa-angle-right tombol-posisi-geser geser-kanan" id="geser-kanan-sj"></i>
+  </div>
+</div>
+
+  <div id="pengaturan-surat-jalan">
+    <div class="header-pengaturan-surat-jalan">Pengambilan Barang Tujuan :</div>
+    <div style="padding: 0px 10px 5px;">
+      <div class="form-group">
+        <label class="col-form-label">Nama Dealer</label>
+        <input type="text" class="form-control" id="nama-surat-jalan" autocomplete="off" required>
+      </div>    
+      <div class="form-group">
+        <label>Alamat Pengambilan Barang</label>
+        <textarea oninput="auto_grow(this)" class="form-control" id="alamat-surat-jalan" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:38px;" autocomplete="off" required></textarea>
+      </div>  
+      <div class="form-group">
+        <label>Keterangan (Note : Tidak wajib untuk diisi. Singkat, Padat dan Jelas)</label>
+        <textarea oninput="auto_grow(this)" class="form-control" id="catatan-surat-jalan" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:38px;" autocomplete="off" required></textarea>
+      </div>
+      <div id="tambahsuratjalan" style="margin-bottom:5px;" class="btn btn-success d-block">Tambah Surat Jalan</div>
+    </div>        
+  </div>
+    <div class="table-responsive-xl">
+    <table class="table garis" id="tabel-surat-jalan" style="margin-bottom: 0px;">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" id="th-deskripsi-barang">Description</th>
+          <th scope="col" id="th-kuantitas-barang">Qty</th>
+          <th scope="col" id="th-harga-barang">Unit Price</th>
+          <th scope="col" id="th-total-harga-barang">Total Price</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="list-barang-surat-jalan">
+        <tr class="barang-surat-jalan">
+          <td><input type="text" class="form-control nama-barang-surat-jalan"></td>
+          <td><input type="number" max="4" class="form-control jumlah-barang-surat-jalan"></td>
+          <td><input type="number" max="8" class="form-control harga-barang-surat-jalan"></td>
+          <td class="total-barang-surat-jalan"></td>
+          <td><div class="tombol-hapus-kolom-surat-jalan">x</div></td>
+        </tr>
+        <tr class="barang-surat-jalan">
+          <td><input type="text" class="form-control nama-barang-surat-jalan"></td>
+          <td><input type="number" max="4" class="form-control jumlah-barang-surat-jalan"></td>
+          <td><input type="number" max="8" class="form-control harga-barang-surat-jalan"></td>
+          <td class="total-barang-surat-jalan"></td>
+          <td><div class="tombol-hapus-kolom-surat-jalan">x</div></td>
+        </tr>
+        <tr class="barang-surat-jalan">
+          <td><input type="text" class="form-control nama-barang-surat-jalan"></td>
+          <td><input type="number" max="4" class="form-control jumlah-barang-surat-jalan"></td>
+          <td><input type="number" max="8" class="form-control harga-barang-surat-jalan"></td>
+          <td class="total-barang-surat-jalan"></td>
+          <td><div class="tombol-hapus-kolom-surat-jalan">x</div></td>
+        </tr>
+        <tr id="tambah-baris-surat-jalan">
+          <td colspan=5 id="tombol-tambah-baris-surat-jalan">Add Row +</td>
+        </tr>        
+        <tr id="subtotal-barang-surat-jalan">
+          <td colspan=3>Subtotal</td>
+          <td id="harga-subtotal-barang-surat-jalan"></td>
+          <td></td>
+        </tr>                        
+      </tbody>
+    </table>
+    </div>  
+
+</div>
+
 <div class="halaman tab-pane fade" id="halaman-catatan" role="tabpanel">
 
 <div class="jumbotron" id="jumbotron-catatan">
@@ -1266,6 +1341,7 @@
 </script> 
 
 <script>
+
 window.addEventListener('resize', function(e){
         document.querySelector('#darken').style.backgroundColor = '0';
         document.querySelector('#darken').style.width = '0';
@@ -1421,6 +1497,7 @@ window.addEventListener('resize', function(e){
             if(document.querySelector('#form-cetak-label')){
             document.querySelector('#form-cetak-label').remove();
             document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+            if(auth.currentUser != null){
                 db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
                     if(querySnapshot.docs.length != 0){
                         querySnapshot.docs.map((item) => {
@@ -1457,8 +1534,10 @@ window.addEventListener('resize', function(e){
                         })
                     }
                 })
+              }
             } else {
                 document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                if(auth.currentUser != null){
                 db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
                     if(querySnapshot.docs.length != 0){
                         querySnapshot.docs.map((item) => {
@@ -1495,6 +1574,7 @@ window.addEventListener('resize', function(e){
                         })
                     }
                 })                
+              }
             }
         } else {
             if(document.querySelector('#tambahpengumuman')){
@@ -1599,6 +1679,7 @@ window.addEventListener('resize', function(e){
             if(document.querySelector('#form-cetak-label')){
             document.querySelector('#form-cetak-label').remove();
             document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+            if(auth.currentUser != null){
                 db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
                     if(querySnapshot.docs.length != 0){
                         querySnapshot.docs.map((item) => {
@@ -1635,8 +1716,10 @@ window.addEventListener('resize', function(e){
                         })
                     }
                 })            
+              }
             } else {
                 document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+                if(auth.currentUser != null){
                 db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
                     if(querySnapshot.docs.length != 0){
                         querySnapshot.docs.map((item) => {
@@ -1673,6 +1756,7 @@ window.addEventListener('resize', function(e){
                         })
                     }
                 })                
+              }
             }            
         }
 })
@@ -1791,6 +1875,7 @@ $(document).ready(function(e){
         if(document.querySelector('#form-cetak-label')){
         document.querySelector('#form-cetak-label').remove();
         document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+          if(auth.currentUser != null){
                 db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
                     if(querySnapshot.docs.length != 0){
                         querySnapshot.docs.map((item) => {
@@ -1827,8 +1912,10 @@ $(document).ready(function(e){
                         })
                     }
                 })        
+              }
         } else {
             document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+            if(auth.currentUser != null){
                 db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
                     if(querySnapshot.docs.length != 0){
                         querySnapshot.docs.map((item) => {
@@ -1865,6 +1952,7 @@ $(document).ready(function(e){
                         })
                     }
                 })            
+              }
         }
     } else {
         if(document.querySelector('#tambahpengumuman')){
@@ -1939,6 +2027,7 @@ $(document).ready(function(e){
             if(document.querySelector('#form-cetak-label')){
             document.querySelector('#form-cetak-label').remove();
             document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
+            if(auth.currentUser != null){
                 db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
                     if(querySnapshot.docs.length != 0){
                         querySnapshot.docs.map((item) => {
@@ -1975,6 +2064,7 @@ $(document).ready(function(e){
                         })
                     }
                 })            
+              }
             } else {
                 document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
                 if(auth.currentUser != null){
@@ -2014,7 +2104,7 @@ $(document).ready(function(e){
                         })
                     }
                 })  
-                }              
+              }              
             }
     }
 })
@@ -2890,9 +2980,348 @@ tombolKembaliListPengeluaran.addEventListener('click', function(e){
     document.querySelector('#jumbotron-daftar-belanja').style.display = 'block';
 })
 
+for(let x = 0; x<document.querySelectorAll('.barang-surat-jalan').length; x++){
+  [document.querySelectorAll('.jumlah-barang-surat-jalan')[x], document.querySelectorAll('.harga-barang-surat-jalan')[x]].forEach(item => {
+    item.addEventListener('input', function(e){
+    e.stopPropagation();
+    suratJalanTambah(x);
+    })
+  })
+}
+
+function suratJalanTambah(x){
+    if(document.querySelectorAll('.jumlah-barang-surat-jalan')[x].value == 0 && document.querySelectorAll('.harga-barang-surat-jalan')[x].value == 0 || document.querySelectorAll('.jumlah-barang-surat-jalan')[x].value * document.querySelectorAll('.harga-barang-surat-jalan')[x].value == 0){
+    document.querySelectorAll('.total-barang-surat-jalan')[x].innerHTML = '';
+    } else {
+    let hasilPerhitungan = document.querySelectorAll('.jumlah-barang-surat-jalan')[x].value * document.querySelectorAll('.harga-barang-surat-jalan')[x].value;
+    document.querySelectorAll('.total-barang-surat-jalan')[x].innerHTML = "Rp " + hasilPerhitungan.toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00";
+    }
+    let sum = 0;
+    for(let y = 0; y<document.querySelectorAll('.total-barang-surat-jalan').length; y++){
+      sum = sum + Number(document.querySelectorAll('.total-barang-surat-jalan')[y].innerHTML.replace(/,(?=[^,]*$)/, '.').replace(/,/g,'').slice(3,-1));
+    }
+    if(sum == 0){
+      document.querySelector('#harga-subtotal-barang-surat-jalan').innerHTML = ''
+    } else {
+    document.querySelector('#harga-subtotal-barang-surat-jalan').innerHTML = "Rp " + sum.toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00";
+    }
+}
+
+for(let x = 0; x<document.querySelectorAll('.tombol-hapus-kolom-surat-jalan').length; x++){
+  document.querySelectorAll('.tombol-hapus-kolom-surat-jalan')[x].addEventListener('click', function(e){
+    e.stopPropagation();
+    suratJalanHapus(x);
+  })
+}
+
+function suratJalanHapus(x){
+    document.querySelectorAll('.nama-barang-surat-jalan')[x].value = '';
+    document.querySelectorAll('.jumlah-barang-surat-jalan')[x].value = '';
+    document.querySelectorAll('.harga-barang-surat-jalan')[x].value = '';
+    document.querySelectorAll('.total-barang-surat-jalan')[x].innerHTML = '';
+    let sum = 0;
+    for(let y = 0; y<document.querySelectorAll('.total-barang-surat-jalan').length; y++){
+      sum = sum + Number(document.querySelectorAll('.total-barang-surat-jalan')[y].innerHTML.replace(/,(?=[^,]*$)/, '.').replace(/,/g,'').slice(3,-1));
+    }
+    if(sum == 0){
+      document.querySelector('#harga-subtotal-barang-surat-jalan').innerHTML = ''
+    } else {
+    document.querySelector('#harga-subtotal-barang-surat-jalan').innerHTML = "Rp " + sum.toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00";
+    }  
+}
+
+let tambahBarisSJ = document.querySelector("#tombol-tambah-baris-surat-jalan")
+tambahBarisSJ.addEventListener('click', function(e){
+  e.stopPropagation();
+  if(document.querySelectorAll('.barang-surat-jalan').length < 15){
+  let tr = document.createElement('tr');
+  tr.classList.add('barang-surat-jalan');
+  tr.innerHTML = `          
+    <td><input type="text" class="nama-barang-surat-jalan"></td>
+    <td><input type="number" max="4" class="jumlah-barang-surat-jalan"></td>
+    <td><input type="number" max="8" class="harga-barang-surat-jalan"></td>
+    <td class="total-barang-surat-jalan"></td>
+    <td><div class="tombol-hapus-kolom-surat-jalan">x</div></td>
+    `
+
+  document.querySelector('#tambah-baris-surat-jalan').parentNode.insertBefore(tr, document.querySelector('#tambah-baris-surat-jalan'))
+
+  for(let x = 0; x<document.querySelectorAll('.barang-surat-jalan').length; x++){
+    [document.querySelectorAll('.jumlah-barang-surat-jalan')[x], document.querySelectorAll('.harga-barang-surat-jalan')[x]].forEach(item => {
+      item.addEventListener('input', function(e){
+      e.stopPropagation();
+      suratJalanTambah(x);
+      })
+    })
+  }
+
+  for(let x = 0; x<document.querySelectorAll('.tombol-hapus-kolom-surat-jalan').length; x++){
+  document.querySelectorAll('.tombol-hapus-kolom-surat-jalan')[x].addEventListener('click', function(e){
+    e.stopPropagation();
+    suratJalanHapus(x);
+    })
+  }
+} else {
+  alert('Sudah mencapai kuota maksimal, tidak bisa menambahkan kolom baru lagi.');
+  document.querySelector('#tambah-baris-surat-jalan').style.display = 'none';
+}
+
+})
+
+  let i = 0;
+  let geserKiri = document.querySelector('#geser-kiri-sj');
+  geserKiri.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    if(i > 0){
+      i--;
+    } else {
+      i = document.querySelectorAll('.potongan-kertas-surat-jalan').length - 1;
+    }
+    if(document.querySelectorAll('.potongan-kertas-surat-jalan')[i]){
+      for(let x = 0; x<document.querySelectorAll('.potongan-kertas-surat-jalan').length; x++){
+        if(x > i){
+          document.querySelectorAll('.potongan-kertas-surat-jalan')[x].style.left = `0%`;
+        } else if(x == i){
+          document.querySelectorAll('.potongan-kertas-surat-jalan')[x].style.left = `-${(x)*100}%`;
+        }
+      }
+    }  
+  })
+
+  let geserKanan = document.querySelector('#geser-kanan-sj');
+  geserKanan.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    if(i < document.querySelectorAll('.potongan-kertas-surat-jalan').length){
+      i++;
+    } else {
+      i = 0;
+    }
+    if(document.querySelectorAll('.potongan-kertas-surat-jalan')[i]){
+      for(let x = 0; x<document.querySelectorAll('.potongan-kertas-surat-jalan').length; x++){
+        if(x < i){
+          document.querySelectorAll('.potongan-kertas-surat-jalan')[x].style.left = `-${(x + 1)*100}%`;
+        } else if(x == i){
+          document.querySelectorAll('.potongan-kertas-surat-jalan')[x].style.left = `-${(x)*100}%`;
+        }
+      }
+    } else {
+      for(let x = 0; x<document.querySelectorAll('.potongan-kertas-surat-jalan').length; x++){
+         document.querySelectorAll('.potongan-kertas-surat-jalan')[x].style.left = '0';
+    }
+      i = 0
+    }
+  })
+
+  let tambahSJ = document.querySelector('#tambahsuratjalan');
+  tambahSJ.addEventListener('click', function(e){
+    e.stopPropagation();
+    let sum = ``;    
+    let count = 0;
+    let dd = String(new Date().getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[new Date().getMonth()]
+    let yyyy = new Date().getFullYear();
+    let tanggalSekarang = dd + ' ' + mm + ' ' + yyyy;    
+    let namaTertujuSJ = document.querySelector('#nama-surat-jalan').value;
+    let alamatTertujuSJ = document.querySelector('#alamat-surat-jalan').value.replace(/\n\r?/g, '<br/>');
+    let catatanTertujuSJ = document.querySelector('#catatan-surat-jalan').value.replace(/\n\r?/g, '<br/>');
+    if(catatanTertujuSJ == 0){
+      catatanTertujuSJ = 'Tidak ada'
+    }
+    if(namaTertujuSJ != 0 && alamatTertujuSJ != 0){
+    for(let x = 0; x<document.querySelectorAll('.barang-surat-jalan').length; x++){
+      if(document.querySelectorAll('.nama-barang-surat-jalan')[x].value != 0 && document.querySelectorAll('.jumlah-barang-surat-jalan')[x].value != 0 && document.querySelectorAll('.harga-barang-surat-jalan')[x] != 0){
+        let counter = 1;
+        count += counter;
+        sum = sum + `
+        <tr>
+          <td>${document.querySelectorAll('.nama-barang-surat-jalan')[x].value}</td>
+          <td>${document.querySelectorAll('.jumlah-barang-surat-jalan')[x].value}</td>
+          <td>${document.querySelectorAll('.harga-barang-surat-jalan')[x].value}</td>
+          <td>${document.querySelectorAll('.total-barang-surat-jalan')[x].innerHTML}</td>
+        </tr>
+        `
+        }
+        document.querySelectorAll('.nama-barang-surat-jalan')[x].value = null;
+        document.querySelectorAll('.jumlah-barang-surat-jalan')[x].value = null;
+        document.querySelectorAll('.harga-barang-surat-jalan')[x].value = null;
+        document.querySelectorAll('.total-barang-surat-jalan')[x].innerHTML = '';              
+      }
+    } 
+    if(count == 2){
+      sum = sum + `
+      <tr style="height:49px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>      
+      `
+    } else if(count == 1){
+      sum = sum + `
+      <tr style="height:49px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr style="height:49px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>      
+      `      
+    } else if(count == 0){
+      sum = sum + `
+      <tr style="height:49px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr style="height:49px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr style="height:49px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>      
+      `
+    }    
+    let div = document.createElement('div');
+    div.classList.add('potongan-kertas-surat-jalan')
+    div.innerHTML = `
+      <div class="header-sj">
+        <div>
+          <div class="nama-pt-sj">PT GALAXY DIGITAL NIAGA</div>
+          <div class="alamat-pt-sj">
+            <div>Ruko Mall Metropolis Townsquare</div>
+            <div>Block GM3 No.6, Cikokol, Tangerang</div>
+          </div>
+          <div class="kontak-pt-sj">Telp. 082111311131</div>
+        </div>
+        <div>
+        <i class='fas fa-print print-potongan-kertas-surat-jalan'></i>
+        <div class="hapus-potongan-kertas-surat-jalan"></div>
+        <div class="nama-header-sj">Surat Jalan</div>
+        </div>
+      </div>
+      <div class="garis-header-sj"></div>
+      <div class="body-sj">
+        <div class="tanggal-buat-sj">Tanggal : ${tanggalSekarang}</div>
+        <div class="sj-tertuju" style="">
+          <div>Tujuan</div>
+          <div>:</div>
+          <div>
+            <div>${namaTertujuSJ}</div>
+            <div>${alamatTertujuSJ}</div>
+          </div>
+        </div>
+        <div class="tampilan-barang-sj">
+          <table class="table table-striped">
+            <thead class="thead-sj">
+              <tr>
+                <th scope="col">Description</th>
+                <th scope="col">Qty</th>
+                <th scope="col">Unit Price</th>
+                <th scope="col">Total Price</th>
+              </tr>
+            </thead>
+            <tbody class="list-barang-surat-jalan">
+              ${sum}
+              <tr class="subtotal-barang-sj">
+                <td colspan=3 class="subtotal-sj">Subtotal</td>
+                <td>${document.querySelector('#harga-subtotal-barang-surat-jalan').innerHTML}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="footer-sj">
+          <div class="catatan-barang-sj"><span style="font-weight:bold;">Catatan : </span><span style="font-style:italic;">${catatanTertujuSJ}</span></div>
+        </div>
+      </div>
+    `
+    document.querySelector('#preview-surat-jalan').appendChild(div);
+    document.querySelector('#preview-surat-jalan').style.margin = '20px 0px';
+    document.querySelector('#nama-surat-jalan').value = null;
+    document.querySelector('#alamat-surat-jalan').value = null;
+    document.querySelector('#catatan-surat-jalan').value = null;
+    document.querySelector('#harga-subtotal-barang-surat-jalan').innerHTML = '';
+
+    for(let z = 0; z<document.querySelectorAll('.hapus-potongan-kertas-surat-jalan').length; z++){
+    document.querySelectorAll('.hapus-potongan-kertas-surat-jalan')[z].addEventListener('click', function(e){
+      e.stopPropagation();
+        e.target.parentElement.parentElement.parentElement.remove();
+            i = 0;
+            for(let x = 0; x<document.querySelectorAll('.potongan-kertas-surat-jalan').length; x++){
+              document.querySelectorAll('.potongan-kertas-surat-jalan')[x].style.left = '0';
+            }
+        if(document.querySelectorAll('.potongan-kertas-surat-jalan').length == 0){
+        document.querySelector('#preview-surat-jalan').style.margin = '0'
+        }
+      })
+    }
+
+    for(let z = 0; z<document.querySelectorAll('.print-potongan-kertas-surat-jalan').length; z++){
+    document.querySelectorAll('.print-potongan-kertas-surat-jalan')[z].addEventListener('click', function(e){
+      e.stopPropagation();
+        document.body.style.visibility = 'hidden';
+        document.querySelector('#preview-surat-jalan').style.visibility = 'visible';
+        document.body.style.setProperty("background-color", "white", "important");
+        document.querySelector('#tombol-burger').style.visibility = 'hidden';
+        document.querySelector('#pengaturan-surat-jalan').style.visibility = 'hidden';
+        document.querySelector('#tabel-surat-jalan').style.visibility = 'hidden';
+        e.target.style.visibility = 'hidden';
+        document.querySelector('#preview-surat-jalan').style.position = 'absolute';
+        document.querySelector('#preview-surat-jalan').style.width = '100%';
+        document.querySelector('#preview-surat-jalan').style.top = '0';
+        document.querySelector('#preview-surat-jalan').style.left = '0';
+        document.querySelector('#myTabContent').style.marginLeft = '0';
+        for(let y = 0; y< document.querySelectorAll('.potongan-kertas-surat-jalan').length; y++){
+          document.querySelectorAll('.potongan-kertas-surat-jalan')[y].style.visibility = 'hidden'
+        }
+        e.target.parentElement.parentElement.parentElement.style.visibility = 'visible'
+        window.print();
+        document.querySelector('#tombol-burger').style.visibility = 'visible';
+        for(let y = 0; y< document.querySelectorAll('.potongan-kertas-surat-jalan').length; y++){
+          document.querySelectorAll('.potongan-kertas-surat-jalan')[y].style.visibility = 'visible'
+        }
+        document.querySelector('#pengaturan-surat-jalan').style.visibility = 'visible';
+        document.querySelector('#tabel-surat-jalan').style.visibility = 'visible';
+        e.target.style.visibility = 'visible';
+        document.body.style.visibility = 'visible';
+        document.querySelector('#preview-surat-jalan').style.position = 'relative';
+        document.body.style.setProperty("background-color", "#eeeeee", "important");
+        setTimeout(function(){
+        document.querySelector('#darken').style.backgroundColor = '0';
+        document.querySelector('#darken').style.width = '0';
+        document.querySelector('#darken').style.height = '0';
+        document.querySelector('#darken').style.position = '0';
+        document.querySelector('#darken').style.opacity = '0';
+        document.querySelector('#darken').style.zIndex = '0';
+        },0)
+      })
+    }
+
+  })
+
+
 </script>
 
 </body>
 </html>
-
-

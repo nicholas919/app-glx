@@ -9,8 +9,10 @@ auth.onAuthStateChanged(user => {
     let changes = snapshot.docChanges();
     changes.forEach(change =>{
         if(change.type == 'added'){
+            if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
             renderPeserta(change.doc);
             setupUI(user);
+            }
         } else if (change.type == 'removed'){
             renderHapusPeserta(change.doc)
             let tr = document.querySelector('[data-id="' + change.doc.id + '"]');
@@ -66,8 +68,10 @@ auth.onAuthStateChanged(user => {
         let changes = snapshot.docChanges();
         changes.forEach(change =>{
             if(change.type == 'added'){
+                if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                 renderTugasSelesai(change.doc);
                 setupUI(user);
+                }
             }else if (change.type == 'removed'){
                 let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                 tugasPesertaSelesai.removeChild(div);
@@ -180,8 +184,10 @@ auth.onAuthStateChanged(user => {
         let changes = snapshot.docChanges();
         changes.forEach(change =>{
             if(change.type == 'added'){
+                if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                 renderTugas(change.doc);
                 setupUI(user);
+                }
             }else if (change.type == 'removed'){
                 let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                 tugasPeserta.removeChild(div);
@@ -195,8 +201,10 @@ auth.onAuthStateChanged(user => {
         let changes = snapshot.docChanges();
         changes.forEach(change =>{
             if(change.type == 'added'){
+                if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                 renderKesalahan(change.doc);
                 setupUI(user);
+                }
             }else if (change.type == 'removed'){
                 let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                 kesalahanPeserta.removeChild(div);
@@ -218,6 +226,7 @@ auth.onAuthStateChanged(user => {
         let changes = snapshot.docChanges();
         changes.forEach(change =>{
             if(change.type == 'added'){
+                if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                 renderSwot(change.doc);
                 document.querySelector('#jumlah-data-swot-kosong').style.display = 'none';
                 let jumlahStrength = document.querySelectorAll('.strength').length;
@@ -229,6 +238,7 @@ auth.onAuthStateChanged(user => {
                 document.querySelector('#jumlah-oportunity').innerHTML = jumlahOportunity;
                 document.querySelector('#jumlah-threat').innerHTML = jumlahThreat;
                 setupUI(user);
+                }
             } else if (change.type == 'removed'){
                 let tr = document.querySelector('[data-id="' + change.doc.id + '"]');
                 let analisis = document.querySelector('#analisis-swot-body' + change.doc.id).innerText;
@@ -291,11 +301,13 @@ auth.onAuthStateChanged(user => {
         let changes = snapshot.docChanges();
         changes.forEach(change =>{
             if(change.type == 'added'){
+                if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                 renderAchievement(change.doc);
                 document.querySelector('#jumlah-data-achievement-kosong').style.display = 'none';
                 let jumlahAchievement = document.querySelectorAll('.pencapaian').length;
                 document.querySelector('#jumlah-achievement').innerHTML = jumlahAchievement;
                 setupUI(user);
+                }
             }else if (change.type == 'removed'){
                 let tr = document.querySelector('[data-id="' + change.doc.id + '"]');
                 listPencapaian.removeChild(tr);
@@ -327,8 +339,10 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderPengumuman(change.doc);
                         setupUI(user);
+                        }
                     }else if (change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         document.querySelector('#grid-jumbotron-pengumuman').parentNode.removeChild(div);
@@ -342,8 +356,10 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderOverview(change.doc);
                         setupUI(user);
+                        }
                     }
                 })
     }, err => console.log(err.message))
@@ -352,8 +368,10 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderKategoriMenu(change.doc);
                         setupUI(user);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         listKategoriMenu.removeChild(div);
@@ -367,8 +385,10 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderMenu(change.doc);
                         setupUI(user);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         let listMenu = document.querySelectorAll('.list-menu');
@@ -391,7 +411,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderEkspedisiCetakLabel(change.doc);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         let opsi = document.querySelector('#ekspedisicetaklabel' + change.doc.id)
@@ -413,7 +435,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderCatatan(change.doc);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         listCatatan.removeChild(div);
@@ -427,7 +451,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderIndent(change.doc);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         listIndentCust.removeChild(div);
@@ -441,7 +467,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderPerpindahan(change.doc);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         div.remove();
@@ -462,7 +490,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderPerpindahanSelesai(change.doc);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         div.remove();
@@ -474,7 +504,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderTenorKalkulator(change.doc);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         div.remove();
@@ -488,7 +520,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderBiayaAdminKalkulator(change.doc);
+                        }
                     } else if(change.type == 'modified'){
                         renderUpdateBiayaAdminKalkulator(change.doc);
                     }
@@ -499,7 +533,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderBiayaBungaKalkulator(change.doc);
+                        }
                     } else if(change.type == 'modified'){
                         renderUpdateBiayaBungaKalkulator(change.doc);
                     }
@@ -510,7 +546,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderAktivasiBiayaAdminKalkulator(change.doc);
+                        }
                     } else if(change.type == 'modified'){
                         renderUpdateAktivasiBiayaAdminKalkulator(change.doc);
                     }
@@ -521,7 +559,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderAktivasiBiayaBungaKalkulator(change.doc);
+                        }
                     } else if(change.type == 'modified'){
                         renderUpdateAktivasiBiayaBungaKalkulator(change.doc);
                     }
@@ -532,7 +572,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderTransaksiBerjalan(change.doc);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         div.remove();
@@ -546,7 +588,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderReturPending(change.doc);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         div.remove();
@@ -560,7 +604,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderReturSelesai(change.doc);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         div.remove();
@@ -574,7 +620,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderReturDealerPending(change.doc);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         div.remove();
@@ -588,7 +636,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderReturDealerSelesai(change.doc);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         div.remove();
@@ -602,7 +652,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderPengeluaran(change.doc);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         div.remove();
@@ -616,7 +668,9 @@ auth.onAuthStateChanged(user => {
                 let changes = snapshot.docChanges();
                 changes.forEach(change =>{
                     if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
                         renderPengeluaranSelesai(change.doc);
+                        }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         div.remove();
@@ -626,18 +680,19 @@ auth.onAuthStateChanged(user => {
 
         $(document).ready(function(){
             setInterval(function(){ refreshOnPengumuman(); }, 60000);
-            setInterval(function(){ refreshOnOverview(); }, 10);
+            setInterval(function(){ refreshOnOverview(); }, 1000);
             setInterval(function(){ refreshOnCatatan(); }, 60000);
             setInterval(function(){ refreshOnPerpindahan(); }, 1000);
             setInterval(function(){ refreshOnPerpindahanKedua(); }, 10);
             setInterval(function(){ refreshOnJumlahTenor(); }, 10);
             setInterval(function(){ refreshOnOpsiEkspedisi(); }, 10);
-            setInterval(function(){ refreshOnRetur(); }, 10)
-            setInterval(function(){ refreshOnReturDealer(); }, 10)
+            setInterval(function(){ refreshOnRetur(); }, 1000)
+            setInterval(function(){ refreshOnReturDealer(); }, 1000)
         });
 
 
         function refreshOnPengumuman(){
+        if(auth.currentUser != null){
           db.collection('pengumuman').get().then(function(querySnapshot){
             querySnapshot.docs.map((doc) => {
               let tanggal = doc.data().tanggal;
@@ -680,9 +735,11 @@ auth.onAuthStateChanged(user => {
               $('#perbandingan-baru' + doc.id).text(perbandinganBaru);
             })
           }, err => console.log(err.message))
+            }
         }
 
         function refreshOnOverview(){
+        if(auth.currentUser != null){
           db.collection('overview').get().then(function(querySnapshot){
             querySnapshot.docs.map((doc) => {
               let waktuOverview = doc.data().waktuOverview;
@@ -712,9 +769,11 @@ auth.onAuthStateChanged(user => {
                 $('#waktu-overview' + doc.id).text(perbandinganWaktu);
             })
           }, err => console.log(err.message))
+            }
         }
 
         function refreshOnCatatan(){
+        if(auth.currentUser != null){
         db.collection('catatan').get().then(function(querySnapshot){
             querySnapshot.docs.map((doc) => {
                 let tanggal = doc.data().tanggal;
@@ -744,10 +803,12 @@ auth.onAuthStateChanged(user => {
                 $('#waktu-luncur-catatan' + doc.id).text(perbandinganWaktu)                
             })
           }, err => console.log(err.message))
+            }
         }
 
         function refreshOnPerpindahan(e){
-                let count = 0;            
+        if(auth.currentUser != null){            
+        let count = 0;            
         db.collection('perpindahan').get().then(function(querySnapshot){
             querySnapshot.docs.map((doc) => {
                 let div = document.querySelector('[data-id="' + doc.id + '"]');                
@@ -845,6 +906,7 @@ auth.onAuthStateChanged(user => {
                 }               
             })
           }, err => console.log(err.message))
+            }
         }
 
         function refreshOnPerpindahanKedua(e){
@@ -873,6 +935,7 @@ auth.onAuthStateChanged(user => {
         }
 
         function refreshOnOpsiEkspedisi(e){
+        if(auth.currentUser != null){            
             let daftarOpsiEkspedisi = document.querySelectorAll('.ekspedisi-transaksi-berjalan');
             for(let x = 0; x<daftarOpsiEkspedisi.length; x++){
             db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
@@ -922,6 +985,7 @@ auth.onAuthStateChanged(user => {
                     }, err => console.log(err.message))
                 })
             }, err => console.log(err.message))
+                }
             }
         }
 
@@ -1601,11 +1665,12 @@ keluar.addEventListener('click', (e) => {
         waktuOverview : tanggal,
         overview : 'sign-out'
         }).then(() => {
-    auth.signOut();
-    setTimeout(function(){
-    window.location.reload();
-    },2000)
-        })
+            setTimeout(function(){
+            auth.signOut().then(() => {
+                window.location.reload();
+            })
+        },1000)
+            })
         }
     }, err => console.log(err.message));
 });
@@ -1629,6 +1694,7 @@ formMasuk.addEventListener('submit', (e) => {
     })
       $('#modallogin').modal('hide');
       formMasuk.reset();
+      console.clear();
   }, err => {
     if(err.code == 'auth/user-not-found'){
         alert('User tidak ditemukan.')

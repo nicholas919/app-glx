@@ -86,14 +86,14 @@ function renderPeserta(doc){
     let email = doc.data().email;
     let role = doc.data().role;
     daftarEmailKaryawan.push(email);
-    daftarKaryawan.push(nama.toLowerCase().replace(" ", "-"));
+    daftarKaryawan.push(nama.toLowerCase().replace(/\s/g, "-"));
     let opsiTugas = document.createElement('option');
     let opsiTugasKedua = document.createElement('option');
     tr.setAttribute('data-id', doc.id);
     tr.setAttribute('data-toggle', 'modal');
     tr.setAttribute('data-target', '#modaleditpeserta' + doc.id);
     tr.setAttribute('id','peserta' + doc.id);
-    tr.classList.add('dokumentasi-peserta' + doc.id, nama.toLowerCase().replace(" ", "-"), 'peserta');
+    tr.classList.add('dokumentasi-peserta' + doc.id, nama.toLowerCase().replace(/\s/g, "-"), 'peserta');
     div.setAttribute('data-info', doc.id);
     div.classList.add('dokumentasi-peserta-kedua' + doc.id);
     lihatPerformaPeserta.setAttribute('id', 'lihat-performa-peserta');
@@ -111,7 +111,7 @@ function renderPeserta(doc){
     <td id="status-td-peserta${doc.id}" style="font-weight:bold;"></td>
     `
 
-    div.innerHTML = `<div class="performa-peserta" id="performa-peserta-${nama.toLowerCase().replace(" ", "-")}"><span style="font-weight:bold;" id="peserta${doc.id}"><i class='fas fa-user'></i> ${nama} </span><span id="jumlah-kesalahan-peserta-${nama.toLowerCase().replace(" ", "-")}">sejauh ini tidak memiliki kesalahan atau terlibat dalam masalah</span>, <span id="jumlah-tugas-selesai-peserta-${nama.toLowerCase().replace(" ", "-")}">belum terlibat dalam penugasan tertentu.</span> <span id="rata-rata-waktu-penyelesaian-peserta-${nama.toLowerCase().replace(" ", "-")}"></span><span id="jumlah-tugas-terlambat-selesai-peserta-${nama.toLowerCase().replace(" ", "-")}"></span></div>`
+    div.innerHTML = `<div class="performa-peserta" id="performa-peserta-${nama.toLowerCase().replace(/\s/g, "-")}"><span style="font-weight:bold;" id="peserta${doc.id}"><i class='fas fa-user'></i> ${nama} </span><span id="jumlah-kesalahan-peserta-${nama.toLowerCase().replace(/\s/g, "-")}">sejauh ini tidak memiliki kesalahan atau terlibat dalam masalah</span>, <span id="jumlah-tugas-selesai-peserta-${nama.toLowerCase().replace(/\s/g, "-")}">belum terlibat dalam penugasan tertentu.</span> <span id="rata-rata-waktu-penyelesaian-peserta-${nama.toLowerCase().replace(/\s/g, "-")}"></span><span id="jumlah-tugas-terlambat-selesai-peserta-${nama.toLowerCase().replace(/\s/g, "-")}"></span></div>`
 
     peserta.innerHTML = `
 <div class="modal fade" id="modaleditpeserta${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -140,7 +140,7 @@ function renderPeserta(doc){
         <div id="email${doc.id}" style="font-weight:bold;" class="body-email">${email}</div>
         <div>Performa Penyelesaian Tugas</div>
         <div>:</div> 
-        <div id="performa-peserta${doc.id}" class="performa-peserta-${nama.toLowerCase().replace(" ", "-")}" style="font-weight:bold;">-</div>
+        <div id="performa-peserta${doc.id}" class="performa-peserta-${nama.toLowerCase().replace(/\s/g, "-")}" style="font-weight:bold;">-</div>
         <div>Status</div>
         <div>:</div> 
         <div id="status-peserta${doc.id}" style="font-weight:bold;"></div> 
@@ -455,26 +455,25 @@ setInterval(function(){
         })
     }).then(() => {
     $(document).ready(function() {
-    let tugasPeserta = document.querySelectorAll('.tugasseseorang' + nama.toLowerCase().replace(" ", "-"))
+    let tugasPeserta = document.querySelectorAll('.tugasseseorang' + nama.toLowerCase().replace(/\s/g, "-"))
     for(let x = 0;x<tugasPeserta.length;x++){
             let id = tugasPeserta[x].getAttribute('data-id')
             db.collection('tugas').doc(id).delete();
         }
 
-    let tugasPesertaSelesai = document.querySelectorAll('.tugasseseorangselesai' + nama.toLowerCase().replace(" ", "-"))
+    let tugasPesertaSelesai = document.querySelectorAll('.tugasseseorangselesai' + nama.toLowerCase().replace(/\s/g, "-"))
     for(let x = 0;x<tugasPesertaSelesai.length;x++){
             let id = tugasPesertaSelesai[x].getAttribute('data-id')
             db.collection('tugasSelesai').doc(id).delete()
         }
 
-    let kesalahanPeserta = document.querySelectorAll('.kesalahanseseorang' + nama.toLowerCase().replace(" ", "-"))
+    let kesalahanPeserta = document.querySelectorAll('.kesalahanseseorang' + nama.toLowerCase().replace(/\s/g, "-"))
     for(let x = 0;x<kesalahanPeserta.length;x++){
             let id = kesalahanPeserta[x].getAttribute('data-id')
             db.collection('kesalahan').doc(id).delete()
         }
-    })
-    let id = document.querySelector('.dokumentasi-peserta' + doc.id).getAttribute('data-id');    
-    db.collection('peserta').doc(id).delete();
+    })   
+    db.collection('peserta').doc(doc.id).delete();
     $('#modaleditpeserta' + doc.id).modal('hide');
     })
             }
@@ -487,7 +486,7 @@ function renderHapusPeserta(doc){
     let email = doc.data().email;    
     let refreshRemoveRole;
     for(let x = 0; x<daftarKaryawan.length; x++){
-        if(daftarKaryawan[x] == nama.toLowerCase().replace(" ", "-")){
+        if(daftarKaryawan[x] == nama.toLowerCase().replace(/\s/g, "-")){
             daftarKaryawan.splice(x,1)
         }
     }
@@ -698,7 +697,7 @@ for(let x = 0; x<pilihanAnalisis.options.length; x++){
             overview : 'delete-swot'
             })
         }).then(() => {
-            db.collection('swot').doc(id).delete();
+            db.collection('swot').doc(doc.id).delete();
             $('#modaleditswot' + doc.id).modal('hide');
                 })
             })    
@@ -736,7 +735,7 @@ const setupUI = (user) => {
         let username = doc.data().username;
         let kataSambut = document.querySelectorAll('.kata-sambutan');
         let overview = document.querySelectorAll('.overview');
-        let overviewIndividu = document.querySelectorAll('.overview-' + username.toLowerCase().replace(" ", "-"))
+        let overviewIndividu = document.querySelectorAll('.overview-' + username.toLowerCase().replace(/\s/g, "-"))
         let penggunaTargetOverview = document.querySelectorAll('.pengguna-target-overview');
         let editKategoriMenu = document.querySelectorAll('.edit-kategori-menu');
         let hapusKategoriMenu = document.querySelectorAll('.hapus-kategori-menu');
@@ -768,7 +767,7 @@ const setupUI = (user) => {
             }
         }
         for(let x = 0; x<daftarKaryawan.length; x++){
-        let overviewIndividuLain = document.querySelectorAll('.overview-' + daftarKaryawan[x].toLowerCase().replace(" ", "-"))
+        let overviewIndividuLain = document.querySelectorAll('.overview-' + daftarKaryawan[x].toLowerCase().replace(/\s/g, "-"))
         if(overviewIndividuLain.length > 30){
             for(let i = 0; i<overviewIndividuLain.length; i++){
                 if(i > 29){
@@ -780,7 +779,7 @@ const setupUI = (user) => {
         }
 
         for(let x = 0; x<daftarKaryawan.length; x++){
-        let pengeluaranSelesaiIndividuLain = document.querySelectorAll('.pengeluaran-selesai-' + daftarKaryawan[x].toLowerCase().replace(" ", "-"))
+        let pengeluaranSelesaiIndividuLain = document.querySelectorAll('.pengeluaran-selesai-' + daftarKaryawan[x].toLowerCase().replace(/\s/g, "-"))
         if(pengeluaranSelesaiIndividuLain.length > 15){
             for(let i = 0; i<pengeluaranSelesaiIndividuLain.length; i++){
                 if(i > 14){
@@ -793,9 +792,7 @@ const setupUI = (user) => {
     
 
         if(username == "Admin Galaxy" && user.email == 'useradmin@galaxy.id'){
-        setInterval(function(){
         document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
-    },10)
             winWidth900(x);
             x.addListener(winWidth900);
             function winWidth900(x){
@@ -933,9 +930,7 @@ const setupUI = (user) => {
             document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:block !important;');
             document.querySelector('#tambahperpindahanbarang').style.display = 'block';
         } else if(user.adminKantor){
-            setInterval(function(){
             document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
-        },10)
             winWidth900(x);
             x.addListener(winWidth900);
             function winWidth900(x){
@@ -1000,7 +995,7 @@ const setupUI = (user) => {
             emailTable[x].setAttribute('style','display:none !important;');
             }
             for(let x = 0; x<overview.length;x++){
-                if(overview[x].classList.contains('overview-' + username.toLowerCase().replace(" ", "-"))){
+                if(overview[x].classList.contains('overview-' + username.toLowerCase().replace(/\s/g, "-"))){
                     overview[x].style.display = '';
                 } else {
                     overview[x].style.display = 'none';
@@ -1077,7 +1072,7 @@ const setupUI = (user) => {
             let id = catatan[x].getAttribute('data-id')
             db.collection('catatan').doc(id).get().then(function(item){
             if(document.querySelector('#catatan' + doc.id)){
-                if(item.data().pembuatCatatan.toLowerCase().replace(" ", "-") == username.toLowerCase().replace(" ", "-")){
+                if(item.data().pembuatCatatan.toLowerCase().replace(/\s/g, "-") == username.toLowerCase().replace(/\s/g, "-")){
                     if(document.querySelector('#tombol-pengaturan' + id)){
                     document.querySelector('#tombol-pengaturan' + id).style.setProperty('display', 'flex', 'important')
                     }
@@ -1090,9 +1085,7 @@ const setupUI = (user) => {
             })
         }
         },10)            
-        setInterval(function(){
             document.querySelector('#pengguna-overview').innerHTML = 'anda';
-        },10)
             winWidth900(x);
             x.addListener(winWidth900);
             function winWidth900(x){
@@ -1130,28 +1123,28 @@ const setupUI = (user) => {
             buktiPenyelesaianTugasBody[x].setAttribute('style','display:none !important;');
             }
             for(let x = 0; x<peserta.length;x++){
-                if(peserta[x].classList.contains(username.toLowerCase().replace(" ", "-"))){
+                if(peserta[x].classList.contains(username.toLowerCase().replace(/\s/g, "-"))){
                     peserta[x].style.display = 'table-row';
                 } else {
                     peserta[x].style.display = 'none';
                 }
             }
             for(let x = 0; x<tugas.length;x++){
-                if(tugas[x].classList.contains('tugasseseorang' + username.toLowerCase().replace(" ", "-"))){
+                if(tugas[x].classList.contains('tugasseseorang' + username.toLowerCase().replace(/\s/g, "-"))){
                     tugas[x].setAttribute('style','display:block !important;');
                 } else {
                     tugas[x].setAttribute('style','display:none !important;');
                 }
             }
             for(let x = 0; x<tugasSelesai.length;x++){
-                if(tugasSelesai[x].classList.contains('tugasseseorangselesai' + username.toLowerCase().replace(" ", "-"))){
+                if(tugasSelesai[x].classList.contains('tugasseseorangselesai' + username.toLowerCase().replace(/\s/g, "-"))){
                     tugasSelesai[x].setAttribute('style','display:block !important;');
                 } else {
                     tugasSelesai[x].setAttribute('style','display:none !important;');
                 }
             }
             for(let x = 0; x<kesalahan.length;x++){
-                if(kesalahan[x].classList.contains('kesalahanseseorang' + username.toLowerCase().replace(" ", "-"))){
+                if(kesalahan[x].classList.contains('kesalahanseseorang' + username.toLowerCase().replace(/\s/g, "-"))){
                     kesalahan[x].setAttribute('style','display:block !important;');
                 } else {
                     kesalahan[x].setAttribute('style','display:none !important;');
@@ -1164,14 +1157,14 @@ const setupUI = (user) => {
             emailTable[x].setAttribute('style','display:none !important;');
             }
             for(let x = 0; x<overview.length;x++){
-                if(overview[x].classList.contains('overview-' + username.toLowerCase().replace(" ", "-"))){
+                if(overview[x].classList.contains('overview-' + username.toLowerCase().replace(/\s/g, "-"))){
                     overview[x].style.display = '';
                 } else {
                     overview[x].style.display = 'none';
                 }
             }
             for(let x = 0; x<penggunaTargetOverview.length; x++){
-                if(penggunaTargetOverview[x].classList.contains('pengguna-target-overview-' + username.toLowerCase().replace(" ", "-"))){
+                if(penggunaTargetOverview[x].classList.contains('pengguna-target-overview-' + username.toLowerCase().replace(/\s/g, "-"))){
                     penggunaTargetOverview[x].innerHTML = 'anda';
                 }
             }
@@ -1206,7 +1199,7 @@ const setupUI = (user) => {
             editPerpindahan[x].setAttribute('style','display:none !important;');
             }
             for(let x = 0; x<pengeluaran.length;x++){
-                if(pengeluaran[x].classList.contains('pengeluaran-' + username.toLowerCase().replace(" ", "-"))){
+                if(pengeluaran[x].classList.contains('pengeluaran-' + username.toLowerCase().replace(/\s/g, "-"))){
                     pengeluaran[x].style.display = 'grid';
                     pengeluaran[x].style.gridTemplateColumns = 'auto 50px';
                 } else {
@@ -1214,7 +1207,7 @@ const setupUI = (user) => {
                 }
             }
             for(let x = 0; x<pengeluaranSelesai.length;x++){
-                if(pengeluaranSelesai[x].classList.contains('pengeluaran-selesai-' + username.toLowerCase().replace(" ", "-"))){
+                if(pengeluaranSelesai[x].classList.contains('pengeluaran-selesai-' + username.toLowerCase().replace(/\s/g, "-"))){
                     pengeluaranSelesai[x].style.display = 'grid';
                 } else {
                     pengeluaranSelesai[x].style.display = 'none';
@@ -1789,7 +1782,7 @@ function renderTugas(doc){
     let tugas = document.createElement('div');
     div.setAttribute('data-id', doc.id);
     let namaPeserta = doc.data().namaPeserta;
-    div.classList.add('dokumentasi-tugas-peserta' + doc.id, 'tugasseseorang', 'tugasseseorang' + namaPeserta.toLowerCase().replace(" ", "-"));
+    div.classList.add('dokumentasi-tugas-peserta' + doc.id, 'tugasseseorang', 'tugasseseorang' + namaPeserta.toLowerCase().replace(/\s/g, "-"));
     let kontenTugas = doc.data().kontenTugas;
     let perMinggu = doc.data().perMinggu;
     let perHari = doc.data().perHari;
@@ -2033,7 +2026,7 @@ function renderTugas(doc){
             overview : 'delete-task'
             })
         }).then(() => {
-            db.collection('tugas').doc(id).delete();
+            db.collection('tugas').doc(doc.id).delete();
             $('#modaltugas' + doc.id).modal('hide');
                 })
             })   
@@ -2081,7 +2074,7 @@ function renderTugas(doc){
             filePenyelesaian = filePenyelesaian.name;
         }
         let terlambat = `<span style="color:#e61c33;">(Terlambat)</span>`;
-        db.collection('tugasSelesai').doc(doc.id).set({
+        db.collection('tugasSelesai').add({
             namaPeserta : namaPeserta,
             kontenTugas : kontenTugasUpdate,
             perMinggu : perMingguUpdate,
@@ -2122,7 +2115,7 @@ function renderTugas(doc){
             let penyimpanan = refPenyimpanan.put(filePenyelesaian);
             filePenyelesaian = filePenyelesaian.name;
         }
-        db.collection('tugasSelesai').doc(doc.id).set({
+        db.collection('tugasSelesai').add({
             namaPeserta : namaPeserta,
             kontenTugas : kontenTugas,
             perMinggu : perMinggu,
@@ -2177,7 +2170,7 @@ function renderTugasSelesai(doc){
     let tugas = document.createElement('div');
     div.setAttribute('data-id', doc.id);
     let namaPeserta = doc.data().namaPeserta;
-    div.classList.add('dokumentasi-tugas-peserta-selesai' + doc.id, 'tugasseseorangselesai', 'tugasseseorangselesai' + namaPeserta.toLowerCase().replace(" ", "-"));
+    div.classList.add('dokumentasi-tugas-peserta-selesai' + doc.id, 'tugasseseorangselesai', 'tugasseseorangselesai' + namaPeserta.toLowerCase().replace(/\s/g, "-"));
     let kontenTugas = doc.data().kontenTugas;
     let perMinggu = doc.data().perMinggu;
     let perHari = doc.data().perHari;
@@ -2253,7 +2246,7 @@ function renderTugasSelesai(doc){
     if(terlambat == undefined){
         terlambat = "";
     } else {
-        div.classList.add('terlambat'+ namaPeserta.toLowerCase().replace(" ", "-"));
+        div.classList.add('terlambat'+ namaPeserta.toLowerCase().replace(/\s/g, "-"));
     }
     div.innerHTML = `<div class="tugas" data-toggle="modal" data-target="#modaltugasselesai${doc.id}" id="tugas${doc.id}">Tugas ${tanggalLuncur}, CC : ${namaPeserta} ${terlambat}</div>`
     tugas.innerHTML = `
@@ -2280,7 +2273,7 @@ function renderTugasSelesai(doc){
         <div id="waktu-penyerahan${doc.id}" style="font-weight:bold;">${tanggalPenyerahan} ${terlambat}</div>
         <div>Waktu Penyelesaian Tugas</div>
         <div>:</div>        
-        <div id="waktu-penyelesaian-tugas${doc.id}" style="font-weight:bold;">${performaTugas} <span id="waktu-penyelesaian-${doc.id}"style="display:none;font-weight:normal;" class="waktu-penyelesaian-${namaPeserta.toLowerCase().replace(" ", "-")}">${selisihWaktu}</span></div>
+        <div id="waktu-penyelesaian-tugas${doc.id}" style="font-weight:bold;">${performaTugas} <span id="waktu-penyelesaian-${doc.id}"style="display:none;font-weight:normal;" class="waktu-penyelesaian-${namaPeserta.toLowerCase().replace(/\s/g, "-")}">${selisihWaktu}</span></div>
         <div>Waktu Deadline</div>
         <div>:</div>        
         <div style="font-weight:bold;" id="batas-waktu${doc.id}">${tanggalDeadline} <span id="peringatan-deadline${doc.id}" class="badge badge-danger"></span></div>
@@ -2494,7 +2487,7 @@ function renderTugasSelesai(doc){
 })
 
 
-let performaPeserta = document.querySelectorAll('.waktu-penyelesaian-' + namaPeserta.toLowerCase().replace(" ", "-"));
+let performaPeserta = document.querySelectorAll('.waktu-penyelesaian-' + namaPeserta.toLowerCase().replace(/\s/g, "-"));
 let sum=0;
 for (let i=0;i<performaPeserta.length;i++) {
     sum=sum + parseFloat(performaPeserta[i].childNodes[0].nodeValue);
@@ -2564,20 +2557,20 @@ let rataRataWaktuPenyelesaian;
                 rataRataWaktuPenyelesaian = perhitunganDetik;
             }
 
-let tampilanPerforma = document.querySelectorAll('.performa-peserta-' + namaPeserta.toLowerCase().replace(" ", "-"));
+let tampilanPerforma = document.querySelectorAll('.performa-peserta-' + namaPeserta.toLowerCase().replace(/\s/g, "-"));
 for(let x = 0;x<tampilanPerforma.length;x++){
     tampilanPerforma[x].innerHTML = rataRataWaktuPenyelesaian;
 }
-    let jumlahTugasTerlambat = document.querySelectorAll('.terlambat' + namaPeserta.toLowerCase().replace(" ", "-")).length;
-    let jumlahTugasSelesai = document.querySelectorAll('.tugasseseorangselesai' + namaPeserta.toLowerCase().replace(" ", "-")).length;
+    let jumlahTugasTerlambat = document.querySelectorAll('.terlambat' + namaPeserta.toLowerCase().replace(/\s/g, "-")).length;
+    let jumlahTugasSelesai = document.querySelectorAll('.tugasseseorangselesai' + namaPeserta.toLowerCase().replace(/\s/g, "-")).length;
     if(jumlahTugasTerlambat == 0){
-    document.querySelector('#jumlah-tugas-selesai-peserta-' + namaPeserta.toLowerCase().replace(" ", "-")).innerHTML = 'telah menyelesaikan ' + jumlahTugasSelesai + ' tugas';
-    document.querySelector('#rata-rata-waktu-penyelesaian-peserta-' + namaPeserta.toLowerCase().replace(" ", "-")).innerHTML = ' dengan rata-rata waktu penyelesaian ' + rataRataWaktuPenyelesaian;
-    document.querySelector('#jumlah-tugas-terlambat-selesai-peserta-' + namaPeserta.toLowerCase().replace(" ", "-")).innerHTML = ', tidak pernah terlambat menyelesaikan tugas.';
+    document.querySelector('#jumlah-tugas-selesai-peserta-' + namaPeserta.toLowerCase().replace(/\s/g, "-")).innerHTML = 'telah menyelesaikan ' + jumlahTugasSelesai + ' tugas';
+    document.querySelector('#rata-rata-waktu-penyelesaian-peserta-' + namaPeserta.toLowerCase().replace(/\s/g, "-")).innerHTML = ' dengan rata-rata waktu penyelesaian ' + rataRataWaktuPenyelesaian;
+    document.querySelector('#jumlah-tugas-terlambat-selesai-peserta-' + namaPeserta.toLowerCase().replace(/\s/g, "-")).innerHTML = ', tidak pernah terlambat menyelesaikan tugas.';
     } else if(jumlahTugasTerlambat != 0){
-    document.querySelector('#jumlah-tugas-selesai-peserta-' + namaPeserta.toLowerCase().replace(" ", "-")).innerHTML = 'telah menyelesaikan ' + jumlahTugasSelesai + ' tugas';
-    document.querySelector('#rata-rata-waktu-penyelesaian-peserta-' + namaPeserta.toLowerCase().replace(" ", "-")).innerHTML = ' dengan rata-rata waktu penyelesaian ' + rataRataWaktuPenyelesaian;
-    document.querySelector('#jumlah-tugas-terlambat-selesai-peserta-' + namaPeserta.toLowerCase().replace(" ", "-")).innerHTML = ', terlambat menyelesaikan ' + jumlahTugasTerlambat + ' tugas.';
+    document.querySelector('#jumlah-tugas-selesai-peserta-' + namaPeserta.toLowerCase().replace(/\s/g, "-")).innerHTML = 'telah menyelesaikan ' + jumlahTugasSelesai + ' tugas';
+    document.querySelector('#rata-rata-waktu-penyelesaian-peserta-' + namaPeserta.toLowerCase().replace(/\s/g, "-")).innerHTML = ' dengan rata-rata waktu penyelesaian ' + rataRataWaktuPenyelesaian;
+    document.querySelector('#jumlah-tugas-terlambat-selesai-peserta-' + namaPeserta.toLowerCase().replace(/\s/g, "-")).innerHTML = ', terlambat menyelesaikan ' + jumlahTugasTerlambat + ' tugas.';
     }
 }
 
@@ -2622,7 +2615,7 @@ function renderKesalahan(doc){
     let kesalahan = document.createElement('div');
     div.setAttribute('data-id', doc.id);
     let nama = doc.data().nama;
-    div.classList.add('dokumentasi-kesalahan-peserta' + doc.id, 'kesalahanseseorang', 'kesalahanseseorang' + nama.toLowerCase().replace(" ", "-"));
+    div.classList.add('dokumentasi-kesalahan-peserta' + doc.id, 'kesalahanseseorang', 'kesalahanseseorang' + nama.toLowerCase().replace(/\s/g, "-"));
     let kontenKesalahan = doc.data().kontenKesalahan;
     let tanggal = doc.data().tanggal;
     let kalkulasiTanggal = new Date(tanggal);
@@ -2684,8 +2677,8 @@ function renderKesalahan(doc){
     kesalahanPeserta.appendChild(div);
     modalKesalahanPeserta.appendChild(kesalahan);
 
-    let jumlahKesalahan = document.querySelectorAll('.kesalahanseseorang' + nama.toLowerCase().replace(" ", "-")).length;
-    document.querySelector('#jumlah-kesalahan-peserta-' + nama.toLowerCase().replace(" ", "-")).innerHTML = 'Memiliki kesalahan dengan jumlah keseluruhan ' + jumlahKesalahan;
+    let jumlahKesalahan = document.querySelectorAll('.kesalahanseseorang' + nama.toLowerCase().replace(/\s/g, "-")).length;
+    document.querySelector('#jumlah-kesalahan-peserta-' + nama.toLowerCase().replace(/\s/g, "-")).innerHTML = 'Memiliki kesalahan dengan jumlah keseluruhan ' + jumlahKesalahan;
 
     let edit = document.querySelector('#edit' + doc.id);
     edit.addEventListener('click', function(e){
@@ -2725,7 +2718,7 @@ function renderKesalahan(doc){
                 if(tanggalBaru == tanggalUpdateBaru && kontenKesalahan == kontenKesalahanUpdate.replace(/\n\r?/g, '<br/>')){
                     alert('Tidak ada perubahan yang terjadi pada kolom kolom berikut');
                 } else if(tanggalBaru != tanggalUpdateBaru && kontenKesalahan != kontenKesalahanUpdate.replace(/\n\r?/g, '<br/>')){
-                    overviewCadangan = `mengubah tanggal beserta konten suatu kesalahan <span class="pengguna-target-overview pengguna-target-overview-${penggunaKesalahan.toLowerCase().replace(" ", "-")}">${penggunaKesalahan}</span>.`;
+                    overviewCadangan = `mengubah tanggal beserta konten suatu kesalahan <span class="pengguna-target-overview pengguna-target-overview-${penggunaKesalahan.toLowerCase().replace(/\s/g, "-")}">${penggunaKesalahan}</span>.`;
                         db.collection('kesalahan').doc(doc.id).update({
                         tanggal : tanggalUpdate,
                         kontenKesalahan : kontenKesalahanUpdate.replace(/\n\r?/g, '<br/>')
@@ -2740,7 +2733,7 @@ function renderKesalahan(doc){
                             })
                         })
                 } else if(tanggalBaru != tanggalUpdateBaru){
-                    overviewCadangan = `mengubah tanggal suatu kesalahan <span class="pengguna-target-overview pengguna-target-overview-${penggunaKesalahan.toLowerCase().replace(" ", "-")}">${penggunaKesalahan}</span>.`
+                    overviewCadangan = `mengubah tanggal suatu kesalahan <span class="pengguna-target-overview pengguna-target-overview-${penggunaKesalahan.toLowerCase().replace(/\s/g, "-")}">${penggunaKesalahan}</span>.`
                     db.collection('kesalahan').doc(doc.id).update({
                         tanggal : tanggalUpdate
                     }).then(() => {
@@ -2754,7 +2747,7 @@ function renderKesalahan(doc){
                             })
                         })                    
                 } else if(kontenKesalahan != kontenKesalahanUpdate.replace(/\n\r?/g, '<br/>')){
-                    overviewCadangan = `mengubah konten suatu kesalahan <span class="pengguna-target-overview pengguna-target-overview-${penggunaKesalahan.toLowerCase().replace(" ", "-")}">${penggunaKesalahan}</span>.`
+                    overviewCadangan = `mengubah konten suatu kesalahan <span class="pengguna-target-overview pengguna-target-overview-${penggunaKesalahan.toLowerCase().replace(/\s/g, "-")}">${penggunaKesalahan}</span>.`
                     db.collection('kesalahan').doc(doc.id).update({
                         kontenKesalahan : kontenKesalahanUpdate.replace(/\n\r?/g, '<br/>')
                     }).then(() => {
@@ -2797,7 +2790,7 @@ function renderKesalahan(doc){
                 kontenKesalahan : item.data().kontenKesalahan,
                 overview : 'delete-mistake'
                 })
-        db.collection('kesalahan').doc(id).delete();
+        db.collection('kesalahan').doc(doc.id).delete();
         $('#modalkesalahan' + doc.id).modal('hide');
             })
         })
@@ -3025,7 +3018,7 @@ function renderAchievement(doc){
                 overview : 'delete-achievement'
                 })
         }).then(() => {
-            db.collection('achievement').doc(id).delete();
+            db.collection('achievement').doc(doc.id).delete();
             $('#modalachievement' + doc.id).modal('hide');
             })
         })
@@ -3257,7 +3250,7 @@ function renderPengumuman(doc){
                 overview : 'delete-announcement'
                 })
         }).then(() => {
-        db.collection('pengumuman').doc(id).delete();
+        db.collection('pengumuman').doc(doc.id).delete();
         $('#modalpengumuman' + doc.id).modal('hide');
             })
     })
@@ -3369,36 +3362,36 @@ function renderOverview(doc){
 
     switch(overview){
         case 'sign-out':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> keluar dari website.`
         listOverview.appendChild(div);
         break;
         case 'sign-in':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> masuk kedalam website.`
         listOverview.appendChild(div);
         break;
         case 'sign-up':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> bergabung kedalam website.`
         listOverview.appendChild(div);
         break;
         case 'change-password':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> mengganti password akun.`
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'delete-account':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus akun.`
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#e35959';
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'update-announcement':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         overviewCadangan = doc.data().overviewCadangan;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
         listOverview.appendChild(div);
@@ -3406,7 +3399,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;        
         case 'add-announcement':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         judulPengumuman = doc.data().judulPengumuman;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan pengumuman "${judulPengumuman}".`
         listOverview.appendChild(div);
@@ -3414,7 +3407,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'delete-announcement':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         judulPengumuman = doc.data().judulPengumuman;
         kontenPengumuman = doc.data().kontenPengumuman;
         div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus pengumuman "${judulPengumuman}".</div>`
@@ -3443,14 +3436,14 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white'
         break;        
         case 'add-achievement':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan suatu achievement.`
         listOverview.appendChild(div)
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'delete-achievement':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         tanggalPencapaian = doc.data().tanggalPencapaian;
         kalkulasiTanggal = new Date(tanggalPencapaian);
         dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
@@ -3491,7 +3484,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'update-achievement':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         overviewCadangan = doc.data().overviewCadangan;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
         listOverview.appendChild(div);
@@ -3499,7 +3492,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;        
         case 'add-swot':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         analisisSwot = doc.data().analisisSwot;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data analisa swot pada ${analisisSwot}.`
         listOverview.appendChild(div);
@@ -3507,7 +3500,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'delete-swot':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         kontenAnalisis = doc.data().kontenAnalisis;
         analisisSwot = doc.data().analisisSwot;
         div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data analisa swot pada ${analisisSwot}.</div>`
@@ -3538,7 +3531,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'update-swot':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         overviewCadangan = doc.data().overviewCadangan;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
         listOverview.appendChild(div);
@@ -3547,7 +3540,7 @@ function renderOverview(doc){
         break;
         case 'add-mistake':
         penggunaKesalahan = doc.data().penggunaKesalahan;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaKesalahan.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"), 'overview-' + penggunaKesalahan.toLowerCase().replace(/\s/g, "-"));        
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data kesalahan pada karyawan ${penggunaKesalahan}.`
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
@@ -3557,7 +3550,7 @@ function renderOverview(doc){
         penggunaKesalahan = doc.data().penggunaKesalahan;
         tanggalKesalahan = doc.data().tanggalKesalahan;
         kontenKesalahan = doc.data().kontenKesalahan;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaKesalahan.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"), 'overview-' + penggunaKesalahan.toLowerCase().replace(/\s/g, "-"));
         div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data kesalahan pada karyawan ${penggunaKesalahan}.</div>`
         listOverview.appendChild(div);
         info.innerHTML = `
@@ -3595,7 +3588,7 @@ function renderOverview(doc){
         case 'update-mistake':
         penggunaKesalahan = doc.data().penggunaKesalahan;
         overviewCadangan = doc.data().overviewCadangan;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaKesalahan.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"), 'overview-' + penggunaKesalahan.toLowerCase().replace(/\s/g, "-"));        
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
@@ -3603,7 +3596,7 @@ function renderOverview(doc){
         break;
         case 'add-task':
         penggunaTugas = doc.data().penggunaTugas;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaTugas.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"), 'overview-' + penggunaTugas.toLowerCase().replace(/\s/g, "-"));        
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan tugas kepada ${penggunaTugas}.`
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
@@ -3614,7 +3607,7 @@ function renderOverview(doc){
         tanggalLuncurTugas = doc.data().tanggalLuncurTugas;
         tanggalDeadlineTugas = doc.data().tanggalDeadlineTugas;
         kontenTugas = doc.data().kontenTugas;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaTugas.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"), 'overview-' + penggunaTugas.toLowerCase().replace(/\s/g, "-"));        
         div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus tugas ${penggunaTugas}.</div>`
         listOverview.appendChild(div);
         info.innerHTML = `
@@ -3658,14 +3651,14 @@ function renderOverview(doc){
         case 'update-task':
         penggunaTugas = doc.data().penggunaTugas;
         overviewCadangan = doc.data().overviewCadangan;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + penggunaTugas.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"), 'overview-' + penggunaTugas.toLowerCase().replace(/\s/g, "-"));        
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#edaa37';
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'add-user':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         pengguna = doc.data().pengguna;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data karyawan a.n ${pengguna}.`
         listOverview.appendChild(div);
@@ -3673,7 +3666,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'delete-user':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         pengguna = doc.data().pengguna;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data karyawan a.n ${pengguna}.`
         listOverview.appendChild(div);
@@ -3682,7 +3675,7 @@ function renderOverview(doc){
         break;
         case 'update-user':
         pengguna = doc.data().pengguna;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + pengguna.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"), 'overview-' + pengguna.toLowerCase().replace(/\s/g, "-"));
         overviewCadangan = doc.data().overviewCadangan;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
         listOverview.appendChild(div);
@@ -3690,7 +3683,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'add-menu-category':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         namaKategoriMenu = doc.data().namaKategoriMenu;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan kategori menu ${namaKategoriMenu}.`
         listOverview.appendChild(div);
@@ -3698,7 +3691,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'delete-menu-category':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         namaKategoriMenu = doc.data().namaKategoriMenu;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus kategori menu ${namaKategoriMenu}.`
         listOverview.appendChild(div);
@@ -3706,7 +3699,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'update-menu-category':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         overviewCadangan = doc.data().overviewCadangan;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
         listOverview.appendChild(div);
@@ -3714,7 +3707,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'add-menu':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         namaKategoriMenu = doc.data().namaKategoriMenu;
         namaMenu = doc.data().namaMenu;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan menu "${namaMenu}" pada kategori menu ${namaKategoriMenu}.`
@@ -3723,7 +3716,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'delete-menu':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         namaKategoriMenu = doc.data().namaKategoriMenu;
         namaMenu = doc.data().namaMenu;
         linkMenu = doc.data().linkMenu;
@@ -3733,7 +3726,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'update-menu':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         overviewCadangan = doc.data().overviewCadangan;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
         listOverview.appendChild(div);
@@ -3741,7 +3734,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'add-print-label-expedition':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         namaEkspedisiCetakLabel = doc.data().namaEkspedisiCetakLabel;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan ekspedisi "${namaEkspedisiCetakLabel}" pada fitur cetak label.`
         listOverview.appendChild(div);
@@ -3749,7 +3742,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'delete-print-label-expedition':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         namaEkspedisiCetakLabel = doc.data().namaEkspedisiCetakLabel;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus ekspedisi "${namaEkspedisiCetakLabel}" dari fitur cetak label.`
         listOverview.appendChild(div);
@@ -3757,7 +3750,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'update-print-label-expedition':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         overviewCadangan = doc.data().overviewCadangan;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
         listOverview.appendChild(div);
@@ -3765,7 +3758,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';
         break;
         case 'add-note':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan suatu catatan.`
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
@@ -3774,8 +3767,8 @@ function renderOverview(doc){
         case 'delete-note':
         pembuatCatatan = doc.data().pembuatCatatan;
         kontenCatatan = doc.data().kontenCatatan;        
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"), 'overview-' + pembuatCatatan.toLowerCase().replace(" ", "-"));        
-        if(penggunaOverview.toLowerCase().replace(" ", "-") == pembuatCatatan.toLowerCase().replace(" ", "-")){
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"), 'overview-' + pembuatCatatan.toLowerCase().replace(/\s/g, "-"));        
+        if(penggunaOverview.toLowerCase().replace(/\s/g, "-") == pembuatCatatan.toLowerCase().replace(/\s/g, "-")){
         div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus catatan milik anda.</div>`
         } else {
         div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus catatan milik ${pembuatCatatan}.</div>`    
@@ -3804,7 +3797,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';        
         break;
         case 'update-note':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         overviewCadangan = doc.data().overviewCadangan;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
         listOverview.appendChild(div);
@@ -3813,7 +3806,7 @@ function renderOverview(doc){
         break;
         case 'add-indent':
         namaCustomer = doc.data().namaCustomer;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data indent cust "${namaCustomer}".`
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
@@ -3824,7 +3817,7 @@ function renderOverview(doc){
         produkIndent = doc.data().produkIndent;
         namaCustomer = doc.data().namaCustomer;
         kontakCustomer = doc.data().kontakCustomer;        
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data indent cust "${namaCustomer}".</div>`        
         listOverview.appendChild(div);
         info.innerHTML = `
@@ -3863,7 +3856,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';        
         break;
         case 'update-indent':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         overviewCadangan = doc.data().overviewCadangan;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
         listOverview.appendChild(div);
@@ -3878,7 +3871,7 @@ function renderOverview(doc){
         mm = bulan[kalkulasiTanggal.getMonth()]
         yyyy = kalkulasiTanggal.getFullYear();
         tanggalPerpindahan = dd + ' ' + mm + ' ' + yyyy;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data perpindahan barang untuk tanggal ${tanggalPerpindahan}.`
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
@@ -3893,7 +3886,7 @@ function renderOverview(doc){
         mm = bulan[kalkulasiTanggal.getMonth()]
         yyyy = kalkulasiTanggal.getFullYear();
         tanggalPerpindahan = dd + ' ' + mm + ' ' + yyyy;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data perpindahan ${tanggalPerpindahan}.</div>`        
         listOverview.appendChild(div);
         info.innerHTML = `
@@ -3926,7 +3919,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';        
         break;
         case 'update-transport':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         overviewCadangan = doc.data().overviewCadangan;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
         listOverview.appendChild(div);
@@ -3935,7 +3928,7 @@ function renderOverview(doc){
         break;
         case 'add-tenor-calculator':
         tenor = doc.data().tenor;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan tenor ${tenor} bulan pada konfigurasi kalkulator.`
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
@@ -3945,7 +3938,7 @@ function renderOverview(doc){
         tenor = doc.data().tenor;
         biayaAdmin = doc.data().biayaAdmin;
         bunga = doc.data().bunga;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus tenor ${tenor} bulan pada konfigurasi Kalkulator.</div>`        
         listOverview.appendChild(div);
         info.innerHTML = `
@@ -3984,7 +3977,7 @@ function renderOverview(doc){
         document.querySelector('#overview' + doc.id).style.color = 'white';        
         break;
         case 'update-tenor-calculator':
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         overviewCadangan = doc.data().overviewCadangan;
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> ${overviewCadangan}`
         listOverview.appendChild(div);
@@ -3993,7 +3986,7 @@ function renderOverview(doc){
         break;
         case 'add-return':
         namaCustomer = doc.data().namaCustomer;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data retur penjualan dengan nama customer ${namaCustomer}.`
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
@@ -4006,7 +3999,7 @@ function renderOverview(doc){
         keluhanCustomer = doc.data().keluhanCustomer;
         keteranganRetur = doc.data().keteranganRetur;
         statusProduk = doc.data().statusProduk;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data retur penjualan customer ${namaCustomer}.</div>`        
         listOverview.appendChild(div);
         info.innerHTML = `
@@ -4052,7 +4045,7 @@ function renderOverview(doc){
         break;
         case 'add-return-dealer':
         namaDealer = doc.data().namaDealer;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));        
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));        
         div.innerHTML = `<span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menambahkan data retur pembelian dealer ${namaDealer}.`
         listOverview.appendChild(div);
         document.querySelector('#overview' + doc.id).style.backgroundColor = '#25cf6f';
@@ -4063,7 +4056,7 @@ function renderOverview(doc){
         produkRetur = doc.data().produkRetur;
         keteranganRetur = doc.data().keteranganRetur;
         statusProduk = doc.data().statusProduk;
-        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(" ", "-"));
+        div.classList.add('overview-' + penggunaOverview.toLowerCase().replace(/\s/g, "-"));
         div.innerHTML = `<div id="baca-info${doc.id}" data-toggle="modal" data-target="#modalinfo${doc.id}"><span style="font-weight:bold;" id="pengguna-overview${doc.id}">${penggunaOverview}</span> <span id="waktu-overview${doc.id}">${perbandinganWaktu}</span> menghapus data retur pembelian dealer ${namaDealer}.</div>`        
         listOverview.appendChild(div);
         info.innerHTML = `
@@ -4142,10 +4135,10 @@ function renderKategoriMenu(doc){
     let tanggal = doc.data().tanggal;
     let namaKategoriMenu = doc.data().namaKategoriMenu;
     div.setAttribute('data-id', doc.id);
-    div.setAttribute('id', namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id)
+    div.setAttribute('id', namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id)
     div.setAttribute('data-date', tanggal);
     div.classList.add('dokumentasi-kategori-menu' + doc.id, 'induk-kategori-menu');
-    menu.setAttribute('id', 'menu-' + namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id)
+    menu.setAttribute('id', 'menu-' + namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id)
     menu.classList.add('dokumentasi-kategori-isi-menu' + doc.id, 'kategori-isi-menu', 'collapse', 'hide')
     div.innerHTML = `<div class="kategori-menu"><span id="nama-kategori-menu-tampilan${doc.id}" class="nama-kategori-menu-tampilan">${namaKategoriMenu}</span><i class='fas fa-pen pull-right edit-kategori-menu' id='edit${doc.id}'></i><i class='fas fa-trash-alt pull-right hapus-kategori-menu' id="hapus${doc.id}"></i></div>`
     menu.innerHTML = `
@@ -4209,13 +4202,13 @@ function renderKategoriMenu(doc){
          </div>    
     `
     listKategoriMenu.appendChild(div);
-    document.getElementById(namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id).insertBefore(menu, document.getElementById(namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id).nextSibling);
+    document.getElementById(namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id).insertBefore(menu, document.getElementById(namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id).nextSibling);
     modalMenu.appendChild(modalTambahMenu);
     modalMenu.appendChild(modalKategoriMenu);
 
-    $('#' + namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id).click(function(e){
+    $('#' + namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id).click(function(e){
         e.stopPropagation();
-        $('#menu-' + namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id).collapse('toggle');
+        $('#menu-' + namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id).collapse('toggle');
     })
 
     let tombolTambahMenu = document.querySelector('#tombol-tambah-menu' + doc.id)
@@ -5637,7 +5630,7 @@ function renderTenorKalkulator(doc){
                 overview : 'delete-tenor-calculator'
                 })
         }).then(() => {
-            db.collection('tenorKalkulator').doc(id).delete();
+            db.collection('tenorKalkulator').doc(doc.id).delete();
             $('#modaltenor' + doc.id).modal('hide');
                 })
             })
@@ -6969,7 +6962,7 @@ function renderPengeluaran(doc){
     let penggunaBelanja = doc.data().penggunaBelanja;
     let deskripsiItem = doc.data().deskripsiItem;
     let jumlahPengeluaran = doc.data().jumlahPengeluaran;
-    div.classList.add('dokumentasi-pengeluaran' + doc.id, 'pengeluaran', 'pengeluaran-' + penggunaBelanja.toLowerCase().replace(" ", "-"));    
+    div.classList.add('dokumentasi-pengeluaran' + doc.id, 'pengeluaran', 'pengeluaran-' + penggunaBelanja.toLowerCase().replace(/\s/g, "-"));    
     div.setAttribute('data-date', tanggal);
     let kalkulasiTanggal = new Date(tanggal);
     let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
@@ -7133,7 +7126,7 @@ function renderPengeluaranSelesai(doc){
     let deskripsiItem = doc.data().deskripsiItem;
     let jumlahPengeluaran = doc.data().jumlahPengeluaran;
     div.setAttribute('data-date', tanggal);
-    div.classList.add('dokumentasi-pengeluaran' + doc.id, 'pengeluaran-selesai', 'pengeluaran-selesai-' + penggunaBelanja.toLowerCase().replace(" ", "-"));
+    div.classList.add('dokumentasi-pengeluaran' + doc.id, 'pengeluaran-selesai', 'pengeluaran-selesai-' + penggunaBelanja.toLowerCase().replace(/\s/g, "-"));
     let kalkulasiTanggal = new Date(tanggal);
     let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
     let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];

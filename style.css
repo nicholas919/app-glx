@@ -2,6 +2,211 @@ body{
 	background-color: #eeeeee !important;
 }
 
+.tombol-posisi-geser {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.67);
+    width: 40px;
+    justify-content: center;
+    align-items: center;
+    display: flex !important;
+    color: white;
+    height: 100%;
+    cursor: pointer;
+    font-size: 24px !important;
+}
+
+.tombol-posisi-geser:hover{
+	background-color: rgba(0, 0, 0, 0.76);
+}
+
+.geser-kiri{
+	left: 0;
+}
+
+.geser-kanan{
+	right: 0;
+}
+
+.alamat-pt-sj, .kontak-pt-sj, .tanggal-buat-sj, .sj-tertuju, .tampilan-barang-sj, .footer-sj{
+	font-size: 20px;
+}
+
+.print-potongan-kertas-surat-jalan{
+	font-size: 24px;
+    border: 1px solid teal;
+    color: white;
+    background-color: teal;
+    width: 42px;
+    height: 40px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex !important;
+    position: absolute;
+    top: 0;
+    right: 30px;
+    cursor: pointer;
+}
+
+.print-potongan-kertas-surat-jalan:hover{
+	color:teal;
+	background-color: white;
+}
+
+#preview-surat-jalan{
+	display: flex;
+	position: relative;
+	overflow-x: hidden;
+}
+
+.potongan-kertas-surat-jalan{
+	background-color: white;
+	width: 90%;
+	flex-shrink: 0;
+	position: relative;
+	margin:0 5%;
+}
+
+.catatan-barang-sj{
+	color:#708090;
+	padding-left:10px;
+	width: 80%;
+}
+
+.footer-sj{
+	border-top:2px solid black;
+	margin:0px 15px;
+}
+
+.subtotal-sj{
+	text-align:right !important;
+}
+
+.subtotal-barang-sj{
+	border-bottom:1px solid #dee2e6;
+}
+
+.tampilan-barang-sj{
+	padding:30px 15px 40px;
+}
+
+.sj-tertuju{
+	display:grid;
+	grid-template-columns:70px 10px 300px;
+	margin-left:40px;
+	margin-top:8px;
+}
+
+.tanggal-buat-sj{
+	padding:10px 80px 0px;
+}
+
+.body-sj{
+	padding-bottom: 50px;
+	border-bottom: 1px dashed black;
+}
+
+.nama-pt-sj{
+	font-size:36px;
+	color:cornflowerblue;
+	margin-bottom:-5px;
+}
+
+.alamat-pt-sj, .nama-pt-sj, .kontak-pt-sj, .tombol-hapus-kolom-surat-jalan, .subtotal-sj, .tombol-hapus-kolom-surat-jalan, #subtotal-barang-surat-jalan td:nth-child(1), .header-pengaturan-surat-jalan, #tombol-tambah-baris-surat-jalan{
+	font-weight: bold;
+}
+
+.kontak-pt-sj{
+	margin-bottom: 5px;
+}
+
+.nama-header-sj{
+	font-size:40px;
+	font-weight:bold;
+	padding:0px 40px;
+	position:absolute;
+	right:0;
+	bottom:0;
+}
+
+.garis-header-sj{
+	border-top:1px solid black;
+	margin:1px 10px;
+}
+
+.header-sj{
+	border-bottom:3px solid black;
+	position: relative;
+	padding: 8px 15px 0px;
+	margin:0px 10px;
+	display: grid;
+	grid-template-columns: 80% 20%;
+}
+
+.tombol-hapus-kolom-surat-jalan{
+	color:#dc3545;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+#tombol-tambah-baris-surat-jalan{
+	cursor: pointer;
+	background-color: white;
+}
+
+#tombol-tambah-baris-surat-jalan:hover{
+	background-color: #f5f5f5;
+}
+
+#tombol-tambah-baris-surat-jalan:active{
+	background-color: rgba(0,0,0,.2);
+}
+
+#subtotal-barang-surat-jalan td:nth-child(1), .tanggal-buat-sj{
+	text-align: right !important;
+}
+
+.list-barang-surat-jalan tr td:nth-child(4n+1), .thead-sj tr th:nth-child(1), .thead-sj tr th:nth-child(2), .thead-sj tr th:nth-child(3), #harga-subtotal-barang-surat-jalan{
+	border-right: 1px solid #dee2e6;
+}
+
+.barang-surat-jalan td:nth-child(2n+0), #subtotal-barang-surat-jalan td:nth-child(1), .list-barang-surat-jalan tr td:nth-child(4n+3){
+	border-right: 1px solid #dee2e6;
+	border-left: 1px solid #dee2e6;
+}
+
+.barang-surat-jalan td input{
+	width: 100%;
+	text-align: center;
+}
+
+#th-deskripsi-barang{
+	width: 42%;
+}
+
+#th-kuantitas-barang{
+	width: 10%;
+}
+
+#th-harga-barang{
+	width: 18%;
+}
+
+#th-total-harga-barang{
+	width: 22%;
+}
+
+.header-pengaturan-surat-jalan{
+	padding: 5px 5px 0px;
+	font-size: 18px;
+}
+
+#pengaturan-surat-jalan{
+	width: 100%;
+	background-color: white;
+	border-bottom: 1px solid rgba(0,0,0,.2);
+}
+
 .navbar-collapse {
     position: fixed !important;
     width: 250px;
@@ -685,7 +890,7 @@ input:checked + .slider:after {
   	margin-top:303px; 
 }
 
-.hapus-potongan-kertas-cetak-label{
+.hapus-potongan-kertas-cetak-label, .hapus-potongan-kertas-surat-jalan{
 	visibility: hidden;
 }
 
@@ -696,7 +901,11 @@ input:checked + .slider:after {
   margin: 0;
 }
 
-.hapus-potongan-kertas-cetak-label {
+.hapus-potongan-kertas-surat-jalan{
+	margin-right: -10px;
+}
+
+.hapus-potongan-kertas-cetak-label, .hapus-potongan-kertas-surat-jalan{
     height: 40px;
     width: 40px;
     background-color: #ed2121;
@@ -707,15 +916,15 @@ input:checked + .slider:after {
     right: 0;
 }
 
-.hapus-potongan-kertas-cetak-label:hover{
+.hapus-potongan-kertas-cetak-label:hover, .hapus-potongan-kertas-surat-jalan:hover{
 	background-color: white;
 }
 
-.hapus-potongan-kertas-cetak-label:hover:after{
+.hapus-potongan-kertas-cetak-label:hover:after, .hapus-potongan-kertas-surat-jalan:hover:after{
 	color:#ed2121;
 }
 
-.hapus-potongan-kertas-cetak-label:after {
+.hapus-potongan-kertas-cetak-label:after, .hapus-potongan-kertas-surat-jalan:after{
     position: absolute;
     top: 0;
     bottom: 0;
@@ -1482,7 +1691,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 .info-tugas{
 	display: grid;
-	grid-template-columns: 135px 15px auto;
+	grid-template-columns: 160px 15px auto;
 	padding-bottom: 12px;
 	overflow-wrap: anywhere;
 }
@@ -1712,6 +1921,10 @@ div.induk-kategori-menu{
 div.induk-kategori-menu:nth-child(2n+0){
 	margin-right: 0px !important;
 	margin-bottom: 5px !important;
+}
+
+#tabel-surat-jalan{
+	width: 170%;
 }
 
 }
