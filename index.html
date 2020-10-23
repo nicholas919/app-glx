@@ -1460,7 +1460,7 @@ window.addEventListener('resize', function(e){
             document.querySelector('#lihatperpindahanselesai').classList.remove('pull-right');            
             document.querySelector('#tambahpengumuman').classList.remove('pull-right');
             let formCetakLabel = document.createElement('form');
-            formCetakLabel.setAttribute('id','form-cetak-label');
+            formCetakLabel.setAttribute('id','form-cetak-label-mobile');
             formCetakLabel.innerHTML = `
                 <div class="form-group">
                   <label>Nama Customer</label>
@@ -1495,47 +1495,9 @@ window.addEventListener('resize', function(e){
             <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-cetak-label">Tambah</button>
             `
             if(document.querySelector('#form-cetak-label')){
-            document.querySelector('#form-cetak-label').remove();
-            document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
-            if(auth.currentUser != null){
-                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
-                    if(querySnapshot.docs.length != 0){
-                        querySnapshot.docs.map((item) => {
-                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
-                            let opsi = document.createElement('option')
-                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
-                            opsi.setAttribute('data-date', item.data().tanggal);
-                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
-                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
-                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
-                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
-                            let opsi = document.createElement('option')
-                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
-                            opsi.setAttribute('data-date', item.data().tanggal);
-                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
-                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
-                            }
-                                $(document).ready(function() {
-                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
-                                let items = $('#ekspedisi-customer-cetak-label > option').get();
-                                items.sort(function(a, b) {
-                                let keyA = $(a).data('date');
-                                let keyB = $(b).data('date');
-                                if (keyA > keyB) return 1;
-                                if (keyA < keyB) return -1;
-                                return 0;
-                                })
-                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
-                                $.each(items, function(i, div) {
-                                daftarOpsiEkspedisiCetakLabel.append(div)
-                                })
-                              })
-                            })
-                        })
-                    }
-                })
-              }
-            } else {
+              document.querySelector('#form-cetak-label').remove();
+            }
+            if(!document.querySelector('#form-cetak-label-mobile')){
                 document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
                 if(auth.currentUser != null){
                 db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
@@ -1676,48 +1638,10 @@ window.addEventListener('resize', function(e){
 
             <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-cetak-label">Tambah</button>
             `
-            if(document.querySelector('#form-cetak-label')){
-            document.querySelector('#form-cetak-label').remove();
-            document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
-            if(auth.currentUser != null){
-                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
-                    if(querySnapshot.docs.length != 0){
-                        querySnapshot.docs.map((item) => {
-                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
-                            let opsi = document.createElement('option')
-                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
-                            opsi.setAttribute('data-date', item.data().tanggal);
-                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
-                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
-                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
-                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
-                            let opsi = document.createElement('option')
-                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
-                            opsi.setAttribute('data-date', item.data().tanggal);
-                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
-                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
-                            }
-                                $(document).ready(function() {
-                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
-                                let items = $('#ekspedisi-customer-cetak-label > option').get();
-                                items.sort(function(a, b) {
-                                let keyA = $(a).data('date');
-                                let keyB = $(b).data('date');
-                                if (keyA > keyB) return 1;
-                                if (keyA < keyB) return -1;
-                                return 0;
-                                })
-                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
-                                $.each(items, function(i, div) {
-                                daftarOpsiEkspedisiCetakLabel.append(div)
-                                })
-                              })
-                            })                            
-                        })
-                    }
-                })            
-              }
-            } else {
+            if(document.querySelector('#form-cetak-label-mobile')){
+              document.querySelector('#form-cetak-label-mobile').remove();
+            }
+            if(!document.querySelector('#form-cetak-label')){
                 document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
                 if(auth.currentUser != null){
                 db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
@@ -1838,7 +1762,7 @@ $(document).ready(function(e){
           document.querySelector('#jumbotron-retur-dealer').style.setProperty('margin-top', '55px', 'important')                 
         }                
         let formCetakLabel = document.createElement('form');
-        formCetakLabel.setAttribute('id','form-cetak-label');
+        formCetakLabel.setAttribute('id','form-cetak-label-mobile');
         formCetakLabel.innerHTML = `
                 <div class="form-group">
                   <label>Nama Customer</label>
@@ -1873,47 +1797,9 @@ $(document).ready(function(e){
             <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-cetak-label">Tambah</button>
             `
         if(document.querySelector('#form-cetak-label')){
-        document.querySelector('#form-cetak-label').remove();
-        document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
-          if(auth.currentUser != null){
-                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
-                    if(querySnapshot.docs.length != 0){
-                        querySnapshot.docs.map((item) => {
-                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
-                            let opsi = document.createElement('option')
-                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
-                            opsi.setAttribute('data-date', item.data().tanggal);
-                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
-                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
-                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
-                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
-                            let opsi = document.createElement('option')
-                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
-                            opsi.setAttribute('data-date', item.data().tanggal);
-                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
-                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
-                            }
-                                $(document).ready(function() {
-                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
-                                let items = $('#ekspedisi-customer-cetak-label > option').get();
-                                items.sort(function(a, b) {
-                                let keyA = $(a).data('date');
-                                let keyB = $(b).data('date');
-                                if (keyA > keyB) return 1;
-                                if (keyA < keyB) return -1;
-                                return 0;
-                                })
-                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
-                                $.each(items, function(i, div) {
-                                daftarOpsiEkspedisiCetakLabel.append(div)
-                                })
-                              })
-                            })                                                       
-                        })
-                    }
-                })        
-              }
-        } else {
+          document.querySelector('#form-cetak-label').remove();
+        }
+        if(!document.querySelector('#form-cetak-label-mobile')){
             document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
             if(auth.currentUser != null){
                 db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
@@ -2024,48 +1910,7 @@ $(document).ready(function(e){
 
             <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-cetak-label">Tambah</button>
             `
-            if(document.querySelector('#form-cetak-label')){
-            document.querySelector('#form-cetak-label').remove();
-            document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
-            if(auth.currentUser != null){
-                db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
-                    if(querySnapshot.docs.length != 0){
-                        querySnapshot.docs.map((item) => {
-                            if(!document.querySelector('#ekspedisicetaklabel' + item.id)){
-                            let opsi = document.createElement('option')
-                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
-                            opsi.setAttribute('data-date', item.data().tanggal);
-                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
-                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);
-                            } else if(document.querySelector('#ekspedisicetaklabel' + item.id)){
-                            document.querySelector('#ekspedisicetaklabel' + item.id).remove();
-                            let opsi = document.createElement('option');
-                            opsi.setAttribute('id', 'ekspedisicetaklabel' + item.id);
-                            opsi.setAttribute('data-date', item.data().tanggal);
-                            opsi.innerHTML = item.data().namaEkspedisiCetakLabel;
-                            document.querySelector('#ekspedisi-customer-cetak-label').options[0].parentNode.insertBefore(opsi, document.querySelector('#ekspedisi-customer-cetak-label').options[0].nextSibling);                                
-                            }
-                                $(document).ready(function() {
-                                db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
-                                let items = $('#ekspedisi-customer-cetak-label > option').get();
-                                items.sort(function(a, b) {
-                                let keyA = $(a).data('date');
-                                let keyB = $(b).data('date');
-                                if (keyA > keyB) return 1;
-                                if (keyA < keyB) return -1;
-                                return 0;
-                                })
-                                let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-customer-cetak-label');
-                                $.each(items, function(i, div) {
-                                daftarOpsiEkspedisiCetakLabel.append(div)
-                                })
-                              })
-                            })                                                        
-                        })
-                    }
-                })            
-              }
-            } else {
+            if(!document.querySelector('#form-cetak-label')){
                 document.querySelector('#jumbotron-form-cetak-label').appendChild(formCetakLabel);
                 if(auth.currentUser != null){
                 db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
@@ -2108,18 +1953,20 @@ $(document).ready(function(e){
             }
     }
 })
+
 const previewPrintCetakLabel = document.querySelector('#preview-print-cetak-label')
 $(document).ready(function(){
 setInterval(function(){
-  const formCetakLabel = document.querySelector('#form-cetak-label')
-  formCetakLabel.addEventListener('submit', function(e){
+  [document.querySelector('#form-cetak-label'), document.querySelector('#form-cetak-label-mobile')].forEach(item => {
+    if(item){
+    item.addEventListener('submit', function(e){
     e.preventDefault();
     e.stopImmediatePropagation();
-    let namaCustomer = formCetakLabel['nama-customer-cetak-label'].value;
-    let kontakCustomer = formCetakLabel['kontak-customer-cetak-label'].value;
-    let ekspedisiCustomer = formCetakLabel['ekspedisi-customer-cetak-label'].value;
-    let alamatCustomer = formCetakLabel['alamat-customer-cetak-label'].value.replace(/\n\r?/g, '<br/>');
-    let produkCustomer = formCetakLabel['produk-customer-cetak-label'].value.replace(/\n\r?/g, '<br/>');
+    let namaCustomer = item['nama-customer-cetak-label'].value;
+    let kontakCustomer = item['kontak-customer-cetak-label'].value;
+    let ekspedisiCustomer = item['ekspedisi-customer-cetak-label'].value;
+    let alamatCustomer = item['alamat-customer-cetak-label'].value.replace(/\n\r?/g, '<br/>');
+    let produkCustomer = item['produk-customer-cetak-label'].value.replace(/\n\r?/g, '<br/>');
     let div = document.createElement('div');
     let print = document.createElement('button');
     print.classList.add('btn', 'btn-success', 'mx-auto', 'd-block')
@@ -2164,8 +2011,8 @@ setInterval(function(){
     `
     print.innerHTML = `Print`
 
-    formCetakLabel.reset();
-    formCetakLabel['ekspedisi-customer-cetak-label'].selectedIndex = null;
+    item.reset();
+    item['ekspedisi-customer-cetak-label'].selectedIndex = null;
     if(!document.querySelector('#tombol-print-cetak-label')){
     document.querySelector('#tombol-tambah-cetak-label').parentNode.insertBefore(print, document.querySelector('#tombol-tambah-cetak-label').nextSibling);
     document.querySelector('#judul-preview-print-cetak-label').style.setProperty("display", "block", "important");    
@@ -2179,6 +2026,8 @@ setInterval(function(){
     previewPrintCetakLabel.appendChild(div)
 
     })
+    }
+  })
 
   let hapus = document.querySelectorAll('.hapus-potongan-kertas-cetak-label');
   for(let x = 0; x<hapus.length; x++){
