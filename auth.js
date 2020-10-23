@@ -683,9 +683,9 @@ auth.onAuthStateChanged(user => {
             setInterval(function(){ refreshOnOverview(); }, 1000);
             setInterval(function(){ refreshOnCatatan(); }, 60000);
             setInterval(function(){ refreshOnPerpindahan(); }, 1000);
-            setInterval(function(){ refreshOnPerpindahanKedua(); }, 10);
-            setInterval(function(){ refreshOnJumlahTenor(); }, 10);
-            setInterval(function(){ refreshOnOpsiEkspedisi(); }, 10);
+            setInterval(function(){ refreshOnPerpindahanKedua(); }, 100);
+            setInterval(function(){ refreshOnJumlahTenor(); }, 100);
+            setInterval(function(){ refreshOnOpsiEkspedisi(); }, 100);
             setInterval(function(){ refreshOnRetur(); }, 1000)
             setInterval(function(){ refreshOnReturDealer(); }, 1000)
         });
