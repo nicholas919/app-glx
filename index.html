@@ -1375,7 +1375,7 @@ window.addEventListener('resize', function(e){
         if(document.querySelector('#peringatan-perpindahan-kedua')){
         document.querySelector('#peringatan-perpindahan-kedua').style.width = '100%';
         }
-        if(window.innerWidth <= 840){
+        if($(document).width() <= 840){
             if(document.querySelector('#tambahpengumuman')){
             tombolTambahPengumumanKedua.appendChild(document.querySelector('#tambahpengumuman'));
             }
@@ -1771,7 +1771,7 @@ let tombolTambahLihatReturDealer = document.querySelector('#tombol-tambah-lihat-
 let tombolTambahLihatReturDealerKedua = document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua');
 
 $(document).ready(function(e){
-    if(window.innerWidth <= 840){
+    if($(document).width() <= 840){
         if(document.querySelector('#tambahpengumuman')){
         document.querySelector('#tambahpengumuman').classList.add('tombol-tambah-kedua');
         document.querySelector('#tambahpengumuman').classList.remove('pull-right');
@@ -2268,7 +2268,7 @@ setInterval(function(){
     document.querySelector('#lihatperpindahanpending').addEventListener('click', function(e){
     setTimeout(function(){
     if(document.querySelector('#list-perpindahan-barang-pending').style.display == '' || document.querySelector('#list-perpindahan-barang-pending').style.display == 'none'){
-      if(window.innerWidth <= 840){
+      if($(document).width() <= 840){
         document.querySelector('#lihatperpindahanpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
         document.querySelector('#lihatperpindahanselesai').style.setProperty('border-bottom', '0', 'important');
         document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
@@ -2282,7 +2282,7 @@ setInterval(function(){
         document.querySelector('#lihatperpindahanselesai').classList.remove('active')
         }
     } else {
-      if(window.innerWidth <= 840){
+      if($(document).width() <= 840){
         document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '8px 12px', 'important');
         document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '8px 12px', 'important');
       } else {
@@ -2301,7 +2301,7 @@ setInterval(function(){
     document.querySelector('#lihatperpindahanselesai').addEventListener('click', function(e){
     setTimeout(function(){
     if(document.querySelector('#list-perpindahan-barang-selesai').style.display == '' || document.querySelector('#list-perpindahan-barang-selesai').style.display == 'none'){
-      if(window.innerWidth <= 840){
+      if($(document).width() <= 840){
         document.querySelector('#lihatperpindahanselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
         document.querySelector('#lihatperpindahanpending').style.setProperty('border-bottom', '0', 'important');
         document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
@@ -2315,7 +2315,7 @@ setInterval(function(){
         document.querySelector('#lihatperpindahanpending').classList.remove('active');
         }
     } else {
-      if(window.innerWidth <= 840){
+      if($(document).width() 840){
         document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '8px 12px', 'important');
         document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '8px 12px', 'important');
       } else {
@@ -2334,7 +2334,7 @@ setInterval(function(){
     document.querySelector('#lihatreturpending').addEventListener('click', function(e){
     setTimeout(function(){
     if(document.querySelector('#list-retur-pending').style.display == '' || document.querySelector('#list-retur-pending').style.display == 'none'){
-      if(window.innerWidth <= 840){
+      if($(document).width() <= 840){
         document.querySelector('#lihatreturpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
         document.querySelector('#lihatreturselesai').style.setProperty('border-bottom', '0', 'important');
         document.querySelector('#lihatreturpending').style.setProperty('padding', '6px 12px', 'important');
@@ -2353,7 +2353,7 @@ setInterval(function(){
     document.querySelector('#lihatreturselesai').addEventListener('click', function(e){
     setTimeout(function(){
     if(document.querySelector('#list-retur-selesai').style.display == '' || document.querySelector('#list-retur-selesai').style.display == 'none'){
-      if(window.innerWidth <= 840){
+      if($(document).width() <= 840){
         document.querySelector('#lihatreturselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
         document.querySelector('#lihatreturpending').style.setProperty('border-bottom', '0', 'important');
         document.querySelector('#lihatreturpending').style.setProperty('padding', '6px 12px', 'important');
@@ -2372,7 +2372,7 @@ setInterval(function(){
     document.querySelector('#lihatreturdealerpending').addEventListener('click', function(e){
     setTimeout(function(){
     if(document.querySelector('#list-retur-dealer-pending').style.display == '' || document.querySelector('#list-retur-dealer-pending').style.display == 'none'){
-      if(window.innerWidth <= 840){
+      if($(document).width() <= 840){
         document.querySelector('#lihatreturdealerpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
         document.querySelector('#lihatreturdealerselesai').style.setProperty('border-bottom', '0', 'important');
         document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '6px 12px', 'important');
@@ -2391,7 +2391,7 @@ setInterval(function(){
     document.querySelector('#lihatreturdealerselesai').addEventListener('click', function(e){
     setTimeout(function(){
     if(document.querySelector('#list-retur-dealer-selesai').style.display == '' || document.querySelector('#list-retur-dealer-selesai').style.display == 'none'){
-      if(window.innerWidth <= 840){
+      if($(document).width() <= 840){
         document.querySelector('#lihatreturdealerselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
         document.querySelector('#lihatreturdealerpending').style.setProperty('border-bottom', '0', 'important');
         document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '6px 12px', 'important');
