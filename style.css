@@ -1567,6 +1567,10 @@ div.induk-kategori-menu:nth-child(4n+0){
     border-radius: 0 !important;
 }
 
+#tambah-pengumuman{
+	margin:0px 20px;
+}
+
 #tombol-tambah-lihat-perpindahan-kedua > .tombol-tambah-kedua:nth-last-child(1), #tombol-tambah-lihat-retur-kedua > .tombol-tambah-kedua:nth-last-child(1){
 	margin-bottom: 0px;
 }

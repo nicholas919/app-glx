@@ -1695,6 +1695,13 @@ let tombolTambahLihatReturDealer = document.querySelector('#tombol-tambah-lihat-
 let tombolTambahLihatReturDealerKedua = document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua');
 
 $(document).ready(function(e){
+    if(/Mobi/.test(navigator.userAgent) || /Android/i.test(navigator.userAgent)){
+      document.querySelector('#cetak-label').style.display = 'none';
+      document.querySelector('#surat-jalan').style.display = 'none';
+      for(let x = 0; x<document.querySelectorAll('.print-retur').length; x++){
+        document.querySelectorAll('.print-retur')[x].style.display = 'none';
+      }
+    }
     if(window.innerWidth <= 840){
         if(document.querySelector('#tambahpengumuman')){
         document.querySelector('#tambahpengumuman').classList.add('tombol-tambah-kedua');
