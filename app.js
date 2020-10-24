@@ -907,6 +907,7 @@ const setupUI = (user) => {
             document.querySelector('#catatan').style.display = 'block';
             document.querySelector('#indent-cust').style.display = 'block';
             document.querySelector('#cetak-label').style.display = 'block';
+            document.querySelector('#surat-jalan').style.display = 'block';
             document.querySelector('#perpindahan-barang').style.display = 'block';
             document.querySelector('#kalkulator').style.display = 'block';
             document.querySelector('#transaksi-berjalan').style.display = 'block';
@@ -1044,6 +1045,7 @@ const setupUI = (user) => {
             document.querySelector('#catatan').style.display = 'block';
             document.querySelector('#indent-cust').style.display = 'block';
             document.querySelector('#cetak-label').style.display = 'block';
+            document.querySelector('#surat-jalan').style.display = 'block';
             document.querySelector('#perpindahan-barang').style.display = 'block';
             document.querySelector('#kalkulator').style.display = 'block';
             document.querySelector('#transaksi-berjalan').style.display = 'block';
@@ -1228,6 +1230,7 @@ const setupUI = (user) => {
             document.querySelector('#catatan').style.display = 'block';
             document.querySelector('#indent-cust').style.display = 'block';            
             document.querySelector('#cetak-label').style.display = 'block';
+            document.querySelector('#surat-jalan').style.display = 'none';
             document.querySelector('#perpindahan-barang').style.display = 'block';
             document.querySelector('#kalkulator').style.display = 'block';
             document.querySelector('#transaksi-berjalan').style.display = 'none';
@@ -1250,7 +1253,8 @@ const setupUI = (user) => {
             document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:none !important;');
             document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:none !important;');
             document.querySelector('#lihatperpindahanpending').style.setProperty('display', 'none', 'important');
-            document.querySelector('#lihatperpindahanselesai').style.setProperty('display', 'none', 'important');            
+            document.querySelector('#lihatperpindahanselesai').style.setProperty('display', 'none', 'important');
+            document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '10px', 'important');            
             document.querySelector('#tambahperpindahanbarang').style.display = 'none';
         } else {
             for(let x = 0; x<editPeserta.length;x++){
@@ -1273,6 +1277,7 @@ const setupUI = (user) => {
             document.querySelector('#catatan').style.display = 'none';
             document.querySelector('#indent-cust').style.display = 'none';            
             document.querySelector('#cetak-label').style.display = 'none';
+            document.querySelector('#surat-jalan').style.display = 'none';
             document.querySelector('#perpindahan-barang').style.display = 'none';
             document.querySelector('#kalkulator').style.display = 'none';
             document.querySelector('#transaksi-berjalan').style.display = 'none';
@@ -1295,6 +1300,14 @@ const setupUI = (user) => {
     document.querySelector('#tombol-burger').style.visibility = 'visible';
     itemMasuk.forEach(item => item.style.display = 'block');
     itemKeluar.forEach(item => item.style.display = 'none');
+
+    if(/Mobi/.test(navigator.userAgent) || /Android/i.test(navigator.userAgent)){
+      document.querySelector('#cetak-label').style.display = 'none';
+      document.querySelector('#surat-jalan').style.display = 'none';
+      for(let x = 0; x<document.querySelectorAll('.print-retur').length; x++){
+        document.querySelectorAll('.print-retur')[x].style.display = 'none';
+      }
+    }
 
     let reset = document.querySelector('#reset-password-akun');
     let formResetPassword = document.querySelector('#form-reset-password');
