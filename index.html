@@ -731,7 +731,7 @@
 <div class="halaman tab-pane fade" id="halaman-surat-jalan" role="tabpanel">
 
 <div id="preview-surat-jalan"> 
-  <div>
+  <div id="tombol-posisi-geser">
     <i class="fa fa-angle-left tombol-posisi-geser geser-kiri" id="geser-kiri-sj"></i>
     <i class="fa fa-angle-right tombol-posisi-geser geser-kanan" id="geser-kanan-sj"></i>
   </div>
@@ -3120,7 +3120,7 @@ tambahBarisSJ.addEventListener('click', function(e){
             for(let x = 0; x<document.querySelectorAll('.potongan-kertas-surat-jalan').length; x++){
               document.querySelectorAll('.potongan-kertas-surat-jalan')[x].style.left = '0';
             }      
-        if(document.querySelector('#preview-surat-jalan').childNodes.length == 0){
+        if(document.querySelectorAll('.potongan-kertas-surat-jalan').length == 0){
         document.querySelector('#preview-surat-jalan').style.margin = '0'
         }
       })
@@ -3136,25 +3136,33 @@ tambahBarisSJ.addEventListener('click', function(e){
         document.querySelector('#pengaturan-surat-jalan').style.visibility = 'hidden';
         document.querySelector('#tabel-surat-jalan').style.visibility = 'hidden';
         e.target.style.visibility = 'hidden';
+        document.querySelector('#tombol-posisi-geser').style.visibility = 'hidden';
         document.querySelector('#preview-surat-jalan').style.position = 'absolute';
         document.querySelector('#preview-surat-jalan').style.width = '100%';
         document.querySelector('#preview-surat-jalan').style.top = '0';
         document.querySelector('#preview-surat-jalan').style.left = '0';
+        document.querySelector('#preview-surat-jalan').style.margin = '0';
         document.querySelector('#myTabContent').style.marginLeft = '0';
         for(let y = 0; y< document.querySelectorAll('.potongan-kertas-surat-jalan').length; y++){
-          document.querySelectorAll('.potongan-kertas-surat-jalan')[y].style.visibility = 'hidden'
+          document.querySelectorAll('.potongan-kertas-surat-jalan')[y].style.visibility = 'hidden';
         }
-        e.target.parentElement.parentElement.parentElement.style.visibility = 'visible'
+        e.target.parentElement.parentElement.parentElement.style.visibility = 'visible';
+        e.target.parentElement.parentElement.parentElement.style.margin = '0';
+        e.target.parentElement.parentElement.parentElement.style.width = '100%';
         window.print();
         document.querySelector('#tombol-burger').style.visibility = 'visible';
         for(let y = 0; y< document.querySelectorAll('.potongan-kertas-surat-jalan').length; y++){
           document.querySelectorAll('.potongan-kertas-surat-jalan')[y].style.visibility = 'visible'
         }
+        e.target.parentElement.parentElement.parentElement.style.margin = '0 5%';
+        e.target.parentElement.parentElement.parentElement.style.width = '90%';
         document.querySelector('#pengaturan-surat-jalan').style.visibility = 'visible';
         document.querySelector('#tabel-surat-jalan').style.visibility = 'visible';
         e.target.style.visibility = 'visible';
         document.body.style.visibility = 'visible';
+        document.querySelector('#tombol-posisi-geser').style.visibility = 'visible';
         document.querySelector('#preview-surat-jalan').style.position = 'relative';
+        document.querySelector('#preview-surat-jalan').style.margin = '20px 0';
         document.body.style.setProperty("background-color", "#eeeeee", "important");
         setTimeout(function(){
         document.querySelector('#darken').style.backgroundColor = '0';
