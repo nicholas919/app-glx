@@ -828,19 +828,16 @@ const setupUI = (user) => {
             for(let x = 0; x<overview.length;x++){
             overview[x].style.display = '';
             }
-            [editKategoriMenu, hapusKategoriMenu, editMenu, hapusMenu].forEach(item => {
-                for(let x = 0; x<item.length;x++){
-                    item[x].setAttribute('style','display:inline-block !important;');
-                }                
-            });
             [pengeluaran, pengeluaranSelesai].forEach(item => {
                 for(let x = 0; x<item.length;x++){
                     item[x].setAttribute('style','display:grid !important;');
                 }                
-            })
-            for(let x = 0; x<selesaiPengeluaran.length;x++){
-            selesaiPengeluaran[x].setAttribute('style','display:flex !important;');
-            }                               
+            });
+            [editKategoriMenu, hapusKategoriMenu, editMenu, hapusMenu, selesaiPengeluaran].forEach(item => {
+                for(let x = 0; x<item.length;x++){
+                    item[x].setAttribute('style','display:flex !important;');
+                }                    
+            });
             [document.querySelector('#customer-reply'), document.querySelector('#google-sheet')].forEach(item => {
                 item.style.display = 'flex';
             });
@@ -901,19 +898,16 @@ const setupUI = (user) => {
                     overview[x].style.display = 'none';
                 }
             }
-            [editKategoriMenu, hapusKategoriMenu, editMenu, hapusMenu].forEach(item => {
-                for(let x = 0; x<item.length;x++){
-                    item[x].setAttribute('style','display:inline-block;');
-                }                
-            });
             [pengeluaran, pengeluaranSelesai].forEach(item => {
                 for(let x = 0; x<item.length;x++){
                     item[x].setAttribute('style','display:grid !important;');
                 }
-            })
-            for(let x = 0; x<selesaiPengeluaran.length;x++){
-            selesaiPengeluaran[x].setAttribute('style','display:flex !important;');
-            }
+            });
+            [editKategoriMenu, hapusKategoriMenu, editMenu, hapusMenu, selesaiPengeluaran].forEach(item => {
+                for(let x = 0; x<item.length;x++){
+                    item[x].setAttribute('style','display:flex !important;');
+                }                    
+            });
             [navbarMenu, document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#daftar-peserta')
             , document.querySelector('#halaman-kesalahan'), document.querySelector('#tambahperpindahanbarang')].forEach(item => {
                 if(item.length != undefined){
