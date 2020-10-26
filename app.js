@@ -1855,7 +1855,7 @@ function renderTugas(doc){
             filePenyelesaian = filePenyelesaian.name;
         }
         let terlambat = `<span style="color:#e61c33;">(Terlambat)</span>`;
-        db.collection('tugasSelesai').add({
+        db.collection('tugasSelesai').doc(doc.id).set({
             namaPeserta : namaPeserta,
             kontenTugas : kontenTugasUpdate,
             perMinggu : perMingguUpdate,
@@ -1896,7 +1896,7 @@ function renderTugas(doc){
             let penyimpanan = refPenyimpanan.put(filePenyelesaian);
             filePenyelesaian = filePenyelesaian.name;
         }
-        db.collection('tugasSelesai').add({
+        db.collection('tugasSelesai').doc(doc.id).set({
             namaPeserta : namaPeserta,
             kontenTugas : kontenTugas,
             perMinggu : perMinggu,
