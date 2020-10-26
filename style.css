@@ -2,6 +2,69 @@ body{
 	background-color: #eeeeee !important;
 }
 
+#google-sheet:hover > #ikon-google-sheet, #google-sheet:hover > #konteks-google-sheet, #customer-reply:hover > #ikon-customer-reply, #customer-reply:hover > #konteks-customer-reply{
+	text-decoration: none;
+	transition:0.2s all ease;
+}
+
+#google-sheet:hover > #konteks-google-sheet, #customer-reply:hover > #konteks-customer-reply{
+	right: 0px;
+}
+
+#google-sheet:hover > #ikon-google-sheet{
+	right: 144.9px;
+}
+
+#customer-reply:hover > #ikon-customer-reply{
+	right: 167.8px;
+}
+
+#konteks-google-sheet, #ikon-google-sheet, #konteks-customer-reply, #ikon-customer-reply{
+	position: fixed;
+	color:white;
+}
+
+#konteks-google-sheet, #konteks-customer-reply{
+	padding: 7px;
+	font-size: 20.5px;
+	font-weight: bold;	
+}
+
+#konteks-google-sheet{
+	top:9%;
+	right: -144.9px;
+	background-color: #28a745;
+	border:1px solid #28a745;		
+}
+
+#ikon-google-sheet, #ikon-customer-reply{
+	font-size: 30px;
+	right: 0px;
+	border-top-left-radius: 50%;
+	border-bottom-left-radius: 50%;	
+}
+
+#ikon-google-sheet{
+	top:9%;
+	background-color: #2e8c45;
+	padding: 7px 4px 7px 10px;
+	border:1px solid #2e8c45;
+}
+
+#konteks-customer-reply{
+	top:15.5%;
+	right: -167.8px;
+	background-color: #2196F3;
+	border:1px solid #2196F3;	
+}
+
+#ikon-customer-reply{
+	top:15.5%;
+	background-color: #1976D2;
+	padding: 7px;
+	border:1px solid #1976D2;
+}
+
 .tombol-posisi-geser {
     position: absolute;
     background-color: rgba(0, 0, 0, 0.67);
