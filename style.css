@@ -42,12 +42,12 @@ body{
 	right: 0px;
 	border-top-left-radius: 50%;
 	border-bottom-left-radius: 50%;	
+	padding: 7px 4px 7px 10px;
 }
 
 #ikon-google-sheet{
 	top:9%;
 	background-color: #2e8c45;
-	padding: 7px 4px 7px 10px;
 	border:1px solid #2e8c45;
 }
 
@@ -61,7 +61,6 @@ body{
 #ikon-customer-reply{
 	top:15.5%;
 	background-color: #1976D2;
-	padding: 7px;
 	border:1px solid #1976D2;
 }
 
@@ -2372,6 +2371,22 @@ input:checked + .slider:after {
     transition: all 0.1s ease;
 }
 
+#google-sheet:hover > #ikon-google-sheet, #google-sheet:hover > #konteks-google-sheet, #customer-reply:hover > #ikon-customer-reply, #customer-reply:hover > #konteks-customer-reply{
+	text-decoration: none;
+	transition:none;
+}
+
+#google-sheet:hover > #konteks-google-sheet, #customer-reply:hover > #konteks-customer-reply{
+	right: 0px;
+}
+
+#google-sheet:hover > #ikon-google-sheet{
+	right: -144.9px;
+}
+
+#customer-reply:hover > #ikon-customer-reply{
+	right: -167.8px;
+}
 
 }
 
