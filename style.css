@@ -2,25 +2,33 @@ body{
 	background-color: #eeeeee !important;
 }
 
-#google-sheet:hover > #ikon-google-sheet, #google-sheet:hover > #konteks-google-sheet, #customer-reply:hover > #ikon-customer-reply, #customer-reply:hover > #konteks-customer-reply{
-	text-decoration: none;
-	transition:0.2s all ease;
+#menu-samping-kanan-home{
+	position: fixed;
+	right: 0;
 }
 
-#google-sheet:hover > #konteks-google-sheet, #customer-reply:hover > #konteks-customer-reply{
+#customer-reply, #google-sheet{
+	margin-bottom: 5px;
+	display: flex;
+	justify-content: flex-end;
+	position: relative;
+}
+
+#google-sheet:hover, #customer-reply:hover{
 	right: 0px;
+	text-decoration: none;
+	transition:0.2s all ease;	
 }
 
-#google-sheet:hover > #ikon-google-sheet{
-	right: 144.9px;
+#google-sheet{
+	right: -144.91px;
 }
 
-#customer-reply:hover > #ikon-customer-reply{
-	right: 167.8px;
+#customer-reply{
+	right: -167.86px;
 }
 
 #konteks-google-sheet, #ikon-google-sheet, #konteks-customer-reply, #ikon-customer-reply{
-	position: fixed;
 	color:white;
 }
 
@@ -31,29 +39,23 @@ body{
 }
 
 #konteks-google-sheet{
-	top:9%;
-	right: -144.9px;
 	background-color: #28a745;
 	border:1px solid #28a745;		
 }
 
 #ikon-google-sheet, #ikon-customer-reply{
 	font-size: 30px;
-	right: 0px;
 	border-top-left-radius: 50%;
 	border-bottom-left-radius: 50%;	
 	padding: 7px 4px 7px 10px;
 }
 
 #ikon-google-sheet{
-	top:9%;
 	background-color: #2e8c45;
 	border:1px solid #2e8c45;
 }
 
 #konteks-customer-reply{
-	top:15.5%;
-	right: -167.8px;
 	background-color: #2196F3;
 	border:1px solid #2196F3;	
 }
