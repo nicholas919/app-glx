@@ -805,7 +805,7 @@ const setupUI = (user) => {
             }
         }   
             [rolePeserta, editPeserta, hapusPeserta, editTugas, hapusTugas, copyTugasSelesai, downloadTugasSelesai, hapusTugasSelesai, filePenyelesaianTugasBody, buktiPenyelesaianTugasBody, editKesalahan, hapusKesalahan, tugas, tugasSelesai, kesalahan, bodyEmail, tombolTambahMenu, editPengumuman, hapusPengumuman, selesaiPengeluaranKedua, navbarMenu
-            , document.querySelector('#tambahpengumuman'), document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#jumbotron-swot'), document.querySelector('#daftar-peserta'), document.querySelector('#halaman-kesalahan'), document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tombol-tambah-tugas'), document.querySelector('#tombol-tambah-kategori-menu'), document.querySelector('#tambahperpindahanbarang')].forEach(item => {
+            , document.querySelector('#tambahpengumuman'), document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#jumbotron-swot'), document.querySelector('#daftar-peserta'), document.querySelector('#halaman-kesalahan'), document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tombol-tambah-tugas'), document.querySelector('#tombol-tambah-kategori-menu'), document.querySelector('#tambahperpindahanbarang'), document.querySelector('#customer-reply'), document.querySelector('#google-sheet')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length; x++){
                         item[x].setAttribute('style', 'display:block !important');
@@ -851,7 +851,7 @@ const setupUI = (user) => {
                 }
             }        
             [editTugas, hapusTugas, copyTugasSelesai, downloadTugasSelesai, filePenyelesaianTugasBody, buktiPenyelesaianTugasBody, tugas, tugasSelesai, kesalahan, tombolTambahMenu, selesaiPengeluaranKedua, navbarMenu
-            , document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#daftar-peserta'), document.querySelector('#halaman-kesalahan'), document.querySelector('#tombol-tambah-tugas'), document.querySelector('#tombol-tambah-kategori-menu'), document.querySelector('#tambahperpindahanbarang')].forEach(item => {
+            , document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#daftar-peserta'), document.querySelector('#halaman-kesalahan'), document.querySelector('#tombol-tambah-tugas'), document.querySelector('#tombol-tambah-kategori-menu'), document.querySelector('#tambahperpindahanbarang'), document.querySelector('#customer-reply'), document.querySelector('#google-sheet')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
                         item[x].setAttribute('style','display:block !important;');
@@ -928,7 +928,7 @@ const setupUI = (user) => {
                 }
             }
             [navbarMenu
-            , document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#halaman-kesalahan')].forEach(item => {
+            , document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#halaman-kesalahan'), document.querySelector('#customer-reply'), document.querySelector('#google-sheet')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
                         item[x].setAttribute('style','display:block !important;');
@@ -993,7 +993,7 @@ const setupUI = (user) => {
             document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '10px', 'important');            
         } else {
             [editPeserta, hapusPeserta, editTugas, hapusTugas, navbarMenu
-            , document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#daftar-peserta'), document.querySelector('#halaman-tugas'), document.querySelector('#halaman-kesalahan'), document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tombol-tambah-tugas')].forEach(item => {
+            , document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#daftar-peserta'), document.querySelector('#halaman-tugas'), document.querySelector('#halaman-kesalahan'), document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tombol-tambah-tugas'), document.querySelector('#customer-reply'), document.querySelector('#google-sheet')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
                         item[x].setAttribute('style','display:none !important;');
@@ -1339,7 +1339,7 @@ document.querySelector('#search-menu').addEventListener('input', function(e){
     navbarMenu[x].style.display = 'none';
     }                
     [itemMasuk, document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#daftar-peserta'), document.querySelector('#list-menu-tambahan')
-    , document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat'), document.querySelector('#halaman-tugas'), document.querySelector('#halaman-kesalahan'), document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tombol-tambah-tugas')].forEach(item => {
+    , document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat'), document.querySelector('#halaman-tugas'), document.querySelector('#halaman-kesalahan'), document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tombol-tambah-tugas'), document.querySelector('#customer-reply'), document.querySelector('#google-sheet')].forEach(item => {
         if(item.length != undefined){
             for(let x = 0; x<item.length; x++){
                 item[x].setAttribute('style','display:none !important;');
@@ -1351,15 +1351,13 @@ document.querySelector('#search-menu').addEventListener('input', function(e){
     [document.querySelector('#pengguna-akun'), document.querySelector('#email-akun')].forEach(item => {
         item.innerHTML = '';
     });
-    [itemKeluar, document.querySelector('#form-masuk')].forEach(item => {
-        if(item.length != undefined){
-            for(let x = 0; x<item.length; x++){
-                item[x].setAttribute('style','display:block !important;');
-            }            
-        } else {
-        item.setAttribute('style','display:block !important;');
+    for(let x = 0; x<itemKeluar.length; x++){
+        if(x == 0){
+            itemKeluar[x].setAttribute('style','display:block !important;');
+        } else if(x == 1){
+            itemKeluar[x].setAttribute('style','display:none !important;');
         }
-    });
+    }            
     document.querySelector('.navbar-collapse').classList.remove('show')
     document.querySelector('#tombol-burger').style.visibility = 'hidden';
   }

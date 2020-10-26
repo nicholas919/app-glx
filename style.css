@@ -1540,11 +1540,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	font-size: 17px;
 }
 
-#daftar-peserta{
-	display: none;
-}
-
-#jumbotron-performa-peserta, #jumbotron-performa-peserta-individu, #jumbotron-swot{
+#daftar-peserta, #jumbotron-performa-peserta, #jumbotron-performa-peserta-individu, #jumbotron-swot, #customer-reply, #google-sheet{
 	display: none;
 }
 
@@ -2054,6 +2050,9 @@ div.induk-kategori-menu:nth-child(2n+0){
 	width: 25%;
 }
 
+#tambahpengumuman{
+	margin: 0px 20px;
+}
 
 }
 
