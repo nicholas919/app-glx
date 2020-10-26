@@ -68,7 +68,7 @@ auth.onAuthStateChanged(user => {
         let changes = snapshot.docChanges();
         changes.forEach(change =>{
             if(change.type == 'added'){
-                if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
+                if(!document.querySelector('.dokumentasi-tugas-peserta-selesai' + change.doc.id)){
                 renderTugasSelesai(change.doc);
                 setupUI(user);
                 }

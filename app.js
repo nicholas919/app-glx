@@ -270,11 +270,13 @@ for(let x = 0; x<pilihanLokasi.options.length; x++){
     }
 
 let status = document.querySelector('#status-peserta' + doc.id).innerHTML;
+if(auth.currentUser.email != email){
     switch(status){
         case "Aktif":
         document.querySelector('#target-peserta').appendChild(opsiTugas);
     }
         document.querySelector('#target-peserta-kedua').appendChild(opsiTugasKedua);
+    }
 
 let refreshPerformaPeserta = setInterval(refreshOnPerformaPeserta,10);
 
