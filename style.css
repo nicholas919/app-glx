@@ -2373,8 +2373,7 @@ input:checked + .slider:after {
     transition: all 0.1s ease;
 }
 
-#google-sheet:hover > #ikon-google-sheet, #google-sheet:hover > #konteks-google-sheet, #customer-reply:hover > #ikon-customer-reply, #customer-reply:hover > #konteks-customer-reply{
-	text-decoration: none;
+#google-sheet:hover, #customer-reply:hover{
 	transition:none;
 }
 
@@ -2383,7 +2382,7 @@ input:checked + .slider:after {
 }
 
 #google-sheet:hover > #ikon-google-sheet, #customer-reply:hover > #ikon-customer-reply{
-	right: 0px;
+	text-decoration: none;
 }
 
 }
