@@ -2377,15 +2377,15 @@ input:checked + .slider:after {
 }
 
 #google-sheet:hover > #konteks-google-sheet, #customer-reply:hover > #konteks-customer-reply{
-	right: 0px;
+	display: none;
 }
 
 #google-sheet:hover > #ikon-google-sheet{
-	right: -144.9px;
+	right: 0px;
 }
 
 #customer-reply:hover > #ikon-customer-reply{
-	right: -167.8px;
+	right: 0px;
 }
 
 }
