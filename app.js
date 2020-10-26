@@ -756,33 +756,6 @@ const setupUI = (user) => {
         for(let x = 0; x<kataSambut.length; x++){
             kataSambut[x].innerHTML = 'Hallo ' + username + '!';
         }
-
-        if(overviewIndividu.length > 20){
-            for(let x = 0; x<overviewIndividu.length; x++){
-                if(x > 19){
-                    let id = overviewIndividu[x].getAttribute('data-id');
-                    db.collection('overview').doc(id).delete();
-                }
-            }
-        }
-        for(let x = 0; x<daftarKaryawan.length; x++){
-        let overviewIndividuLain = document.querySelectorAll('.overview-' + daftarKaryawan[x].toLowerCase().replace(/\s/g, "-"));
-        let pengeluaranSelesaiIndividuLain = document.querySelectorAll('.pengeluaran-selesai-' + daftarKaryawan[x].toLowerCase().replace(/\s/g, "-"));
-        [overviewIndividuLain, pengeluaranSelesaiIndividuLain].forEach((item,i) => {
-            if(item.length > 20){
-                for(let y = 0; y<item.length; y++){
-                    if(y > 19){
-                        let id = item[y].getAttribute('data-id');
-                        if(i == 0){
-                            db.collection('overview').doc(id).delete();
-                        } else if(i == 1){
-                            db.collection('pengeluaranSelesai').doc(id).delete();
-                        }
-                    }
-                }                
-            }
-        })
-        }       
     
         if(username == "Admin Galaxy" && user.email == 'useradmin@galaxy.id'){
         document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
