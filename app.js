@@ -756,7 +756,40 @@ const setupUI = (user) => {
         for(let x = 0; x<kataSambut.length; x++){
             kataSambut[x].innerHTML = 'Hallo ' + username + '!';
         }
+
+        if(overviewIndividu.length > 30){
+            for(let x = 0; x<overviewIndividu.length; x++){
+                if(x > 29){
+                    let id = overviewIndividu[x].getAttribute('data-id');
+                    db.collection('overview').doc(id).delete();
+                }
+            }
+        }
+        for(let x = 0; x<daftarKaryawan.length; x++){
+        let overviewIndividuLain = document.querySelectorAll('.overview-' + daftarKaryawan[x].toLowerCase().replace(/\s/g, "-"))
+        if(overviewIndividuLain.length > 30){
+            for(let i = 0; i<overviewIndividuLain.length; i++){
+                if(i > 29){
+                    let id = overviewIndividuLain[i].getAttribute('data-id');
+                    db.collection('overview').doc(id).delete();
+                }
+            }
+                }
+        }
+
+        for(let x = 0; x<daftarKaryawan.length; x++){
+        let pengeluaranSelesaiIndividuLain = document.querySelectorAll('.pengeluaran-selesai-' + daftarKaryawan[x].toLowerCase().replace(/\s/g, "-"))
+        if(pengeluaranSelesaiIndividuLain.length > 15){
+            for(let i = 0; i<pengeluaranSelesaiIndividuLain.length; i++){
+                if(i > 14){
+                    let id = pengeluaranSelesaiIndividuLain[i].getAttribute('data-id');
+                    db.collection('overview').doc(id).delete();
+                }
+            }
+                }
+        }        
     
+
         if(username == "Admin Galaxy" && user.email == 'useradmin@galaxy.id'){
         document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
             winWidth900(x);
@@ -777,74 +810,178 @@ const setupUI = (user) => {
                     document.querySelector('#tabel-peserta').style.width = '100%';                    
             }
         }   
-            [rolePeserta, editPeserta, hapusPeserta, editTugas, hapusTugas, copyTugasSelesai, downloadTugasSelesai, hapusTugasSelesai, filePenyelesaianTugasBody, buktiPenyelesaianTugasBody, editKesalahan, hapusKesalahan, tugas, tugasSelesai, kesalahan, bodyEmail, tombolTambahMenu, editPengumuman, hapusPengumuman, selesaiPengeluaranKedua, navbarMenu
-            , document.querySelector('#tambahpengumuman'), document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#jumbotron-swot'), document.querySelector('#daftar-peserta'), document.querySelector('#halaman-kesalahan'), document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tombol-tambah-tugas'), document.querySelector('#tombol-tambah-kategori-menu'), document.querySelector('#tambahperpindahanbarang'), document.querySelector('#customer-reply'), document.querySelector('#google-sheet')].forEach(item => {
-                if(item.length != undefined){
-                    for(let x = 0; x<item.length; x++){
-                        item[x].setAttribute('style', 'display:block !important');
-                    }
-                } else {
-                    item.setAttribute('style','display:block !important;');
-                }
-            });
-            [editKategoriMenu, hapusKategoriMenu, editMenu, hapusMenu].forEach(item => {
-                for(let x = 0; x<item.length;x++){
-                    item[x].setAttribute('style','display:inline-block;');
-                }                 
-            });
-            [pengeluaran, pengeluaranSelesai
-            , document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat')].forEach(item => {
-                if(item.length != undefined){
-                    for(let x = 0; x<item.length;x++){
-                        item[x].setAttribute('style','display:grid !important;');
-                    }                
-                } else {
-                    item.setAttribute('style','display:grid !important;');
-                }
-            });
-            for(let x = 0; x<overview.length;x++){
-            overview[x].style.display = '';
+            for(let x = 0; x<rolePeserta.length;x++){
+            rolePeserta[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<editPeserta.length;x++){
+            editPeserta[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<hapusPeserta.length;x++){
+            hapusPeserta[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<editTugas.length;x++){
+            editTugas[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<hapusTugas.length;x++){
+            hapusTugas[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<copyTugasSelesai.length;x++){
+            copyTugasSelesai[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<downloadTugasSelesai.length;x++){
+            downloadTugasSelesai[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<hapusTugasSelesai.length;x++){
+            hapusTugasSelesai[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<filePenyelesaianTugasBody.length;x++){
+            filePenyelesaianTugasBody[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<buktiPenyelesaianTugasBody.length;x++){
+            buktiPenyelesaianTugasBody[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<editKesalahan.length;x++){
+            editKesalahan[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<hapusKesalahan.length;x++){
+            hapusKesalahan[x].setAttribute('style','display:block !important;');
             }
             for(let x = 0; x<peserta.length;x++){
             peserta[x].style.display = 'table-row';
             }
+            for(let x = 0; x<tugas.length;x++){
+            tugas[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<tugasSelesai.length;x++){
+            tugasSelesai[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<kesalahan.length;x++){
+            kesalahan[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<bodyEmail.length;x++){
+            bodyEmail[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<overview.length;x++){
+            overview[x].style.display = '';
+            }
+            for(let x = 0; x<editKategoriMenu.length;x++){
+            editKategoriMenu[x].setAttribute('style','display:inline-block;');
+            }
+            for(let x = 0; x<hapusKategoriMenu.length;x++){
+            hapusKategoriMenu[x].setAttribute('style','display:inline-block;');
+            }            
+            for(let x = 0; x<editMenu.length;x++){
+            editMenu[x].setAttribute('style','display:inline-block;');
+            }
+            for(let x = 0; x<hapusMenu.length;x++){
+            hapusMenu[x].setAttribute('style','display:inline-block;');
+            }
+            for(let x = 0; x<tombolTambahMenu.length;x++){
+            tombolTambahMenu[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<editPengumuman.length;x++){
+            editPengumuman[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<hapusPengumuman.length;x++){
+            hapusPengumuman[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<pengeluaran.length;x++){
+            pengeluaran[x].setAttribute('style','display:grid !important;');
+            }
+            for(let x = 0; x<pengeluaranSelesai.length;x++){
+            pengeluaranSelesai[x].setAttribute('style','display:grid !important;');
+            }
             for(let x = 0; x<selesaiPengeluaran.length;x++){
             selesaiPengeluaran[x].setAttribute('style','display:flex !important;');
-            }                                       
+            }
+            for(let x = 0; x<selesaiPengeluaranKedua.length;x++){
+            selesaiPengeluaranKedua[x].setAttribute('style','display:block !important;');
+            }                                                                            
+            for(let x = 0; x<navbarMenu.length;x++){
+            navbarMenu[x].style.display = 'block';
+            }            
+            document.querySelector('#tambahpengumuman').style.display = 'block';
+            document.querySelector('#customer-reply').style.display = 'block';
+            document.querySelector('#google-sheet').style.display = 'block';
+            document.querySelector('#myTabContent').style.display = 'block';                                       
+            document.querySelector('#list-menu-tambahan').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-keempat').style.display = 'grid';
+            document.querySelector('#jumbotron-performa-peserta').style.display = 'block';
             document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
+            document.querySelector('#jumbotron-swot').style.display = 'block';
+            document.querySelector('#daftar-peserta').style.display = 'block';
+            document.querySelector('#halaman-kesalahan').style.display = 'block';
+            document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:block !important;');
+            document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:block !important;');
+            document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:block !important;');
+            document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:block !important;');
+            document.querySelector('#tambahperpindahanbarang').style.display = 'block';
         } else if(user.adminKantor){
             document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
             winWidth900(x);
             x.addListener(winWidth900);
             function winWidth900(x){
-                if (x.matches) {
-                        document.querySelector('#halaman-tugas').style.display = 'block';           
-                } else {
-                        document.querySelector('#halaman-tugas').style.display = 'grid';  
-                }
+            if (x.matches) {
+                    document.querySelector('#halaman-tugas').style.display = 'block';           
+            } else {
+                    document.querySelector('#halaman-tugas').style.display = 'grid';  
+            }
+        }        
+            for(let x = 0; x<rolePeserta.length;x++){
+            rolePeserta[x].setAttribute('style','display:none !important;');
             }        
-            [editTugas, hapusTugas, copyTugasSelesai, downloadTugasSelesai, filePenyelesaianTugasBody, buktiPenyelesaianTugasBody, tugas, tugasSelesai, kesalahan, tombolTambahMenu, selesaiPengeluaranKedua, navbarMenu
-            , document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#daftar-peserta'), document.querySelector('#halaman-kesalahan'), document.querySelector('#tombol-tambah-tugas'), document.querySelector('#tombol-tambah-kategori-menu'), document.querySelector('#tambahperpindahanbarang'), document.querySelector('#customer-reply'), document.querySelector('#google-sheet')].forEach(item => {
-                if(item.length != undefined){
-                    for(let x = 0; x<item.length;x++){
-                        item[x].setAttribute('style','display:block !important;');
-                    }                
-                } else {
-                    item.setAttribute('style','display:block !important;');
-                }
-            });
-            [rolePeserta, editPeserta, hapusPeserta, hapusTugasSelesai, editKesalahan, hapusKesalahan, bodyEmail, emailTable, editPengumuman, hapusPengumuman
-            , document.querySelector('#tambahpengumuman'), document.querySelector('#th-email'), document.querySelector('#swot'), document.querySelector('#achievement'), document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#jumbotron-swot'), document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta')].forEach(item => {
-                if(item.length != undefined){
-                    for(let x = 0; x<item.length;x++){
-                        item[x].setAttribute('style','display:none !important;');
-                    }
-                } else {
-                    item.setAttribute('style','display:none !important;');
-                }
-            });            
+            for(let x = 0; x<editPeserta.length;x++){
+            editPeserta[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusPeserta.length;x++){
+            hapusPeserta[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<editTugas.length;x++){
+            editTugas[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<hapusTugas.length;x++){
+            hapusTugas[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<copyTugasSelesai.length;x++){
+            copyTugasSelesai[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<downloadTugasSelesai.length;x++){
+            downloadTugasSelesai[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<hapusTugasSelesai.length;x++){
+            hapusTugasSelesai[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<filePenyelesaianTugasBody.length;x++){
+            filePenyelesaianTugasBody[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<buktiPenyelesaianTugasBody.length;x++){
+            buktiPenyelesaianTugasBody[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<editKesalahan.length;x++){
+            editKesalahan[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusKesalahan.length;x++){
+            hapusKesalahan[x].setAttribute('style','display:none !important;');
+            }
             for(let x = 0; x<peserta.length;x++){
             peserta[x].style.display = 'table-row';
+            }
+            for(let x = 0; x<tugas.length;x++){
+            tugas[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<tugasSelesai.length;x++){
+            tugasSelesai[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<kesalahan.length;x++){
+            kesalahan[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<bodyEmail.length;x++){
+            bodyEmail[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<emailTable.length;x++){
+            emailTable[x].setAttribute('style','display:none !important;');
             }
             for(let x = 0; x<overview.length;x++){
                 if(overview[x].classList.contains('overview-' + username.toLowerCase().replace(/\s/g, "-"))){
@@ -853,24 +990,63 @@ const setupUI = (user) => {
                     overview[x].style.display = 'none';
                 }
             }
-            [editKategoriMenu, hapusKategoriMenu, editMenu, hapusMenu].forEach(item => {
-                for(let x = 0; x<item.length;x++){
-                    item[x].setAttribute('style','display:inline-block;');
-                }                
-            });
-            [pengeluaran, pengeluaranSelesai
-            , document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat')].forEach(item => {
-                if(item.length != undefined){
-                    for(let x = 0; x<item.length;x++){
-                        item[x].setAttribute('style','display:grid !important;');
-                    }                
-                } else {
-                    item.setAttribute('style','display:grid !important;');
-                }
-            });
+            for(let x = 0; x<editKategoriMenu.length;x++){
+            editKategoriMenu[x].setAttribute('style','display:inline-block;');
+            }
+            for(let x = 0; x<hapusKategoriMenu.length;x++){
+            hapusKategoriMenu[x].setAttribute('style','display:inline-block;');
+            }            
+            for(let x = 0; x<editMenu.length;x++){
+            editMenu[x].setAttribute('style','display:inline-block;');
+            }
+            for(let x = 0; x<hapusMenu.length;x++){
+            hapusMenu[x].setAttribute('style','display:inline-block;');
+            }
+            for(let x = 0; x<tombolTambahMenu.length;x++){
+            tombolTambahMenu[x].setAttribute('style','display:block !important;');
+            }
+            for(let x = 0; x<editPengumuman.length;x++){
+            editPengumuman[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusPengumuman.length;x++){
+            hapusPengumuman[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<pengeluaran.length;x++){
+            pengeluaran[x].setAttribute('style','display:grid !important;');
+            }
+            for(let x = 0; x<pengeluaranSelesai.length;x++){
+            pengeluaranSelesai[x].setAttribute('style','display:grid !important;');
+            }
             for(let x = 0; x<selesaiPengeluaran.length;x++){
             selesaiPengeluaran[x].setAttribute('style','display:flex !important;');
-            }                                                                                          
+            }
+            for(let x = 0; x<selesaiPengeluaranKedua.length;x++){
+            selesaiPengeluaranKedua[x].setAttribute('style','display:block !important;');
+            }         
+            for(let x = 0; x<navbarMenu.length;x++){
+            navbarMenu[x].style.display = 'block';
+            }                                                                                   
+            document.querySelector('#tambahpengumuman').style.display = 'none';
+            document.querySelector('#customer-reply').style.display = 'block';
+            document.querySelector('#google-sheet').style.display = 'block';
+            document.querySelector('#myTabContent').style.display = 'block';
+            document.querySelector('#th-email').style.display = 'none';
+            document.querySelector('#swot').style.display = 'none';
+            document.querySelector('#achievement').style.display = 'none';            
+            document.querySelector('#list-menu-tambahan').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-keempat').style.display = 'grid';
+            document.querySelector('#jumbotron-performa-peserta').style.display = 'block';
+            document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
+            document.querySelector('#jumbotron-swot').style.display = 'none';
+            document.querySelector('#daftar-peserta').style.display = 'block';
+            document.querySelector('#halaman-kesalahan').style.display = 'block';
+            document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
+            document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:none !important;');
+            document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:block !important;');
+            document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:block !important;');            
+            document.querySelector('#tambahperpindahanbarang').style.display = 'block';
         } else if(user.member){
         setInterval(function(){
         for(let x = 0; x<catatan.length; x++){
@@ -894,32 +1070,39 @@ const setupUI = (user) => {
             winWidth900(x);
             x.addListener(winWidth900);
             function winWidth900(x){
-                if (x.matches) {
-                        document.querySelector('#halaman-tugas').style.display = 'block';
-                } else {
-                        document.querySelector('#halaman-tugas').style.display = 'grid';
-                }
+            if (x.matches) {
+                    document.querySelector('#halaman-tugas').style.display = 'block';
+            } else {
+                    document.querySelector('#halaman-tugas').style.display = 'grid';
             }
-            [navbarMenu
-            , document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#halaman-kesalahan'), document.querySelector('#customer-reply'), document.querySelector('#google-sheet')].forEach(item => {
-                if(item.length != undefined){
-                    for(let x = 0; x<item.length;x++){
-                        item[x].setAttribute('style','display:block !important;');
-                    }                
-                } else {
-                    item.setAttribute('style','display:block !important;');
-                }              
-            });                    
-            [editPeserta, hapusPeserta, editTugas, hapusTugas, copyTugasSelesai, downloadTugasSelesai, hapusTugasSelesai, filePenyelesaianTugasBody, buktiPenyelesaianTugasBody, bodyEmail, emailTable, editKategoriMenu, hapusKategoriMenu, editMenu, hapusMenu, tombolTambahMenu, editPengumuman, hapusPengumuman, selesaiPerpindahan, hapusPerpindahan, editPerpindahan, selesaiPengeluaran, selesaiPengeluaranKedua
-            , document.querySelector('#tambahpengumuman'), document.querySelector('#swot'), document.querySelector('#achievement'), document.querySelector('#transaksi-berjalan'), document.querySelector('#surat-jalan'), document.querySelector('#retur-dealer'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#jumbotron-swot'), document.querySelector('#daftar-peserta'), document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tombol-tambah-tugas'), document.querySelector('#tombol-tambah-kategori-menu'), document.querySelector('#lihatperpindahanpending'), document.querySelector('#lihatperpindahanselesai'), ].forEach(item => {
-                if(item.length != undefined){
-                    for(let x = 0; x<item.length;x++){
-                        item[x].setAttribute('style','display:none !important;');
-                    }
-                } else {
-                    item.setAttribute('style','display:none !important;');
-                }                
-            });
+        }        
+            for(let x = 0; x<editPeserta.length;x++){
+            editPeserta[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusPeserta.length;x++){
+            hapusPeserta[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<editTugas.length;x++){
+            editTugas[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusTugas.length;x++){
+            hapusTugas[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<copyTugasSelesai.length;x++){
+            copyTugasSelesai[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<downloadTugasSelesai.length;x++){
+            downloadTugasSelesai[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusTugasSelesai.length;x++){
+            hapusTugasSelesai[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<filePenyelesaianTugasBody.length;x++){
+            filePenyelesaianTugasBody[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<buktiPenyelesaianTugasBody.length;x++){
+            buktiPenyelesaianTugasBody[x].setAttribute('style','display:none !important;');
+            }
             for(let x = 0; x<peserta.length;x++){
                 if(peserta[x].classList.contains(username.toLowerCase().replace(/\s/g, "-"))){
                     peserta[x].style.display = 'table-row';
@@ -927,15 +1110,33 @@ const setupUI = (user) => {
                     peserta[x].style.display = 'none';
                 }
             }
-            [tugas, tugasSelesai, kesalahan].forEach(item => {
-                for(let x = 0; x<item.length;x++){
-                    if(item[x].classList.contains('tugasseseorang' + username.toLowerCase().replace(/\s/g, "-"))){
-                        item[x].setAttribute('style','display:block !important;');
-                    } else {
-                        item[x].setAttribute('style','display:none !important;');
-                    }
-                }                
-            })
+            for(let x = 0; x<tugas.length;x++){
+                if(tugas[x].classList.contains('tugasseseorang' + username.toLowerCase().replace(/\s/g, "-"))){
+                    tugas[x].setAttribute('style','display:block !important;');
+                } else {
+                    tugas[x].setAttribute('style','display:none !important;');
+                }
+            }
+            for(let x = 0; x<tugasSelesai.length;x++){
+                if(tugasSelesai[x].classList.contains('tugasseseorangselesai' + username.toLowerCase().replace(/\s/g, "-"))){
+                    tugasSelesai[x].setAttribute('style','display:block !important;');
+                } else {
+                    tugasSelesai[x].setAttribute('style','display:none !important;');
+                }
+            }
+            for(let x = 0; x<kesalahan.length;x++){
+                if(kesalahan[x].classList.contains('kesalahanseseorang' + username.toLowerCase().replace(/\s/g, "-"))){
+                    kesalahan[x].setAttribute('style','display:block !important;');
+                } else {
+                    kesalahan[x].setAttribute('style','display:none !important;');
+                }
+            }
+            for(let x = 0; x<bodyEmail.length;x++){
+            bodyEmail[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<emailTable.length;x++){
+            emailTable[x].setAttribute('style','display:none !important;');
+            }
             for(let x = 0; x<overview.length;x++){
                 if(overview[x].classList.contains('overview-' + username.toLowerCase().replace(/\s/g, "-"))){
                     overview[x].style.display = '';
@@ -948,34 +1149,113 @@ const setupUI = (user) => {
                     penggunaTargetOverview[x].innerHTML = 'anda';
                 }
             }
-            [pengeluaran, pengeluaranSelesai].forEach((item,i) => {
-                for(let x = 0; x<item.length;x++){
-                    if(item[x].classList.contains('pengeluaran-' + username.toLowerCase().replace(/\s/g, "-"))){
-                        item[x].style.display = 'grid';
-                        if(i == 0){
-                            item[x].style.gridTemplateColumns = 'auto 50px';
-                        }
-                    } else {
-                        item[x].style.display = 'none';
-                    }
-                }                
-            });
-            [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat')].forEach(item => {
-                item.style.display = 'grid';
-            })
-            document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '10px', 'important');            
-        } else {
-            [editPeserta, hapusPeserta, editTugas, hapusTugas, navbarMenu
-            , document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#daftar-peserta'), document.querySelector('#halaman-tugas'), document.querySelector('#halaman-kesalahan'), document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tombol-tambah-tugas'), document.querySelector('#customer-reply'), document.querySelector('#google-sheet')].forEach(item => {
-                if(item.length != undefined){
-                    for(let x = 0; x<item.length;x++){
-                        item[x].setAttribute('style','display:none !important;');
-                    }
+            for(let x = 0; x<editKategoriMenu.length;x++){
+            editKategoriMenu[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusKategoriMenu.length;x++){
+            hapusKategoriMenu[x].setAttribute('style','display:none !important;');
+            }            
+            for(let x = 0; x<editMenu.length;x++){
+            editMenu[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusMenu.length;x++){
+            hapusMenu[x].setAttribute('style','display:none !important;');
+            } 
+            for(let x = 0; x<tombolTambahMenu.length;x++){
+            tombolTambahMenu[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<editPengumuman.length;x++){
+            editPengumuman[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusPengumuman.length;x++){
+            hapusPengumuman[x].setAttribute('style','display:none !important;');
+            }            
+            for(let x = 0; x<selesaiPerpindahan.length;x++){
+            selesaiPerpindahan[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusPerpindahan.length;x++){
+            hapusPerpindahan[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<editPerpindahan.length;x++){
+            editPerpindahan[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<pengeluaran.length;x++){
+                if(pengeluaran[x].classList.contains('pengeluaran-' + username.toLowerCase().replace(/\s/g, "-"))){
+                    pengeluaran[x].style.display = 'grid';
+                    pengeluaran[x].style.gridTemplateColumns = 'auto 50px';
                 } else {
-                    item.setAttribute('style','display:none !important;');
-                }            
-            });
-            document.querySelector('#myTabContent').style.display = 'block';   
+                    pengeluaran[x].style.display = 'none';
+                }
+            }
+            for(let x = 0; x<pengeluaranSelesai.length;x++){
+                if(pengeluaranSelesai[x].classList.contains('pengeluaran-selesai-' + username.toLowerCase().replace(/\s/g, "-"))){
+                    pengeluaranSelesai[x].style.display = 'grid';
+                } else {
+                    pengeluaranSelesai[x].style.display = 'none';
+                }
+            }
+            for(let x = 0; x<selesaiPengeluaran.length;x++){
+            selesaiPengeluaran[x].style.setProperty('display', 'none', 'important');
+            }
+            for(let x = 0; x<selesaiPengeluaranKedua.length;x++){
+            selesaiPengeluaranKedua[x].style.setProperty('display', 'none', 'important');
+            }  
+            for(let x = 0; x<navbarMenu.length;x++){
+            navbarMenu[x].style.display = 'block';
+            }                                                          
+            document.querySelector('#tambahpengumuman').style.display = 'none';
+            document.querySelector('#customer-reply').style.display = 'block';
+            document.querySelector('#google-sheet').style.display = 'block';
+            document.querySelector('#myTabContent').style.display = 'block';
+            document.querySelector('#swot').style.display = 'none';
+            document.querySelector('#achievement').style.display = 'none';
+            document.querySelector('#transaksi-berjalan').style.display = 'none';
+            document.querySelector('#retur-dealer').style.display = 'none';
+            document.querySelector('#surat-jalan').style.display = 'none';  
+            document.querySelector('#list-menu-tambahan').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-kedua').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-ketiga').style.display = 'grid';
+            document.querySelector('#list-menu-tambahan-keempat').style.display = 'grid';
+            document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
+            document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'block';
+            document.querySelector('#jumbotron-swot').style.display = 'none';
+            document.querySelector('#daftar-peserta').style.display = 'none';
+            document.querySelector('#halaman-kesalahan').style.display = 'block';
+            document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
+            document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:none !important;');
+            document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:none !important;');
+            document.querySelector('#tombol-tambah-kategori-menu').setAttribute('style','display:none !important;');
+            document.querySelector('#lihatperpindahanpending').style.setProperty('display', 'none', 'important');
+            document.querySelector('#lihatperpindahanselesai').style.setProperty('display', 'none', 'important');
+            document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '10px', 'important');            
+            document.querySelector('#tambahperpindahanbarang').style.display = 'none';
+        } else {
+            for(let x = 0; x<editPeserta.length;x++){
+            editPeserta[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusPeserta.length;x++){
+            hapusPeserta[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<editTugas.length;x++){
+            editTugas[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<hapusTugas.length;x++){
+            hapusTugas[x].setAttribute('style','display:none !important;');
+            }
+            for(let x = 0; x<navbarMenu.length;x++){
+            navbarMenu[x].style.display = 'none';
+            }
+            document.querySelector('#myTabContent').style.display = 'block';
+            document.querySelector('#customer-reply').style.display = 'none';
+            document.querySelector('#google-sheet').style.display = 'none';   
+            document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
+            document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
+            document.querySelector('#daftar-peserta').style.display = 'none';
+            document.querySelector('#halaman-tugas').style.display = 'none';
+            document.querySelector('#halaman-kesalahan').style.display = 'none';
+            document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
+            document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:none !important;');
+            document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:none !important;');
         }  
     document.querySelector('#pengguna-akun').innerHTML = username;
     document.querySelector('#email-akun').innerHTML = user.email;
@@ -1294,45 +1574,43 @@ document.querySelector('#search-menu').addEventListener('input', function(e){
 
 
   } else {
+    document.querySelector('#myTabContent').style.marginLeft = '0';
+    document.querySelector('#myTabContent').style.transition = '0';
     let tombolTambah = document.querySelectorAll('.tombol-tambah');
-    let tombolKembali = document.querySelectorAll('.tombol-kembali');    
-    [tombolTambah, tombolKembali
-    , document.querySelector('#myTabContent')].forEach(item => {
-    if(item.length != undefined){
+    for(let x = 0; x<tombolTambah.length; x++){
+            tombolTambah[x].style.marginLeft = '0';
+            tombolTambah[x].style.transition = '0';
+    }
+    let tombolKembali = document.querySelectorAll('.tombol-kembali');
     for(let x = 0; x<tombolKembali.length; x++){
-        item[x].style.marginLeft = '0';
-        item[x].style.transition = '0';
-        }
-    } else {
-        item.style.marginLeft = '0';
-        item.style.transition = '0';
-      }
-    })
+            tombolKembali[x].style.marginLeft = '0';
+            tombolKembali[x].style.transition = '0';
+    }
     for(let x = 0; x<navbarMenu.length;x++){
     navbarMenu[x].style.display = 'none';
     }                
-    [itemMasuk, document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#daftar-peserta'), document.querySelector('#list-menu-tambahan')
-    , document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat'), document.querySelector('#halaman-tugas'), document.querySelector('#halaman-kesalahan'), document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tombol-tambah-tugas'), document.querySelector('#customer-reply'), document.querySelector('#google-sheet')].forEach(item => {
-        if(item.length != undefined){
-            for(let x = 0; x<item.length; x++){
-                item[x].setAttribute('style','display:none !important;');
-            }
-        } else {
-        item.setAttribute('style','display:none !important;');
-        }
-    });
-    [document.querySelector('#pengguna-akun'), document.querySelector('#email-akun')].forEach(item => {
-        item.innerHTML = '';
-    });
-    for(let x = 0; x<itemKeluar.length; x++){
-        if(x == 0){
-            itemKeluar[x].setAttribute('style','display:block !important;');
-        } else if(x == 1){
-            itemKeluar[x].setAttribute('style','display:none !important;');
-        }
-    }            
     document.querySelector('.navbar-collapse').classList.remove('show')
+    document.querySelector('#myTabContent').style.display = 'none';
+    document.querySelector('#customer-reply').style.display = 'none';
+    document.querySelector('#google-sheet').style.display = 'none';
+    document.querySelector('#jumbotron-performa-peserta').style.display = 'none';
+    document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
+    document.querySelector('#daftar-peserta').style.display = 'none';
+    document.querySelector('#list-menu-tambahan').style.display = 'none';
+    document.querySelector('#list-menu-tambahan-kedua').style.display = 'none';
+    document.querySelector('#list-menu-tambahan-ketiga').style.display = 'none';
+    document.querySelector('#list-menu-tambahan-keempat').style.display = 'none';
+    document.querySelector('#halaman-tugas').style.display = 'none';
+    document.querySelector('#halaman-kesalahan').style.display = 'none';
+    document.querySelector('#tombol-tambah-kesalahan').setAttribute('style','display:none !important;');
+    document.querySelector('#tombol-tambah-peserta').setAttribute('style','display:none !important;');
+    document.querySelector('#tombol-tambah-tugas').setAttribute('style','display:none !important;');
+    document.querySelector('#pengguna-akun').innerHTML = '';
+    document.querySelector('#email-akun').innerHTML = '';
     document.querySelector('#tombol-burger').style.visibility = 'hidden';
+    itemMasuk.forEach(item => item.style.display = 'none');
+    itemKeluar.forEach(item => item.style.display = 'block');
+    document.querySelector('#form-masuk').setAttribute('style','display:block !important;');
   }
 }
 

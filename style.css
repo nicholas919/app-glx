@@ -2380,11 +2380,7 @@ input:checked + .slider:after {
 	display: none;
 }
 
-#google-sheet:hover > #ikon-google-sheet{
-	right: 0px;
-}
-
-#customer-reply:hover > #ikon-customer-reply{
+#google-sheet:hover > #ikon-google-sheet, #customer-reply:hover > #ikon-customer-reply{
 	right: 0px;
 }
 
