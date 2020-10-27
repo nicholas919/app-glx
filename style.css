@@ -20,6 +20,10 @@ body{
 	transition:0.2s all ease;	
 }
 
+#google-sheet:hover > #ikon-google-sheet, #customer-reply:hover > #ikon-customer-reply{
+	text-decoration: none;
+}
+
 #google-sheet{
 	right: -144.91px;
 }
@@ -2373,16 +2377,12 @@ input:checked + .slider:after {
     transition: all 0.1s ease;
 }
 
-#google-sheet:hover, #customer-reply:hover{
-	transition:none;
-}
-
-#google-sheet:hover > #konteks-google-sheet, #customer-reply:hover > #konteks-customer-reply{
+#konteks-google-sheet, #konteks-customer-reply{
 	display: none;
 }
 
-#google-sheet:hover > #ikon-google-sheet, #customer-reply:hover > #ikon-customer-reply{
-	text-decoration: none;
+#google-sheet, #customer-reply{
+	right: 0;
 }
 
 }
