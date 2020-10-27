@@ -1367,7 +1367,7 @@ window.addEventListener('resize', function(e){
         [tombolTambah, tombolKembali
         , document.querySelector('#myTabContent')].forEach(item => {
         if(item.length != undefined){
-        for(let x = 0; x<tombolKembali.length; x++){
+        for(let x = 0; x<item.length; x++){
                 item[x].style.marginLeft = '0';
                 item[x].style.transition = '0';
             }
