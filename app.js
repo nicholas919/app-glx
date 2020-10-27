@@ -3856,7 +3856,7 @@ function renderOverview(doc){
                         <div class="info-retur">
                         <div>Nama Dealer</div>
                         <div>:</div>
-                        <div style="font-weight:bold;">${namaCustomer}</div>
+                        <div style="font-weight:bold;">${namaDealer}</div>
                         <div>Status Return</div>
                         <div>:</div>
                         <div>${statusProduk}</div>
