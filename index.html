@@ -2609,18 +2609,20 @@ kalkulator.addEventListener('submit', function(e){
 let menu = document.querySelector('#tombol-burger');
 menu.addEventListener('click', function(e){
 if(window.innerWidth <= 700){
-        document.querySelector('#myTabContent').style.marginLeft = '0';
-        document.querySelector('#myTabContent').style.transition = '0';
         let tombolTambah = document.querySelectorAll('.tombol-tambah');
-        for(let x = 0; x<tombolTambah.length; x++){
-            tombolTambah[x].style.marginLeft = '0';
-            tombolTambah[x].style.transition = '0';
-            }
         let tombolKembali = document.querySelectorAll('.tombol-kembali');
-        for(let x = 0; x<tombolKembali.length; x++){
-            tombolKembali[x].style.marginLeft = '0';
-            tombolKembali[x].style.transition = '0';
+        [tombolTambah, tombolKembali,
+        document.querySelector('#myTabContent')].forEach(item => {
+          if(item.length != undefined){
+            for(let x = 0; x<item.length; x++){            
+              item[x].style.marginLeft = '0';
+              item[x].style.transition = '0';
             }
+          } else {
+              item.style.marginLeft = '0';
+              item.style.transition = '0';            
+          }
+        })
         document.querySelector('#list-menu-tambahan').style.boxSizing = '0';
         document.querySelector('#list-menu-tambahan').style.paddingRight = '0';
         document.querySelector('#list-menu-tambahan').style.transition = '0';
@@ -2652,36 +2654,30 @@ if(window.innerWidth <= 700){
     } else {
     if($( ".navbar-collapse" ).is( ":hidden" )){
         setTimeout(function(){
-        document.querySelector('#myTabContent').style.marginLeft = '250px';
-        document.querySelector('#myTabContent').style.transition = 'all 0.4s ease';
         let tombolTambah = document.querySelectorAll('.tombol-tambah');
-        for(let x = 0; x<tombolTambah.length; x++){
-            tombolTambah[x].style.marginLeft = '250px';
-            tombolTambah[x].style.transition = 'all 0.4s ease'
-        }
         let tombolKembali = document.querySelectorAll('.tombol-kembali');
-        for(let x = 0; x<tombolKembali.length; x++){
-            tombolKembali[x].style.marginLeft = '250px';
-            tombolKembali[x].style.transition = 'all 0.4s ease'
-        }        
-        document.querySelector('#list-menu-tambahan').style.boxSizing = 'border-box';
-        document.querySelector('#list-menu-tambahan').style.paddingRight = '250px';
-        document.querySelector('#list-menu-tambahan').style.transition = 'all 0.4s ease';
-        document.querySelector('#list-menu-tambahan-kedua').style.boxSizing = 'border-box';
-        document.querySelector('#list-menu-tambahan-kedua').style.paddingRight = '250px';
-        document.querySelector('#list-menu-tambahan-kedua').style.transition = 'all 0.4s ease';
-        document.querySelector('#list-menu-tambahan-ketiga').style.boxSizing = 'border-box';
-        document.querySelector('#list-menu-tambahan-ketiga').style.paddingRight = '250px';
-        document.querySelector('#list-menu-tambahan-ketiga').style.transition = 'all 0.4s ease';
-        document.querySelector('#list-menu-tambahan-keempat').style.boxSizing = 'border-box';
-        document.querySelector('#list-menu-tambahan-keempat').style.paddingRight = '250px';
-        document.querySelector('#list-menu-tambahan-keempat').style.transition = 'all 0.4s ease';
-        document.querySelector('#tombol-tambah-lihat-retur-kedua').style.setProperty('width', '-webkit-calc(100% - 250px)', 'important');
-        document.querySelector('#tombol-tambah-lihat-retur-kedua').style.transition = 'all 0.4s ease';
-        document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua').style.setProperty('width', '-webkit-calc(100% - 250px)', 'important');
-        document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua').style.transition = 'all 0.4s ease';                
-        document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').style.setProperty('width', '-webkit-calc(100% - 250px)', 'important');
-        document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').style.transition = 'all 0.4s ease';
+        [tombolTambah, tombolKembali,
+        document.querySelector('#myTabContent')].forEach(item => {
+          if(item.length != undefined){
+            for(let x = 0; x<item.length; x++){            
+              item[x].style.marginLeft = '250px';
+              item[x].style.transition = 'all 0.4s ease';
+            }
+          } else {
+              item.style.marginLeft = '250px';
+              item.style.transition = 'all 0.4s ease';            
+          }
+        });        
+        [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga')
+        , document.querySelector('#list-menu-tambahan-keempat')].forEach(item => {
+          item.style.boxSizing = 'border-box';
+          item.style.paddingRight = '250px';
+          item.style.transition = 'all 0.4s ease';
+        });
+        [document.querySelector('#tombol-tambah-lihat-retur-kedua'), document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua'), document.querySelector('#tombol-tambah-lihat-perpindahan-kedua')].forEach(item => {
+          item.style.setProperty('width', '-webkit-calc(100% - 250px)', 'important');
+          item.style.transition = 'all 0.4s ease';
+        })
         if(document.querySelector('#peringatan-perpindahan-kedua')){
         document.querySelector('#peringatan-perpindahan-kedua').style.width = '-webkit-calc(100% - 250px)';
         document.querySelector('#peringatan-perpindahan-kedua').style.transition = 'all 0.4s ease';
