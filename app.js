@@ -1160,8 +1160,6 @@ const setupUI = (user) => {
                 })
             
         })
-})
-
 
 const menuPilihan = [];
 document.querySelector('#search-menu').addEventListener('input', function(e){
@@ -1456,17 +1454,23 @@ function renderKalender(){
                 tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].innerHTML = x;
                 tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].setAttribute('data-date', tanggalBrkt);
 
-                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].addEventListener('click', function(e){
-                    e.stopImmediatePropagation();
-                    console.log(e.target.getAttribute('data-date'))
-                    console.log(e.target.getBoundingClientRect())
+                db.collection('peserta').get().then(function(querySnapshot){
+                    querySnapshot.docs.map(item => {
+                        if(item.data().nama.toLowerCase().replace(/\s/g, "-") == username.toLowerCase().replace(/\s/g, "-")){
+                            let libur = item.data().libur;
+                            for(let i = 0; i<hari.length;i++){
+                                if(hari[i] == libur){
+                                    for(let y = 0; y<tanggalKalender.length; y++){
+                                        tanggalKalender[y].querySelectorAll('li')[i].style.backgroundColor = 'rgba(247, 17, 17, 0.76)';
+                                        tanggalKalender[y].querySelectorAll('li')[i].style.color = 'white'
+                                    }
+                                }
+                            }
+                        }
+                    })
                 })
-
                 if(tanggalBrkt == tanggalSekarang){
                     tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].style.backgroundColor = 'skyblue';
-                }
-                if(hariPerTanggal == 0){
-                    tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].style.color = 'crimson';
                 }
                 if(counterMingguan == 5){
                     tanggalKalender[5].style.display = 'flex';
@@ -1509,7 +1513,7 @@ function renderKalender(){
 
 let geserKanan = document.querySelector('#tombol-geser-kanan-kalender');
 geserKanan.addEventListener('click', function(e){
-    e.stopPropagation();
+    e.stopImmediatePropagation();
     let counter = 1;    
     if(bulanIni != 11){
         bulanIni += counter;
@@ -1523,7 +1527,7 @@ geserKanan.addEventListener('click', function(e){
 
 let geserKiri = document.querySelector('#tombol-geser-kiri-kalender');
 geserKiri.addEventListener('click', function(e){
-    e.stopPropagation();
+    e.stopImmediatePropagation();
     let counter = 1;    
     if(bulanIni != 0){
         bulanIni -= counter;
@@ -1534,7 +1538,7 @@ geserKiri.addEventListener('click', function(e){
     counterMingguan = 0;
     renderKalender();
 })
-
+})
 
   } else {
     let tombolTambah = document.querySelectorAll('.tombol-tambah');
