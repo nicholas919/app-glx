@@ -882,11 +882,9 @@ auth.onAuthStateChanged(user => {
                     setInterval(function(){
                         if(document.querySelector('#peringatan-perpindahan-kedua')){
                             if(window.innerWidth >= 650){
-                            document.querySelector('#jumbotron-performa-peserta').style.setProperty('margin-top', '82px', 'important')
-                            document.querySelector('#jumbotron-performa-peserta-individu').style.setProperty('margin-top', '90px', 'important')
-                            } else if(window.innerWidth <= 650){
-                            document.querySelector('#jumbotron-performa-peserta').style.setProperty('margin-top', '107px', 'important')                    
-                            document.querySelector('#jumbotron-performa-peserta-individu').style.setProperty('margin-top', '112px', 'important')
+                            document.querySelector('#kalender').style.setProperty('margin-top', '90px', 'important')
+                            } else if(window.innerWidth <= 650){               
+                            document.querySelector('#kalender').style.setProperty('margin-top', '112px', 'important')
                             }
                         }
                         },10)                    
@@ -913,8 +911,7 @@ auth.onAuthStateChanged(user => {
             document.querySelector('#jumlah-perpindahan-pending').innerHTML = document.querySelector('#list-perpindahan-barang-pending').childNodes.length;
             document.querySelector('#jumlah-perpindahan-selesai').innerHTML = document.querySelector('#list-perpindahan-barang-selesai').childNodes.length;
             if(!document.querySelector('#peringatan-perpindahan-kedua')){
-                document.querySelector('#jumbotron-performa-peserta').style.setProperty('margin-top', '10px', 'important')
-                document.querySelector('#jumbotron-performa-peserta-individu').style.setProperty('margin-top', '10px', 'important')
+                document.querySelector('#kalender').style.setProperty('margin-top', '10px', 'important')
             }
         }
         function refreshOnJumlahTenor(e){

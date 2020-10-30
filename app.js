@@ -1459,6 +1459,7 @@ function renderKalender(){
                 tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].addEventListener('click', function(e){
                     e.stopImmediatePropagation();
                     console.log(e.target.getAttribute('data-date'))
+                    console.log(e.target.getBoundingClientRect())
                 })
 
                 if(tanggalBrkt == tanggalSekarang){

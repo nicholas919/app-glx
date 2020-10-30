@@ -161,11 +161,6 @@
   </div>
 </div>
 
-<div class="jumbotron" id="jumbotron-performa-peserta">
-  <div id="judul-jumbotron-performa-peserta" class="display-4"><i class="fa fa-group"></i> Performa Karyawan</div>
-  <div class="lead" id="list-performa-peserta"></div>
-</div>
-
 <div id="kalender">
 <div class="month">
   <div id="bulan-kalender"></div>
@@ -236,6 +231,11 @@
   <li></li>
   <li></li>
 </ul>
+</div>
+
+<div class="jumbotron" id="jumbotron-performa-peserta">
+  <div id="judul-jumbotron-performa-peserta" class="display-4"><i class="fa fa-group"></i> Performa Karyawan</div>
+  <div class="lead" id="list-performa-peserta"></div>
 </div>
 
 <!--<form class="jumbotron" id="admin-web">
@@ -2088,8 +2088,7 @@ setInterval(function(){
     document.querySelector('#peringatan-perpindahan-kedua').remove();
     setInterval(function(){
     if(!document.querySelector('#peringatan-perpindahan-kedua')){
-    document.querySelector('#jumbotron-performa-peserta').style.setProperty('margin-top', '10px', 'important')
-    document.querySelector('#jumbotron-performa-peserta-individu').style.setProperty('margin-top', '10px', 'important')    
+    document.querySelector('#kalender').style.setProperty('margin-top', '10px', 'important')    
     }
     },10)      
   })
