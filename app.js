@@ -844,8 +844,7 @@ const setupUI = (user) => {
                 item.style.display = 'flex';
             });
             [navbarMenu, document.querySelector('#tambahpengumuman'), document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#jumbotron-swot')
-            , document.querySelector('#daftar-peserta'), document.querySelector('#halaman-kesalahan')
-            , document.querySelector('#tambahperpindahanbarang')].forEach(item => {
+            , document.querySelector('#daftar-peserta'), document.querySelector('#halaman-kesalahan'), document.querySelector('#tambahperpindahanbarang'), document.querySelector('#kalender')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
                         item[x].style.display = 'block';
@@ -911,7 +910,7 @@ const setupUI = (user) => {
                 }                    
             });
             [navbarMenu, document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#daftar-peserta')
-            , document.querySelector('#halaman-kesalahan'), document.querySelector('#tambahperpindahanbarang')].forEach(item => {
+            , document.querySelector('#halaman-kesalahan'), document.querySelector('#tambahperpindahanbarang'), document.querySelector('#kalender')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
                         item[x].style.display = 'block';
@@ -1028,7 +1027,8 @@ const setupUI = (user) => {
                     pengeluaranSelesai[x].style.display = 'none';
                 }
             }
-            [navbarMenu, document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#halaman-kesalahan')].forEach(item => {
+            [navbarMenu, document.querySelector('#myTabContent'), document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#halaman-kesalahan')
+            , document.querySelector('#kalender')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
                         item.style.display = 'block';
@@ -1062,7 +1062,7 @@ const setupUI = (user) => {
                 }                
             });
             [navbarMenu, document.querySelector('#customer-reply'), document.querySelector('#google-sheet'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#jumbotron-performa-peserta-individu')
-            , document.querySelector('#daftar-peserta'), document.querySelector('#halaman-tugas'), document.querySelector('#halaman-kesalahan')].forEach(item => {
+            , document.querySelector('#daftar-peserta'), document.querySelector('#halaman-tugas'), document.querySelector('#halaman-kesalahan'), document.querySelector('#kalender')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
                         item[x].style.display = 'none';
@@ -1387,6 +1387,152 @@ document.querySelector('#search-menu').addEventListener('input', function(e){
     },0)
 })
 
+let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+let hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat']
+let bulanIni = new Date().getMonth();
+let tahunIni = new Date().getFullYear();
+let tanggalKalender = document.querySelectorAll('.day')
+let counterMingguan = 0;
+renderKalender();
+
+function renderKalender(){
+    let hariSekarang = String(new Date().getDate()).padStart(2, '0');
+    let bulanSekarang = String(new Date().getMonth() + 1).padStart(2, '0');
+    let tahunSekarang = new Date().getFullYear();
+    let tanggalSekarang = tahunSekarang + bulanSekarang + hariSekarang; 
+    for(let z = 0; z < tanggalKalender.length; z++){
+        let li = tanggalKalender[z].querySelectorAll('li');
+        for(let i = 0; i < li.length; i++){
+            li[i].innerHTML = ''
+            li[i].removeAttribute('data-date');
+            li[i].style.backgroundColor = 'aliceblue';
+            li[i].style.padding = '0px';
+            li[i].style.color = 'black';
+        }
+    }
+    document.querySelector('#bulan-kalender').innerHTML = bulan[bulanIni];
+    document.querySelector('#tahun-kalender').innerHTML = tahunIni;
+    for(let x = 1; x <= 31; x++){
+        let bulanPerTanggal = new Date(tahunIni, bulanIni, x).getMonth();
+        let hariPerTanggal = new Date(tahunIni, bulanIni, x).getDay();
+        let counter = 1;        
+        if(bulan[bulanPerTanggal] == bulan[bulanIni]){
+            if(hariPerTanggal == 0 && x != 1){
+                counterMingguan = counterMingguan + counter;
+            } else if(hariPerTanggal != 0 && x == 1){
+                if(bulanIni == 0){
+                    let bulanSebelumnya = 11;
+                    let tahunSebelumnya = tahunIni - 1;
+                    let jumlahHariSebelumnya = new Date(tahunIni, bulanSebelumnya + 1, 0).getDate();
+                    for(let z = jumlahHariSebelumnya; z > jumlahHariSebelumnya - hariPerTanggal; z--){
+                        let bulanPerTanggalSebelumnya = new Date(tahunSebelumnya, bulanSebelumnya, z).getMonth();
+                        if(bulan[bulanPerTanggalSebelumnya] != bulan[bulanIni]){
+                            let hariPerTanggalSebelumnya = new Date(tahunSebelumnya, bulanSebelumnya, z).getDay();
+                            let tanggalSebelumnya = tahunSebelumnya.toString() + String(bulanSebelumnya + 1).padStart(2, '0') + z.toString().padStart(2, '0');
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].style.padding = '10px';
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].style.color = 'silver';
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].innerHTML = z;
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].setAttribute('data-date', tanggalSebelumnya)                             
+                        }
+                    }
+                } else if(bulanIni != 0){
+                    let bulanSebelumnya = bulanIni - 1;
+                    let jumlahHariSebelumnya = new Date(tahunIni, bulanSebelumnya + 1, 0).getDate();
+                    for(let z = jumlahHariSebelumnya; z > jumlahHariSebelumnya - hariPerTanggal; z--){
+                        let bulanPerTanggalSebelumnya = new Date(tahunIni, bulanSebelumnya, z).getMonth();
+                        if(bulan[bulanPerTanggalSebelumnya] != bulan[bulanIni]){
+                            let hariPerTanggalSebelumnya = new Date(tahunIni, bulanSebelumnya, z).getDay();
+                            let tanggalSebelumnya = tahunIni.toString() + String(bulanSebelumnya + 1).padStart(2, '0') + z.toString().padStart(2, '0');
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].style.padding = '10px';
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].style.color = 'silver';
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].innerHTML = z;
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].setAttribute('data-date', tanggalSebelumnya);                            
+                        }
+                    }                    
+                }
+            }
+                let tanggalBrkt = tahunIni.toString() + String(bulanIni + 1).padStart(2, '0') + x.toString().padStart(2, '0');
+                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].style.padding = '10px';
+                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].innerHTML = x;
+                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].setAttribute('data-date', tanggalBrkt);
+
+                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].addEventListener('click', function(e){
+                    e.stopImmediatePropagation();
+                    console.log(e.target.getAttribute('data-date'))
+                })
+
+                if(tanggalBrkt == tanggalSekarang){
+                    tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].style.backgroundColor = 'skyblue';
+                }
+                if(hariPerTanggal == 0){
+                    tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].style.color = 'crimson';
+                }
+                if(counterMingguan == 5){
+                    tanggalKalender[5].style.display = 'flex';
+                } else {
+                    tanggalKalender[5].style.display = 'none';
+                }
+                if(hariPerTanggal != 6 && x == new Date(tahunIni, bulanIni + 1, 0).getDate()){
+                    if(bulanIni == 11){
+                        let bulanSelanjutnya = 0;
+                        let tahunSelanjutnya = tahunIni + 1;
+                        for(let z = 1; z < 7-hariPerTanggal; z++){
+                            let bulanPerTanggalSelanjutnya = new Date(tahunSelanjutnya, bulanSelanjutnya, z).getMonth();
+                            if(bulan[bulanPerTanggalSelanjutnya] != bulan[bulanIni]){
+                                let hariPerTanggalSelanjutnya = new Date(tahunSelanjutnya, bulanSelanjutnya, z).getDay();
+                                let tanggalSelanjutnya = tahunSelanjutnya.toString() + String(bulanSelanjutnya + 1).padStart(2, '0') + z.toString().padStart(2, '0');
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].style.padding = '10px';
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].style.color = 'silver';
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].innerHTML = z;
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].setAttribute('data-date', tanggalSelanjutnya);                                                          
+                            }
+                        }
+                    } else {
+                        let bulanSelanjutnya = bulanIni + 1;
+                        for(let z = 1; z < 7-hariPerTanggal; z++){
+                            let bulanPerTanggalSelanjutnya = new Date(tahunIni, bulanSelanjutnya, z).getMonth();
+                            if(bulan[bulanPerTanggalSelanjutnya] != bulan[bulanIni]){
+                                let hariPerTanggalSelanjutnya = new Date(tahunIni, bulanSelanjutnya, z).getDay();
+                                let tanggalSelanjutnya = tahunIni.toString() + String(bulanSelanjutnya + 1).padStart(2, '0') + z.toString().padStart(2, '0');
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].style.padding = '10px';
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].style.color = 'silver';
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].innerHTML = z;
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].setAttribute('data-date', tanggalSelanjutnya);                                                         
+                            }
+                        }                        
+                    }
+                }             
+        }
+    }
+}
+
+let geserKanan = document.querySelector('#tombol-geser-kanan-kalender');
+geserKanan.addEventListener('click', function(e){
+    e.stopPropagation();
+    let counter = 1;    
+    if(bulanIni != 11){
+        bulanIni += counter;
+    } else {
+        bulanIni = 0;
+        tahunIni += counter;
+    }
+        counterMingguan = 0;
+        renderKalender();    
+})
+
+let geserKiri = document.querySelector('#tombol-geser-kiri-kalender');
+geserKiri.addEventListener('click', function(e){
+    e.stopPropagation();
+    let counter = 1;    
+    if(bulanIni != 0){
+        bulanIni -= counter;
+    } else {
+        bulanIni = 11;
+        tahunIni -= counter;
+    }
+    counterMingguan = 0;
+    renderKalender();
+})
 
 
   } else {
@@ -1409,7 +1555,7 @@ document.querySelector('#search-menu').addEventListener('input', function(e){
     [navbarMenu, document.querySelector('#myTabContent'), document.querySelector('#customer-reply'), document.querySelector('#google-sheet'), document.querySelector('#jumbotron-performa-peserta')
     , document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#daftar-peserta'), document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua')
     , document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat'), document.querySelector('#halaman-tugas'), document.querySelector('#halaman-kesalahan')
-    ].forEach(item => {
+    , document.querySelector('#kalender')].forEach(item => {
         if(item.length != undefined){
             for(let x = 0; x<item.length;x++){
                item[x].style.display = 'none';

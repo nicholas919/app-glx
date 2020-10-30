@@ -2,9 +2,89 @@ body{
 	background-color: #eeeeee !important;
 }
 
+#kalender{
+	margin:0px 20px;
+}
+
+#kalender ul{
+	list-style: none;
+	padding: 0px;
+	margin: 0px !important;
+	display: flex;
+	text-align: center;
+}
+
+#kalender ul li {
+	width: calc(100% / 7);
+}
+
+.month {
+	width: 100%;
+	justify-content: center;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	padding: 15px;
+	background-color: steelblue;
+	font-size: 20px;
+	position: relative;
+	border-bottom: 3px solid lightblue;
+}
+
+.weekday{
+	background-color: dimgrey;
+    color: white;
+    font-weight: bold;
+}
+
+.weekday li{
+	padding: 10px;
+}
+
+.day li{
+	background-color: aliceblue;
+	cursor: pointer;
+}
+
+.day li:hover{
+	background-color: lightblue !important;
+}
+
+.day li:nth-child(even){
+	border-right:3px solid white;
+	border-left:3px solid white;
+	border-bottom:3px solid white;
+}
+
+.day li:nth-child(odd){
+	border-bottom:3px solid white;
+}
+
+.tombol-geser-kalender{
+	position: absolute;
+	height: calc(100% - 12px);
+	top: 0;
+	display: flex !important;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	padding: 10px;
+	cursor: pointer;
+	margin:6px 0px;
+}
+
+#tombol-geser-kiri-kalender{
+	left: 6px;
+}
+
+#tombol-geser-kanan-kalender{
+	right: 6px;
+}
+
 #menu-samping-kanan-home{
 	position: fixed;
 	right: 0;
+	z-index: 1;
 }
 
 #customer-reply, #google-sheet{
@@ -1545,7 +1625,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	font-size: 17px;
 }
 
-#daftar-peserta, #jumbotron-performa-peserta, #jumbotron-performa-peserta-individu, #jumbotron-swot, #customer-reply, #google-sheet{
+#daftar-peserta, #jumbotron-performa-peserta, #jumbotron-performa-peserta-individu, #jumbotron-swot, #customer-reply, #google-sheet, #kalender{
 	display: none;
 }
 
