@@ -162,6 +162,7 @@
 </div>
 
 <div id="kalender">
+<div id="konten-kalender">
 <div class="month">
   <div id="bulan-kalender"></div>
   <div id="tahun-kalender"></div>
@@ -232,7 +233,13 @@
   <li></li>
 </ul>
 </div>
-
+<div id="wrapper-kalender">
+  <div id="list-event-kalender"></div>
+  <div id="input-event-kalender">
+    <input type="text" class="form-control" id="konten-event-kalender" placeholder="Enter an event for this day" autocomplete="off" required><div class="btn btn-info" id="submit-event-kalender">Submit</div>
+  </div>
+</div>
+</div>
 <!--<div id="form-event-kalender">
   <div class="form-group">
     <label>Waktu Event</label>
@@ -3186,6 +3193,233 @@ tambahBarisSJ.addEventListener('click', function(e){
     }
 
   })
+
+let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+let hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat']
+let bulanIni = new Date().getMonth();
+let tahunIni = new Date().getFullYear();
+let tanggalKalender = document.querySelectorAll('.day')
+let counterMingguan = 0;
+let hariSekarang = String(new Date().getDate()).padStart(2, '0');
+let bulanSekarang = String(new Date().getMonth() + 1).padStart(2, '0');
+let tahunSekarang = new Date().getFullYear();
+
+function renderKalender(e){
+    let tanggalSekarang = tahunSekarang + bulanSekarang + hariSekarang;
+    let eventKalender = document.querySelectorAll('.event-kalender'); 
+    for(let z = 0; z < tanggalKalender.length; z++){
+        let li = tanggalKalender[z].querySelectorAll('li');
+        for(let i = 0; i < li.length; i++){
+            li[i].innerHTML = ''
+            li[i].removeAttribute('data-date');
+            li[i].style.backgroundColor = 'aliceblue';
+            li[i].style.padding = '0px';
+            li[i].removeAttribute('date-active');
+        }
+    }
+    document.querySelector('#bulan-kalender').innerHTML = bulan[bulanIni];
+    document.querySelector('#tahun-kalender').innerHTML = tahunIni;
+    for(let x = 1; x <= 31; x++){
+        let bulanPerTanggal = new Date(tahunIni, bulanIni, x).getMonth();
+        let hariPerTanggal = new Date(tahunIni, bulanIni, x).getDay();
+        let counter = 1;        
+        if(bulan[bulanPerTanggal] == bulan[bulanIni]){
+            if(hariPerTanggal == 0 && x != 1){
+                counterMingguan = counterMingguan + counter;
+            }else if(hariPerTanggal != 0 && x == 1){
+                if(bulanIni == 0){
+                    let bulanSebelumnya = 11;
+                    let tahunSebelumnya = tahunIni - 1;
+                    let jumlahHariSebelumnya = new Date(tahunIni, bulanSebelumnya + 1, 0).getDate();
+                    for(let z = jumlahHariSebelumnya; z > jumlahHariSebelumnya - hariPerTanggal; z--){
+                        let bulanPerTanggalSebelumnya = new Date(tahunSebelumnya, bulanSebelumnya, z).getMonth();
+                        if(bulan[bulanPerTanggalSebelumnya] != bulan[bulanIni]){
+                            let hariPerTanggalSebelumnya = new Date(tahunSebelumnya, bulanSebelumnya, z).getDay();
+                            let tanggalSebelumnya = tahunSebelumnya.toString() + String(bulanSebelumnya + 1).padStart(2, '0') + z.toString().padStart(2, '0');
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].style.padding = '10px';
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].innerHTML = z;
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].setAttribute('data-date', tanggalSebelumnya)
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].addEventListener('click', renderDateActive);
+                            for(let z = 0; z<eventKalender.length; z++){
+                              if(eventKalender[z].getAttribute('data-date') == tanggalSebelumnya){
+                                if(!tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].querySelector('.event-calendar-available')){
+                                    let availability = document.createElement('div');
+                                    availability.classList.add('event-calendar-available');                    
+                                    tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].appendChild(availability);
+                                }
+                              }
+                            }                                                        
+                        }
+                    }
+                } else if(bulanIni != 0){
+                    let bulanSebelumnya = bulanIni - 1;
+                    let jumlahHariSebelumnya = new Date(tahunIni, bulanSebelumnya + 1, 0).getDate();
+                    for(let z = jumlahHariSebelumnya; z > jumlahHariSebelumnya - hariPerTanggal; z--){
+                        let bulanPerTanggalSebelumnya = new Date(tahunIni, bulanSebelumnya, z).getMonth();
+                        if(bulan[bulanPerTanggalSebelumnya] != bulan[bulanIni]){
+                            let hariPerTanggalSebelumnya = new Date(tahunIni, bulanSebelumnya, z).getDay();
+                            let tanggalSebelumnya = tahunIni.toString() + String(bulanSebelumnya + 1).padStart(2, '0') + z.toString().padStart(2, '0');
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].style.padding = '10px';
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].innerHTML = z;
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].setAttribute('data-date', tanggalSebelumnya);
+                            tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].addEventListener('click', renderDateActive);
+                            for(let z = 0; z<eventKalender.length; z++){
+                              if(eventKalender[z].getAttribute('data-date') == tanggalSebelumnya){
+                                if(!tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].querySelector('.event-calendar-available')){
+                                    let availability = document.createElement('div');
+                                    availability.classList.add('event-calendar-available');                    
+                                    tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].appendChild(availability);
+                                }
+                              }
+                            }                            
+                        }
+                    }                    
+                }
+            }   
+                let tanggalBrkt = tahunIni.toString() + String(bulanIni + 1).padStart(2, '0') + x.toString().padStart(2, '0');
+                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].style.padding = '10px';
+                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].innerHTML = x;
+                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].setAttribute('data-date', tanggalBrkt);
+                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].addEventListener('click', renderDateActive);
+
+                for(let z = 0; z<eventKalender.length; z++){
+                  if(eventKalender[z].getAttribute('data-date') == tanggalBrkt){
+                    if(!tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].querySelector('.event-calendar-available')){
+                        let availability = document.createElement('div');
+                        availability.classList.add('event-calendar-available');                    
+                        tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].appendChild(availability);
+                    }
+                  }
+                }
+
+                if(tanggalBrkt == tanggalSekarang){
+                    tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].style.backgroundColor = 'skyblue';
+                    tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggal].setAttribute('date-active', 'yes');
+                }
+                if(counterMingguan == 5){
+                    tanggalKalender[5].style.display = 'flex';
+                } else {
+                    tanggalKalender[5].style.display = 'none';
+                }
+                if(hariPerTanggal != 6 && x == new Date(tahunIni, bulanIni + 1, 0).getDate()){
+                    if(bulanIni == 11){
+                        let bulanSelanjutnya = 0;
+                        let tahunSelanjutnya = tahunIni + 1;
+                        for(let z = 1; z < 7-hariPerTanggal; z++){
+                            let bulanPerTanggalSelanjutnya = new Date(tahunSelanjutnya, bulanSelanjutnya, z).getMonth();
+                            if(bulan[bulanPerTanggalSelanjutnya] != bulan[bulanIni]){
+                                let hariPerTanggalSelanjutnya = new Date(tahunSelanjutnya, bulanSelanjutnya, z).getDay();
+                                let tanggalSelanjutnya = tahunSelanjutnya.toString() + String(bulanSelanjutnya + 1).padStart(2, '0') + z.toString().padStart(2, '0');
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].style.padding = '10px';
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].innerHTML = z;
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].setAttribute('data-date', tanggalSelanjutnya);
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].addEventListener('click', renderDateActive);
+                                for(let z = 0; z<eventKalender.length; z++){
+                                  if(eventKalender[z].getAttribute('data-date') == tanggalSelanjutnya){
+                                    if(!tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].querySelector('.event-calendar-available')){
+                                        let availability = document.createElement('div');
+                                        availability.classList.add('event-calendar-available');                    
+                                        tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].appendChild(availability);
+                                    }
+                                  }
+                                }                                
+                            }
+                        }
+                    } else {
+                        let bulanSelanjutnya = bulanIni + 1;
+                        for(let z = 1; z < 7-hariPerTanggal; z++){
+                            let bulanPerTanggalSelanjutnya = new Date(tahunIni, bulanSelanjutnya, z).getMonth();
+                            if(bulan[bulanPerTanggalSelanjutnya] != bulan[bulanIni]){
+                                let hariPerTanggalSelanjutnya = new Date(tahunIni, bulanSelanjutnya, z).getDay();
+                                let tanggalSelanjutnya = tahunIni.toString() + String(bulanSelanjutnya + 1).padStart(2, '0') + z.toString().padStart(2, '0');
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].style.padding = '10px';
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].innerHTML = z;
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].setAttribute('data-date', tanggalSelanjutnya);
+                                tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].addEventListener('click', renderDateActive);
+                                for(let z = 0; z<eventKalender.length; z++){
+                                  if(eventKalender[z].getAttribute('data-date') == tanggalSelanjutnya){
+                                    if(!tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].querySelector('.event-calendar-available')){
+                                        let availability = document.createElement('div');
+                                        availability.classList.add('event-calendar-available');                    
+                                        tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].appendChild(availability);
+                                    }
+                                  }
+                                }                                
+                            }
+                        }                        
+                    }
+                }
+
+        }
+    }
+}
+
+function renderDateActive(e){
+    e.stopImmediatePropagation();
+    if(e.target.getAttribute('date-active') == null){
+        tahunSekarang = e.target.getAttribute('data-date').slice(0,4);
+        bulanSekarang = e.target.getAttribute('data-date').slice(4,6);
+        hariSekarang = e.target.getAttribute('data-date').slice(6,8);
+        console.log(tahunSekarang)
+        console.log(bulanSekarang)
+        console.log(hariSekarang)
+        let eventKalender = document.querySelectorAll('.event-kalender')
+        for(let i = 0; i < eventKalender.length; i++){
+            if(e.target.getAttribute('data-date') == eventKalender[i].getAttribute('data-date')){
+                setTimeout(function(){
+                eventKalender[i].style.display = 'grid';
+                },1000)
+                setTimeout(function(){
+                eventKalender[i].style.left = '0px';
+                },1100)
+            } else {
+                eventKalender[i].style.left = 'calc(-100% - 20px)';
+                setTimeout(function(){
+                  eventKalender[i].style.display = 'none';
+                },1000)                
+            }
+        }
+        for(let i = 0; i < tanggalKalender.length; i++){
+            let li = tanggalKalender[i].querySelectorAll('li');
+            for(let y = 0; y < li.length; y++){
+                li[y].style.backgroundColor = 'aliceblue';
+                li[y].removeAttribute('date-active');
+            }
+        }
+    }
+    e.target.style.backgroundColor = 'skyblue';
+    e.target.setAttribute('date-active', 'yes');
+}
+
+let geserKananKalender = document.querySelector('#tombol-geser-kanan-kalender');
+geserKananKalender.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    let counter = 1;    
+    if(bulanIni != 11){
+        bulanIni += counter;
+    } else {
+        bulanIni = 0;
+        tahunIni += counter;
+    }
+        counterMingguan = 0;
+        renderKalender();    
+})
+
+let geserKiriKalender = document.querySelector('#tombol-geser-kiri-kalender');
+geserKiriKalender.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    let counter = 1;    
+    if(bulanIni != 0){
+        bulanIni -= counter;
+    } else {
+        bulanIni = 11;
+        tahunIni -= counter;
+    }
+    counterMingguan = 0;
+    renderKalender();
+})
+
+
 
 </script>
 

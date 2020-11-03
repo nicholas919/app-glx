@@ -4,6 +4,7 @@ auth.onAuthStateChanged(user => {
         user.adminKantor = idTokenResult.claims.adminKantor;
         user.member = idTokenResult.claims.member;
         setupUI(user);
+        renderKalender();
     })
     db.collection('peserta').onSnapshot(snapshot =>{
     let changes = snapshot.docChanges();
@@ -676,7 +677,42 @@ auth.onAuthStateChanged(user => {
                         div.remove();
                     }
                 })
-    }, err => console.log(err.message))            
+    }, err => console.log(err.message))   
+
+        db.collection('eventKalender').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
+                        renderEventKalender(change.doc);
+                        }
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');                    
+                        div.remove();
+                        let eventKalender = document.querySelectorAll('.event-kalender');
+                        let count = 0;
+                        for(let x = 0; x < eventKalender.length; x++){
+                            if(eventKalender[x].getAttribute('data-date') == div.getAttribute('data-date')){
+                                let counter = 1;
+                                count += counter;
+                            }
+                        }
+                        if(count == 0){
+                            let tanggalKalender = document.querySelectorAll('.day');
+                            for(let i = 0; i < tanggalKalender.length; i++){
+                            let li = tanggalKalender[i].querySelectorAll('li');
+                                for(let y = 0; y < li.length; y++){
+                                    if(li[y].getAttribute('data-date') == div.getAttribute('data-date')){
+                                        if(li[y].querySelector('.event-calendar-available')){
+                                            li[y].querySelector('.event-calendar-available').remove()   
+                                        }
+                                    }
+                                }
+                            }    
+                        }
+                    }
+                })
+    }, err => console.log(err.message))             
 
         $(document).ready(function(){
             setInterval(function(){ refreshOnPengumuman(); }, 60000);
@@ -689,7 +725,6 @@ auth.onAuthStateChanged(user => {
             setInterval(function(){ refreshOnRetur(); }, 1000)
             setInterval(function(){ refreshOnReturDealer(); }, 1000)
         });
-
 
         function refreshOnPengumuman(){
         if(auth.currentUser != null){
@@ -1269,6 +1304,7 @@ daftarEkspedisiCetakLabel.addEventListener('submit', (e) => {
     let tanggal = new Date().getTime();
     db.collection('ekspedisiCetakLabel').add({
         tanggal: tanggal,
+        penggunaUID: auth.currentUser.uid,
         namaEkspedisiCetakLabel: daftarEkspedisiCetakLabel['nama-ekspedisi-cetak-label'].value
     }).then(() => {
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
@@ -1293,7 +1329,8 @@ daftarCatatan.addEventListener('submit', (e) => {
     db.collection('catatan').add({
         tanggal: tanggal,
         kontenCatatan: daftarCatatan['konten-catatan'].value.replace(/\n\r?/g, '<br/>'),
-        pembuatCatatan: doc.data().username
+        pembuatCatatan: doc.data().username,
+        penggunaUID: auth.currentUser.uid
     }).then(() => {
             db.collection('overview').add({
                 penggunaOverview : doc.data().username,
@@ -1313,6 +1350,7 @@ daftarIndentCust.addEventListener('submit', (e) => {
     let tanggal = new Date().getTime();
     db.collection('indent').add({
         tanggal: tanggal,
+        penggunaUID: auth.currentUser.uid,
         namaCustomer: daftarIndentCust['nama-customer-indent-cust'].value,
         kontakCustomer: daftarIndentCust['kontak-customer-indent-cust'].value,
         kontenIndent: daftarIndentCust['konten-indent-cust'].value.replace(/\n\r?/g, '<br/>'),
@@ -1507,6 +1545,7 @@ daftarRetur.addEventListener('submit', function(e){
 if(daftarRetur['status-retur'].value == 'Belum Selesai'){
     db.collection('returPending').add({
         tanggal: new Date().getTime(),
+        penggunaUID: auth.currentUser.uid,
         namaCustomer: daftarRetur['customer-retur'].value,
         kontakCustomer: daftarRetur['kontak-retur'].value,
         produkRetur: daftarRetur['produk-retur'].value.replace(/\n\r?/g, '<br/>'),
@@ -1528,6 +1567,7 @@ if(daftarRetur['status-retur'].value == 'Belum Selesai'){
     } else {
     db.collection('returSelesai').add({
         tanggal: new Date().getTime(),
+        penggunaUID: auth.currentUser.uid,
         namaCustomer: daftarRetur['customer-retur'].value,
         kontakCustomer: daftarRetur['kontak-retur'].value,
         produkRetur: daftarRetur['produk-retur'].value.replace(/\n\r?/g, '<br/>'),
@@ -1607,12 +1647,36 @@ daftarBelanja.addEventListener('submit', (e) => {
     db.collection('pengeluaran').add({
         tanggal: tanggal,
         penggunaBelanja: doc.data().username,
+        penggunaUID: auth.currentUser.uid,
         deskripsiItem: daftarBelanja['deskripsi-item-belanja'].value.replace(/\n\r?/g, '<br/>'),
         jumlahPengeluaran: daftarBelanja['jumlah-pengeluaran-belanja'].value
     }).then(() => {
         document.querySelector('#form-daftar-belanja').reset();
         })
     })
+    }
+})
+
+const submitEventKalender = document.querySelector('#submit-event-kalender');
+submitEventKalender.addEventListener('click', (e) => {
+    e.stopPropagation();
+    let tanggalKalender = document.querySelectorAll('.day')
+    for(let z = 0; z < tanggalKalender.length; z++){
+        let li = tanggalKalender[z].querySelectorAll('li');
+        for(let i = 0; i < li.length; i++){
+            if(li[i].getAttribute('date-active') == 'yes'){
+                db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
+                db.collection('eventKalender').add({
+                    tanggal: li[i].getAttribute('data-date'),
+                    penggunaEvent: doc.data().username,
+                    penggunaUID: auth.currentUser.uid,
+                    deskripsiEvent: document.querySelector('#konten-event-kalender').value
+                }).then(() => {
+                    document.querySelector('#konten-event-kalender').value = null;
+                    })
+                })
+            } 
+        }
     }
 })
 
