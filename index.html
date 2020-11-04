@@ -33,7 +33,7 @@
       </div>
       <div class="tab-halaman text-white menu navbar-menu" id="swot" data-toggle="pill" href="#halaman-swot" role="tab" aria-controls="halaman-swot" aria-selected="true"><i class='fas fa-seedling'></i> SWOT Analysis</div>
       <div class="tab-halaman text-white menu navbar-menu" id="achievement" data-toggle="pill" href="#halaman-achievement" role="tab" aria-controls="halaman-achievement" aria-selected="true"> <i class='fas fa-crown'></i> Achievement</div>
-      <!--<div class="tab-halaman text-white menu navbar-menu" id="list-gaji" data-toggle="pill" href="#halaman-list-gaji" role="tab" aria-controls="halaman-list-gaji" aria-selected="true"><i class='fas fa-clipboard-list'></i> List Gaji</div>-->
+      <div class="tab-halaman text-white menu navbar-menu" id="list-gaji" data-toggle="pill" href="#halaman-list-gaji" role="tab" aria-controls="halaman-list-gaji" aria-selected="true"><i class='fas fa-clipboard-list'></i> List Gaji</div>
       <div class="tab-halaman text-white menu navbar-menu" id="cetak-label" data-toggle="pill" href="#halaman-cetak-label" role="tab" aria-controls="halaman-cetak-label" aria-selected="true"><i class="fa fa-print"></i> Cetak Label</div>
       <div class="tab-halaman text-white menu navbar-menu" id="surat-jalan" data-toggle="pill" href="#halaman-surat-jalan" role="tab" aria-controls="halaman-surat-jalan" aria-selected="true"><i class='fas fa-dove'></i> Surat Jalan</div>
       <div class="tab-halaman text-white menu navbar-menu" id="perpindahan-barang" data-toggle="pill" href="#halaman-perpindahan-barang" role="tab" aria-controls="halaman-perpindahan-barang" aria-selected="true"><i class='fas fa-boxes'></i> Perpindahan</div>
@@ -767,20 +767,28 @@
 
 
 </div>
-<!--<div class="halaman tab-pane fade" id="halaman-list-gaji" role="tabpanel">
+<div class="halaman tab-pane fade" id="halaman-list-gaji" role="tabpanel">
 
 <div id="kotak-list-gaji">
-  <div id="header-kotak-list-gaji">List Gaji</div>
+    <div id="header-kotak-list-gaji">List Gaji</div>
   <div id="garis-kotak-list-gaji"></div>
-  <div id="periode-kotak-list-gaji">
-    <span>Periode</span>
-    <select id="select-periode-list-gaji">
-      <option value="" disabled selected hidden>-</option>
-    </select>
+  <div id="fitur-kotak-list-gaji">
+    <div id="periode-pilihan-list-gaji">
+      <div>Periode</div>
+      <select id="select-periode-list-gaji">
+        <option value="" disabled selected hidden>-</option>
+      </select>
+    </div>
+    <div id="fitur-list-gaji">
+      <div id="tambah-list-gaji">New+</div>
+    </div>
   </div>
 </div>
 
-</div>-->
+<div id="table-responsive-tabel-gaji" class="table-responsive-xl">
+</div>
+
+</div>
 
 <div class="halaman tab-pane fade" id="halaman-cetak-label" role="tabpanel">
 
@@ -3226,7 +3234,7 @@ function renderKalender(e){
         if(bulan[bulanPerTanggal] == bulan[bulanIni]){
             if(hariPerTanggal == 0 && x != 1){
                 counterMingguan = counterMingguan + counter;
-            }else if(hariPerTanggal != 0 && x == 1){
+            } else if(hariPerTanggal != 0 && x == 1){
                 if(bulanIni == 0){
                     let bulanSebelumnya = 11;
                     let tahunSebelumnya = tahunIni - 1;
@@ -3360,9 +3368,6 @@ function renderDateActive(e){
         tahunSekarang = e.target.getAttribute('data-date').slice(0,4);
         bulanSekarang = e.target.getAttribute('data-date').slice(4,6);
         hariSekarang = e.target.getAttribute('data-date').slice(6,8);
-        console.log(tahunSekarang)
-        console.log(bulanSekarang)
-        console.log(hariSekarang)
         let eventKalender = document.querySelectorAll('.event-kalender')
         for(let i = 0; i < eventKalender.length; i++){
             if(e.target.getAttribute('data-date') == eventKalender[i].getAttribute('data-date')){
@@ -3401,8 +3406,9 @@ geserKananKalender.addEventListener('click', function(e){
         bulanIni = 0;
         tahunIni += counter;
     }
-        counterMingguan = 0;
-        renderKalender();    
+
+    counterMingguan = 0;
+    renderKalender();    
 })
 
 let geserKiriKalender = document.querySelector('#tombol-geser-kiri-kalender');
@@ -3415,11 +3421,220 @@ geserKiriKalender.addEventListener('click', function(e){
         bulanIni = 11;
         tahunIni -= counter;
     }
+    console.log(tahunSekarang)
+    console.log(bulanSekarang)
+    console.log(hariSekarang)    
     counterMingguan = 0;
     renderKalender();
 })
 
 
+
+let tambahListGaji = document.querySelector('#tambah-list-gaji');
+tambahListGaji.addEventListener('click', function(e){
+  e.stopPropagation();
+  if(tambahListGaji.innerHTML == 'Cancel'){
+    document.querySelector('#periode-pilihan-list-gaji').style.visibility = 'visible';
+    if(document.querySelector('#tabel-gaji')){
+      tambahListGaji.innerHTML = 'New+';
+      document.querySelector('#tabel-gaji').remove();
+    }
+    if(document.querySelector('#simpan-list-gaji')){
+      document.querySelector('#simpan-list-gaji').remove();
+    }
+  } else {
+    if(!document.querySelector('#tabel-gaji')){
+      tambahListGaji.innerHTML = "Cancel";
+      document.querySelector('#periode-pilihan-list-gaji').style.visibility = 'hidden';
+      let div = document.createElement('div');
+      div.setAttribute('id', 'periode-list-gaji');
+      let table = document.createElement('table');
+      let save = document.createElement('div');
+      save.setAttribute('id', 'simpan-list-gaji');
+      table.setAttribute('id', 'tabel-gaji');
+      table.classList.add('table', 'table-bordered', 'garis');
+      table.innerHTML = `
+      <thead style="background-color: white !important;">
+        <tr>
+          <th scope="col" rowspan="2" style="border-bottom: 0;width: calc(100%/10);">Nama</th>
+          <th scope="col" rowspan="2" style="border-bottom: 0;width: calc(100%/10);">Jabatan</th>
+          <th scope="col" rowspan="2" style="border-bottom: 0;width: calc(100%/10);">Gaji Pokok</th>
+          <th scope="col" colspan="5" style="border-bottom: 0;width: calc(100%/5);">Tunjangan-tunjangan</th>
+          <th scope="col" rowspan="2" style="border-bottom: 0;width: calc(100%/10);">Total Tunjangan</th>
+          <th scope="col" rowspan="2" style="border-bottom: 0;width: calc(100%/10);">Total Gaji</th>
+        </tr>
+        <tr>
+          <th scope="col" style="border-bottom: 0;width: calc(100%/10);">Rumah</th>
+          <th scope="col" style="border-bottom: 0;width: calc(100%/10);">Makan/Minum</th>
+          <th scope="col" style="border-bottom: 0;width: calc(100%/10);">Transportasi</th>
+          <th scope="col" style="border-bottom: 0;width: calc(100%/10);">Khusus</th>
+          <th scope="col" style="border-bottom: 0;width: calc(100%/10);">Lainnya</th>      
+        </tr>
+      </thead>
+      <tbody id="list-gaji-karyawan">
+        <tr>
+          <td colspan="10" id="tombol-tambah-karyawan-list-gaji">Generate Registered User</td>
+        </tr>
+      </tbody>
+      `
+
+      save.innerHTML = `Save <i class='fas fa-save'></i>`
+
+      div.innerHTML = `
+
+      `
+
+      tambahListGaji.parentNode.insertBefore(save, tambahListGaji.nextSibling)
+      document.querySelector('#table-responsive-tabel-gaji').appendChild(table);
+
+      let tombolTambahKaryawanListGaji = document.querySelector('#tombol-tambah-karyawan-list-gaji');
+      tombolTambahKaryawanListGaji.addEventListener('click', function(e){
+        e.stopPropagation();
+        db.collection('peserta').get().then(function(querySnapshot){
+          querySnapshot.docs.map((doc,i) => {
+            if(!document.querySelector('#gaji' + doc.id)){
+              let tr = document.createElement('tr');
+              tr.setAttribute('id', 'gaji' + doc.id)
+              let nama = doc.data().nama;
+              let jabatan = doc.data().jabatan;
+              if(jabatan != null){
+              tr.innerHTML = `
+              <td>${nama}</td>
+              <td>${jabatan}</td>
+              <td><input id="gaji-pokok${doc.id}" class="gaji-pokok" type="number"></td>
+              <td><input id="tunjangan-pertama${doc.id}" class="tunjangan${doc.id} tunjangan-pertama" type="number"></td>
+              <td><input id="tunjangan-kedua${doc.id}" class="tunjangan${doc.id} tunjangan-kedua" type="number"></td>
+              <td><input id="tunjangan-ketiga${doc.id}" class="tunjangan${doc.id} tunjangan-ketiga" type="number"></td>
+              <td><input id="tunjangan-keempat${doc.id}" class="tunjangan${doc.id} tunjangan-keempat" type="number"></td>
+              <td><input id="tunjangan-kelima${doc.id}" class="tunjangan${doc.id} tunjangan-kelima" type="number"></td>
+              <td id="total-tunjangan${doc.id}" class="total-tunjangan"></td>
+              <td id="total-gaji${doc.id}" class="total-gaji"></td>
+              `
+              } else {
+                tr.innerHTML = `
+              <td>${nama}</td>
+              <td><input type="text" id="jabatan-karyawan${doc.id}"></td>
+              <td><input id="gaji-pokok${doc.id}" class="gaji-pokok" type="number"></td>
+              <td><input id="tunjangan-pertama${doc.id}" class="tunjangan${doc.id} tunjangan-pertama" type="number"></td>
+              <td><input id="tunjangan-kedua${doc.id}" class="tunjangan${doc.id} tunjangan-kedua" type="number"></td>
+              <td><input id="tunjangan-ketiga${doc.id}" class="tunjangan${doc.id} tunjangan-ketiga" type="number"></td>
+              <td><input id="tunjangan-keempat${doc.id}" class="tunjangan${doc.id} tunjangan-keempat" type="number"></td>
+              <td><input id="tunjangan-kelima${doc.id}" class="tunjangan${doc.id} tunjangan-kelima" type="number"></td>
+              <td id="total-tunjangan${doc.id}" class="total-tunjangan"></td>
+              <td id="total-gaji${doc.id}" class="total-gaji"></td>
+                `
+              }
+              tombolTambahKaryawanListGaji.parentNode.parentNode.insertBefore(tr, tombolTambahKaryawanListGaji.parentNode)
+              if(i + 1 == querySnapshot.docs.length){
+                let subtotal = document.createElement('tr');
+                subtotal.innerHTML = `
+                <td colspan="2" style="text-align:right !important;font-weight:bold;">Subtotal</td>
+                <td id="total-gaji-pokok-kebawah"></td>
+                <td id="total-tunjangan-pertama-kebawah"></td>
+                <td id="total-tunjangan-kedua-kebawah"></td>
+                <td id="total-tunjangan-ketiga-kebawah"></td>
+                <td id="total-tunjangan-keempat-kebawah"></td>
+                <td id="total-tunjangan-kelima-kebawah"></td>
+                <td id="total-tunjangan-kebawah"></td>
+                <td id="total-gaji-kebawah"></td>
+                `
+                tombolTambahKaryawanListGaji.parentNode.parentNode.insertBefore(subtotal, tombolTambahKaryawanListGaji.parentNode)
+              }
+              [document.querySelector('#tunjangan-pertama' + doc.id), document.querySelector('#tunjangan-kedua' + doc.id), document.querySelector('#tunjangan-ketiga' + doc.id)
+              , document.querySelector('#tunjangan-keempat' + doc.id), document.querySelector('#tunjangan-kelima' + doc.id)].forEach((item,index) => {
+                item.addEventListener('input', function(e){
+                  e.stopPropagation();
+                  tunjanganTambah(index);
+                })
+              })
+
+              document.querySelector('#gaji-pokok' + doc.id).addEventListener('input', function(e){
+                e.stopPropagation();
+                if(Number(e.target.value) + Number(document.querySelector('#total-tunjangan' + doc.id).innerHTML.replace(/,(?=[^,]*$)/, '.').replace(/,/g,'').slice(3,-1)) == 0){
+                  document.querySelector('#total-gaji' + doc.id).innerHTML = '';
+                } else {
+                document.querySelector('#total-gaji' + doc.id).innerHTML = "Rp " + (Number(e.target.value) + Number(document.querySelector('#total-tunjangan' + doc.id).innerHTML.replace(/,(?=[^,]*$)/, '.').replace(/,/g,'').slice(3,-1))).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0}) + ",00";
+                }
+                gajiPokokTambah();
+              })
+
+              function tunjanganTambah(index){
+                let sum = 0;
+                for(let x = 0; x < document.querySelectorAll('.tunjangan' + doc.id).length; x++){
+                  sum += Number(document.querySelectorAll('.tunjangan' + doc.id)[x].value);
+                  if(sum == 0){
+                    document.querySelector('#total-tunjangan' + doc.id).innerHTML = '';
+                  } else {
+                    document.querySelector('#total-tunjangan' + doc.id).innerHTML = "Rp " + sum.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0}) + ",00";
+                  }
+                  if(sum + Number(document.querySelector('#gaji-pokok' + doc.id).value) == 0){
+                    document.querySelector('#total-gaji' + doc.id).innerHTML = '';
+                  } else {
+                    document.querySelector('#total-gaji' + doc.id).innerHTML =  "Rp " + (sum + Number(document.querySelector('#gaji-pokok' + doc.id).value)).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0}) + ",00";
+                  }
+                }
+                let sumKedua = 0;
+                let tunjanganPilihan = [document.querySelectorAll('.tunjangan-pertama'), document.querySelectorAll('.tunjangan-kedua'), document.querySelectorAll('.tunjangan-ketiga')
+                , document.querySelectorAll('.tunjangan-keempat'), document.querySelectorAll('.tunjangan-kelima')];
+                let totalTunjanganKebawahPilihan = [document.querySelector('#total-tunjangan-pertama-kebawah'), document.querySelector('#total-tunjangan-kedua-kebawah')
+                , document.querySelector('#total-tunjangan-ketiga-kebawah'), document.querySelector('#total-tunjangan-keempat-kebawah'), document.querySelector('#total-tunjangan-kelima-kebawah')]
+                for(let x = 0; x < tunjanganPilihan[index].length; x++){
+                  sumKedua += Number(tunjanganPilihan[index][x].value);
+                  if(sumKedua == 0){
+                    totalTunjanganKebawahPilihan[index].innerHTML = '';
+                  } else {
+                    totalTunjanganKebawahPilihan[index].innerHTML = "Rp " + sumKedua.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0}) + ",00";
+                  }
+                }  
+                let sumKetiga = 0;
+                for(let x = 0; x < document.querySelectorAll('.total-tunjangan').length; x++){
+                  sumKetiga += Number(document.querySelectorAll('.total-tunjangan')[x].innerHTML.replace(/,(?=[^,]*$)/, '.').replace(/,/g,'').slice(3,-1));
+                  if(sumKetiga == 0){
+                    document.querySelector('#total-tunjangan-kebawah').innerHTML = '';
+                  } else {
+                    document.querySelector('#total-tunjangan-kebawah').innerHTML = "Rp " + sumKetiga.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0}) + ",00";
+                  }
+                }
+                let sumKeempat = 0;
+                for(let x = 0; x < document.querySelectorAll('.total-gaji').length; x++){
+                  sumKeempat += Number(document.querySelectorAll('.total-gaji')[x].innerHTML.replace(/,(?=[^,]*$)/, '.').replace(/,/g,'').slice(3,-1));
+                  if(sumKeempat == 0){
+                    document.querySelector('#total-gaji-kebawah').innerHTML = '';
+                  } else {
+                    document.querySelector('#total-gaji-kebawah').innerHTML = "Rp " + sumKeempat.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0}) + ",00";
+                  }
+                }                  
+              }
+
+              function gajiPokokTambah(){
+                let sum = 0;
+                for(let x = 0; x<document.querySelectorAll('.gaji-pokok').length; x++){
+                  sum += Number(document.querySelectorAll('.gaji-pokok')[x].value);
+                  if(sum == 0){
+                    document.querySelector('#total-gaji-pokok-kebawah').innerHTML = '';
+                  } else {
+                    document.querySelector('#total-gaji-pokok-kebawah').innerHTML = "Rp " + sum.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0}) + ",00";
+                  }
+                }
+                let sumKedua = 0;
+                for(let x = 0; x < document.querySelectorAll('.total-gaji').length; x++){
+                  sumKedua += Number(document.querySelectorAll('.total-gaji')[x].innerHTML.replace(/,(?=[^,]*$)/, '.').replace(/,/g,'').slice(3,-1));
+                  if(sumKedua == 0){
+                    document.querySelector('#total-gaji-kebawah').innerHTML = '';
+                  } else {
+                    document.querySelector('#total-gaji-kebawah').innerHTML = "Rp " + sumKedua.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0}) + ",00";
+                  } 
+                }           
+              }
+
+
+            }
+          })
+        })
+      })
+    }
+  }
+})
 
 </script>
 

@@ -2,6 +2,40 @@ body{
 	background-color: #eeeeee !important;
 }
 
+#table-responsive-tabel-gaji{
+	margin-top: 20px;
+	width: 100%;
+	overflow-x:auto;
+}
+
+#tambah-list-gaji, #simpan-list-gaji{
+	border: 1px solid #5abae6;
+    border-radius: 5px;
+    padding: 0px 5px;
+    cursor: pointer;
+    background-color: #5abae6;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0-2px 1px slategray;
+}
+
+#tambah-list-gaji:hover, #simpan-list-gaji:hover{
+	background-color: #4da2c9;
+	border:1px solid #4da2c9;
+}
+
+#tabel-gaji{
+	margin-bottom: 0px;
+	width: 200%;
+}
+
+#fitur-list-gaji{
+    position: absolute;
+    right: 10px;
+    display: flex;
+    gap:5px;
+}
+
 .event-calendar-available{
 	background-color: #e36387;
 	width: 8px;
@@ -62,7 +96,7 @@ body{
 #kalender{
 	display: grid;
 	grid-template-columns: 60% 40%;
-	margin: 10px 20px 0px;
+	margin: 10px 10px 0px;
 }
 
 #wrapper-kalender{
@@ -330,7 +364,7 @@ body{
 	margin-bottom:-5px;
 }
 
-.alamat-pt-sj, .nama-pt-sj, .kontak-pt-sj, .tombol-hapus-kolom-surat-jalan, .subtotal-sj, .tombol-hapus-kolom-surat-jalan, #subtotal-barang-surat-jalan td:nth-child(1), .header-pengaturan-surat-jalan, #tombol-tambah-baris-surat-jalan{
+.alamat-pt-sj, .nama-pt-sj, .kontak-pt-sj, .tombol-hapus-kolom-surat-jalan, .subtotal-sj, .tombol-hapus-kolom-surat-jalan, #subtotal-barang-surat-jalan td:nth-child(1), .header-pengaturan-surat-jalan, #tombol-tambah-baris-surat-jalan, #tombol-tambah-karyawan-list-gaji{
 	font-weight: bold;
 }
 
@@ -367,16 +401,16 @@ body{
 	cursor: pointer;
 }
 
-#tombol-tambah-baris-surat-jalan{
+#tombol-tambah-baris-surat-jalan, #tombol-tambah-karyawan-list-gaji{
 	cursor: pointer;
 	background-color: white;
 }
 
-#tombol-tambah-baris-surat-jalan:hover{
+#tombol-tambah-baris-surat-jalan:hover, #tombol-tambah-karyawan-list-gaji:hover{
 	background-color: #f5f5f5;
 }
 
-#tombol-tambah-baris-surat-jalan:active{
+#tombol-tambah-baris-surat-jalan:active, #tombol-tambah-karyawan-list-gaji:active{
 	background-color: rgba(0,0,0,.2);
 }
 
@@ -947,7 +981,7 @@ input:checked + .slider:after {
 }
 
 #peringatan-perpindahan{
-	margin: 10px 20px;
+	margin: 10px;
 	padding: 12px;
 	text-align: center;
 	display: block;
@@ -981,7 +1015,7 @@ input:checked + .slider:after {
 }
 
 .perpindahan-barang, .retur{
-	margin: 10px 20px;
+	margin: 10px;
 }
 
 .menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur{
@@ -1451,6 +1485,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	color: white;
 	padding: 5px 15px;
 	font-weight: bold;
+	font-size: 22px;
 }
 
 #garis-kotak-list-gaji{
@@ -1458,13 +1493,15 @@ div.induk-kategori-menu:nth-child(4n+0){
 	padding: 2px;
 }
 
-#periode-kotak-list-gaji{
+#fitur-kotak-list-gaji{
 	background-color: white;
 	padding: 5px 15px;
+	display: flex;
 }
 
-#kotak-list-gaji{
-	margin:0px 20px;
+#periode-pilihan-list-gaji{
+	display: flex;
+	gap:5px;
 }
 
 #select-periode-list-gaji{
@@ -1517,7 +1554,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 .pengumuman{
 	padding: 16px;
-	margin: 10px 20px;
+	margin: 10px;
 	background-color: white;
 	border-radius: 5px;
 	position: relative;
@@ -1650,7 +1687,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 }
 
 .jumbotron{
-	margin: 10px 20px 10px !important;
+	margin: 10px !important;
 	background-color: white !important;
 }
 
@@ -2116,6 +2153,9 @@ div.induk-kategori-menu:nth-child(3n+0){
 	grid-template-columns: 145px 145px 145px;
 }
 
+#tabel-gaji{
+	width: 250%;
+}
 
 }
 
@@ -2219,6 +2259,10 @@ div.induk-kategori-menu:nth-child(2n+0){
 
 #konten-event-kalender{
 	border-bottom-left-radius: 5px !important;
+}
+
+#tabel-gaji{
+	width: 300%;
 }
 
 }
@@ -2547,6 +2591,10 @@ input:checked + .slider:after {
 	right: 0;
 }
 
+#tabel-gaji{
+	width: 400%;
+}
+
 }
 
 @media only screen and (max-width: 660px){
@@ -2609,11 +2657,15 @@ input:checked + .slider:after {
 	display: block;
 }
 
+#tabel-gaji{
+	width: 550%;
+}
+
 }
 
 @media only screen and (max-width: 460px){
 .navbar-brand{
-	margin-left: 33% !important;
+	margin-left: 23% !important;
 	margin-right: auto !important;
 	}
 }
@@ -2621,7 +2673,7 @@ input:checked + .slider:after {
 
 @media only screen and (max-width: 420px){
 .navbar-brand{
-	margin-left: 28% !important;
+	margin-left: 18% !important;
 	margin-right: auto !important;
 }
 
