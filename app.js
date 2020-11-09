@@ -311,18 +311,23 @@ function refreshOnPerformaPeserta(){
     let tombolLihatPerformaPeserta = document.querySelector('#lihat-performa-peserta');
     tombolLihatPerformaPeserta.addEventListener('click', function(e){
         e.stopImmediatePropagation();
+        if(e.target.innerHTML.includes('Show More')){
+            for(let x = 0; x<performaPeserta.length; x++){
+                if(x > 2){
+                    performaPeserta[x].style.setProperty('display', 'block')
+                    tombolLihatPerformaPeserta.innerHTML = `<i class='fas fa-caret-up'></i> Show Less`                                    
+                }
+            }
+        } else if(e.target.innerHTML.includes('Show Less')){
         for(let x = 0; x<performaPeserta.length; x++){
-        if(x > 2){
-            if(document.querySelector('#lihat-performa-peserta').innerHTML.includes('Show More') && performaPeserta[x].style.display == 'none'){
-                performaPeserta[x].style.setProperty('display', 'block')
-                tombolLihatPerformaPeserta.innerHTML = `<i class='fas fa-caret-up'></i> Show Less`            
-            } else if(document.querySelector('#lihat-performa-peserta').innerHTML.includes('Show Less') && performaPeserta[x].style.display == 'block'){
-                performaPeserta[x].style.setProperty('display', 'none')
-                tombolLihatPerformaPeserta.innerHTML = `<i class='fas fa-caret-down'></i> Show More`            
-            }            
-        }
-            }        
+                if(x > 2){           
+                    performaPeserta[x].style.setProperty('display', 'none')
+                    tombolLihatPerformaPeserta.innerHTML = `<i class='fas fa-caret-down'></i> Show More`                        
+                }
+            }
+        }        
     })
+
     }
 } else {
     if(document.querySelector('#lihat-performa-peserta')){
