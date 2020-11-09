@@ -3292,6 +3292,11 @@ function renderKalender(e){
                             tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].innerHTML = z;
                             tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].setAttribute('data-date', tanggalSebelumnya)
                             tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].addEventListener('click', renderDateActive);
+                            if(tanggalSebelumnya == tanggalSekarang){
+                              tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].style.backgroundColor = 'skyblue';
+                              tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].setAttribute('date-active', 'yes');                              
+                            }
+
                             for(let z = 0; z<eventKalender.length; z++){
                               if(eventKalender[z].getAttribute('data-date') == tanggalSebelumnya){
                                 if(!tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].querySelector('.event-calendar-available')){
@@ -3315,6 +3320,11 @@ function renderKalender(e){
                             tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].innerHTML = z;
                             tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].setAttribute('data-date', tanggalSebelumnya);
                             tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].addEventListener('click', renderDateActive);
+                            if(tanggalSebelumnya == tanggalSekarang){
+                              tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].style.backgroundColor = 'skyblue';
+                              tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].setAttribute('date-active', 'yes');                              
+                            }
+
                             for(let z = 0; z<eventKalender.length; z++){
                               if(eventKalender[z].getAttribute('data-date') == tanggalSebelumnya){
                                 if(!tanggalKalender[0].querySelectorAll('li')[hariPerTanggalSebelumnya].querySelector('.event-calendar-available')){
@@ -3366,6 +3376,11 @@ function renderKalender(e){
                                 tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].innerHTML = z;
                                 tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].setAttribute('data-date', tanggalSelanjutnya);
                                 tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].addEventListener('click', renderDateActive);
+                                if(tanggalSelanjutnya == tanggalSekarang){
+                                  tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].style.backgroundColor = 'skyblue';
+                                  tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].setAttribute('date-active', 'yes');                             
+                                }
+
                                 for(let z = 0; z<eventKalender.length; z++){
                                   if(eventKalender[z].getAttribute('data-date') == tanggalSelanjutnya){
                                     if(!tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].querySelector('.event-calendar-available')){
@@ -3388,6 +3403,11 @@ function renderKalender(e){
                                 tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].innerHTML = z;
                                 tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].setAttribute('data-date', tanggalSelanjutnya);
                                 tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].addEventListener('click', renderDateActive);
+                                if(tanggalSelanjutnya == tanggalSekarang){
+                                  tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].style.backgroundColor = 'skyblue';
+                                  tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].setAttribute('date-active', 'yes');                             
+                                }
+                                                                
                                 for(let z = 0; z<eventKalender.length; z++){
                                   if(eventKalender[z].getAttribute('data-date') == tanggalSelanjutnya){
                                     if(!tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].querySelector('.event-calendar-available')){
