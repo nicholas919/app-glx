@@ -456,6 +456,9 @@ setInterval(function(){
             })
         })
     }).then(() => {
+    if(document.querySelector('#gaji' + doc.id)){
+        document.querySelector('#gaji' + doc.id).remove();
+    }
     $(document).ready(function() {
     let tugasPeserta = document.querySelectorAll('.tugasseseorang' + nama.toLowerCase().replace(/\s/g, "-"))
     for(let x = 0;x<tugasPeserta.length;x++){
@@ -7048,6 +7051,7 @@ function renderEventKalender(doc){
     })
 
 }
+
 
 function auto_grow(element){
     element.style.height = "5px";

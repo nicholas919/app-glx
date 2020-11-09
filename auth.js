@@ -712,7 +712,9 @@ auth.onAuthStateChanged(user => {
                         }
                     }
                 })
-    }, err => console.log(err.message))             
+    }, err => console.log(err.message))
+
+              
 
         $(document).ready(function(){
             setInterval(function(){ refreshOnPengumuman(); }, 60000);

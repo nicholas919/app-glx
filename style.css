@@ -8,7 +8,7 @@ body{
 	overflow-x:auto;
 }
 
-#tambah-list-gaji, #simpan-list-gaji{
+#tambah-list-gaji, #simpan-list-gaji, #lihat-list-gaji, #hapus-list-gaji{
 	border: 1px solid #5abae6;
     border-radius: 5px;
     padding: 0px 5px;
@@ -19,12 +19,12 @@ body{
     box-shadow: 0-2px 1px slategray;
 }
 
-#tambah-list-gaji:hover, #simpan-list-gaji:hover{
+#tambah-list-gaji:hover, #simpan-list-gaji:hover, #lihat-list-gaji:hover, #hapus-list-gaji:hover{
 	background-color: #4da2c9;
 	border:1px solid #4da2c9;
 }
 
-#tabel-gaji{
+#tabel-gaji, #periode-list-gaji{
 	margin-bottom: 0px;
 	width: 200%;
 }
@@ -1493,10 +1493,20 @@ div.induk-kategori-menu:nth-child(4n+0){
 	padding: 2px;
 }
 
-#fitur-kotak-list-gaji{
-	background-color: white;
+#fitur-kotak-list-gaji, #periode-list-gaji{
 	padding: 5px 15px;
 	display: flex;
+	align-items: center;
+	gap:5px;
+}
+
+#fitur-kotak-list-gaji{
+	background-color: white;
+}
+
+#periode-list-gaji{
+	background-color: steelblue;
+	color:white;
 }
 
 #periode-pilihan-list-gaji{
@@ -1504,8 +1514,11 @@ div.induk-kategori-menu:nth-child(4n+0){
 	gap:5px;
 }
 
-#select-periode-list-gaji{
+#select-periode-list-gaji, #periode-list-gaji-baru{
 	border: 1px solid #d6d6d6;
+}
+
+#select-periode-list-gaji{
 	padding: 0px 5px;
 }
 
@@ -2153,7 +2166,7 @@ div.induk-kategori-menu:nth-child(3n+0){
 	grid-template-columns: 145px 145px 145px;
 }
 
-#tabel-gaji{
+#tabel-gaji, #periode-list-gaji{
 	width: 250%;
 }
 
@@ -2261,7 +2274,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 	border-bottom-left-radius: 5px !important;
 }
 
-#tabel-gaji{
+#tabel-gaji, #periode-list-gaji{
 	width: 300%;
 }
 
@@ -2591,7 +2604,7 @@ input:checked + .slider:after {
 	right: 0;
 }
 
-#tabel-gaji{
+#tabel-gaji, #periode-list-gaji{
 	width: 400%;
 }
 
@@ -2657,7 +2670,7 @@ input:checked + .slider:after {
 	display: block;
 }
 
-#tabel-gaji{
+#tabel-gaji, #periode-list-gaji{
 	width: 550%;
 }
 
