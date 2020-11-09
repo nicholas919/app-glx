@@ -1826,7 +1826,7 @@ function renderTugas(doc){
         let tanggalSekarang = new Date();
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(docs => {
         let username = docs.data().username;
-        if(username == namaPeserta || 'Admin Kantor' || 'Admin Galaxy'){
+        if(username == namaPeserta || 'Admin Galaxy'){
         db.collection('tugas').doc(doc.id).get().then(doc =>{
         let kontenTugasUpdate = doc.data().kontenTugas;
         let perMingguUpdate = doc.data().perMinggu;
@@ -3925,7 +3925,7 @@ function renderKategoriMenu(doc){
     menu.classList.add('dokumentasi-kategori-isi-menu' + doc.id, 'kategori-isi-menu', 'collapse', 'hide')
     div.innerHTML = `<div class="kategori-menu"><span id="nama-kategori-menu-tampilan${doc.id}" class="nama-kategori-menu-tampilan">${namaKategoriMenu}</span><i class='fas fa-pen pull-right edit-kategori-menu' id='edit${doc.id}'></i><i class='fas fa-trash-alt pull-right hapus-kategori-menu' id="hapus${doc.id}"></i></div>`
     menu.innerHTML = `
-<ul class="list-menu" id="list-menu${doc.id}" ></ul>
+<ul class="list-menu" id="list-menu${doc.id}"></ul>
 <div class="btn btn-success tombol-tambah-menu" id="tombol-tambah-menu${doc.id}">Tambah Menu</div>    
     `
     modalKategoriMenu.innerHTML = `
@@ -3985,7 +3985,7 @@ function renderKategoriMenu(doc){
          </div>    
     `
     listKategoriMenu.appendChild(div);
-    document.getElementById(namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id).insertBefore(menu, document.getElementById(namaKategoriMenu.toLowerCase().replace(' ', '-') + doc.id).nextSibling);
+    document.getElementById(namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id).insertBefore(menu, document.getElementById(namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id).nextSibling);
     modalMenu.appendChild(modalTambahMenu);
     modalMenu.appendChild(modalKategoriMenu);
 
