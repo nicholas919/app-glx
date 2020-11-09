@@ -3064,7 +3064,7 @@ tambahBarisSJ.addEventListener('click', function(e){
         <tr>
           <td>${document.querySelectorAll('.nama-barang-surat-jalan')[x].value}</td>
           <td>${document.querySelectorAll('.jumlah-barang-surat-jalan')[x].value}</td>
-          <td>${document.querySelectorAll('.harga-barang-surat-jalan')[x].value}</td>
+          <td>Rp ${Number(document.querySelectorAll('.harga-barang-surat-jalan')[x].value).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0}) + ",00"}</td>
           <td>${document.querySelectorAll('.total-barang-surat-jalan')[x].innerHTML}</td>
         </tr>
         `
@@ -3407,7 +3407,7 @@ function renderKalender(e){
                                   tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].style.backgroundColor = 'skyblue';
                                   tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].setAttribute('date-active', 'yes');                             
                                 }
-                                                                
+
                                 for(let z = 0; z<eventKalender.length; z++){
                                   if(eventKalender[z].getAttribute('data-date') == tanggalSelanjutnya){
                                     if(!tanggalKalender[counterMingguan].querySelectorAll('li')[hariPerTanggalSelanjutnya].querySelector('.event-calendar-available')){
