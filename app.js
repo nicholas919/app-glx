@@ -3918,10 +3918,10 @@ function renderKategoriMenu(doc){
     let tanggal = doc.data().tanggal;
     let namaKategoriMenu = doc.data().namaKategoriMenu;
     div.setAttribute('data-id', doc.id);
-    div.setAttribute('id', namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id)
+    div.setAttribute('id', namaKategoriMenu.toLowerCase().replace(/\s/g, '-').replace(/&/g,'dan') + doc.id)
     div.setAttribute('data-date', tanggal);
     div.classList.add('dokumentasi-kategori-menu' + doc.id, 'induk-kategori-menu');
-    menu.setAttribute('id', 'menu-' + namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id)
+    menu.setAttribute('id', 'menu-' + namaKategoriMenu.toLowerCase().replace(/\s/g, '-').replace(/&/g,'dan') + doc.id)
     menu.classList.add('dokumentasi-kategori-isi-menu' + doc.id, 'kategori-isi-menu', 'collapse', 'hide')
     div.innerHTML = `<div class="kategori-menu"><span id="nama-kategori-menu-tampilan${doc.id}" class="nama-kategori-menu-tampilan">${namaKategoriMenu}</span><i class='fas fa-pen pull-right edit-kategori-menu' id='edit${doc.id}'></i><i class='fas fa-trash-alt pull-right hapus-kategori-menu' id="hapus${doc.id}"></i></div>`
     menu.innerHTML = `
@@ -3985,13 +3985,13 @@ function renderKategoriMenu(doc){
          </div>    
     `
     listKategoriMenu.appendChild(div);
-    document.getElementById(namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id).insertBefore(menu, document.getElementById(namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id).nextSibling);
+    document.getElementById(namaKategoriMenu.toLowerCase().replace(/\s/g, '-').replace(/&/g,'dan') + doc.id).insertBefore(menu, document.getElementById(namaKategoriMenu.toLowerCase().replace(/\s/g, '-').replace(/&/g, 'dan') + doc.id).nextSibling);
     modalMenu.appendChild(modalTambahMenu);
     modalMenu.appendChild(modalKategoriMenu);
 
-    $('#' + namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id).click(function(e){
+    $('#' + namaKategoriMenu.toLowerCase().replace(/\s/g, '-').replace(/&/g,'dan') + doc.id).click(function(e){
         e.stopPropagation();
-        $('#menu-' + namaKategoriMenu.toLowerCase().replace(/\s/g, '-') + doc.id).collapse('toggle');
+        $('#menu-' + namaKategoriMenu.toLowerCase().replace(/\s/g, '-').replace(/&/g,'dan') + doc.id).collapse('toggle');
     })
 
     let tombolTambahMenu = document.querySelector('#tombol-tambah-menu' + doc.id)
