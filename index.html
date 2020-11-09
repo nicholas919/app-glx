@@ -2530,7 +2530,7 @@ kalkulator.addEventListener('submit', function(e){
                 } else {
                   cicilanAkhir = (Math.ceil(cicilan/100)*100) + Number(biayaAdmin);
                 }
-                let div = `<div data-sort="${tenor}">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}</div>`
+                let div = `<div data-sort="${tenor}" class="tenor">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}</div>`
                 daftarCicilan.push(div)
                 if(firstQuerySnapshot.docs.length == daftarCicilan.length){
                   for(let x = 0; x<daftarCicilan.length; x++){
@@ -2542,8 +2542,19 @@ kalkulator.addEventListener('submit', function(e){
                     </div>
                     <div class="btn btn-success" id="copy-hasil-perhitungan-kalkulator">Copy</div>
                     `                    
-                    console.log(daftarCicilan)
                     document.querySelector('#notice-kalkulator').parentNode.insertBefore(hasilPerhitungan, document.querySelector('#notice-kalkulator').nextSibling);
+
+                      let items = $('.tenor').get();
+                      items.sort(function(a, b) {
+                      let keyA = $(a).data('sort');
+                      let keyB = $(b).data('sort');
+                      if (keyA < keyB) return 1;
+                      if (keyA > keyB) return -1;
+                      return 0;
+                      })
+                      $.each(items, function(i, div) {
+                      document.querySelector('#header-hasil-kalkulator').parentNode.insertBefore(div, document.querySelector('#header-hasil-kalkulator').nextSibling);
+                    })
 
                       let copy = document.querySelector("#copy-hasil-perhitungan-kalkulator");
                       copy.addEventListener('click', function (e) {
@@ -2580,7 +2591,7 @@ kalkulator.addEventListener('submit', function(e){
         } else {
           cicilanAkhir = (Math.ceil(cicilan/100)*100) + Number(biayaAdmin);
         }
-        let div = `<div data-sort="${tenor}">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>`
+        let div = `<div data-sort="${tenor}" class="tenor">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>`
         daftarCicilan.push(div)
         if(firstQuerySnapshot.docs.length == daftarCicilan.length){
           for(let x = 0; x<daftarCicilan.length; x++){
@@ -2591,8 +2602,19 @@ kalkulator.addEventListener('submit', function(e){
             </div>
             <div class="btn btn-success" id="copy-hasil-perhitungan-kalkulator">Copy</div>
             `                    
-            console.log(daftarCicilan)
             document.querySelector('#notice-kalkulator').parentNode.insertBefore(hasilPerhitungan, document.querySelector('#notice-kalkulator').nextSibling);
+
+            let items = $('.tenor').get();
+            items.sort(function(a, b) {
+            let keyA = $(a).data('sort');
+            let keyB = $(b).data('sort');
+            if (keyA < keyB) return 1;
+            if (keyA > keyB) return -1;
+            return 0;
+            })
+            $.each(items, function(i, div) {
+            document.querySelector('#header-hasil-kalkulator').parentNode.insertBefore(div, document.querySelector('#header-hasil-kalkulator').nextSibling);
+          })
 
             let copy = document.querySelector("#copy-hasil-perhitungan-kalkulator");
             copy.addEventListener('click', function (e) {
@@ -2623,7 +2645,7 @@ kalkulator.addEventListener('submit', function(e){
             } else {
               cicilanAkhir = (Math.ceil(cicilan/100)*100) + Number(biayaAdmin);
             }
-            let div = `<div data-sort="${tenor}">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>`
+            let div = `<div data-sort="${tenor}" class="tenor">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>`
             daftarCicilan.push(div)
             if(firstQuerySnapshot.docs.length == daftarCicilan.length){
               for(let x = 0; x<daftarCicilan.length; x++){
@@ -2634,8 +2656,19 @@ kalkulator.addEventListener('submit', function(e){
                 </div>
                 <div class="btn btn-success" id="copy-hasil-perhitungan-kalkulator">Copy</div>
                 `                    
-                console.log(daftarCicilan)
                 document.querySelector('#notice-kalkulator').parentNode.insertBefore(hasilPerhitungan, document.querySelector('#notice-kalkulator').nextSibling);
+
+                let items = $('.tenor').get();
+                items.sort(function(a, b) {
+                let keyA = $(a).data('sort');
+                let keyB = $(b).data('sort');
+                if (keyA < keyB) return 1;
+                if (keyA > keyB) return -1;
+                return 0;
+                })
+                $.each(items, function(i, div) {
+                document.querySelector('#header-hasil-kalkulator').parentNode.insertBefore(div, document.querySelector('#header-hasil-kalkulator').nextSibling);
+              })
 
                 let copy = document.querySelector("#copy-hasil-perhitungan-kalkulator");
                 copy.addEventListener('click', function (e) {
@@ -2670,7 +2703,7 @@ kalkulator.addEventListener('submit', function(e){
             } else {
               cicilanAkhir = (Math.ceil(cicilan/100)*100) + Number(biayaAdmin);
             }
-            let div = `<div data-sort="${tenor}">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>`
+            let div = `<div data-sort="${tenor}" class="tenor">${tenor}x : ${cicilanAkhir.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0})}</div>`
             daftarCicilan.push(div)
             if(firstQuerySnapshot.docs.length == daftarCicilan.length){
               for(let x = 0; x<daftarCicilan.length; x++){
@@ -2681,8 +2714,19 @@ kalkulator.addEventListener('submit', function(e){
                 </div>
                 <div class="btn btn-success" id="copy-hasil-perhitungan-kalkulator">Copy</div>
                 `                    
-                console.log(daftarCicilan)
                 document.querySelector('#notice-kalkulator').parentNode.insertBefore(hasilPerhitungan, document.querySelector('#notice-kalkulator').nextSibling);
+
+                let items = $('.tenor').get();
+                items.sort(function(a, b) {
+                let keyA = $(a).data('sort');
+                let keyB = $(b).data('sort');
+                if (keyA < keyB) return 1;
+                if (keyA > keyB) return -1;
+                return 0;
+                })
+                $.each(items, function(i, div) {
+                document.querySelector('#header-hasil-kalkulator').parentNode.insertBefore(div, document.querySelector('#header-hasil-kalkulator').nextSibling);
+              })
 
                 let copy = document.querySelector("#copy-hasil-perhitungan-kalkulator");
                 copy.addEventListener('click', function (e) {
