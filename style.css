@@ -703,7 +703,7 @@ body{
 .switch {
   position: relative;
   display: inline-block;
-  width: 150px;
+  width: 140px;
   height: 32px;
   margin: 5px 0px;
 }
@@ -751,7 +751,7 @@ body{
   position: absolute;
   height: 30px;
   line-height: 28px;
-  width: 100px;
+  width: 90px;
   left: 32px;
   border-radius: 50%;
   bottom: 1px;	
@@ -766,9 +766,9 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(118px);
-  -ms-transform: translateX(118px);
-  transform: translateX(118px);
+  -webkit-transform: translateX(108px);
+  -ms-transform: translateX(108px);
+  transform: translateX(108px);
   content: '';
   color:#28a745;
 }
@@ -776,7 +776,7 @@ input:checked + .slider:before {
 input:checked + .slider:after {
   left: 1px;	
   content:'Aktif';
-  width: 120px;
+  width: 110px;
 }
 
 #edit-biaya-admin, #edit-biaya-bunga{
