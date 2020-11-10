@@ -752,6 +752,7 @@ body{
   height: 30px;
   line-height: 28px;
   width: 90px;
+  font-weight: bold;
   left: 32px;
   border-radius: 50%;
   bottom: 1px;	
@@ -2497,80 +2498,6 @@ div.induk-kategori-menu{
 
 #biaya-admin-kalkulator, #biaya-bunga-kalkulator{
 	width: 120px;
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 184px;
-  height: 26px;
-  margin: 5px 0px;
-}
-
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  height: 24px;
-  width: 90px;
-  left: 1px;
-  bottom: 1px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-  content: 'TIDAK';
-  color:#6c757d;
-  text-align: center;
-  justify-content: center;
-}
-
-.slider:after {
-  content:'YA';
-  text-align: center;
-  justify-content: center;
-  color:white;
-  position: absolute;
-  height: 24px;
-  width: 90px;
-  left: 93px;
-  bottom: 1px;	
-}
-
-input:checked + .slider {
-  background-color: #28a745;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #28a745;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(92px);
-  -ms-transform: translateX(92px);
-  transform: translateX(92px);
-  content: 'YA';
-  color:#28a745;
-}
-
-input:checked + .slider:after {
-  left: 1px;	
-  content:'TIDAK';
 }
 
 #tombol-edit-biaya-bunga, #tombol-edit-biaya-admin{
