@@ -1095,7 +1095,8 @@ daftarTugas.addEventListener('submit', (e) => {
         perJam : daftarTugas['per-jam'].value,
         perMenit : daftarTugas['per-menit'].value,
         waktuRilis : waktuRilis,
-        tanggalLuncur : tanggal 
+        penggunaUID : auth.currentUser.uid,
+        tanggalLuncur : tanggal
     }).then(() => {
         tanggal = new Date().getTime();
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){

@@ -1659,7 +1659,6 @@ function renderTugas(doc){
     tugasPeserta.appendChild(div);
     modalTugasPeserta.appendChild(tugas);
 
-
     let edit = document.querySelector('#edit' + doc.id);
     edit.addEventListener('click', function(e){
         e.preventDefault();
@@ -1846,7 +1845,11 @@ function renderTugas(doc){
             document.querySelector('#status-tugas' + doc.id).innerHTML = "COMPLETED";
             alert("Tugas berhasil diselesaikan!")
             $('#modaltugas' + doc.id).modal('hide');
+            db.collection('tugas').doc(doc.id).update({
+                targetPenggunaUID : auth.currentUser.uid
+            }).then(() => {
             db.collection('tugas').doc(doc.id).delete();
+            })
       })
         }
     } else {
