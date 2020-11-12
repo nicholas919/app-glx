@@ -734,41 +734,8 @@ const setupUI = (user) => {
 
         for(let x = 0; x<kataSambut.length; x++){
             kataSambut[x].innerHTML = 'Hallo ' + username + '!';
-        }
-
-        if(overviewIndividu.length > 30){
-            for(let x = 0; x<overviewIndividu.length; x++){
-                if(x > 29){
-                    let id = overviewIndividu[x].getAttribute('data-id');
-                    db.collection('overview').doc(id).delete();
-                }
-            }
-        }
-        for(let x = 0; x<daftarKaryawan.length; x++){
-        let overviewIndividuLain = document.querySelectorAll('.overview-' + daftarKaryawan[x].toLowerCase().replace(/\s/g, "-"))
-        if(overviewIndividuLain.length > 30){
-            for(let i = 0; i<overviewIndividuLain.length; i++){
-                if(i > 29){
-                    let id = overviewIndividuLain[i].getAttribute('data-id');
-                    db.collection('overview').doc(id).delete();
-                }
-            }
-                }
-        }
-
-        for(let x = 0; x<daftarKaryawan.length; x++){
-        let pengeluaranSelesaiIndividuLain = document.querySelectorAll('.pengeluaran-selesai-' + daftarKaryawan[x].toLowerCase().replace(/\s/g, "-"))
-        if(pengeluaranSelesaiIndividuLain.length > 15){
-            for(let i = 0; i<pengeluaranSelesaiIndividuLain.length; i++){
-                if(i > 14){
-                    let id = pengeluaranSelesaiIndividuLain[i].getAttribute('data-id');
-                    db.collection('overview').doc(id).delete();
-                }
-            }
-                }
-        }        
+        }    
     
-
         if(username == "Admin Galaxy" && user.email == 'useradmin@galaxy.id'){
         document.querySelector('#pengguna-overview').innerHTML = 'anda dan pengguna lain';
             winWidth900(x);
@@ -1778,7 +1745,9 @@ function renderTugas(doc){
             tanggalDeadlineTugas : tanggalDeadline,
             overview : 'delete-task'
             }).then(() => {
-            db.collection('tugas').doc(doc.id).delete();
+            if(doc.data().penggunaUID == auth.currentUser.uid){
+                db.collection('tugas').doc(doc.id).delete();
+            }
             $('#modaltugas' + doc.id).modal('hide');
                 }) 
         })
@@ -1845,11 +1814,7 @@ function renderTugas(doc){
             document.querySelector('#status-tugas' + doc.id).innerHTML = "COMPLETED";
             alert("Tugas berhasil diselesaikan!")
             $('#modaltugas' + doc.id).modal('hide');
-            db.collection('tugas').doc(doc.id).update({
-                targetPenggunaUID : auth.currentUser.uid
-            }).then(() => {
             db.collection('tugas').doc(doc.id).delete();
-            })
       })
         }
     } else {
