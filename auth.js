@@ -1670,8 +1670,8 @@ submitEventKalender.addEventListener('click', (e) => {
 })
 
 const daftarPedomanGalaxy = document.querySelector('#tambah-pedoman-galaxy');
-daftarPedomanGalaxy.addEventListener('click', (e) => {
-    e.stopPropagation();
+daftarPedomanGalaxy.addEventListener('submit', (e) => {
+    e.preventDefault();
         db.collection('pedoman').add({
             tanggal : new Date().getTime(),
             judul : daftarPedomanGalaxy['judul-pedoman'].value,

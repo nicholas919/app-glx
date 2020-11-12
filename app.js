@@ -6991,14 +6991,22 @@ function renderEventKalender(doc){
 
 }
 
+const listPedoman = document.querySelector('#list-pedoman-galaxy')
 function renderPedoman(doc){
     let div = document.createElement('div');
     let tanggal = doc.data().tanggal;
     let judul = doc.data().judul;
     let keterangan = doc.data().keterangan;
     div.setAttribute('data-id', doc.id);
-    div.setAttribute('pedoman' + doc.id);
+    div.setAttribute('id', 'pedoman' + doc.id);
     div.setAttribute('data-date', tanggal);
+    div.innerHTML = `
+    <div>
+        <div>${judul}</div>
+        <div>${keterangan}</div>
+    </div>
+    `
+    listPedoman.appendChild(div);
 }
 
 function auto_grow(element){
