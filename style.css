@@ -2022,9 +2022,20 @@ td{
 	overflow-wrap: anywhere;
 }
 
+#list-peserta{
+	display: block;
+	max-height: 200px;
+	overflow-y: scroll;
+}
+
+#tabel-peserta thead, .peserta{
+	display: table !important;
+	width: 100% !important;
+	table-layout: fixed;
+}
+
 .peserta{
 	cursor: pointer;
-	display: none;
 }
 
 .swot, .pencapaian{
@@ -2514,6 +2525,7 @@ div.induk-kategori-menu{
 
 #list-indent-cust{
 	display: block;
+	margin-bottom: 70px;
 }
 
 .menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur{

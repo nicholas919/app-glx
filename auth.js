@@ -19,21 +19,7 @@ auth.onAuthStateChanged(user => {
             let tr = document.querySelector('[data-id="' + change.doc.id + '"]');
             let div = document.querySelector('[data-info="' + change.doc.id + '"]');
             listPerformaPeserta.removeChild(div)
-            let lokasi = document.querySelector('#lokasi' + change.doc.id).innerText;
-            switch(lokasi){
-                case "Tangerang":
-                pesertaTgr.removeChild(tr);
-                break;
-                case "Depok":
-                pesertaDpk.removeChild(tr);
-                break;
-                case "Jakarta Selatan":
-                pesertaJkt.removeChild(tr);
-                break;
-                case "Jakarta Pusat":
-                pesertaSnn.removeChild(tr);
-            }
-
+            listPeserta.removeChild(tr);
             let status = document.querySelector('#status-peserta' + change.doc.id).innerText;
             switch(status){
                 case "Aktif":
@@ -46,21 +32,6 @@ auth.onAuthStateChanged(user => {
             $('#modaleditpeserta' + change.doc.id).modal('hide');
         } else if(change.type == 'modified'){
             renderUpdatePeserta(change.doc);
-            let div = document.querySelector('[data-id="'+ change.doc.id +'"]');
-            let lokasi = document.querySelector('#lokasi' + change.doc.id).innerText;
-            switch(lokasi){
-            case "Tangerang":
-            pesertaTgr.appendChild(div);
-            break;
-            case "Depok":
-            pesertaDpk.appendChild(div);
-            break;
-            case "Jakarta Selatan":
-            pesertaJkt.appendChild(div);
-            break;
-            case "Jakarta Pusat":   
-            pesertaSnn.appendChild(div);
-            }
         }
     })
         }, err => console.log(err.message))

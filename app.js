@@ -1,29 +1,41 @@
 document.querySelector('#tombol-tangerang').addEventListener('click', (e) =>{
-    pesertaTgr.style.display = "table-row-group";
-    pesertaDpk.style.display = "none"; 
-    pesertaJkt.style.display = "none";
-    pesertaSnn.style.display = "none";  
+    for(let x = 0; x < document.querySelectorAll('.peserta').length; x++){
+        if(document.querySelectorAll('.peserta')[x].classList.contains('peserta-tangerang')){
+            document.querySelectorAll('.peserta')[x].style.setProperty('display', 'table', 'important');
+        } else {
+            document.querySelectorAll('.peserta')[x].style.setProperty('display', 'none', 'important');
+        }
+    }
 })
 
 document.querySelector('#tombol-depok').addEventListener('click', (e) =>{
-    pesertaTgr.style.display = "none";
-    pesertaDpk.style.display = "table-row-group"; 
-    pesertaJkt.style.display = "none";
-    pesertaSnn.style.display = "none";  
+    for(let x = 0; x < document.querySelectorAll('.peserta').length; x++){
+        if(document.querySelectorAll('.peserta')[x].classList.contains('peserta-depok')){
+            document.querySelectorAll('.peserta')[x].style.setProperty('display', 'table', 'important');
+        } else {
+            document.querySelectorAll('.peserta')[x].style.setProperty('display', 'none', 'important');
+        }
+    }    
 })
 
 document.querySelector('#tombol-jaksel').addEventListener('click', (e) =>{
-    pesertaTgr.style.display = "none";
-    pesertaDpk.style.display = "none"; 
-    pesertaJkt.style.display = "table-row-group";
-    pesertaSnn.style.display = "none";  
+    for(let x = 0; x < document.querySelectorAll('.peserta').length; x++){
+        if(document.querySelectorAll('.peserta')[x].classList.contains('peserta-jakarta-selatan')){
+            document.querySelectorAll('.peserta')[x].style.setProperty('display', 'table', 'important');
+        } else {
+            document.querySelectorAll('.peserta')[x].style.setProperty('display', 'none', 'important');
+        }
+    }
 })
 
 document.querySelector('#tombol-jakpus').addEventListener('click', (e) =>{
-    pesertaTgr.style.display = "none";
-    pesertaDpk.style.display = "none"; 
-    pesertaJkt.style.display = "none";
-    pesertaSnn.style.display = "table-row-group";  
+    for(let x = 0; x < document.querySelectorAll('.peserta').length; x++){
+        if(document.querySelectorAll('.peserta')[x].classList.contains('peserta-jakarta-pusat')){
+            document.querySelectorAll('.peserta')[x].style.setProperty('display', 'table', 'important');
+        } else {
+            document.querySelectorAll('.peserta')[x].style.setProperty('display', 'none', 'important');
+        }
+    }
 })
 
 document.querySelector('#tombol-strength').addEventListener('click', (e) =>{
@@ -66,10 +78,7 @@ tombolDaftar.addEventListener('click' , function(e){
     document.querySelector('#form-masuk').setAttribute('style','display:none !important;');
 })
 
-const pesertaTgr = document.querySelector('#list-peserta-tgr');
-const pesertaDpk = document.querySelector('#list-peserta-dpk');
-const pesertaJkt = document.querySelector('#list-peserta-jkt');
-const pesertaSnn = document.querySelector('#list-peserta-snn');
+const listPeserta = document.querySelector('#list-peserta');
 const modalPeserta = document.querySelector('#modal-edit-peserta');
 const listPerformaPeserta = document.querySelector('#list-performa-peserta');
 
@@ -93,7 +102,7 @@ function renderPeserta(doc){
     tr.setAttribute('data-toggle', 'modal');
     tr.setAttribute('data-target', '#modaleditpeserta' + doc.id);
     tr.setAttribute('id','peserta' + doc.id);
-    tr.classList.add('dokumentasi-peserta' + doc.id, nama.toLowerCase().replace(/\s/g, "-"), 'peserta');
+    tr.classList.add('dokumentasi-peserta' + doc.id, nama.toLowerCase().replace(/\s/g, "-"), 'peserta', 'peserta-' + lokasi.toLowerCase().replace(/\s/g, "-"));
     div.setAttribute('data-info', doc.id);
     div.classList.add('dokumentasi-peserta-kedua' + doc.id);
     lihatPerformaPeserta.setAttribute('id', 'lihat-performa-peserta');
@@ -183,21 +192,7 @@ function renderPeserta(doc){
     `
 
     lihatPerformaPeserta.innerHTML = `<i class='fas fa-caret-down'></i> Show More`;
-
-    switch(lokasi){
-        case "Tangerang":
-        pesertaTgr.appendChild(tr);
-        break;
-        case "Depok":
-        pesertaDpk.appendChild(tr);
-        break;
-        case "Jakarta Selatan":
-        pesertaJkt.appendChild(tr);
-        break;
-        case "Jakarta Pusat":
-        pesertaSnn.appendChild(tr);
-        }
-
+    listPeserta.appendChild(tr);
     listPerformaPeserta.appendChild(div);
     modalPeserta.appendChild(peserta);
 
@@ -278,20 +273,18 @@ if(auth.currentUser.email != email){
         document.querySelector('#target-peserta-kedua').appendChild(opsiTugasKedua);
     }
 
-let refreshPerformaPeserta = setInterval(refreshOnPerformaPeserta,10);
+let refreshPerformaPeserta = setTimeout(refreshOnPerformaPeserta,0);
 
 
 function refreshOnPerformaPeserta(){
     let performaPeserta = document.querySelectorAll('.performa-peserta');    
-    if(window.innerWidth <= 1000){
     if(listPerformaPeserta.childNodes.length > 3){
     for(let x = 0; x<performaPeserta.length; x++){
     if(x > 2){
         performaPeserta[x].style.setProperty('display', 'none')
     }
         }
-    if(document.querySelector('#lihat-performa-peserta')){
-    document.querySelector('#lihat-performa-peserta').remove();
+    if(!document.querySelector('#lihat-performa-peserta')){
     document.querySelector('#list-performa-peserta').parentNode.insertBefore(lihatPerformaPeserta, document.querySelector('#list-performa-peserta').nextSibling);    
     clearInterval(refreshPerformaPeserta);
     for(let x = 0; x<performaPeserta.length; x++){
@@ -303,11 +296,7 @@ function refreshOnPerformaPeserta(){
             }
         }
     }    
-    } else {
-    document.querySelector('#list-performa-peserta').parentNode.insertBefore(lihatPerformaPeserta, document.querySelector('#list-performa-peserta').nextSibling);              
-    clearInterval(refreshPerformaPeserta);    
-        }
-
+    } 
     let tombolLihatPerformaPeserta = document.querySelector('#lihat-performa-peserta');
     tombolLihatPerformaPeserta.addEventListener('click', function(e){
         e.stopImmediatePropagation();
@@ -329,27 +318,7 @@ function refreshOnPerformaPeserta(){
     })
 
     }
-} else {
-    if(document.querySelector('#lihat-performa-peserta')){
-    for(let x = 0; x<performaPeserta.length; x++){
-        performaPeserta[x].style.setProperty('display', 'block')
-    }
-    document.querySelector('#lihat-performa-peserta').remove();
-    }
 }
-}
-
-setInterval(function(){
-    if(window.innerWidth >= 1000){
-        if(document.querySelector('#lihat-performa-peserta')){
-            refreshOnPerformaPeserta()
-        }
-    } else {
-        if(!document.querySelector('#lihat-performa-peserta')){
-            refreshOnPerformaPeserta()
-        } 
-    }
-},10)
 
     let adminKantor = document.querySelector('#adminKantor' + doc.id);
     adminKantor.addEventListener('click', function(e){
@@ -1802,7 +1771,7 @@ function renderTugas(doc){
             yyyy = waktuPenyelesaian.getFullYear();
             hh = ('0' + waktuPenyelesaian.getHours()).slice(-2);
             ms = ('0' + waktuPenyelesaian.getMinutes()).slice(-2);
-            tanggalDeadline = dd + '/' + mm + '/' + yyyy + ', ' + hh + ':' + ms;            
+            tanggalDeadline = dd + '/' + mm + '/' + yyyy + ', ' + hh + ':' + ms;  
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
         db.collection('overview').add({
             penggunaOverview : docs.data().username,
@@ -1812,12 +1781,14 @@ function renderTugas(doc){
             tanggalLuncurTugas : item.data().tanggalLuncur,
             tanggalDeadlineTugas : tanggalDeadline,
             overview : 'delete-task'
-            })
-        }).then(() => {
+            }).then(() => {
+            if(docs.data().username == item.data().namaPeserta){
             db.collection('tugas').doc(doc.id).delete();
             $('#modaltugas' + doc.id).modal('hide');
-                })
-            })   
+            }
+                }) 
+        })
+            })  
         }
     })
 
