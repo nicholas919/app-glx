@@ -646,6 +646,7 @@ body{
 #list-indent-cust{
 	display: grid;
 	grid-template-columns: 50% 50%;
+	margin-bottom: 70px;
 }
 
 #lihat-performa-peserta{
@@ -2525,7 +2526,6 @@ div.induk-kategori-menu{
 
 #list-indent-cust{
 	display: block;
-	margin-bottom: 70px;
 }
 
 .menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur{
