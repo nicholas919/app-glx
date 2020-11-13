@@ -157,6 +157,10 @@
     <div class="menu-tambahan"><i class='ikon-menu-tambahan fas fa-list'></i></div>
     <div class="menu-tambahan-teks">Overview</div>
   </div>
+  <div class="tab-halaman tombol-menu-tambahan" id="menu-kedua" data-toggle="pill" href="#halaman-menu" role="tab" aria-controls="halaman-menu" aria-selected="true">
+    <div class="menu-tambahan"><i class="ikon-menu-tambahan ikon-menu-tambahan-pengecualian material-icons">apps</i></div>
+    <div class="menu-tambahan-teks">Menu</div>
+  </div>  
 </div>
 
 <div id="kalender">
@@ -662,6 +666,10 @@
     <div class="menu-tambahan-kedua"><i class='ikon-menu-tambahan-kedua fas fa-list'></i></div>
     <div class="menu-tambahan-teks-kedua">Overview</div>
   </div>
+  <div class="tab-halaman tombol-menu-tambahan-kedua" id="menu-ketiga" data-toggle="pill" href="#halaman-menu" role="tab" aria-controls="halaman-menu" aria-selected="true">
+    <div class="menu-tambahan-kedua"><i class="ikon-menu-tambahan-kedua ikon-menu-tambahan-pengecualian material-icons">apps</i></div>
+    <div class="menu-tambahan-teks-kedua">Menu</div>
+  </div>  
 </div>
 
 </div>
@@ -682,6 +690,10 @@
     <div class="menu-tambahan-ketiga"><i class='ikon-menu-tambahan-ketiga fas fa-list'></i></div>
     <div class="menu-tambahan-teks-ketiga">Overview</div>
   </div>
+  <div class="tab-halaman tombol-menu-tambahan-keempat" id="menu-keempat" data-toggle="pill" href="#halaman-menu" role="tab" aria-controls="halaman-menu" aria-selected="true">
+    <div class="menu-tambahan-ketiga"><i class="ikon-menu-tambahan-ketiga ikon-menu-tambahan-pengecualian material-icons">apps</i></div>
+    <div class="menu-tambahan-teks-ketiga">Menu</div>
+  </div>    
 </div>
 
 <div class="jumbotron" id="jumbotron-overview">
@@ -695,6 +707,25 @@
 
 
 <div class="halaman tab-pane fade" id="halaman-menu" role="tabpanel">
+
+<div id="list-menu-tambahan-keempat" class="daftar-menu">
+  <div class="tab-halaman tombol-menu-tambahan-keempat kembali" data-toggle="pill" href="#halaman-home" role="tab" aria-controls="halaman-home" aria-selected="true">
+    <div class="menu-tambahan-keempat"><i class='ikon-menu-tambahan-keempat fas fa-reply'></i></div>
+    <div class="menu-tambahan-teks-keempat">Kembali</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan-keempat" id="pengumuman-keempat" data-toggle="pill" href="#halaman-pengumuman" role="tab" aria-controls="halaman-pengumuman" aria-selected="true">
+    <div class="menu-tambahan-keempat"><i class='ikon-menu-tambahan-keempat fas fa-bullhorn'></i></div>
+    <div class="menu-tambahan-teks-keempat">Pengumuman</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan-keempat" id="overview-keempat" data-toggle="pill" href="#halaman-overview" role="tab" aria-controls="halaman-overview" aria-selected="true">
+    <div class="menu-tambahan-keempat"><i class='ikon-menu-tambahan-keempat fas fa-list'></i></div>
+    <div class="menu-tambahan-teks-keempat">Overview</div>
+  </div>
+  <div class="tab-halaman tombol-menu-tambahan-keempat" id="menu-kelima" data-toggle="pill" href="#halaman-menu" role="tab" aria-controls="halaman-menu" aria-selected="true">
+    <div class="menu-tambahan-keempat"><i class="ikon-menu-tambahan-keempat ikon-menu-tambahan-pengecualian material-icons">apps</i></div>
+    <div class="menu-tambahan-teks-keempat">Menu</div>
+  </div>
+</div>
 
 <div style="display: block;margin: 5px 20px;position: relative;">
 <input type="text" placeholder="Cari berdasarkan nama..." id="search-menu">
@@ -1487,7 +1518,7 @@ window.addEventListener('resize', function(e){
             item.style.transition = '0';
           }
         });
-        [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga')].forEach(item => {
+        [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat')].forEach(item => {
             item.style.boxSizing = '0';
             item.style.paddingRight = '0';
         });
@@ -2822,7 +2853,7 @@ if(window.innerWidth <= 700){
               item.style.transition = 'all 0.4s ease';            
           }
         });        
-        [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga')].forEach(item => {
+        [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat')].forEach(item => {
           item.style.boxSizing = 'border-box';
           item.style.paddingRight = '250px';
           item.style.transition = 'all 0.4s ease';
@@ -2851,7 +2882,7 @@ if(window.innerWidth <= 700){
               item.style.transition = 'all 0.4s ease';            
           }
         });        
-        [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga')].forEach(item => {
+        [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat')].forEach(item => {
           item.style.boxSizing = '0';
           item.style.paddingRight = '0';
           item.style.transition = 'all 0.4s ease';

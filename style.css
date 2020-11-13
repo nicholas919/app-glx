@@ -1601,7 +1601,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 #list-menu-tambahan{
 	display: none;
-	grid-template-columns: 50% 50%;
+	grid-template-columns: 33.33% 33.33% 33.33%;
 	position: fixed;
 	bottom: 0;
 	width: 100%;
@@ -1610,9 +1610,9 @@ div.induk-kategori-menu:nth-child(4n+0){
 	z-index: 1;
 }
 
-#list-menu-tambahan-kedua, #list-menu-tambahan-ketiga{
+#list-menu-tambahan-kedua, #list-menu-tambahan-ketiga, #list-menu-tambahan-keempat{
 	display: none;
-	grid-template-columns: 33.33% 33.33% 33.33%;
+	grid-template-columns: 25% 25% 25% 25%;
 	position: fixed;
 	bottom: 0;
 	width: 100%;

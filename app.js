@@ -797,7 +797,8 @@ const setupUI = (user) => {
                     item.style.display = 'block';                    
                 }
             });
-            [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#kalender')].forEach(item => {
+            [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat'),
+             document.querySelector('#kalender')].forEach(item => {
                 item.style.display = 'grid';                                      
             });
             document.querySelector('#jumbotron-performa-peserta-individu').style.display = 'none';
@@ -866,7 +867,7 @@ const setupUI = (user) => {
             , document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#jumbotron-swot')].forEach(item => {
                 item.style.display = 'none';
             });    
-            [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#kalender')].forEach(item => {
+            [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat'), document.querySelector('#kalender')].forEach(item => {
                 item.style.display = 'grid';                                      
             });
             [document.querySelector('#customer-reply'), document.querySelector('#google-sheet')].forEach(item => {
@@ -983,7 +984,8 @@ const setupUI = (user) => {
             , document.querySelector('#tambahperpindahanbarang')].forEach(item => {
                 item.style.display = 'none';
             });
-            [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#kalender')].forEach(item => {
+            [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat'),
+             document.querySelector('#kalender')].forEach(item => {
                 item.style.display = 'grid';                                      
             });
             [document.querySelector('#customer-reply'), document.querySelector('#google-sheet')].forEach(item => {
@@ -1346,7 +1348,7 @@ document.querySelector('#search-menu').addEventListener('input', function(e){
     }             
     [navbarMenu, document.querySelector('#myTabContent'), document.querySelector('#customer-reply'), document.querySelector('#google-sheet'), document.querySelector('#jumbotron-performa-peserta')
     , document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#daftar-peserta'), document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua')
-    , document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#halaman-tugas'), document.querySelector('#halaman-kesalahan')
+    , document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat'), document.querySelector('#halaman-tugas'), document.querySelector('#halaman-kesalahan')
     , document.querySelector('#kalender')].forEach(item => {
         if(item.length != undefined){
             for(let x = 0; x<item.length;x++){
