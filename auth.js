@@ -685,21 +685,21 @@ auth.onAuthStateChanged(user => {
                 })
     }, err => console.log(err.message))
 
-//        db.collection('pedoman').onSnapshot(snapshot =>{
-//                let changes = snapshot.docChanges();
-//                changes.forEach(change =>{
-//                    if(change.type == 'added'){
-//                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
-//                        renderPedoman(change.doc);
-//                        }
-//                    } else if(change.type == 'removed'){
-//                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
-//                        div.remove();
-//                    } else if(change.type == 'modified'){
-//                        renderUpdatePedoman(change.doc);
-//                    }
-//                })
-//    }, err => console.log(err.message))        
+        db.collection('pedoman').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
+                        renderPedoman(change.doc);
+                        }
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        div.remove();
+                    } else if(change.type == 'modified'){
+                        renderUpdatePedoman(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))        
                
 
         $(document).ready(function(){
@@ -1669,17 +1669,17 @@ submitEventKalender.addEventListener('click', (e) => {
     }
 })
 
-//const daftarPedomanGalaxy = document.querySelector('#tambah-pedoman-galaxy');
-//daftarPedomanGalaxy.addEventListener('submit', (e) => {
-//    e.preventDefault();
-//        db.collection('pedoman').add({
-//            tanggal : new Date().getTime(),
-//            judul : daftarPedomanGalaxy['judul-pedoman'].value,
-//            keterangan: daftarPedomanGalaxy['keterangan-pedoman'].value
-//        }).then(() => {
-//            daftarPedomanGalaxy.value = null;
-//        })
-//})
+const daftarPedomanGalaxy = document.querySelector('#tambah-pedoman-galaxy');
+daftarPedomanGalaxy.addEventListener('submit', (e) => {
+    e.preventDefault();
+        db.collection('pedoman').add({
+            tanggal : new Date().getTime(),
+            judul : daftarPedomanGalaxy['judul-pedoman'].value,
+            keterangan: daftarPedomanGalaxy['keterangan-pedoman'].value.replace(/\n\r?/g, '<br/>')
+        }).then(() => {
+            daftarPedomanGalaxy.value = null;
+        })
+})
 
 const formDaftar = document.querySelector('#form-daftar');
 formDaftar.addEventListener('submit', (e) => {

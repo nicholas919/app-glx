@@ -2,6 +2,30 @@ body{
 	background-color: #eeeeee !important;
 }
 
+.judul-pedoman{
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	font-weight: bold;
+	text-transform: uppercase;	
+}
+
+.keterangan-pedoman{
+	margin-bottom: 10px;
+}
+
+.header-pedoman{
+	color:white;
+	font-size: 20px;
+	text-align: center;
+	background-color: #343a40;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	padding: 5px;
+	display: grid;
+	grid-template-columns: auto 30px;
+}
+
 #table-responsive-tabel-gaji{
 	margin-top: 20px;
 	width: 100%;
@@ -1025,16 +1049,21 @@ input:checked + .slider:after {
 	margin: 10px;
 }
 
-.menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur{
+.menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur, .menu-konfigurasi-catatan, .menu-konfigurasi-pedoman{
 	border-radius: 0 !important;
-	transform: translate3d(-120px, 45px, 0px) !important;
 	z-index: 0 !important;
 }
 
+.menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur{
+	transform: translate3d(-120px, 45px, 0px) !important;
+}
+
 .menu-konfigurasi-catatan{
-	border-radius: 0 !important;
 	transform: translate3d(-125px, 50px, 0px) !important;
-	z-index: 0 !important;
+}
+
+.menu-konfigurasi-pedoman{
+	transform: translate3d(-125px, 40px, 0px) !important;
 }
 
 .tombol-pengaturan{
@@ -1074,7 +1103,7 @@ input:checked + .slider:after {
 	font-size: 14px;
 }
 
-.hapus-catatan, .edit-catatan, .hapus-perpindahan-barang, .edit-perpindahan-barang, .selesai-perpindahan-barang, .copy-perpindahan-barang, .edit-retur, .hapus-retur, .print-retur{
+.hapus-catatan, .edit-catatan, .hapus-perpindahan-barang, .edit-perpindahan-barang, .selesai-perpindahan-barang, .copy-perpindahan-barang, .edit-retur, .hapus-retur, .print-retur, .hapus-pedoman, .edit-pedoman{
 	cursor: pointer;
 }
 
@@ -1267,7 +1296,7 @@ input:checked + .slider:after {
 	padding: 4px;
 }
 
-.potongan-kertas-cetak-label{
+.potongan-kertas-cetak-label, .keterangan-pedoman, .judul-pedoman{
 	overflow-wrap: anywhere;
 }
 
@@ -1824,7 +1853,7 @@ div.induk-kategori-menu:nth-child(4n+0){
     color: white !important;
     padding:5px 0px;
     font-size: 30px;
-    z-index: 0;
+    z-index: 1;
 }
 
 .tombol-tambah-kedua{
@@ -1944,7 +1973,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	margin-bottom: 15px;
 }
 
-#list-overview, #list-catatan{
+#list-overview, #list-catatan, #list-pedoman-galaxy{
 	margin-bottom: 100px;
 }
 
@@ -2315,7 +2344,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 	font-size: 34px !important;
 }
 
-#judul-jumbotron-performa-peserta-individu, #judul-jumbotron-swot, #judul-jumbotron-achievement, #judul-jumbotron-pengumuman, #judul-jumbotron-overview, #judul-jumbotron-perpindahan-barang, #judul-jumbotron-cetak-label, #judul-jumbotron-catatan, #judul-jumbotron-indent-cust, #judul-jumbotron-retur, #judul-jumbotron-retur-dealer, #judul-jumbotron-transaksi-berjalan, #judul-jumbotron-daftar-belanja{
+#judul-jumbotron-performa-peserta-individu, #judul-jumbotron-swot, #judul-jumbotron-achievement, #judul-jumbotron-pengumuman, #judul-jumbotron-overview, #judul-jumbotron-perpindahan-barang, #judul-jumbotron-cetak-label, #judul-jumbotron-catatan, #judul-jumbotron-indent-cust, #judul-jumbotron-retur, #judul-jumbotron-retur-dealer, #judul-jumbotron-transaksi-berjalan, #judul-jumbotron-daftar-belanja, #judul-jumbotron-pedoman-galaxy{
 	font-size: 32px !important;
 }
 

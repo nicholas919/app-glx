@@ -6993,28 +6993,261 @@ function renderEventKalender(doc){
 
 }
 
-//const listPedoman = document.querySelector('#list-pedoman-galaxy')
-//function renderPedoman(doc){
-//    let div = document.createElement('div');
-//    let tanggal = doc.data().tanggal;
-//    let judul = doc.data().judul;
-//    let keterangan = doc.data().keterangan;
-//    div.setAttribute('data-id', doc.id);
-//    div.setAttribute('id', 'pedoman' + doc.id);
-//    div.setAttribute('data-date', tanggal);
-//    div.innerHTML = `
-//    <div style="position:relative;background-color:white;padding:10px;margin:10px;border-radius:5px;">
-//        <div style="position:absolute;top:0;right:10px;">x</div>
-//        <div>${judul}</div>
-//        <div>${keterangan}</div>
-//        <div class="btn btn-primary pull-right">Read More</div>
-//    </div>
-//    `
-//    listPedoman.appendChild(div);
-//}
+const listPedoman = document.querySelector('#list-pedoman-galaxy');
+const modalPedoman = document.querySelector('#modal-edit-pedoman-galaxy');
+function renderPedoman(doc){
+    let div = document.createElement('div');
+    let pedoman = document.createElement('div')
+    let tanggal = doc.data().tanggal;
+    let judul = doc.data().judul;
+    let keterangan = doc.data().keterangan;
+    div.setAttribute('data-id', doc.id);
+    div.setAttribute('id', 'pedoman' + doc.id);
+    div.setAttribute('data-date', tanggal);
+    let keteranganTampilan, keteranganLainnya;
+    if(keterangan.replace(/<br\s*[\/]?>/gi, "\n").length > 600){
+        if(keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(0,299).split(/\r\n|\r|\n/).length > 1){
+            keteranganTampilan = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(0, 249);
+            keteranganLainnya = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(249, keterangan.replace(/<br\s*[\/]?>/gi, "\n").length)            
+            div.innerHTML = `
+            <div style="position:relative;background-color:white;margin:10px;border-radius:5px;">
+                <div class="header-pedoman">
+                <div class="judul-pedoman" id="judul-pedoman-tampilan${doc.id}">${judul}</div>
+                    <div class="dropdown">        
+                        <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
+                        <div class="dropdown-menu menu-konfigurasi-pedoman">
+                            <div class='edit-pedoman dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalpedoman${doc.id}'><i class='fas fa-pen'></i> Edit</div>
+                            <div class='hapus-pedoman dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+                        </div>
+                    </div>
+                </div>                
+                <div style="padding:8px;">
+                    <div id="keterangan-pedoman-tampilan${doc.id}" class="keterangan-pedoman">${keteranganTampilan.replace(/\n/g, '<br/>')}...</div>
+                    <div class="btn btn-primary" id="read-more-pedoman${doc.id}">Read More</div>                
+                </div>
+            </div>
+            `            
+        } else {
+            keteranganTampilan = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(0, 299);
+            keteranganLainnya = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(299, keterangan.replace(/<br\s*[\/]?>/gi, "\n").length)            
+            div.innerHTML = `
+            <div style="position:relative;background-color:white;margin:10px;border-radius:5px;">
+                <div class="header-pedoman">
+                <div class="judul-pedoman" id="judul-pedoman-tampilan${doc.id}">${judul}</div>
+                    <div class="dropdown">        
+                        <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
+                        <div class="dropdown-menu menu-konfigurasi-pedoman">
+                            <div class='edit-pedoman dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalpedoman${doc.id}'><i class='fas fa-pen'></i> Edit</div>
+                            <div class='hapus-pedoman dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+                        </div>
+                    </div>
+                </div>                
+                <div style="padding:8px;">
+                    <div id="keterangan-pedoman-tampilan${doc.id}" class="keterangan-pedoman">${keteranganTampilan.replace(/\n/g, '<br/>')}...</div>
+                    <div class="btn btn-primary" id="read-more-pedoman${doc.id}">Read More</div>                
+                </div>
+            </div>
+            `            
+        }
+    } else if(keterangan.replace(/<br\s*[\/]?>/gi, "\n").length >= 400 && keterangan.replace(/<br\s*[\/]?>/gi, "\n").length <= 600){
+        if(keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(0,249).split(/\r\n|\r|\n/).length > 1){
+            keteranganTampilan = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(0, 199);
+            keteranganLainnya = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(199, keterangan.replace(/<br\s*[\/]?>/gi, "\n").length)            
+            div.innerHTML = `
+            <div style="position:relative;background-color:white;margin:10px;border-radius:5px;">
+                <div class="header-pedoman">
+                <div class="judul-pedoman" id="judul-pedoman-tampilan${doc.id}">${judul}</div>
+                    <div class="dropdown">        
+                        <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
+                        <div class="dropdown-menu menu-konfigurasi-pedoman">
+                            <div class='edit-pedoman dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalpedoman${doc.id}'><i class='fas fa-pen'></i> Edit</div>
+                            <div class='hapus-pedoman dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+                        </div>
+                    </div>
+                </div>                
+                <div style="padding:8px;">
+                    <div id="keterangan-pedoman-tampilan${doc.id}" class="keterangan-pedoman">${keteranganTampilan.replace(/\n/g, '<br/>')}...</div>
+                    <div class="btn btn-primary" id="read-more-pedoman${doc.id}">Read More</div>                
+                </div>
+            </div>
+            `            
+        } else {
+            keteranganTampilan = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(0, 249);
+            keteranganLainnya = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(249, keterangan.replace(/<br\s*[\/]?>/gi, "\n").length)            
+            div.innerHTML = `
+            <div style="position:relative;background-color:white;margin:10px;border-radius:5px;">
+                <div class="header-pedoman">
+                <div class="judul-pedoman" id="judul-pedoman-tampilan${doc.id}">${judul}</div>
+                    <div class="dropdown">        
+                        <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
+                        <div class="dropdown-menu menu-konfigurasi-pedoman">
+                            <div class='edit-pedoman dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalpedoman${doc.id}'><i class='fas fa-pen'></i> Edit</div>
+                            <div class='hapus-pedoman dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+                        </div>
+                    </div>
+                </div>                
+                <div style="padding:8px;">
+                    <div id="keterangan-pedoman-tampilan${doc.id}" class="keterangan-pedoman">${keteranganTampilan.replace(/\n/g, '<br/>')}...</div>
+                    <div class="btn btn-primary" id="read-more-pedoman${doc.id}">Read More</div>                
+                </div>
+            </div>
+            `             
+        }
+    } else {
+        div.innerHTML = `
+        <div style="position:relative;background-color:white;margin:10px;border-radius:5px;">
+            <div class="header-pedoman">
+                <div class="judul-pedoman" id="judul-pedoman-tampilan${doc.id}">${judul}</div>
+                    <div class="dropdown">        
+                        <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
+                        <div class="dropdown-menu menu-konfigurasi-pedoman">
+                            <div class='edit-pedoman dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalpedoman${doc.id}'><i class='fas fa-pen'></i> Edit</div>
+                            <div class='hapus-pedoman dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+                        </div>
+                    </div>
+                </div>
+            <div style="padding:8px;">
+                <div id="keterangan-pedoman-tampilan${doc.id}" class="keterangan-pedoman">${keterangan}</div>          
+            </div>  
+        </div>
+        `     
+    }
+    pedoman.innerHTML = `
+    <div class="modal fade" id="modalpedoman${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Pengaturan Pedoman</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body">
+              <form id="tambah-pedoman${doc.id}">
+                  <div class="form-group">
+                    <label class="col-form-label">Judul</label>
+                    <input type="text" value="${judul}" class="form-control" id="judul-pedoman${doc.id}" autocomplete="off" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Keterangan</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="keterangan-pedoman${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required>${keterangan.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                  </div>
+                    <div class="modal-footer">
+                          <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+           </div>
+         </div>
+    `
+    listPedoman.appendChild(div);
+    modalPedoman.appendChild(pedoman);
+
+    let formEdit = document.querySelector('#tambah-pedoman' + doc.id);
+    formEdit.addEventListener('submit', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        let judulUpdate = document.querySelector('#judul-pedoman' + doc.id).value;
+        let keteranganUpdate = document.querySelector('#keterangan-pedoman' + doc.id).value;
+        db.collection('pedoman').doc(doc.id).update({
+            judul : judulUpdate,
+            keterangan : keteranganUpdate.replace(/\n\r?/g, '<br/>')
+        }).then(() => {
+            $('#modalpedoman' + doc.id).modal('hide');
+            })
+        }) 
+
+    let readMore = document.querySelector('#read-more-pedoman' + doc.id);
+    if(readMore){
+        readMore.addEventListener('click', function(e){
+            e.stopPropagation();
+            if(e.target.innerHTML == "Read More"){
+                document.querySelector('#keterangan-pedoman-tampilan' + doc.id).innerHTML = keteranganTampilan.replace(/\n/g, '<br/>') + keteranganLainnya.replace(/\n/g, '<br/>');
+                e.target.innerHTML = "Read Less";
+            } else {
+                document.querySelector('#keterangan-pedoman-tampilan' + doc.id).innerHTML = keteranganTampilan.replace(/\n/g, '<br/>') + '...';
+                e.target.innerHTML = "Read More";
+            }
+        })
+    }
+    document.querySelector('#hapus' + doc.id).addEventListener('click', function(e){
+        e.stopPropagation();
+        let konfirmasi = confirm('Anda yakin ingin menghapus data pedoman ini?');
+        if(konfirmasi == true){
+            db.collection('pedoman').doc(doc.id).delete();
+        }
+    })
+
+}
+
+function renderUpdatePedoman(doc){
+    let judul = doc.data().judul;
+    let keterangan = doc.data().keterangan;
+    console.log(keterangan);
+    let keteranganTampilan, keteranganLainnya;
+    let div = document.createElement('div');
+    document.querySelector('#read-more-pedoman' + doc.id).remove();
+    div.setAttribute('id', 'read-more-pedoman' + doc.id);
+    div.classList.add('btn', 'btn-primary');
+    div.innerHTML = "Read More";
+    document.querySelector('#judul-pedoman-tampilan' + doc.id).innerHTML = judul;
+    if(keterangan.replace(/<br\s*[\/]?>/gi, "\n").length > 600){
+        if(keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(0,299).split(/\r\n|\r|\n/).length > 1){
+            keteranganTampilan = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(0, 249);
+            keteranganLainnya = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(249, keterangan.replace(/<br\s*[\/]?>/gi, "\n").length)
+            document.querySelector('#keterangan-pedoman-tampilan' + doc.id).innerHTML = keteranganTampilan.replace(/\n/g, '<br/>') + '...';              
+        } else {
+            keteranganTampilan = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(0, 299);
+            keteranganLainnya = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(299, keterangan.replace(/<br\s*[\/]?>/gi, "\n").length)
+            document.querySelector('#keterangan-pedoman-tampilan' + doc.id).innerHTML = keteranganTampilan.replace(/\n/g, '<br/>') + '...';                 
+        }
+        document.querySelector('#keterangan-pedoman-tampilan' + doc.id).parentNode.insertBefore(div, document.querySelector('#keterangan-pedoman-tampilan' + doc.id).nextSibling)            
+        let readMore = document.querySelector('#read-more-pedoman' + doc.id);
+            readMore.addEventListener('click', function(e){
+            console.log(e.target.innerHTML);
+            console.log(e.target.innerHTML == "Read More");            
+                e.stopPropagation();
+                if(e.target.innerHTML == "Read More"){
+                    document.querySelector('#keterangan-pedoman-tampilan' + doc.id).innerHTML = keteranganTampilan.replace(/\n/g, '<br/>') + keteranganLainnya.replace(/\n/g, '<br/>');
+                    e.target.innerHTML = "Read Less";
+                } else {
+                    document.querySelector('#keterangan-pedoman-tampilan' + doc.id).innerHTML = keteranganTampilan.replace(/\n/g, '<br/>') + '...';
+                    e.target.innerHTML = "Read More";
+                }
+            })        
+    } else if(keterangan.replace(/<br\s*[\/]?>/gi, "\n").length >= 400 && keterangan.replace(/<br\s*[\/]?>/gi, "\n").length <= 600){
+        if(keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(0,249).split(/\r\n|\r|\n/).length > 1){
+            keteranganTampilan = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(0, 199);
+            keteranganLainnya = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(199, keterangan.replace(/<br\s*[\/]?>/gi, "\n").length)
+            document.querySelector('#keterangan-pedoman-tampilan' + doc.id).innerHTML = keteranganTampilan.replace(/\n/g, '<br/>') + '...';               
+        } else {
+            keteranganTampilan = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(0, 249);
+            keteranganLainnya = keterangan.replace(/<br\s*[\/]?>/gi, "\n").slice(249, keterangan.replace(/<br\s*[\/]?>/gi, "\n").length)
+            document.querySelector('#keterangan-pedoman-tampilan' + doc.id).innerHTML = keteranganTampilan.replace(/\n/g, '<br/>') + '...';               
+        }
+        document.querySelector('#keterangan-pedoman-tampilan' + doc.id).parentNode.insertBefore(div, document.querySelector('#keterangan-pedoman-tampilan' + doc.id).nextSibling)            
+        let readMore = document.querySelector('#read-more-pedoman' + doc.id);
+            readMore.addEventListener('click', function(e){
+            console.log(e.target.innerHTML);
+            console.log(e.target.innerHTML == "Read More");            
+                e.stopPropagation();
+                if(e.target.innerHTML == "Read More"){
+                    document.querySelector('#keterangan-pedoman-tampilan' + doc.id).innerHTML = keteranganTampilan.replace(/\n/g, '<br/>') + keteranganLainnya.replace(/\n/g, '<br/>');
+                    e.target.innerHTML = "Read Less";
+                } else {
+                    document.querySelector('#keterangan-pedoman-tampilan' + doc.id).innerHTML = keteranganTampilan.replace(/\n/g, '<br/>') + '...';
+                    e.target.innerHTML = "Read More";
+                }
+            }) 
+    } else {
+        document.querySelector('#keterangan-pedoman-tampilan' + doc.id).innerHTML = keterangan;
+    }    
+
+}
 
 function auto_grow(element){
-    element.style.height = "5px";
     element.style.height = (element.scrollHeight)+"px";
 }
 
