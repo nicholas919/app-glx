@@ -37,6 +37,7 @@
       <!--<div class="tab-halaman text-white menu navbar-menu" id="list-gaji" data-toggle="pill" href="#halaman-list-gaji" role="tab" aria-controls="halaman-list-gaji" aria-selected="true"><i class='fas fa-clipboard-list'></i> List Gaji</div>-->
       <div class="tab-halaman text-white menu navbar-menu" id="cetak-label" data-toggle="pill" href="#halaman-cetak-label" role="tab" aria-controls="halaman-cetak-label" aria-selected="true"><i class="fa fa-print"></i> Cetak Label</div>
       <div class="tab-halaman text-white menu navbar-menu" id="surat-jalan" data-toggle="pill" href="#halaman-surat-jalan" role="tab" aria-controls="halaman-surat-jalan" aria-selected="true"><i class='fas fa-dove'></i> Surat Jalan</div>
+      <div class="tab-halaman text-white menu navbar-menu" id="surat-penawaran" data-toggle="pill" href="#halaman-surat-penawaran" role="tab" aria-controls="halaman-surat-penawaran" aria-selected="true"><i class='fas fa-hand-holding-usd'></i> Surat Penawaran</div>
       <div class="tab-halaman text-white menu navbar-menu" id="perpindahan-barang" data-toggle="pill" href="#halaman-perpindahan-barang" role="tab" aria-controls="halaman-perpindahan-barang" aria-selected="true"><i class='fas fa-boxes'></i> Perpindahan</div>
       <div class="tab-halaman text-white menu navbar-menu" id="kalkulator" data-toggle="pill" href="#halaman-kalkulator" role="tab" aria-controls="halaman-kalkulator" aria-selected="true"><i class="fa fa-calculator"></i> Kalkulator</div>
       <div class="tab-halaman text-white menu navbar-menu" id="transaksi-berjalan" data-toggle="pill" href="#halaman-transaksi-berjalan" role="tab" aria-controls="halaman-transaksi-berjalan" aria-selected="true"><i class='fas fa-coins'></i> Transaksi Berjalan</div>
@@ -466,7 +467,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                  <label class="col-form-label">Tanggal Kejadian <small>(Note :Tanggal akan otomatis mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
+                  <label class="col-form-label">Tanggal Kejadian <small>(Note :Tanggal akan mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
                   <input type="date" class="form-control" id="tanggal-kesalahan" autocomplete="off">
                 </div>
               <div class="form-group">
@@ -580,7 +581,7 @@
         <div class="modal-body">
           <form id="tambah-achievement">
                 <div class="form-group">
-                  <label class="col-form-label">Tanggal Pencapaian <small>(Note :Tanggal akan otomatis mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
+                  <label class="col-form-label">Tanggal Pencapaian <small>(Note :Tanggal akan mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
                   <input type="date" class="form-control" id="tanggal-pencapaian" autocomplete="off">
                 </div>
               <div class="form-group">
@@ -841,7 +842,7 @@
 <div class="halaman tab-pane fade" id="halaman-surat-jalan" role="tabpanel">
 
 <div id="preview-surat-jalan"> 
-  <div id="tombol-posisi-geser">
+  <div id="tombol-posisi-geser-sj">
     <i class="fa fa-angle-left tombol-posisi-geser geser-kiri" id="geser-kiri-sj"></i>
     <i class="fa fa-angle-right tombol-posisi-geser geser-kanan" id="geser-kanan-sj"></i>
   </div>
@@ -909,6 +910,84 @@
       </tbody>
     </table>
     </div>  
+
+</div>
+
+<div class="halaman tab-pane fade" id="halaman-surat-penawaran" role="tabpanel">
+
+<div id="preview-surat-penawaran"> 
+  <div id="tombol-posisi-geser-sp">
+    <i class="fa fa-angle-left tombol-posisi-geser geser-kiri" id="geser-kiri-sp"></i>
+    <i class="fa fa-angle-right tombol-posisi-geser geser-kanan" id="geser-kanan-sp"></i>
+  </div>
+</div>
+
+  <div id="pengaturan-surat-penawaran">
+    <div class="header-pengaturan-surat-penawaran">Informasi Surat Penawaran :</div>
+    <div style="padding: 0px 10px 5px;">
+      <div class="form-group">
+        <label class="col-form-label">Dipesan oleh</label>
+        <input type="text" class="form-control" id="nama-surat-penawaran" autocomplete="off" required>
+      </div>      
+      <div class="form-group">
+        <label class="col-form-label">Tanggal <small>(Note :Tanggal akan mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
+        <input type="date" class="form-control" id="tanggal-surat-penawaran" autocomplete="off">
+      </div>      
+      <div class="form-group">
+        <label>Keterangan</label>
+        <textarea oninput="auto_grow(this)" class="form-control" id="keterangan-surat-penawaran" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:38px;" autocomplete="off"></textarea>
+      </div>
+      <div id="tambahsuratpenawaran" style="margin-bottom:5px;" class="btn btn-success d-block">Tambah Surat Penawaran</div>
+    </div>        
+  </div>
+    <div class="table-responsive-xl">
+    <table class="table garis" id="tabel-surat-penawaran" style="margin-bottom: 0px;">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" id="th-nama-barang-sp">Nama Barang</th>
+          <th scope="col" id="th-kuantitas-barang-sp">Kts</th>
+          <th scope="col" id="th-harga-barang-sp">@Harga</th>
+          <th scope="col" id="th-diskon-barang-sp">Diskon</th>
+          <th scope="col" id="th-total-harga-barang-sp">Total Harga</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="list-barang-surat-penawaran">
+        <tr class="barang-surat-penawaran">
+          <td><input type="text" class="form-control nama-barang-surat-penawaran"></td>
+          <td><input type="number" max="4" class="form-control jumlah-barang-surat-penawaran"></td>
+          <td><input type="number" max="9" class="form-control harga-barang-surat-penawaran"></td>
+          <td><input type="number" max="9" class="form-control diskon-barang-surat-penawaran"></td>
+          <td class="total-barang-surat-penawaran"></td>
+          <td><div class="tombol-hapus-kolom-surat-penawaran">x</div></td>
+        </tr>
+        <tr class="barang-surat-penawaran">
+          <td><input type="text" class="form-control nama-barang-surat-penawaran"></td>
+          <td><input type="number" max="4" class="form-control jumlah-barang-surat-penawaran"></td>
+          <td><input type="number" max="9" class="form-control harga-barang-surat-penawaran"></td>
+          <td><input type="number" max="9" class="form-control diskon-barang-surat-penawaran"></td>
+          <td class="total-barang-surat-penawaran"></td>
+          <td><div class="tombol-hapus-kolom-surat-penawaran">x</div></td>
+        </tr>
+        <tr class="barang-surat-penawaran">
+          <td><input type="text" class="form-control nama-barang-surat-penawaran"></td>
+          <td><input type="number" max="4" class="form-control jumlah-barang-surat-penawaran"></td>
+          <td><input type="number" max="9" class="form-control harga-barang-surat-penawaran"></td>
+          <td><input type="number" max="9" class="form-control diskon-barang-surat-penawaran"></td>
+          <td class="total-barang-surat-penawaran"></td>
+          <td><div class="tombol-hapus-kolom-surat-penawaran">x</div></td>
+        </tr>
+        <tr id="tambah-baris-surat-penawaran">
+          <td colspan=6 id="tombol-tambah-baris-surat-penawaran">Add Row +</td>
+        </tr>        
+        <tr id="subtotal-barang-surat-penawaran">
+          <td colspan=4>Total</td>
+          <td id="harga-subtotal-barang-surat-penawaran"></td>
+          <td></td>
+        </tr>                        
+      </tbody>
+    </table>
+    </div> 
 
 </div>
 
@@ -1032,7 +1111,7 @@
         <div class="modal-body">
           <form id="tambah-perpindahan-barang">
               <div class="form-group">
-                <label class="col-form-label">Tanggal Perpindahan <small>(Note :Tanggal akan otomatis mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
+                <label class="col-form-label">Tanggal Perpindahan <small>(Note :Tanggal akan mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
                 <input type="date" class="form-control" id="tanggal-perpindahan-barang" autocomplete="off">
               </div>
               <div class="form-group">              
@@ -1187,7 +1266,7 @@
         <div class="modal-body">
           <form id="tambah-transaksi-berjalan">
                 <div class="form-group">
-                  <label class="col-form-label">Tanggal Transaksi <small>(Note :Tanggal transaksi akan otomatis mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
+                  <label class="col-form-label">Tanggal Transaksi <small>(Note :Tanggal transaksi akan mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
                   <input type="date" class="form-control" id="tanggal-transaksi-berjalan" autocomplete="off">
                 </div>
                 <div class="form-group">
@@ -2948,6 +3027,15 @@ for(let x = 0; x<document.querySelectorAll('.barang-surat-jalan').length; x++){
   })
 }
 
+for(let x = 0; x<document.querySelectorAll('.barang-surat-penawaran').length; x++){
+  [document.querySelectorAll('.jumlah-barang-surat-penawaran')[x], document.querySelectorAll('.harga-barang-surat-penawaran')[x], document.querySelectorAll('.diskon-barang-surat-penawaran')[x]].forEach(item => {
+    item.addEventListener('input', function(e){
+    e.stopPropagation();
+    suratPenawaranTambah(x);
+    })
+  })
+}
+
 function suratJalanTambah(x){
     if(document.querySelectorAll('.jumlah-barang-surat-jalan')[x].value == 0 && document.querySelectorAll('.harga-barang-surat-jalan')[x].value == 0 || document.querySelectorAll('.jumlah-barang-surat-jalan')[x].value * document.querySelectorAll('.harga-barang-surat-jalan')[x].value == 0){
     document.querySelectorAll('.total-barang-surat-jalan')[x].innerHTML = '';
@@ -2972,10 +3060,41 @@ function suratJalanTambah(x){
     }
 }
 
+function suratPenawaranTambah(x){
+    if(document.querySelectorAll('.jumlah-barang-surat-penawaran')[x].value == 0 && document.querySelectorAll('.harga-barang-surat-penawaran')[x].value == 0 && document.querySelectorAll('.diskon-barang-surat-penawaran')[x].value == 0 || ((document.querySelectorAll('.jumlah-barang-surat-penawaran')[x].value * document.querySelectorAll('.harga-barang-surat-penawaran')[x].value) - document.querySelectorAll('.diskon-barang-surat-penawaran')[x].value) == 0 || ((document.querySelectorAll('.jumlah-barang-surat-penawaran')[x].value * document.querySelectorAll('.harga-barang-surat-penawaran')[x].value) - document.querySelectorAll('.diskon-barang-surat-penawaran')[x].value) < 0){
+    document.querySelectorAll('.total-barang-surat-penawaran')[x].innerHTML = '';
+    } else {
+    let hasilPerhitungan = (document.querySelectorAll('.jumlah-barang-surat-penawaran')[x].value * document.querySelectorAll('.harga-barang-surat-penawaran')[x].value) - document.querySelectorAll('.diskon-barang-surat-penawaran')[x].value;
+    document.querySelectorAll('.total-barang-surat-penawaran')[x].innerHTML = "Rp " + hasilPerhitungan.toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00";
+    }
+    let sum = 0;
+    for(let y = 0; y<document.querySelectorAll('.total-barang-surat-penawaran').length; y++){
+      sum = sum + Number(document.querySelectorAll('.total-barang-surat-penawaran')[y].innerHTML.replace(/,(?=[^,]*$)/, '.').replace(/,/g,'').slice(3,-1));
+    }
+    if(sum == 0){
+      document.querySelector('#harga-subtotal-barang-surat-penawaran').innerHTML = ''
+    } else {
+    document.querySelector('#harga-subtotal-barang-surat-penawaran').innerHTML = "Rp " + sum.toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00";
+    }
+}
+
 for(let x = 0; x<document.querySelectorAll('.tombol-hapus-kolom-surat-jalan').length; x++){
   document.querySelectorAll('.tombol-hapus-kolom-surat-jalan')[x].addEventListener('click', function(e){
     e.stopPropagation();
     suratJalanHapus(x);
+  })
+}
+
+for(let x = 0; x<document.querySelectorAll('.tombol-hapus-kolom-surat-penawaran').length; x++){
+  document.querySelectorAll('.tombol-hapus-kolom-surat-penawaran')[x].addEventListener('click', function(e){
+    e.stopPropagation();
+    suratPenawaranHapus(x);
   })
 }
 
@@ -2992,6 +3111,26 @@ function suratJalanHapus(x){
       document.querySelector('#harga-subtotal-barang-surat-jalan').innerHTML = ''
     } else {
     document.querySelector('#harga-subtotal-barang-surat-jalan').innerHTML = "Rp " + sum.toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }) + ",00";
+    }  
+}
+
+function suratPenawaranHapus(x){
+    document.querySelectorAll('.nama-barang-surat-penawaran')[x].value = '';
+    document.querySelectorAll('.jumlah-barang-surat-penawaran')[x].value = '';
+    document.querySelectorAll('.harga-barang-surat-penawaran')[x].value = '';
+    document.querySelectorAll('.diskon-barang-surat-penawaran')[x].value = '';
+    document.querySelectorAll('.total-barang-surat-penawaran')[x].innerHTML = '';
+    let sum = 0;
+    for(let y = 0; y<document.querySelectorAll('.total-barang-surat-penawaran').length; y++){
+      sum = sum + Number(document.querySelectorAll('.total-barang-surat-penawaran')[y].innerHTML.replace(/,(?=[^,]*$)/, '.').replace(/,/g,'').slice(3,-1));
+    }
+    if(sum == 0){
+      document.querySelector('#harga-subtotal-barang-surat-penawaran').innerHTML = ''
+    } else {
+    document.querySelector('#harga-subtotal-barang-surat-penawaran').innerHTML = "Rp " + sum.toLocaleString(undefined, {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
     }) + ",00";
@@ -3036,9 +3175,49 @@ tambahBarisSJ.addEventListener('click', function(e){
 
 })
 
+let tambahBarisSP = document.querySelector("#tombol-tambah-baris-surat-penawaran")
+tambahBarisSP.addEventListener('click', function(e){
+  e.stopPropagation();
+  if(document.querySelectorAll('.barang-surat-penawaran').length < 15){
+  let tr = document.createElement('tr');
+  tr.classList.add('barang-surat-penawaran');
+  tr.innerHTML = `          
+    <td><input type="text" class="form-control nama-barang-surat-penawaran"></td>
+    <td><input type="number" max="4" class="form-control jumlah-barang-surat-penawaran"></td>
+    <td><input type="number" max="9" class="form-control harga-barang-surat-penawaran"></td>
+    <td><input type="number" max="9" class="form-control diskon-barang-surat-penawaran"></td>
+    <td class="total-barang-surat-penawaran"></td>
+    <td><div class="tombol-hapus-kolom-surat-penawaran">x</div></td>
+    `
+
+  document.querySelector('#tambah-baris-surat-penawaran').parentNode.insertBefore(tr, document.querySelector('#tambah-baris-surat-penawaran'))
+
+  for(let x = 0; x<document.querySelectorAll('.barang-surat-penawaran').length; x++){
+    [document.querySelectorAll('.jumlah-barang-surat-penawaran')[x], document.querySelectorAll('.harga-barang-surat-penawaran')[x], document.querySelectorAll('.diskon-barang-surat-penawaran')[x]].forEach(item => {
+      item.addEventListener('input', function(e){
+      e.stopPropagation();
+      suratPenawaranTambah(x);
+      })
+    })
+  }
+
+  for(let x = 0; x<document.querySelectorAll('.tombol-hapus-kolom-surat-penawaran').length; x++){
+  document.querySelectorAll('.tombol-hapus-kolom-surat-penawaran')[x].addEventListener('click', function(e){
+    e.stopPropagation();
+    suratPenawaranHapus(x);
+    })
+  }
+} else {
+  alert('Sudah mencapai kuota maksimal, tidak bisa menambahkan kolom baru lagi.');
+  document.querySelector('#tambah-baris-surat-penawaran').style.display = 'none';
+}
+
+})
+
+
   let i = 0;
-  let geserKiri = document.querySelector('#geser-kiri-sj');
-  geserKiri.addEventListener('click', function(e){
+  let geserKiriSJ = document.querySelector('#geser-kiri-sj');
+  geserKiriSJ.addEventListener('click', function(e){
     e.stopImmediatePropagation();
     if(i > 0){
       i--;
@@ -3056,8 +3235,8 @@ tambahBarisSJ.addEventListener('click', function(e){
     }  
   })
 
-  let geserKanan = document.querySelector('#geser-kanan-sj');
-  geserKanan.addEventListener('click', function(e){
+  let geserKananSJ = document.querySelector('#geser-kanan-sj');
+  geserKananSJ.addEventListener('click', function(e){
     e.stopImmediatePropagation();
     if(i < document.querySelectorAll('.potongan-kertas-surat-jalan').length){
       i++;
@@ -3077,6 +3256,50 @@ tambahBarisSJ.addEventListener('click', function(e){
          document.querySelectorAll('.potongan-kertas-surat-jalan')[x].style.left = '0';
     }
       i = 0
+    }
+  })
+
+  let o = 0;
+  let geserKiriSP = document.querySelector('#geser-kiri-sp');
+  geserKiriSP.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    if(o > 0){
+      o--;
+    } else {
+      o = document.querySelectorAll('.potongan-kertas-surat-penawaran').length - 1;
+    }
+    if(document.querySelectorAll('.potongan-kertas-surat-penawaran')[o]){
+      for(let x = 0; x<document.querySelectorAll('.potongan-kertas-surat-penawaran').length; x++){
+        if(x > o){
+          document.querySelectorAll('.potongan-kertas-surat-penawaran')[x].style.left = `0%`;
+        } else if(x == o){
+          document.querySelectorAll('.potongan-kertas-surat-penawaran')[x].style.left = `-${(x)*100}%`;
+        }
+      }
+    }  
+  })
+
+  let geserKananSP = document.querySelector('#geser-kanan-sp');
+  geserKananSP.addEventListener('click', function(e){
+    e.stopImmediatePropagation();
+    if(o < document.querySelectorAll('.potongan-kertas-surat-penawaran').length){
+      o++;
+    } else {
+      o = 0;
+    }
+    if(document.querySelectorAll('.potongan-kertas-surat-penawaran')[o]){
+      for(let x = 0; x<document.querySelectorAll('.potongan-kertas-surat-penawaran').length; x++){
+        if(x < o){
+          document.querySelectorAll('.potongan-kertas-surat-penawaran')[x].style.left = `-${(x + 1)*100}%`;
+        } else if(x == o){
+          document.querySelectorAll('.potongan-kertas-surat-penawaran')[x].style.left = `-${(x)*100}%`;
+        }
+      }
+    } else {
+      for(let x = 0; x<document.querySelectorAll('.potongan-kertas-surat-penawaran').length; x++){
+         document.querySelectorAll('.potongan-kertas-surat-penawaran')[x].style.left = '0';
+    }
+      o = 0
     }
   })
 
@@ -3166,6 +3389,7 @@ tambahBarisSJ.addEventListener('click', function(e){
     div.classList.add('potongan-kertas-surat-jalan')
     div.innerHTML = `
       <div class="header-sj">
+      <img src="logo_pt_galaxy_digital_niaga.png" style="width:100%;" class="logo-cetak">
         <div>
           <div class="nama-pt-sj">PT GALAXY DIGITAL NIAGA</div>
           <div class="alamat-pt-sj">
@@ -3187,7 +3411,7 @@ tambahBarisSJ.addEventListener('click', function(e){
           <div>Tujuan</div>
           <div>:</div>
           <div>
-            <div>${namaTertujuSJ}</div>
+            <div style="font-weight:bold;">${namaTertujuSJ}</div>
             <div>${alamatTertujuSJ}</div>
           </div>
         </div>
@@ -3246,7 +3470,7 @@ tambahBarisSJ.addEventListener('click', function(e){
         document.querySelector('#pengaturan-surat-jalan').style.visibility = 'hidden';
         document.querySelector('#tabel-surat-jalan').style.visibility = 'hidden';
         e.target.style.visibility = 'hidden';
-        document.querySelector('#tombol-posisi-geser').style.visibility = 'hidden';
+        document.querySelector('#tombol-posisi-geser-sj').style.visibility = 'hidden';
         document.querySelector('#preview-surat-jalan').style.position = 'absolute';
         document.querySelector('#preview-surat-jalan').style.width = '100%';
         document.querySelector('#preview-surat-jalan').style.top = '0';
@@ -3270,9 +3494,259 @@ tambahBarisSJ.addEventListener('click', function(e){
         document.querySelector('#tabel-surat-jalan').style.visibility = 'visible';
         e.target.style.visibility = 'visible';
         document.body.style.visibility = 'visible';
-        document.querySelector('#tombol-posisi-geser').style.visibility = 'visible';
+        document.querySelector('#tombol-posisi-geser-sj').style.visibility = 'visible';
         document.querySelector('#preview-surat-jalan').style.position = 'relative';
         document.querySelector('#preview-surat-jalan').style.margin = '20px 0';
+        document.body.style.setProperty("background-color", "#eeeeee", "important");
+        setTimeout(function(){
+        document.querySelector('#darken').style.backgroundColor = '0';
+        document.querySelector('#darken').style.width = '0';
+        document.querySelector('#darken').style.height = '0';
+        document.querySelector('#darken').style.position = '0';
+        document.querySelector('#darken').style.opacity = '0';
+        document.querySelector('#darken').style.zIndex = '0';
+        },0)
+      })
+    }
+
+  })
+
+  let tambahSP = document.querySelector('#tambahsuratpenawaran');
+  tambahSP.addEventListener('click', function(e){
+    e.stopPropagation();
+    let sum = ``;    
+    let count = 0;
+    let dd = String(new Date().getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[new Date().getMonth()]
+    let yyyy = new Date().getFullYear();
+    let tanggalSekarang = dd + ' ' + mm + ' ' + yyyy;    
+    let hh = ('0' + new Date().getHours()).slice(-2);
+    let ms = ('0' + new Date().getMinutes()).slice(-2);
+    let namaTertujuSP = document.querySelector('#nama-surat-penawaran').value;
+    let tanggalSP = document.querySelector('#tanggal-surat-penawaran').value;
+    let keteranganSP = document.querySelector('#keterangan-surat-penawaran').value.replace(/\n\r?/g, '<br/>');
+    if(tanggalSP == 0){
+      tanggalSP = tanggalSekarang;
+    }
+    if(namaTertujuSP != 0){
+    for(let x = 0; x<document.querySelectorAll('.barang-surat-penawaran').length; x++){
+      if(document.querySelectorAll('.nama-barang-surat-penawaran')[x].value != 0 && document.querySelectorAll('.jumlah-barang-surat-penawaran')[x].value != 0 && document.querySelectorAll('.harga-barang-surat-penawaran')[x] != 0){
+        let counter = 1;
+        count += counter;
+        sum = sum + `
+        <tr>
+          <td>${document.querySelectorAll('.nama-barang-surat-penawaran')[x].value}</td>
+          <td>${document.querySelectorAll('.jumlah-barang-surat-penawaran')[x].value}</td>
+          <td>Rp ${Number(document.querySelectorAll('.harga-barang-surat-penawaran')[x].value).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0}) + ",00"}</td>
+          <td>Rp ${Number(document.querySelectorAll('.diskon-barang-surat-penawaran')[x].value).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0}) + ",00"}</td>
+          <td>${document.querySelectorAll('.total-barang-surat-penawaran')[x].innerHTML}</td>
+        </tr>
+        `
+        }
+        document.querySelectorAll('.nama-barang-surat-penawaran')[x].value = null;
+        document.querySelectorAll('.jumlah-barang-surat-penawaran')[x].value = null;
+        document.querySelectorAll('.harga-barang-surat-penawaran')[x].value = null;
+        document.querySelectorAll('.diskon-barang-surat-penawaran')[x].value = null;
+        document.querySelectorAll('.total-barang-surat-penawaran')[x].innerHTML = '';              
+      }
+    } 
+    if(count == 2){
+      sum = sum + `
+      <tr style="height:49px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>      
+      `
+    } else if(count == 1){
+      sum = sum + `
+      <tr style="height:49px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr style="height:49px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>      
+      `      
+    } else if(count == 0){
+      sum = sum + `
+      <tr style="height:49px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr style="height:49px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr style="height:49px;">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>      
+      `
+    }    
+    let div = document.createElement('div');
+    div.classList.add('potongan-kertas-surat-penawaran')
+    div.innerHTML = `
+      <div class="header-sp">
+        <img src="logo_pt_galaxy_digital_niaga.png" style="width:100%;padding:0px 15px 0px 10px;">
+        <div style="margin-top:auto;margin-bottom:auto;">
+          <div class="nama-pt-sp">PT GALAXY DIGITAL NIAGA</div>
+          <div class="alamat-pt-sp">
+            <div>Jl. Hartono Raya Ruko Mall Metropolis Townsquare Block GM3 No.6</div>
+            <div>Kota Tangerang Banten 15117</div>
+            <div>Indonesia</div>
+          </div> 
+        </div>
+        <div>
+          <i class='fas fa-print print-potongan-kertas-surat-penawaran'></i>
+          <div class="hapus-potongan-kertas-surat-penawaran"></div>
+        </div>
+      </div>
+      <div class="body-sp">
+        <div class="info-sp">
+          <div class="info-tertuju-sp">
+            <div>Kepada</div>
+            <div>${namaTertujuSP}</div>
+          </div>
+          <div></div>
+          <div class="info-tertuju-kedua-sp">
+            <div>PENAWARAN</div>
+            <div>
+              <div>Nomor</div>
+              <div>:</div>
+              <div>SQ.${yyyy + '.' + (new Date().getMonth() + 1) + '.' + dd + hh + ms}</div>
+              <div>Tanggal</div>
+              <div>:</div>
+              <div>${tanggalSekarang}</div>
+              <div>Pembayaran</div>
+              <div>:</div>
+              <div>Cash/Debit/Transfer</div>
+            </div>
+          </div>
+        </div>
+        <div class="tampilan-barang-sp">
+          <table class="table table-striped ">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Nama Barang</th>
+                <th scope="col">Kts</th>
+                <th scope="col">@Harga</th>
+                <th scope="col">Diskon</th>
+                <th scope="col">Total Harga</th>
+              </tr>
+            </thead>
+            <tbody class="list-barang-surat-penawaran">
+              ${sum}
+              <tr class="subtotal-barang-sp">
+                <td colspan=4 class="subtotal-sp">Total</td>
+                <td>${document.querySelector('#harga-subtotal-barang-surat-penawaran').innerHTML}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>    
+        <div class="footer-sp">   
+          <div>
+            <div>Harga sudah termasuk PPN</div>
+            <div class="keterangan-sp">${keteranganSP}</div>
+          </div>
+          <div></div>
+          <div>
+            <div>Transfer Pembayaran ke :</div>
+            <div>Atas Nama : PT GALAXY DIGITAL NIAGA</div>
+            <div>No Rekening : 8680767808</div>
+            <div>Bank : BCA KCU Tangcity</div>
+          </div> 
+        </div>
+        <div class="footer-kedua-sp">
+          <div>Hormat Kami,</div>
+          <div></div>
+          <div>PT Galaxy Digital Niaga</div>
+        </div>
+      </div>
+    `
+    document.querySelector('#preview-surat-penawaran').appendChild(div);
+    document.querySelector('#preview-surat-penawaran').style.margin = '20px 0px';
+    document.querySelector('#nama-surat-penawaran').value = null;
+    document.querySelector('#tanggal-surat-penawaran').value = null;
+    document.querySelector('#keterangan-surat-penawaran').value = null;
+    document.querySelector('#harga-subtotal-barang-surat-penawaran').innerHTML = '';
+
+    for(let z = 0; z<document.querySelectorAll('.keterangan-sp').length; z++){
+      if(document.querySelectorAll('.keterangan-sp')[z].scrollHeight < 72){
+        document.querySelectorAll('.keterangan-sp')[z].style.height = '72px';
+      }
+    }
+
+    for(let z = 0; z<document.querySelectorAll('.hapus-potongan-kertas-surat-penawaran').length; z++){
+    document.querySelectorAll('.hapus-potongan-kertas-surat-penawaran')[z].addEventListener('click', function(e){
+      e.stopPropagation();
+        e.target.parentElement.parentElement.parentElement.remove();
+            i = 0;
+            for(let x = 0; x<document.querySelectorAll('.potongan-kertas-surat-penawaran').length; x++){
+              document.querySelectorAll('.potongan-kertas-surat-penawaran')[x].style.left = '0';
+            }      
+        if(document.querySelectorAll('.potongan-kertas-surat-penawaran').length == 0){
+        document.querySelector('#preview-surat-penawaran').style.margin = '0'
+        }
+      })
+    }
+
+    for(let z = 0; z<document.querySelectorAll('.print-potongan-kertas-surat-penawaran').length; z++){
+    document.querySelectorAll('.print-potongan-kertas-surat-penawaran')[z].addEventListener('click', function(e){
+      e.stopPropagation();
+        document.body.style.visibility = 'hidden';
+        document.querySelector('#preview-surat-penawaran').style.visibility = 'visible';
+        document.body.style.setProperty("background-color", "white", "important");
+        document.querySelector('#tombol-burger').style.visibility = 'hidden';
+        document.querySelector('#pengaturan-surat-penawaran').style.visibility = 'hidden';
+        document.querySelector('#tabel-surat-penawaran').style.visibility = 'hidden';
+        e.target.style.visibility = 'hidden';
+        document.querySelector('#tombol-posisi-geser-sp').style.visibility = 'hidden';
+        document.querySelector('#preview-surat-penawaran').style.position = 'absolute';
+        document.querySelector('#preview-surat-penawaran').style.width = '100%';
+        document.querySelector('#preview-surat-penawaran').style.top = '0';
+        document.querySelector('#preview-surat-penawaran').style.left = '0';
+        document.querySelector('#preview-surat-penawaran').style.margin = '0';
+        document.querySelector('#myTabContent').style.marginLeft = '0';
+        for(let y = 0; y< document.querySelectorAll('.potongan-kertas-surat-penawaran').length; y++){
+          document.querySelectorAll('.potongan-kertas-surat-penawaran')[y].style.visibility = 'hidden';
+        }
+        e.target.parentElement.parentElement.parentElement.style.visibility = 'visible';
+        e.target.parentElement.parentElement.parentElement.style.margin = '0';
+        e.target.parentElement.parentElement.parentElement.style.width = '100%';
+        window.print();
+        document.querySelector('#tombol-burger').style.visibility = 'visible';
+        for(let y = 0; y< document.querySelectorAll('.potongan-kertas-surat-penawaran').length; y++){
+          document.querySelectorAll('.potongan-kertas-surat-penawaran')[y].style.visibility = 'visible'
+        }
+        e.target.parentElement.parentElement.parentElement.style.margin = '0 5%';
+        e.target.parentElement.parentElement.parentElement.style.width = '90%';
+        document.querySelector('#pengaturan-surat-penawaran').style.visibility = 'visible';
+        document.querySelector('#tabel-surat-penawaran').style.visibility = 'visible';
+        e.target.style.visibility = 'visible';
+        document.body.style.visibility = 'visible';
+        document.querySelector('#tombol-posisi-geser-sp').style.visibility = 'visible';
+        document.querySelector('#preview-surat-penawaran').style.position = 'relative';
+        document.querySelector('#preview-surat-penawaran').style.margin = '20px 0';
         document.body.style.setProperty("background-color", "#eeeeee", "important");
         setTimeout(function(){
         document.querySelector('#darken').style.backgroundColor = '0';
