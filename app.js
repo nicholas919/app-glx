@@ -980,7 +980,7 @@ const setupUI = (user) => {
                 }
             });
             [document.querySelector('#tambahpengumuman'), document.querySelector('#swot'), document.querySelector('#achievement'), document.querySelector('#transaksi-berjalan'), document.querySelector('#retur-dealer')
-            , document.querySelector('#surat-jalan'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#jumbotron-swot'), document.querySelector('#daftar-peserta')
+            , document.querySelector('#surat-jalan'), document.querySelector('#surat-penawaran'), document.querySelector('#jumbotron-performa-peserta'), document.querySelector('#jumbotron-swot'), document.querySelector('#daftar-peserta')
             , document.querySelector('#tambahperpindahanbarang')].forEach(item => {
                 item.style.display = 'none';
             });
@@ -1024,6 +1024,7 @@ const setupUI = (user) => {
     if(/Mobi/.test(navigator.userAgent) || /Android/i.test(navigator.userAgent)){
       document.querySelector('#cetak-label').style.display = 'none';
       document.querySelector('#surat-jalan').style.display = 'none';
+      document.querySelector('#surat-penawaran').style.display = 'none';
       for(let x = 0; x<document.querySelectorAll('.print-retur').length; x++){
         document.querySelectorAll('.print-retur')[x].style.display = 'none';
       }
