@@ -751,7 +751,7 @@ const setupUI = (user) => {
             z.addListener(winWidth700);
             function winWidth700(z){
             if (z.matches) {
-                    document.querySelector('#tabel-peserta').style.width = '120%';                    
+                    document.querySelector('#tabel-peserta').style.width = '200%';                    
             } else {
                     document.querySelector('#tabel-peserta').style.width = '100%';                    
             }
