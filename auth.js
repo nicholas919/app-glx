@@ -703,9 +703,6 @@ auth.onAuthStateChanged(user => {
                
 
         $(document).ready(function(){
-            setInterval(function(){ refreshOnPengumuman(); }, 60000);
-            setInterval(function(){ refreshOnOverview(); }, 1000);
-            setInterval(function(){ refreshOnCatatan(); }, 60000);
             setInterval(function(){ refreshOnPerpindahan(); }, 1000);
             setInterval(function(){ refreshOnPerpindahanKedua(); }, 100);
             setInterval(function(){ refreshOnJumlahTenor(); }, 100);
@@ -713,121 +710,6 @@ auth.onAuthStateChanged(user => {
             setInterval(function(){ refreshOnRetur(); }, 1000)
             setInterval(function(){ refreshOnReturDealer(); }, 1000)
         });
-
-        function refreshOnPengumuman(){
-        if(auth.currentUser != null){
-          db.collection('pengumuman').get().then(function(querySnapshot){
-            querySnapshot.docs.map((doc) => {
-              let tanggal = doc.data().tanggal;
-              let tanggalSekarang = new Date().getTime();
-              let perbandinganWaktu = tanggalSekarang - tanggal;
-              let perbandinganBaru;
-              if(perbandinganWaktu >= 31536000000){
-                  let perhitunganTahun = Math.floor(perbandinganWaktu/31536000000);
-                  perbandinganWaktu = perhitunganTahun + ' tahun yang lalu';
-                  perbandinganBaru = '';
-              } else if(perbandinganWaktu >= 2629800000){
-                  let perhitunganBulan = Math.floor(perbandinganWaktu/2629800000);
-                  perbandinganWaktu = perhitunganBulan + ' bulan yang lalu';
-                  perbandinganBaru = '';
-              } else if(perbandinganWaktu >= 604800000){
-                  let perhitunganMinggu = Math.floor(perbandinganWaktu/604800000);
-                  perbandinganWaktu = perhitunganMinggu + ' minggu yang lalu';
-                  perbandinganBaru = '';
-              } else if(perbandinganWaktu >= 86400000){
-                  if(perbandinganWaktu > 259200000){
-                      perbandinganBaru = '';
-                  } else {
-                      perbandinganBaru = 'Baru';
-                  }                
-                  let perhitunganHari = Math.floor(perbandinganWaktu/86400000);
-                  perbandinganWaktu = perhitunganHari + ' hari yang lalu';
-              } else if(perbandinganWaktu >= 3600000){
-                  let perhitunganJam = Math.floor(perbandinganWaktu/3600000);
-                  perbandinganWaktu = perhitunganJam + ' jam yang lalu';
-                  perbandinganBaru = 'Baru';
-              } else if(perbandinganWaktu >= 60000){
-                  let perhitunganMenit = Math.floor(perbandinganWaktu/60000);
-                  perbandinganWaktu = perhitunganMenit + ' menit yang lalu';
-                  perbandinganBaru = 'Baru';
-              } else if(perbandinganWaktu < 60000){
-                  perbandinganWaktu = 'baru saja';
-                  perbandinganBaru = 'Baru';
-              }
-              $('#waktu-pengumuman-dibuat' + doc.id).text(perbandinganWaktu);
-              $('#perbandingan-baru' + doc.id).text(perbandinganBaru);
-            })
-          }, err => console.log(err.message))
-            }
-        }
-
-        function refreshOnOverview(){
-        if(auth.currentUser != null){
-          db.collection('overview').get().then(function(querySnapshot){
-            querySnapshot.docs.map((doc) => {
-              let waktuOverview = doc.data().waktuOverview;
-              let waktuSekarang = new Date().getTime();
-              let perbandinganWaktu = waktuSekarang - waktuOverview;
-                if(perbandinganWaktu >= 31536000000){
-                    let perhitunganTahun = Math.floor(perbandinganWaktu/31536000000);
-                    perbandinganWaktu = 'pada ' + perhitunganTahun + ' tahun yang lalu';
-                } else if(perbandinganWaktu >= 2629800000){
-                    let perhitunganBulan = Math.floor(perbandinganWaktu/2629800000);
-                    perbandinganWaktu = 'pada ' + perhitunganBulan + ' bulan yang lalu';
-                } else if(perbandinganWaktu >= 604800000){
-                    let perhitunganMinggu = Math.floor(perbandinganWaktu/604800000);
-                    perbandinganWaktu = 'pada ' + perhitunganMinggu + ' minggu yang lalu';
-                } else if(perbandinganWaktu >= 86400000){
-                    let perhitunganHari = Math.floor(perbandinganWaktu/86400000);
-                    perbandinganWaktu = 'pada ' + perhitunganHari + ' hari yang lalu';
-                } else if(perbandinganWaktu >= 3600000){
-                    let perhitunganJam = Math.floor(perbandinganWaktu/3600000);
-                    perbandinganWaktu = 'pada ' + perhitunganJam + ' jam yang lalu';
-                } else if(perbandinganWaktu >= 60000){
-                    let perhitunganMenit = Math.floor(perbandinganWaktu/60000);
-                    perbandinganWaktu = 'pada ' + perhitunganMenit + ' menit yang lalu';
-                } else if(perbandinganWaktu < 60000){
-                    perbandinganWaktu = 'baru saja';
-                }
-                $('#waktu-overview' + doc.id).text(perbandinganWaktu);
-            })
-          }, err => console.log(err.message))
-            }
-        }
-
-        function refreshOnCatatan(){
-        if(auth.currentUser != null){
-        db.collection('catatan').get().then(function(querySnapshot){
-            querySnapshot.docs.map((doc) => {
-                let tanggal = doc.data().tanggal;
-                let tanggalSekarang = new Date().getTime();
-                let perbandinganWaktu = tanggalSekarang - tanggal;
-                if(perbandinganWaktu >= 31536000000){
-                    let perhitunganTahun = Math.floor(perbandinganWaktu/31536000000);
-                    perbandinganWaktu = 'Dibuat pada ' + perhitunganTahun + ' tahun yang lalu';
-                } else if(perbandinganWaktu >= 2629800000){
-                    let perhitunganBulan = Math.floor(perbandinganWaktu/2629800000);
-                    perbandinganWaktu = 'Dibuat pada ' + perhitunganBulan + ' bulan yang lalu';
-                } else if(perbandinganWaktu >= 604800000){
-                    let perhitunganMinggu = Math.floor(perbandinganWaktu/604800000);
-                    perbandinganWaktu = 'Dibuat pada ' + perhitunganMinggu + ' minggu yang lalu';
-                } else if(perbandinganWaktu >= 86400000){
-                    let perhitunganHari = Math.floor(perbandinganWaktu/86400000);
-                    perbandinganWaktu = 'Dibuat pada ' + perhitunganHari + ' hari yang lalu'
-                } else if(perbandinganWaktu >= 3600000){
-                    let perhitunganJam = Math.floor(perbandinganWaktu/3600000);
-                    perbandinganWaktu = 'Dibuat pada ' + perhitunganJam + ' jam yang lalu';
-                } else if(perbandinganWaktu >= 60000){
-                    let perhitunganMenit = Math.floor(perbandinganWaktu/60000);
-                    perbandinganWaktu = 'Dibuat pada ' + perhitunganMenit + ' menit yang lalu';
-                } else if(perbandinganWaktu < 60000){
-                    perbandinganWaktu = 'Dibuat baru saja';
-                }
-                $('#waktu-luncur-catatan' + doc.id).text(perbandinganWaktu)                
-            })
-          }, err => console.log(err.message))
-            }
-        }
 
         function refreshOnPerpindahan(e){
         if(auth.currentUser != null){            
