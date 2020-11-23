@@ -2,6 +2,10 @@ body{
 	background-color: #eeeeee !important;
 }
 
+.deskripsi-format-order{
+	width:fit-content;
+}
+
 .format-order{
 	background-color: white;
 	border:1px solid darkgrey;

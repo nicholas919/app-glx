@@ -3328,7 +3328,7 @@ formFormatOrder.addEventListener('submit', function(e){
   let div = document.createElement('div');
   div.classList.add('format-order')
     div.innerHTML = `
-    <div class="ml-auto mr-auto" style="width:fit-content;">
+    <div class="ml-auto mr-auto deskripsi-format-order">
     <div>Terima kasih sudah berbelanja di Galaxy Camera</div>
     <div>Berikut rincian harga beserta ongkir</div>
     ${sum}
@@ -3347,7 +3347,7 @@ formFormatOrder.addEventListener('submit', function(e){
   for(let x = 0; x<document.querySelectorAll('.copy-format-order').length; x++){
     document.querySelectorAll('.copy-format-order')[x].addEventListener('click', function(e){
       let range = document.getSelection().getRangeAt(0);
-      range.selectNode(e.target.parentElement);
+      range.selectNode(e.target.parentElement.querySelector('.deskripsi-format-order'));
       window.getSelection().addRange(range);
       document.execCommand("copy");
     })
