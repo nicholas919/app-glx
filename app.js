@@ -4304,16 +4304,19 @@ function renderEkspedisiCetakLabel(doc){
     let div = document.createElement('div');
     let opsi = document.createElement('option');
     let opsiKedua = document.createElement('option');
+    let opsiKetiga = document.createElement('option');
     let ekspedisiCetakLabel = document.createElement('div');
     opsi.setAttribute('id', 'ekspedisicetaklabel' + doc.id);
     opsiKedua.setAttribute('id', 'ekspedisitransaksiberjalan' + doc.id);
+    opsiKetiga.setAttribute('id', 'ekspedisiformatorder' + doc.id);
     div.classList.add('dokumentasi-ekspedisi-cetak-label' + doc.id, 'ekspedisicetaklabel')
     div.setAttribute('data-id', doc.id);
     let namaEkspedisiCetakLabel = doc.data().namaEkspedisiCetakLabel;
     let tanggal = doc.data().tanggal;
     div.setAttribute('data-date', tanggal);
     opsi.setAttribute('data-date', tanggal);
-    opsiKedua.setAttribute('data-date', tanggal);  
+    opsiKedua.setAttribute('data-date', tanggal);
+    opsiKetiga.setAttribute('data-date', tanggal);  
     div.innerHTML = `
     <div id="nama-ekspedisi-cetak-label-tampilan${doc.id}" class="nama-ekspedisi-cetak-label-tampilan">${namaEkspedisiCetakLabel}</div>
     <i class='fas fa-pen edit-ekspedisi-cetak-label' id='edit${doc.id}' data-target="#modalekspedisicetaklabel${doc.id}" data-toggle="modal"></i>
@@ -4321,6 +4324,7 @@ function renderEkspedisiCetakLabel(doc){
     `
     opsi.innerHTML = namaEkspedisiCetakLabel;
     opsiKedua.innerHTML = namaEkspedisiCetakLabel;
+    opsiKetiga.innerHTML = namaEkspedisiCetakLabel;
 
     ekspedisiCetakLabel.innerHTML = `
         <div class="modal fade" id="modalekspedisicetaklabel${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -4372,6 +4376,7 @@ function renderEkspedisiCetakLabel(doc){
 
     }
     document.querySelector('#ekspedisi-transaksi-berjalan').options[0].parentNode.insertBefore(opsiKedua, document.querySelector('#ekspedisi-transaksi-berjalan').options[0].nextSibling);
+    document.querySelector('#ekspedisi-format-order').options[0].parentNode.insertBefore(opsiKetiga, document.querySelector('#ekspedisi-format-order').options[0].nextSibling);
 
     $(document).ready(function() {
     db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
@@ -4386,6 +4391,23 @@ function renderEkspedisiCetakLabel(doc){
     let daftarOpsiEkspedisiTransaksiBerjalan = $('#ekspedisi-transaksi-berjalan');
     $.each(items, function(i, div) {
     daftarOpsiEkspedisiTransaksiBerjalan.append(div)
+    })
+  })
+})
+
+    $(document).ready(function() {
+    db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+    let items = $('#ekspedisi-format-order > option').get();
+    items.sort(function(a, b) {
+    let keyA = $(a).data('date');
+    let keyB = $(b).data('date');
+    if (keyA > keyB) return 1;
+    if (keyA < keyB) return -1;
+    return 0;
+    })
+    let daftarOpsiEkspedisiFormatOrder = $('#ekspedisi-format-order');
+    $.each(items, function(i, div) {
+    daftarOpsiEkspedisiFormatOrder.append(div)
     })
   })
 })   
@@ -5680,6 +5702,36 @@ function renderTransaksiBerjalan(doc){
 
     listTransaksiBerjalan.appendChild(tr);
     modalTransaksi.appendChild(transaksi);
+
+    db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
+        querySnapshot.docs.map(item => {
+            let option = document.createElement('option');
+            option.setAttribute('data-date', item.data().tanggal);
+            if(ekspedisiTransaksi == item.data().namaEkspedisiCetakLabel){
+                option.setAttribute('selected', 'selected');
+            }
+            option.innerHTML = item.data().namaEkspedisiCetakLabel;
+            document.querySelector('#ekspedisi-transaksi-berjalan' + doc.id).options[0].parentNode.insertBefore(option, document.querySelector('#ekspedisi-transaksi-berjalan' + doc.id).options[0].nextSibling);
+
+            $(document).ready(function() {
+            db.collection('ekspedisiCetakLabel').onSnapshot(snapshot =>{
+            let items = $('#ekspedisi-transaksi-berjalan' + doc.id + ' > option').get();
+            items.sort(function(a, b) {
+            let keyA = $(a).data('date');
+            let keyB = $(b).data('date');
+            if (keyA > keyB) return 1;
+            if (keyA < keyB) return -1;
+            return 0;
+            })
+            let daftarOpsiEkspedisiTransaksiBerjalan = $('#ekspedisi-transaksi-berjalan' + doc.id);
+            $.each(items, function(i, div) {
+            daftarOpsiEkspedisiTransaksiBerjalan.append(div)
+            })
+          })
+        })   
+            
+        })
+    })
 
     let edit = document.querySelector('#edit' + doc.id);
     edit.addEventListener('click', function(e){

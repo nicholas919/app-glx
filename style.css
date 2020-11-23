@@ -2,6 +2,17 @@ body{
 	background-color: #eeeeee !important;
 }
 
+.format-order{
+	background-color: white;
+	border:1px solid darkgrey;
+	margin:10px;
+	padding: 10px;
+}
+
+.copy-format-order{
+	margin-top: 10px;
+}
+
 .info-sp{
 	display:grid;
 	grid-template-columns:450px auto 450px;
@@ -413,6 +424,31 @@ body{
 	background-color: white;
 }
 
+.pdf-potongan-kertas-surat-penawaran{
+	font-size: 24px !important;
+    border: 1px solid #cc1d1d;
+    color: white;
+    background-color: #cc1d1d;
+    width: 42px;
+    height: 40px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex !important;
+    position: absolute;
+    cursor: pointer;	
+}
+
+.pdf-potongan-kertas-surat-penawaran{
+    top: 0;
+	right: 82px;
+}
+
+.pdf-potongan-kertas-surat-penawaran:hover{
+	color:#cc1d1d;
+	background-color: white;
+}
+
 #preview-surat-jalan, #preview-surat-penawaran{
 	display: flex;
 	position: relative;
@@ -484,7 +520,7 @@ body{
 	margin-bottom: -5px;
 }
 
-.alamat-pt-sj, .nama-pt-sj, .nama-pt-sp, .kontak-pt-sj, .tombol-hapus-kolom-surat-jalan, .tombol-hapus-kolom-surat-penawaran, .subtotal-sj, .subtotal-sp, #subtotal-barang-surat-jalan td:nth-child(1), #subtotal-barang-surat-penawaran td:nth-child(1), .header-pengaturan-surat-jalan, .header-pengaturan-surat-penawaran, #tombol-tambah-baris-surat-jalan, #tombol-tambah-karyawan-list-gaji, #tombol-tambah-baris-surat-penawaran{
+.alamat-pt-sj, .nama-pt-sj, .nama-pt-sp, .kontak-pt-sj, .tombol-hapus-kolom-surat-jalan, .tombol-hapus-kolom-surat-penawaran, .subtotal-sj, .subtotal-sp, #subtotal-barang-surat-jalan td:nth-child(1), #subtotal-barang-surat-penawaran td:nth-child(1), .header-pengaturan-surat-jalan, .header-pengaturan-surat-penawaran, #tombol-tambah-baris-surat-jalan, #tombol-tambah-karyawan-list-gaji, #tombol-tambah-baris-surat-penawaran, #tombol-tambah-baris-format-order{
 	font-weight: bold;
 }
 
@@ -531,16 +567,23 @@ body{
 	cursor: pointer;
 }
 
-#tombol-tambah-baris-surat-jalan, #tombol-tambah-karyawan-list-gaji, #tombol-tambah-baris-surat-jalan, #tombol-tambah-baris-surat-penawaran{
+#tombol-tambah-baris-format-order{
+	border:1px solid lightgray;
+	padding: 10px;
+	text-align: center;
+	border-radius: 5px;
+}
+
+#tombol-tambah-baris-surat-jalan, #tombol-tambah-karyawan-list-gaji, #tombol-tambah-baris-surat-jalan, #tombol-tambah-baris-surat-penawaran, #tombol-tambah-baris-format-order{
 	cursor: pointer;
 	background-color: white;
 }
 
-#tombol-tambah-baris-surat-jalan:hover, #tombol-tambah-karyawan-list-gaji:hover, #tombol-tambah-baris-surat-penawaran:hover{
+#tombol-tambah-baris-surat-jalan:hover, #tombol-tambah-karyawan-list-gaji:hover, #tombol-tambah-baris-surat-penawaran:hover, #tombol-tambah-baris-format-order:hover{
 	background-color: #f5f5f5;
 }
 
-#tombol-tambah-baris-surat-jalan:active, #tombol-tambah-karyawan-list-gaji:active, #tombol-tambah-baris-surat-penawaran:active{
+#tombol-tambah-baris-surat-jalan:active, #tombol-tambah-karyawan-list-gaji:active, #tombol-tambah-baris-surat-penawaran:active, #tombol-tambah-baris-format-order:active{
 	background-color: rgba(0,0,0,.2);
 }
 

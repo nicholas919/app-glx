@@ -392,10 +392,9 @@ auth.onAuthStateChanged(user => {
                         listEkspedisiCetakLabel.removeChild(div);                        
                         opsi.remove();
                         document.querySelector('#ekspedisitransaksiberjalan' + change.doc.id).remove();
-                        setInterval(function(){
+                        document.querySelector('#ekspedisiformatorder' + change.doc.id).remove();
                         document.querySelectorAll('.ekspedisi-transaksi-berjalan' + change.doc.id).forEach(eks => {
                         eks.remove();
-                        })
                     },10)                        
                     } else if(change.type == 'modified'){
                         renderUpdateEkspedisiCetakLabel(change.doc);
@@ -706,7 +705,6 @@ auth.onAuthStateChanged(user => {
             setInterval(function(){ refreshOnPerpindahan(); }, 1000);
             setInterval(function(){ refreshOnPerpindahanKedua(); }, 100);
             setInterval(function(){ refreshOnJumlahTenor(); }, 100);
-            setInterval(function(){ refreshOnOpsiEkspedisi(); }, 100);
             setInterval(function(){ refreshOnRetur(); }, 1000)
             setInterval(function(){ refreshOnReturDealer(); }, 1000)
         });
@@ -833,61 +831,6 @@ auth.onAuthStateChanged(user => {
                 for(let x = 0; x<tombolTenor.length; x++){
                     tombolTenor[x].style.marginBottom = '0px'
                 }                
-            }
-        }
-
-        function refreshOnOpsiEkspedisi(e){
-        if(auth.currentUser != null){            
-            let daftarOpsiEkspedisi = document.querySelectorAll('.ekspedisi-transaksi-berjalan');
-            for(let x = 0; x<daftarOpsiEkspedisi.length; x++){
-            db.collection('ekspedisiCetakLabel').get().then(function(querySnapshot){
-            querySnapshot.docs.map((doc) => {
-            db.collection('transaksiBerjalan').get().then(function(secondQuerySnapshot){
-            let ekspedisiTransaksiBerjalan = document.querySelectorAll('.ekspedisi-transaksi-berjalan' + doc.id);
-            if(ekspedisiTransaksiBerjalan.length != secondQuerySnapshot.docs.length){
-            if(!(daftarOpsiEkspedisi[x].length > querySnapshot.docs.length)){                
-                let opsi = document.createElement('option');
-                opsi.classList.add('ekspedisi-transaksi-berjalan' + doc.id);
-                let tanggal = doc.data().tanggal;
-                opsi.setAttribute('data-date', tanggal)
-                let namaEkspedisiCetakLabel = doc.data().namaEkspedisiCetakLabel;
-                opsi.innerHTML = namaEkspedisiCetakLabel;
-                daftarOpsiEkspedisi[x].options[0].parentNode.insertBefore(opsi, daftarOpsiEkspedisi[x].options[0].nextSibling);
-                    secondQuerySnapshot.docs.map((secondDoc) => {
-                        $(document).ready(function() {
-                        db.collection('transaksiBerjalan').onSnapshot(snapshot =>{
-                        let items = $('#ekspedisi-transaksi-berjalan' + secondDoc.id + ' > option').get();
-                        items.sort(function(a, b) {
-                        let keyA = $(a).data('date');
-                        let keyB = $(b).data('date');
-                        if (keyA > keyB) return 1;
-                        if (keyA < keyB) return -1;
-                        return 0;
-                        })
-                        let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-transaksi-berjalan' + secondDoc.id);
-                        $.each(items, function(i, div) {
-                        daftarOpsiEkspedisiCetakLabel.append(div)
-                        })
-                      })
-                    })
-                    let pilihanEkspedisi = document.querySelector('#ekspedisi-transaksi-berjalan' + secondDoc.id);
-                    let opsiEkspedisi;
-                    for(let x = 0; x<pilihanEkspedisi.options.length; x++){
-                        opsiEkspedisi = pilihanEkspedisi.options[x];
-                        if(opsiEkspedisi.value == secondDoc.data().ekspedisiTransaksi){
-                            opsiEkspedisi.setAttribute('selected', 'selected');
-                            }
-                        }                                        
-                })
-                }                                                        
-            }
-            for(let z = 0; z<ekspedisiTransaksiBerjalan.length; z++){
-                ekspedisiTransaksiBerjalan[z].innerHTML = doc.data().namaEkspedisiCetakLabel;
-                }            
-                    }, err => console.log(err.message))
-                })
-            }, err => console.log(err.message))
-                }
             }
         }
 
