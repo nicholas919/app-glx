@@ -5809,17 +5809,17 @@ function renderTransaksiBerjalan(doc){
 
     $(document).ready(function() {
     db.collection('transaksiBerjalan').onSnapshot(snapshot =>{
-    let items = $('#ekspedisi-transaksi-berjalan' + doc.id + ' > option').get();
+    let items = $('#list-transaksi-berjalan > .transaksi-berjalan').get();
     items.sort(function(a, b) {
     let keyA = $(a).data('date');
     let keyB = $(b).data('date');
-    if (keyA > keyB) return 1;
-    if (keyA < keyB) return -1;
+    if (keyA < keyB) return 1;
+    if (keyA > keyB) return -1;
     return 0;
     })
-    let daftarOpsiEkspedisiCetakLabel = $('#ekspedisi-transaksi-berjalan' + doc.id);
+    let daftarTransaksiBerjalan = $('#list-transaksi-berjalan');
     $.each(items, function(i, div) {
-    daftarOpsiEkspedisiCetakLabel.append(div)
+    daftarTransaksiBerjalan.append(div)
     })
   })
 })
