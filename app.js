@@ -751,7 +751,7 @@ const setupUI = (user) => {
             z.addListener(winWidth700);
             function winWidth700(z){
             if (z.matches) {
-                    document.querySelector('#tabel-peserta').style.width = '200%';                    
+                    document.querySelector('#tabel-peserta').style.width = '250%';                    
             } else {
                     document.querySelector('#tabel-peserta').style.width = '100%';                    
             }
@@ -4305,7 +4305,6 @@ function renderEkspedisiCetakLabel(doc){
     let opsi = document.createElement('option');
     let opsiKedua = document.createElement('option');
     let opsiKetiga = document.createElement('option');
-    let opsiKeempat = document.createElement('option');
     let ekspedisiCetakLabel = document.createElement('div');
     opsi.setAttribute('id', 'ekspedisicetaklabel' + doc.id);
     opsiKedua.setAttribute('id', 'ekspedisitransaksiberjalan' + doc.id);
@@ -4318,7 +4317,6 @@ function renderEkspedisiCetakLabel(doc){
     opsi.setAttribute('data-date', tanggal);
     opsiKedua.setAttribute('data-date', tanggal);
     opsiKetiga.setAttribute('data-date', tanggal);  
-    opsiKeempat.setAttribute('data-date', tanggal);
     div.innerHTML = `
     <div id="nama-ekspedisi-cetak-label-tampilan${doc.id}" class="nama-ekspedisi-cetak-label-tampilan">${namaEkspedisiCetakLabel}</div>
     <i class='fas fa-pen edit-ekspedisi-cetak-label' id='edit${doc.id}' data-target="#modalekspedisicetaklabel${doc.id}" data-toggle="modal"></i>
@@ -4327,7 +4325,6 @@ function renderEkspedisiCetakLabel(doc){
     opsi.innerHTML = namaEkspedisiCetakLabel;
     opsiKedua.innerHTML = namaEkspedisiCetakLabel;
     opsiKetiga.innerHTML = namaEkspedisiCetakLabel;
-    opsiKeempat.innerHTML = namaEkspedisiCetakLabel;
 
     ekspedisiCetakLabel.innerHTML = `
         <div class="modal fade" id="modalekspedisicetaklabel${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
