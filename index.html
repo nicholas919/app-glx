@@ -3327,22 +3327,39 @@ formFormatOrder.addEventListener('submit', function(e){
   }
   let div = document.createElement('div');
   div.classList.add('format-order')
-  div.innerHTML = `
-  <div class="ml-auto mr-auto" style="width:fit-content;">
-  <div>Terima kasih sudah berbelanja di Galaxy Camera</div>
-  <div>Berikut rincian harga beserta ongkir</div>
-  ${sum}
-  <div>*Ongkir* dengan ekspedisi _${ekspedisi}_ *Rp ${Number(ongkir).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})},-*</div>
-  <div>Tujuan : ${alamatTujuan}</div>
-  <div>Total : *Rp ${(totalHarga + Number(ongkir)).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})},-*</div>
-  <div>Untuk pembayaran silahkan transfer ke rekening berikut</div>
-  <div>No Rek BCA : *8680767808*</div>
-  <div>Atas Nama : PT Galaxy Digital Niaga</div>
-  <div>Kabari kami kembali ya kak jika sudah melakukan transaksi / pembayaran :smiling face with smiling eyes</div>
-  </div>
-  <div class="btn w-100 d-block btn-success copy-format-order">Copy</div>
-  `
-
+  if(/Mobi/.test(navigator.userAgent) || /Android/i.test(navigator.userAgent)){
+    div.innerHTML = `
+    <div class="ml-auto mr-auto" style="width:fit-content;">
+    <div>Terima kasih sudah berbelanja di Galaxy Camera</div>
+    <div>Berikut rincian harga beserta ongkir</div>
+    ${sum}
+    <div>*Ongkir* dengan ekspedisi _${ekspedisi}_ *Rp ${Number(ongkir).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})},-*</div>
+    <div>Tujuan : ${alamatTujuan}</div>
+    <div>Total : *Rp ${(totalHarga + Number(ongkir)).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})},-*</div>
+    <div>Untuk pembayaran silahkan transfer ke rekening berikut</div>
+    <div>No Rek BCA : *8680767808*</div>
+    <div>Atas Nama : PT Galaxy Digital Niaga</div>
+    <div>Kabari kami kembali ya kak jika sudah melakukan transaksi / pembayaran</div>
+    </div>
+    <div class="btn w-100 d-block btn-success copy-format-order">Copy</div>
+    `    
+  } else {
+    div.innerHTML = `
+    <div class="ml-auto mr-auto" style="width:fit-content;">
+    <div>Terima kasih sudah berbelanja di Galaxy Camera</div>
+    <div>Berikut rincian harga beserta ongkir</div>
+    ${sum}
+    <div>*Ongkir* dengan ekspedisi _${ekspedisi}_ *Rp ${Number(ongkir).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})},-*</div>
+    <div>Tujuan : ${alamatTujuan}</div>
+    <div>Total : *Rp ${(totalHarga + Number(ongkir)).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})},-*</div>
+    <div>Untuk pembayaran silahkan transfer ke rekening berikut</div>
+    <div>No Rek BCA : *8680767808*</div>
+    <div>Atas Nama : PT Galaxy Digital Niaga</div>
+    <div>Kabari kami kembali ya kak jika sudah melakukan transaksi / pembayaran :smiling face with smiling eyes</div>
+    </div>
+    <div class="btn w-100 d-block btn-success copy-format-order">Copy</div>
+    `
+}
   listFormatOrder.insertBefore(div, listFormatOrder.firstChild);
 
   for(let x = 0; x<document.querySelectorAll('.copy-format-order').length; x++){
