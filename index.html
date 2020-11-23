@@ -3343,7 +3343,7 @@ formFormatOrder.addEventListener('submit', function(e){
   <div class="btn w-100 d-block btn-success copy-format-order">Copy</div>
   `
 
-  listFormatOrder.appendChild(div);
+  listFormatOrder.insertBefore(div, listFormatOrder.firstChild);
 
   for(let x = 0; x<document.querySelectorAll('.copy-format-order').length; x++){
     document.querySelectorAll('.copy-format-order')[x].addEventListener('click', function(e){
