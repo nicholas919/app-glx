@@ -1091,12 +1091,13 @@
 <div style="margin:10px;background-color: honeydew;border:1px solid darkgray;">
   <form id="form-format-order" style="padding: 10px 15px 15px">
     <div style="font-size: 24px;font-weight: bold;">Format Order WA:</div>
+    <div id="list-barang-format-order">
     <div class="form-row barang-format-order">
-      <div class="form-group col-5">
+      <div class="form-group col-7">
         <label class="col-form-label">Nama Barang</label>
         <input type="text" class="form-control nama-barang-format-order" autocomplete="off">
       </div>
-      <div class="form-group col-3">
+      <div class="form-group col-2">
         <label class="col-form-label">Kts</label>
         <input type="number" class="form-control jumlah-barang-format-order" autocomplete="off">
       </div>
@@ -1106,11 +1107,11 @@
       </div>      
     </div>
     <div class="form-row barang-format-order">
-      <div class="form-group col-5">
+      <div class="form-group col-7">
         <label class="col-form-label">Nama Barang</label>
         <input type="text" class="form-control nama-barang-format-order" autocomplete="off">
       </div>
-      <div class="form-group col-3">
+      <div class="form-group col-2">
         <label class="col-form-label">Kts</label>
         <input type="number" class="form-control jumlah-barang-format-order" autocomplete="off">
       </div>
@@ -1118,6 +1119,7 @@
         <label class="col-form-label">@Harga</label>
         <input type="number" class="form-control harga-barang-format-order" autocomplete="off">
       </div>      
+    </div>
     </div>
     <div id="tombol-tambah-baris-format-order">Add Row +</div>
     <div class="form-row">
@@ -3282,11 +3284,11 @@ tambahBarisFO.addEventListener('click', function(e){
   if(document.querySelectorAll('.barang-format-order').length < 15){
   div.classList.add('form-row', 'barang-format-order');
   div.innerHTML = `
-    <div class="form-group col-5">
+    <div class="form-group col-7">
       <label class="col-form-label">Nama Barang</label>
       <input type="text" class="form-control nama-barang-format-order" autocomplete="off">
     </div>
-    <div class="form-group col-3">
+    <div class="form-group col-2">
       <label class="col-form-label">Kts</label>
       <input type="number" class="form-control jumlah-barang-format-order" autocomplete="off">
     </div>
@@ -3296,7 +3298,7 @@ tambahBarisFO.addEventListener('click', function(e){
     </div>      
     `
 
-  e.target.parentNode.insertBefore(div, e.target)
+    document.querySelector('#list-barang-format-order').appendChild(div);
 
   } else {
     alert('Sudah mencapai kuota maksimal, tidak bisa menambahkan kolom baru lagi.');

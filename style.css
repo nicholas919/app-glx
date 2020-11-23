@@ -2778,6 +2778,18 @@ div.induk-kategori-menu{
 	width: 400%;
 }
 
+#list-barang-format-order{
+	overflow-x: scroll;
+}
+
+.barang-format-order{
+	width: 180%;
+}
+
+#tombol-tambah-baris-format-order{
+	margin-top: 10px;
+}
+
 }
 
 @media only screen and (max-width: 660px){
