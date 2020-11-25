@@ -1919,7 +1919,7 @@ function renderTugasSelesai(doc){
     let performaTugas;
     if(selisihWaktu > 604800000 || selisihWaktu == 604800000){
         let perhitunganBulan = Math.floor(selisihWaktu/604800000) + ' Minggu ';
-        let perhitunganHari = Math.floor((selisihWaktu%(604800000))/86400000) + ' Hari';
+        let perhitunganHari = Math.floor((selisihWaktu%(604800000))/86400000) + ' Hari ';
         let perhitunganJam = Math.floor((selisihWaktu%(86400000))/3600000) + ' Jam ';
         let perhitunganMenit = Math.floor((selisihWaktu%(3600000))/60000) + ' Menit ';
         let perhitunganDetik = Math.floor((selisihWaktu%(60000))/1000) + ' Detik';
