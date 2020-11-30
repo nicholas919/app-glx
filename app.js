@@ -5100,8 +5100,59 @@ function renderPerpindahan(doc){
     if(tanggalPerpindahan == tanggalSekarang){
         listPerpindahanBarang.appendChild(div);
         document.querySelector('#tanggal-perpindahan-barang-tampilan' + doc.id).innerHTML = 'Hari Ini';
+        if(!document.querySelector('#peringatan-perpindahan') && !document.querySelector('#peringatan-perpindahan-kedua')){
+            let peringatan = document.createElement('div');
+            let peringatanKedua = document.createElement('div');
+            peringatan.setAttribute('id', 'peringatan-perpindahan');
+            peringatanKedua.setAttribute('id', 'peringatan-perpindahan-kedua');  
+            peringatan.innerHTML = `
+            <i class="fa fa-info-circle ikon-notice"></i> <span style="font-weight:bold;">NOTICE</span> : Terdapat <span id="jumlah-perpindahan-hari-ini">1</span> perpindahan yang telah terjadwalkan pada hari ini!
+            `
+            peringatanKedua.innerHTML = `
+            <div>
+            <div><i class="fa fa-warning"></i> <span style="font-weight:bold;">Announcement</span></div>
+            Terdapat <span id="jumlah-perpindahan-hari-ini-kedua">1</span> perpindahan yang telah terjadwalkan pada hari ini! <a id="link-lihat-perpindahan" class="tab-halaman" data-toggle="pill" href="#halaman-perpindahan-barang" role="tab" aria-controls="halaman-perpindahan-barang" aria-selected="true">Lihat Sekarang <i id="ikon-link-lihat-perpindahan" class='fas fa-paper-plane'></i></a>
+            </div>
+            <div id="hapus-peringatan-perpindahan-kedua"></div>
+            `
+            document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').parentNode.insertBefore(peringatan, document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').nextSibling);
+            document.querySelector('#jumbotron-performa-peserta').parentNode.insertBefore(peringatanKedua, document.querySelector('#jumbotron-performa-peserta'));            
+
+            let hapusPeringatanPerpindahanKedua = document.querySelector('#hapus-peringatan-perpindahan-kedua');
+            hapusPeringatanPerpindahanKedua.addEventListener('click', function(e){
+                e.stopImmediatePropagation();
+                document.querySelector('#peringatan-perpindahan-kedua').remove();
+                if(!document.querySelector('#peringatan-perpindahan-kedua')){
+                    document.querySelector('#kalender').style.setProperty('margin-top', '10px', 'important')    
+                }     
+            })
+
+            if(document.querySelector('#peringatan-perpindahan-kedua')){
+                if(window.innerWidth >= 650){
+                    document.querySelector('#kalender').style.setProperty('margin-top', '90px', 'important')
+                } else if(window.innerWidth <= 650){               
+                    document.querySelector('#kalender').style.setProperty('margin-top', '112px', 'important')
+                }
+            }
+
+            window.addEventListener('resize', function(e){
+                if(document.querySelector('#peringatan-perpindahan-kedua')){
+                    if(window.innerWidth >= 650){
+                        document.querySelector('#kalender').style.setProperty('margin-top', '90px', 'important')
+                    } else if(window.innerWidth <= 650){               
+                        document.querySelector('#kalender').style.setProperty('margin-top', '112px', 'important')
+                    }
+                }
+            })
+        } else if(document.querySelector('#peringatan-perpindahan') && document.querySelector('#peringatan-perpindahan-kedua')){
+            [document.querySelector('#jumlah-perpindahan-hari-ini'), document.querySelector('#jumlah-perpindahan-hari-ini-kedua')].forEach(item => {
+                item.innerHTML = Number(item.innerHTML) + 1;
+            })
+        }
     } else {
         listPerpindahanBarangPending.appendChild(div);
+        document.querySelector('#jumlah-perpindahan-pending').innerHTML = Number(document.querySelector('#jumlah-perpindahan-pending').innerHTML) + 1;
+
     }
     modalPerpindahanBarang.appendChild(perpindahan);    
 
@@ -5157,6 +5208,9 @@ function renderPerpindahan(doc){
     edit.addEventListener('submit', (e) =>{
         e.preventDefault();
         let tanggalUpdate = document.querySelector('#tanggal-perpindahan-barang' + doc.id).value;
+        if(tanggalUpdate == ''){
+            tanggalUpdate = new Date().getTime();
+        }
         let kontenPerpindahanUpdate = document.querySelector('#konten-perpindahan-barang' + doc.id).value;
         let overviewCadangan;
         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
@@ -5229,8 +5283,52 @@ function renderPerpindahan(doc){
 
 }
 
+function renderHapusPerpindahan(doc){
+    if(document.querySelector('#perpindahanbarang' + doc.id).parentElement == document.querySelector('#list-perpindahan-barang-pending')){
+        document.querySelector('#jumlah-perpindahan-pending').innerHTML = Number(document.querySelector('#jumlah-perpindahan-pending').innerHTML) - 1;
+    } else {
+        if(listPerpindahanBarang.childNodes.length == 1){
+            [document.querySelector('#peringatan-perpindahan'), document.querySelector('#peringatan-perpindahan-kedua')].forEach(item =>{
+                item.remove();
+            })
+        } else {
+            [document.querySelector('#jumlah-perpindahan-hari-ini'), document.querySelector('#jumlah-perpindahan-hari-ini-kedua')].forEach(item => {
+                item.innerHTML = Number(item.innerHTML) - 1;
+            })
+        }
+    }
+}
+
 function renderUpdatePerpindahan(doc){
-    let kontenPerpindahan = doc.data().kontenPerpindahan;
+    let tanggal = doc.data().tanggal;
+    let kontenPerpindahan = doc.data().kontenPerpindahan;    
+    let kalkulasiTanggal = new Date(tanggal);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggal = dd + ' ' + mm + ' ' + yyyy;
+    let mm1 = String(kalkulasiTanggal.getMonth() + 1).padStart(2, '0');
+    let tanggalPerpindahan = yyyy + mm1 + dd;
+    dd = String(new Date().getDate()).padStart(2, '0');
+    mm = String(new Date().getMonth() + 1).padStart(2, '0');
+    yyyy = new Date().getFullYear();
+    let tanggalSekarang = yyyy + mm + dd;
+    if(tanggalPerpindahan == tanggalSekarang){
+        listPerpindahanBarang.appendChild(document.querySelector('#perpindahanbarang' + doc.id));
+        document.querySelector('#tanggal-perpindahan-barang-tampilan' + doc.id).innerHTML = 'Hari Ini';
+        [document.querySelector('#jumlah-perpindahan-hari-ini'), document.querySelector('#jumlah-perpindahan-hari-ini-kedua')].forEach(item => {
+            item.innerHTML = Number(item.innerHTML) + 1;
+        })        
+        document.querySelector('#jumlah-perpindahan-pending').innerHTML = Number(document.querySelector('#jumlah-perpindahan-pending').innerHTML) - 1;
+    } else {
+        listPerpindahanBarangPending.appendChild(document.querySelector('#perpindahanbarang' + doc.id))
+        document.querySelector('#tanggal-perpindahan-barang-tampilan' + doc.id).innerHTML = tanggal;
+        document.querySelector('#jumlah-perpindahan-pending').innerHTML = Number(document.querySelector('#jumlah-perpindahan-pending').innerHTML) + 1;
+        [document.querySelector('#jumlah-perpindahan-hari-ini'), document.querySelector('#jumlah-perpindahan-hari-ini-kedua')].forEach(item => {
+            item.innerHTML = Number(item.innerHTML) - 1;
+        })        
+    }
     document.querySelector('#konten-perpindahan-barang-tampilan' + doc.id).innerHTML = kontenPerpindahan;
 }
 
@@ -5269,6 +5367,7 @@ function renderPerpindahanSelesai(doc){
     <div id="konten-perpindahan-barang-tampilan${doc.id}" class="konten-perpindahan-barang-tampilan">${kontenPerpindahan}</div>
     `    
     listPerpindahanBarangSelesai.appendChild(div);
+    document.querySelector('#jumlah-perpindahan-selesai').innerHTML = Number(document.querySelector('#jumlah-perpindahan-selesai').innerHTML) + 1;
 
     let hapus = document.querySelector('#hapus' + doc.id);
     hapus.addEventListener('click', (e) => {

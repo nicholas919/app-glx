@@ -873,10 +873,10 @@
     <table class="table garis" id="tabel-surat-jalan" style="margin-bottom: 0px;">
       <thead class="thead-dark">
         <tr>
-          <th scope="col" id="th-deskripsi-barang">Description</th>
-          <th scope="col" id="th-kuantitas-barang">Qty</th>
-          <th scope="col" id="th-harga-barang">Unit Price</th>
-          <th scope="col" id="th-total-harga-barang">Total Price</th>
+          <th scope="col" id="th-deskripsi-barang">Nama Barang</th>
+          <th scope="col" id="th-kuantitas-barang">Kts</th>
+          <th scope="col" id="th-harga-barang">@Harga</th>
+          <th scope="col" id="th-total-harga-barang">Total Harga</th>
           <th></th>
         </tr>
       </thead>
@@ -1152,8 +1152,8 @@
   <div id="judul-jumbotron-perpindahan-barang" class="display-4"><i class="fa fa-calendar-times-o"></i> Perpindahan</div>
   <div class="lead"></div>
     <div id="tombol-tambah-lihat-perpindahan">
-      <div id="lihatperpindahanselesai" class="tombol-lihat-perpindahan btn btn-primary pull-right">Perpindahan Selesai <span class="badge badge-success" id="jumlah-perpindahan-selesai"></span></div>
-      <div id="lihatperpindahanpending" class="tombol-lihat-perpindahan btn btn-primary pull-right">Perpindahan Pending <span class="badge badge-danger" id="jumlah-perpindahan-pending"></span></div>      
+      <div id="lihatperpindahanselesai" class="tombol-lihat-perpindahan btn btn-primary pull-right">Perpindahan Selesai <span class="badge badge-success" id="jumlah-perpindahan-selesai">0</span></div>
+      <div id="lihatperpindahanpending" class="tombol-lihat-perpindahan btn btn-primary pull-right">Perpindahan Pending <span class="badge badge-danger" id="jumlah-perpindahan-pending">0</span></div>      
     </div>
 </div>
 <div id="tombol-tambah-lihat-perpindahan-kedua"></div>
@@ -2293,19 +2293,6 @@ setInterval(function(){
   })
   }
 
-  let hapusPeringatanPerpindahanKedua = document.querySelector('#hapus-peringatan-perpindahan-kedua');
-  if(document.querySelector('#hapus-peringatan-perpindahan-kedua')){
-  hapusPeringatanPerpindahanKedua.addEventListener('click', function(e){
-    e.stopImmediatePropagation();
-    document.querySelector('#peringatan-perpindahan-kedua').remove();
-    setInterval(function(){
-    if(!document.querySelector('#peringatan-perpindahan-kedua')){
-    document.querySelector('#kalender').style.setProperty('margin-top', '10px', 'important')    
-    }
-    },10)      
-  })
-
-  }
   },10)
 
   })
@@ -3562,10 +3549,10 @@ formFormatOrder.addEventListener('submit', function(e){
           <table class="table table-striped">
             <thead class="thead-sj">
               <tr>
-                <th scope="col">Description</th>
-                <th scope="col">Qty</th>
-                <th scope="col">Unit Price</th>
-                <th scope="col">Total Price</th>
+                <th scope="col">Nama Barang</th>
+                <th scope="col">Kts</th>
+                <th scope="col">@Harga</th>
+                <th scope="col">Total Harga</th>
               </tr>
             </thead>
             <tbody class="list-barang-surat-jalan">

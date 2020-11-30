@@ -443,14 +443,8 @@ auth.onAuthStateChanged(user => {
                         }
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        renderHapusPerpindahan(change.doc);
                         div.remove();
-                        console.log(listPerpindahanBarang.childNodes.length)
-                        if(listPerpindahanBarang.childNodes.length == 0){
-                            if(document.querySelector('#peringatan-perpindahan') && document.querySelector('#peringatan-perpindahan-kedua')){
-                            document.querySelector('#peringatan-perpindahan').remove();
-                            document.querySelector('#peringatan-perpindahan-kedua').remove();  
-                            }
-                        }
                     } else if(change.type == 'modified'){
                         renderUpdatePerpindahan(change.doc);
                     }
@@ -467,6 +461,7 @@ auth.onAuthStateChanged(user => {
                     } else if(change.type == 'removed'){
                         let div = document.querySelector('[data-id="' + change.doc.id + '"]');
                         div.remove();
+                        document.querySelector('#jumlah-perpindahan-selesai').innerHTML = Number(document.querySelector('#jumlah-perpindahan-selesai').innerHTML) - 1;
                     }
                 })
     }, err => console.log(err.message))            
@@ -702,121 +697,11 @@ auth.onAuthStateChanged(user => {
                
 
         $(document).ready(function(){
-            setInterval(function(){ refreshOnPerpindahan(); }, 1000);
-            setInterval(function(){ refreshOnPerpindahanKedua(); }, 100);
             setInterval(function(){ refreshOnJumlahTenor(); }, 100);
             setInterval(function(){ refreshOnRetur(); }, 1000)
             setInterval(function(){ refreshOnReturDealer(); }, 1000)
         });
 
-        function refreshOnPerpindahan(e){
-        if(auth.currentUser != null){            
-        let count = 0;            
-        db.collection('perpindahan').get().then(function(querySnapshot){
-            querySnapshot.docs.map((doc) => {
-                let div = document.querySelector('[data-id="' + doc.id + '"]');                
-                let tanggal = doc.data().tanggal;
-                div.setAttribute('data-date', new Date(tanggal).getTime())
-                let tanggalSekarang = new Date();
-                let dd = String(new Date(tanggal).getDate()).padStart(2, '0');
-                let mm1 = String(new Date(tanggal).getMonth() + 1).padStart(2, '0');
-                let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                let mm = bulan[new Date(tanggal).getMonth()]                
-                let yyyy = new Date(tanggal).getFullYear();
-                tanggal = yyyy + mm1 + dd;
-                let tampilanTanggal = dd + ' ' + mm + ' ' + yyyy;
-                dd = String(tanggalSekarang.getDate()).padStart(2, '0');
-                mm1 = String(tanggalSekarang.getMonth() + 1).padStart(2, '0');
-                yyyy = tanggalSekarang.getFullYear();
-                tanggalSekarang = yyyy + mm1 + dd;
-                if(tanggal == tanggalSekarang){
-                    document.querySelector('#tanggal-perpindahan-barang-tampilan' + doc.id).innerHTML = 'Hari Ini';
-                    listPerpindahanBarang.appendChild(div);
-                        let items = $('#list-perpindahan-barang > .perpindahan-barang').get();
-                        items.sort(function(a, b) {
-                        let keyA = $(a).data('date');
-                        let keyB = $(b).data('date');
-                        if (keyA < keyB) return 1;
-                        if (keyA > keyB) return -1;
-                        return 0;
-                            })
-                        let daftarPerpindahanBarang = $('#list-perpindahan-barang');
-                        $.each(items, function(i, div) {
-                        daftarPerpindahanBarang.append(div);
-                            })
-                } else {
-                    document.querySelector('#tanggal-perpindahan-barang-tampilan' + doc.id).innerHTML = 'Tanggal ' + tampilanTanggal;
-                        listPerpindahanBarangPending.appendChild(div);
-                            let items = $('#list-perpindahan-barang-pending > .perpindahan-barang').get();
-                            items.sort(function(a, b) {
-                            let keyA = $(a).data('date');
-                            let keyB = $(b).data('date');
-                            if (keyA < keyB) return 1;
-                            if (keyA > keyB) return -1;
-                            return 0;
-                                })
-                            let daftarPerpindahanBarangPending = $('#list-perpindahan-barang-pending');
-                            $.each(items, function(i, div) {
-                            daftarPerpindahanBarangPending.append(div);
-                                })                        
-                }
-                if(!document.querySelector('#peringatan-perpindahan') && !document.querySelector('#peringatan-perpindahan-kedua')){
-                    if(tanggal == tanggalSekarang){
-                        let counter = 1;                        
-                        count += counter;
-                    }
-                    if(count != 0){
-                    let peringatan = document.createElement('div');
-                    let peringatanKedua = document.createElement('div');
-                    peringatan.setAttribute('id', 'peringatan-perpindahan');
-                    peringatanKedua.setAttribute('id', 'peringatan-perpindahan-kedua');
-                    peringatan.innerHTML = `
-                    <i class="fa fa-info-circle ikon-notice"></i> <span style="font-weight:bold;">NOTICE</span> : Terdapat <span id="jumlah-perpindahan-hari-ini">${count}</span> perpindahan yang telah terjadwalkan pada hari ini!
-                    `
-                    peringatanKedua.innerHTML = `
-                    <div>
-                    <div><i class="fa fa-warning"></i> <span style="font-weight:bold;">Announcement</span></div>
-                    Terdapat <span id="jumlah-perpindahan-hari-ini-kedua">${count}</span> perpindahan yang telah terjadwalkan pada hari ini! <a id="link-lihat-perpindahan" class="tab-halaman" data-toggle="pill" href="#halaman-perpindahan-barang" role="tab" aria-controls="halaman-perpindahan-barang" aria-selected="true">Lihat Sekarang <i id="ikon-link-lihat-perpindahan" class='fas fa-paper-plane'></i></a>
-                    </div>
-                    <div id="hapus-peringatan-perpindahan-kedua"></div>
-                    `
-                    document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').parentNode.insertBefore(peringatan, document.querySelector('#tombol-tambah-lihat-perpindahan-kedua').nextSibling);
-                    document.querySelector('#jumbotron-performa-peserta').parentNode.insertBefore(peringatanKedua, document.querySelector('#jumbotron-performa-peserta'));
-                    setInterval(function(){
-                        if(document.querySelector('#peringatan-perpindahan-kedua')){
-                            if(window.innerWidth >= 650){
-                            document.querySelector('#kalender').style.setProperty('margin-top', '90px', 'important')
-                            } else if(window.innerWidth <= 650){               
-                            document.querySelector('#kalender').style.setProperty('margin-top', '112px', 'important')
-                            }
-                        }
-                        },10)                    
-                    }
-                } else if(document.querySelector('#peringatan-perpindahan') && document.querySelector('#peringatan-perpindahan-kedua')){
-                    if(tanggal == tanggalSekarang){
-                        let counter = 1;                        
-                        count += counter;
-                    }
-                    if(count == 0){
-                        document.querySelector('#peringatan-perpindahan').remove();
-                        document.querySelector('#peringatan-perpindahan-kedua').remove();                    
-                    } else {
-                        document.querySelector('#jumlah-perpindahan-hari-ini').innerHTML = count;
-                        document.querySelector('#jumlah-perpindahan-hari-ini-kedua').innerHTML = count;
-                    }
-                }               
-            })
-          }, err => console.log(err.message))
-            }
-        }
-
-        function refreshOnPerpindahanKedua(e){
-            document.querySelector('#jumlah-perpindahan-pending').innerHTML = document.querySelector('#list-perpindahan-barang-pending').childNodes.length;
-            document.querySelector('#jumlah-perpindahan-selesai').innerHTML = document.querySelector('#list-perpindahan-barang-selesai').childNodes.length;
-            if(!document.querySelector('#peringatan-perpindahan-kedua')){
-                document.querySelector('#kalender').style.setProperty('margin-top', '10px', 'important')
-            }
-        }
         function refreshOnJumlahTenor(e){
             let tombolTenor = document.querySelectorAll('.tombol-tenor-kalkulator')
             if(document.querySelectorAll('.tombol-tenor-kalkulator').length > 3){
