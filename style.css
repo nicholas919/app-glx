@@ -1328,15 +1328,15 @@ input:checked + .slider:after {
 }
 
 @media print {
-#preview-print-cetak-label{
+#preview-print-cetak-label, #preview-print-cetak-label{
 	display: grid;
 }
 
-.potongan-kertas-cetak-label:nth-child(1), .potongan-kertas-cetak-label:nth-child(2){
+.potongan-kertas-cetak-label:nth-child(1), .potongan-kertas-transaksi-berjalan:nth-child(1), .potongan-kertas-cetak-label:nth-child(2){
 	border-top: 1px dashed black;
 }
 
-.potongan-kertas-cetak-label:nth-child(odd){
+.potongan-kertas-cetak-label:nth-child(odd), .potongan-kertas-transaksi-berjalan:nth-child(odd){
 	border-bottom:1px dashed black;
 	border-right: 1px dashed black; 
 }
@@ -1422,7 +1422,7 @@ input:checked + .slider:after {
     text-align: center;
 }
 
-#preview-print-cetak-label{
+#preview-print-cetak-label, #preview-print-transaksi-berjalan{
 	margin-top: 8px;
 	background-color: white;
 	display: grid;
@@ -1493,11 +1493,11 @@ input:checked + .slider:after {
 	padding: 4px;
 }
 
-.potongan-kertas-cetak-label, .keterangan-pedoman, .judul-pedoman{
+.potongan-kertas-cetak-label, .potongan-kertas-transaksi-berjalan, .keterangan-pedoman, .judul-pedoman{
 	overflow-wrap: anywhere;
 }
 
-.potongan-kertas-cetak-label:nth-child(odd), .potongan-kertas-retur:nth-child(odd){
+.potongan-kertas-cetak-label:nth-child(odd), .potongan-kertas-transaksi-berjalan:nth-child(odd), .potongan-kertas-retur:nth-child(odd){
 	border-bottom:1px dashed black;
 	border-right: 1px dashed black; 
 }
@@ -2197,7 +2197,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	overflow-wrap: anywhere;
 }
 
-.hapus, .selesai, .edit, .copy ,.wewenang, .reset, .download{
+.hapus, .selesai, .edit, .copy ,.wewenang, .reset, .download, .print{
 	margin:4px 0px 8px 0px;
 	display: block !important;
 	color:white !important;

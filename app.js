@@ -5672,6 +5672,7 @@ function renderUpdateAktivasiBiayaBungaKalkulator(doc){
 }
 const listTransaksiBerjalan = document.querySelector('#list-transaksi-berjalan');
 const modalTransaksi = document.querySelector('#modal-edit-transaksi');
+const previewPrintTransaksiBerjalan = document.querySelector('#preview-print-transaksi-berjalan');
 function renderTransaksiBerjalan(doc){
     let tr = document.createElement('tr');
     let transaksi = document.createElement('div');
@@ -5748,6 +5749,7 @@ function renderTransaksiBerjalan(doc){
         <div>:</div> 
         <div id="keterangan-transaksi-body${doc.id}">${keteranganTransaksi}</div> 
         </div>
+        <div id="print${doc.id}" class="btn btn-success print print-transaksi-berjalan">Print Label</div>
         <div id="edit${doc.id}" class="btn btn-warning edit edit-transaksi-berjalan">Edit Data Transaksi</div>
         <div id="hapus${doc.id}" class="btn btn-danger hapus hapus-transaksi-berjalan">Hapus Data Transaksi</div>
         </div>
@@ -5829,6 +5831,90 @@ function renderTransaksiBerjalan(doc){
           })
         })   
             
+        })
+    })
+
+    let print = document.querySelector('#print' + doc.id);
+    print.addEventListener('click', function(e){
+        e.stopPropagation();
+        db.collection('transaksiBerjalan').doc(doc.id).get().then(function(docs){
+            let newNamaCustomer = docs.data().namaCustomer;
+            let newKontakCustomer = docs.data().kontakCustomer;
+            let newAlamatCustomer = docs.data().alamatCustomer;
+            let newNominalTransaksi = docs.data().nominalTransaksi;
+            let newEkspedisiTransaksi = docs.data().ekspedisiTransaksi;
+            let newProdukTransaksi = docs.data().produkTransaksi;
+            let newKeteranganTransaksi = docs.data().keteranganTransaksi;
+            let newTanggalTransaksi = docs.data().tanggalTransaksi;
+            if(newKontakCustomer == 0 || newAlamatCustomer == 0 || newEkspedisiTransaksi == 0 || newProdukTransaksi == 0){
+                alert('Pastikan data yang berkaitan mengenai ekspedisi dan produk transaksi maupun kontak dan alamat customer itu ada!')
+            } else {
+                let potongan = document.createElement('div');
+                potongan.setAttribute('id', 'potongan-kertas-transaksi-berjalan' + doc.id)
+                potongan.classList.add('potongan-kertas-transaksi-berjalan')
+                potongan.innerHTML = `
+                <div class="super-header-cetak">
+                  <img src="logo.png" class="logo-cetak">
+                  <div class="label-pengiriman">Label Pengiriman</div>          
+                </div>
+                <div class="header-cetak">
+                    <div class="penjual">From</div>
+                    <div>:</div>
+                    <div>
+                      <div class="nama-penjual"><span class="nama-logo">GALAXYCAMERA.ID</span></div>
+                      <div class="alamat-penjual">Mall Metropolis Townsquare, Lantai Dasar Blok GC1 No.7, Cikokol, Tangerang</div>
+                      <div class="kontak-penjual">082111311131</div>
+                    </div>
+                  </div>
+                <div class="body-cetak">
+                  <div class="ship-to">
+                    <div>Ship to</div>
+                    <div>:</div>
+                    <div>
+                      <div class="nama-pembeli">${newNamaCustomer}</div>
+                      <div class="alamat-pembeli">${newAlamatCustomer}</div>
+                      <div class="kontak-pembeli">${newKontakCustomer}</div>
+                    </div>
+                    <div>Ekspedisi</div>
+                    <div>:</div>
+                      <div class="ekspedisi-terpilih">${newEkspedisiTransaksi}</div>
+                  </div>
+              </div>
+              <div class="footer-cetak">
+                <div class="keterangan-footer">Terima Kasih Sudah Berbelanja di <span class="nama-logo">GALAXYCAMERA.ID</span></div>
+                <div class="keterangan-footer-kedua">
+                <div class="footer-cetak-label-produk">Produk :</div>
+                <div class="footer-cetak-label-konten-produk">${newProdukTransaksi}</div>
+                </div>
+              </div>
+            `
+            previewPrintTransaksiBerjalan.appendChild(potongan);
+            document.body.style.visibility = 'hidden';
+            document.querySelector('#preview-print-transaksi-berjalan').style.visibility = 'visible';
+            document.body.style.setProperty("background-color", "white", "important");
+            document.querySelector('#tombol-burger').style.visibility = 'hidden';
+            document.querySelector('#preview-print-transaksi-berjalan').style.position = 'absolute';
+            document.querySelector('#preview-print-transaksi-berjalan').style.width = '100%';
+            document.querySelector('#preview-print-transaksi-berjalan').style.top = '0';
+            document.querySelector('#preview-print-transaksi-berjalan').style.left = '0';
+            document.querySelector('#myTabContent').style.marginLeft = '0';
+            setTimeout(function(){
+                window.print();
+                document.querySelector('#tombol-burger').style.visibility = 'visible';
+                document.body.style.visibility = 'visible';
+                document.querySelector('#preview-print-transaksi-berjalan').style.position = 'relative';
+                document.body.style.setProperty("background-color", "#eeeeee", "important");
+                setTimeout(function(){
+                document.querySelector('#darken').style.backgroundColor = '0';
+                document.querySelector('#darken').style.width = '0';
+                document.querySelector('#darken').style.height = '0';
+                document.querySelector('#darken').style.position = '0';
+                document.querySelector('#darken').style.opacity = '0';
+                document.querySelector('#darken').style.zIndex = '0';
+                },0)
+                document.querySelector('#potongan-kertas-transaksi-berjalan' + doc.id).remove();
+            },1000)
+            }
         })
     })
 
