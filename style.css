@@ -2,6 +2,10 @@ body{
 	background-color: #eeeeee !important;
 }
 
+.buka-file-tugas{
+	margin-right: 5px;
+}
+
 .deskripsi-format-order{
 	width:fit-content;
 }
@@ -585,10 +589,6 @@ body{
 
 #tombol-tambah-baris-surat-jalan:hover, #tombol-tambah-karyawan-list-gaji:hover, #tombol-tambah-baris-surat-penawaran:hover, #tombol-tambah-baris-format-order:hover{
 	background-color: #f5f5f5;
-}
-
-#tombol-tambah-baris-surat-jalan:active, #tombol-tambah-karyawan-list-gaji:active, #tombol-tambah-baris-surat-penawaran:active, #tombol-tambah-baris-format-order:active{
-	background-color: rgba(0,0,0,.2);
 }
 
 #subtotal-barang-surat-jalan td:nth-child(1), .tanggal-buat-sj, #subtotal-barang-surat-penawaran td:nth-child(1){
@@ -1228,7 +1228,7 @@ input:checked + .slider:after {
 
 .menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur, .menu-konfigurasi-catatan, .menu-konfigurasi-pedoman{
 	border-radius: 0 !important;
-	z-index: 0 !important;
+	z-index: 1 !important;
 }
 
 .menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur{
@@ -1280,7 +1280,7 @@ input:checked + .slider:after {
 	font-size: 14px;
 }
 
-.hapus-catatan, .edit-catatan, .hapus-perpindahan-barang, .edit-perpindahan-barang, .selesai-perpindahan-barang, .copy-perpindahan-barang, .edit-retur, .hapus-retur, .print-retur, .hapus-pedoman, .edit-pedoman{
+.hapus-catatan, .edit-catatan, .hapus-perpindahan-barang, .edit-perpindahan-barang, .selesai-perpindahan-barang, .copy-perpindahan-barang, .refresh-perpindahan-barang, .edit-retur, .hapus-retur, .print-retur, .hapus-pedoman, .edit-pedoman{
 	cursor: pointer;
 }
 
@@ -1978,7 +1978,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	font-size: 17px;
 }
 
-#daftar-peserta, #jumbotron-performa-peserta, #jumbotron-performa-peserta-individu, #jumbotron-swot, #customer-reply, #google-sheet, #kalender{
+#daftar-peserta, #jumbotron-performa-peserta-individu, #jumbotron-swot, #customer-reply, #google-sheet, #kalender{
 	display: none;
 }
 
@@ -1996,7 +1996,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 }
 
 #list-perpindahan-barang, #list-perpindahan-barang-pending, #list-perpindahan-barang-selesai{
-	margin-bottom: 160px;
+	margin-bottom: 200px;
 }
 
 #list-tugas, #list-tugas-selesai{
@@ -2197,7 +2197,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	overflow-wrap: anywhere;
 }
 
-.hapus, .selesai, .edit, .copy ,.wewenang, .reset, .download, .print{
+.hapus, .selesai, .edit, .copy ,.wewenang, .reset, .download, .print, .batal{
 	margin:4px 0px 8px 0px;
 	display: block !important;
 	color:white !important;
@@ -2537,10 +2537,6 @@ div.induk-kategori-menu:nth-child(2n+0){
 	display: block;
 }
 
-#judul-jumbotron-performa-peserta{
-	font-size: 34px !important;
-}
-
 #judul-jumbotron-performa-peserta-individu, #judul-jumbotron-swot, #judul-jumbotron-achievement, #judul-jumbotron-pengumuman, #judul-jumbotron-overview, #judul-jumbotron-perpindahan-barang, #judul-jumbotron-cetak-label, #judul-jumbotron-catatan, #judul-jumbotron-indent-cust, #judul-jumbotron-retur, #judul-jumbotron-retur-dealer, #judul-jumbotron-transaksi-berjalan, #judul-jumbotron-daftar-belanja, #judul-jumbotron-pedoman-galaxy{
 	font-size: 32px !important;
 }
@@ -2615,7 +2611,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 	font-size: 14px !important;
 }
 
-#list-performa-peserta, #list-performa-peserta-individu, #list-swot, #list-achievement, #jumlah-data-pengumuman-kosong, #jumbotron-keterangan-cetak-label, #jumbotron-keterangan-catatan, #jumbotron-keterangan-indent-cust, #jumbotron-keterangan-transaksi-berjalan, #jumbotron-keterangan-daftar-belanja{
+#list-performa-peserta-individu, #list-swot, #list-achievement, #jumlah-data-pengumuman-kosong, #jumbotron-keterangan-cetak-label, #jumbotron-keterangan-catatan, #jumbotron-keterangan-indent-cust, #jumbotron-keterangan-transaksi-berjalan, #jumbotron-keterangan-daftar-belanja{
 	font-size: 18px !important;
 	margin-top: 5px;
 }
@@ -2701,7 +2697,7 @@ div.induk-kategori-menu{
 	font-size: 13px;
 }
 
-.nama-pembuat-catatan, #list-performa-peserta div, #jumlah-data-swot, #jumlah-data-achievement-kosong, .modal-title{
+.nama-pembuat-catatan, #jumlah-data-swot, #jumlah-data-achievement-kosong, .modal-title{
 	font-size: 16px;
 }
 

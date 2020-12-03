@@ -17,8 +17,6 @@ auth.onAuthStateChanged(user => {
         } else if (change.type == 'removed'){
             renderHapusPeserta(change.doc)
             let tr = document.querySelector('[data-id="' + change.doc.id + '"]');
-            let div = document.querySelector('[data-info="' + change.doc.id + '"]');
-            listPerformaPeserta.removeChild(div)
             listPeserta.removeChild(tr);
             let status = document.querySelector('#status-peserta' + change.doc.id).innerText;
             switch(status){
@@ -36,122 +34,6 @@ auth.onAuthStateChanged(user => {
     })
         }, err => console.log(err.message))
 
-    db.collection('tugasSelesai').onSnapshot(snapshot =>{
-        let changes = snapshot.docChanges();
-        changes.forEach(change =>{
-            if(change.type == 'added'){
-                if(!document.querySelector('.dokumentasi-tugas-peserta-selesai' + change.doc.id)){
-                renderTugasSelesai(change.doc);
-                setupUI(user);
-                }
-            }else if (change.type == 'removed'){
-                let div = document.querySelector('[data-id="' + change.doc.id + '"]');
-                tugasPesertaSelesai.removeChild(div);
-                for(let x = 0;x<daftarKaryawan.length;x++){
-                    let performaPeserta = document.querySelectorAll('.waktu-penyelesaian-' + daftarKaryawan[x].toLowerCase().replace(" ", "-"));
-                    let sum=0;
-                    for (let i=0;i<performaPeserta.length;i++) {
-                        sum=sum + parseFloat(performaPeserta[i].childNodes[0].nodeValue);
-                    }
-                        let rataRataPenyelesaian = sum/performaPeserta.length;
-                        let rataRataWaktuPenyelesaian;
-                            if(rataRataPenyelesaian > 604800000){
-                                let perhitunganMinggu = Math.floor(rataRataPenyelesaian/604800000) + ' Minggu ';
-                                let perhitunganHari = Math.floor((rataRataPenyelesaian%(604800000))/86400000) + ' Hari';
-                                let perhitunganJam = Math.floor((rataRataPenyelesaian%(86400000))/3600000) + ' Jam ';
-                                let perhitunganMenit = Math.floor((rataRataPenyelesaian%(3600000))/60000) + ' Menit ';
-                                let perhitunganDetik = Math.floor((rataRataPenyelesaian%(60000))/1000) + ' Detik';
-                                if(perhitunganHari == '0 Hari '){
-                                    perhitunganHari = '';
-                                } else if(perhitunganJam == '0 Jam '){
-                                    perhitunganJam = '';
-                                } else if(perhitunganMenit == '0 Menit '){
-                                    perhitunganMenit = '';
-                                } else if(perhitunganDetik == '0 Detik'){
-                                    perhitunganDetik = '';
-                                }
-                                rataRataWaktuPenyelesaian = perhitunganMinggu + perhitunganHari + perhitunganJam + perhitunganMenit + perhitunganDetik;
-                            } else if(rataRataPenyelesaian == 604800000){
-                                let perhitunganMinggu = Math.floor(rataRataPenyelesaian/604800000) + ' Minggu ';
-                                rataRataWaktuPenyelesaian = perhitunganMinggu;
-                            } else if(rataRataPenyelesaian > 86400000){
-                                let perhitunganHari = Math.floor(rataRataPenyelesaian/86400000) + ' Hari';
-                                let perhitunganJam = Math.floor((rataRataPenyelesaian%(86400000))/3600000) + ' Jam ';
-                                let perhitunganMenit = Math.floor((rataRataPenyelesaian%(3600000))/60000) + ' Menit ';
-                                let perhitunganDetik = Math.floor((rataRataPenyelesaian%(60000))/1000) + ' Detik';
-                                if(perhitunganJam == '0 Jam '){
-                                    perhitunganJam = '';
-                                } else if(perhitunganMenit == '0 Menit '){
-                                    perhitunganMenit = '';
-                                } else if(perhitunganDetik == '0 Detik'){
-                                    perhitunganDetik = '';
-                                }
-                                rataRataWaktuPenyelesaian = perhitunganHari + perhitunganJam + perhitunganMenit + perhitunganDetik;
-                            } else if(rataRataPenyelesaian == 86400000){
-                                let perhitunganHari = Math.floor(rataRataPenyelesaian/86400000) + ' Hari';
-                                rataRataWaktuPenyelesaian = perhitunganHari;
-                            } else if(rataRataPenyelesaian > 3600000){
-                                let perhitunganJam = Math.floor(rataRataPenyelesaian/3600000) + ' Jam ';
-                                let perhitunganMenit = Math.floor((rataRataPenyelesaian%(3600000))/60000) + ' Menit ';
-                                let perhitunganDetik = Math.floor((rataRataPenyelesaian%(60000))/1000) + ' Detik';
-                                if(perhitunganMenit == '0 Menit '){
-                                    perhitunganMenit = '';
-                                } else if(perhitunganDetik == '0 Detik'){
-                                    perhitunganDetik = '';
-                                }
-                                rataRataWaktuPenyelesaian = perhitunganJam + perhitunganMenit + perhitunganDetik;
-                            } else if(rataRataPenyelesaian == 3600000){
-                                let perhitunganJam = Math.floor(rataRataPenyelesaian/3600000) + ' Jam ';
-                                rataRataWaktuPenyelesaian = perhitunganJam;
-                            } else if(rataRataPenyelesaian > 60000){
-                                let perhitunganMenit = Math.floor(rataRataPenyelesaian/60000) + ' Menit ';
-                                let perhitunganDetik = Math.floor((rataRataPenyelesaian%60000)/1000) + ' Detik'
-                                if(perhitunganDetik == '0 Detik'){
-                                    perhitunganDetik = '';
-                                }
-                                rataRataWaktuPenyelesaian = perhitunganMenit + perhitunganDetik;
-                            } else if(rataRataPenyelesaian == 60000){
-                                let perhitunganMenit = Math.floor(rataRataPenyelesaian/60000) + ' Menit ';
-                                rataRataWaktuPenyelesaian = perhitunganMenit;
-                            } else if(rataRataPenyelesaian < 60000){
-                                let perhitunganDetik = Math.floor(rataRataPenyelesaian/1000) + ' Detik';
-                                rataRataWaktuPenyelesaian = perhitunganDetik;
-                            }
-
-                        for(let x = 0;x<daftarKaryawan.length;x++){
-                        let jumlahTugasTerlambat = document.querySelectorAll('.terlambat' + daftarKaryawan[x].toLowerCase().replace(" ", "-")).length;
-                        let jumlahTugasSelesai = document.querySelectorAll('.tugasseseorangselesai' + daftarKaryawan[x].toLowerCase().replace(" ", "-")).length;
-                        if(document.querySelector('#jumlah-tugas-selesai-peserta-' + daftarKaryawan[x].toLowerCase().replace(" ", "-")) != null && document.querySelector('#rata-rata-waktu-penyelesaian-peserta-' + daftarKaryawan[x].toLowerCase().replace(" ", "-")) != null && document.querySelector('#jumlah-tugas-terlambat-selesai-peserta-' + daftarKaryawan[x].toLowerCase().replace(" ", "-")) != null){
-                        if(jumlahTugasSelesai == 0){
-                        document.querySelector('#jumlah-tugas-selesai-peserta-' + daftarKaryawan[x].toLowerCase().replace(" ", "-")).innerHTML = 'belum terlibat dalam penugasan tertentu.';
-                        document.querySelector('#rata-rata-waktu-penyelesaian-peserta-' + daftarKaryawan[x].toLowerCase().replace(" ", "-")).innerHTML = '';
-                        document.querySelector('#jumlah-tugas-terlambat-selesai-peserta-' + daftarKaryawan[x].toLowerCase().replace(" ", "-")).innerHTML = '';
-                        }else if(jumlahTugasSelesai != 0 && jumlahTugasTerlambat != 0){
-                        document.querySelector('#jumlah-tugas-selesai-peserta-' + daftarKaryawan[x].toLowerCase().replace(" ", "-")).innerHTML = 'telah menyelesaikan ' + jumlahTugasSelesai + ' tugas';
-                        document.querySelector('#rata-rata-waktu-penyelesaian-peserta-' + daftarKaryawan[x].toLowerCase().replace(" ", "-")).innerHTML = ' dengan rata-rata waktu penyelesaian ' + rataRataWaktuPenyelesaian;
-                        document.querySelector('#jumlah-tugas-terlambat-selesai-peserta-' + daftarKaryawan[x].toLowerCase().replace(" ", "-")).innerHTML = ', terlambat menyelesaikan ' + jumlahTugasTerlambat + ' tugas.';
-                        }else if(jumlahTugasSelesai != 0 && jumlahTugasTerlambat == 0){
-                        document.querySelector('#jumlah-tugas-selesai-peserta-' + daftarKaryawan[x].toLowerCase().replace(" ", "-")).innerHTML = 'telah menyelesaikan ' + jumlahTugasSelesai + ' tugas';
-                        document.querySelector('#rata-rata-waktu-penyelesaian-peserta-' + daftarKaryawan[x].toLowerCase().replace(" ", "-")).innerHTML = ' dengan rata-rata waktu penyelesaian ' + rataRataWaktuPenyelesaian;
-                        document.querySelector('#jumlah-tugas-terlambat-selesai-peserta-' + daftarKaryawan[x].toLowerCase().replace(" ", "-")).innerHTML = ', tidak pernah terlambat menyelesaikan tugas.';
-                        }
-                    } else {
-                        return false;
-                    }
-                }
-
-                        let tampilanPerforma = document.querySelectorAll('.performa-peserta-' + daftarKaryawan[x].toLowerCase().replace(" ", "-"));
-                        for(let i = 0;i<tampilanPerforma.length;i++){
-                            if(rataRataWaktuPenyelesaian == null){
-                                rataRataWaktuPenyelesaian = "-";
-                                tampilanPerforma[i].innerText = rataRataWaktuPenyelesaian;
-                            }
-                    }
-                }
-            }
-        })
-    }, err => console.log(err.message))
-
     db.collection('tugas').onSnapshot(snapshot =>{
         let changes = snapshot.docChanges();
         changes.forEach(change =>{
@@ -162,7 +44,11 @@ auth.onAuthStateChanged(user => {
                 }
             }else if (change.type == 'removed'){
                 let div = document.querySelector('[data-id="' + change.doc.id + '"]');
-                tugasPeserta.removeChild(div);
+                if(div.parentElement == tugasPeserta){
+                    tugasPeserta.removeChild(div);
+                } else if(div.parentElement == tugasPesertaSelesai){
+                    tugasPesertaSelesai.removeChild(div);
+                }
             } else if(change.type == 'modified'){
                 renderUpdateTugas(change.doc);
             }
@@ -320,18 +206,6 @@ auth.onAuthStateChanged(user => {
                         document.querySelector('#grid-jumbotron-pengumuman').parentNode.removeChild(div);
                     } else if(change.type == 'modified'){
                         renderUpdatePengumuman(change.doc);
-                    }
-                })
-    }, err => console.log(err.message))
-
-        db.collection('overview').onSnapshot(snapshot =>{
-                let changes = snapshot.docChanges();
-                changes.forEach(change =>{
-                    if(change.type == 'added'){
-                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
-                        renderOverview(change.doc);
-                        setupUI(user);
-                        }
                     }
                 })
     }, err => console.log(err.message))
@@ -765,19 +639,9 @@ daftarPeserta.addEventListener('submit', (e) => {
         lokasi : daftarPeserta['lokasi-berjaga'].value,
         email : daftarPeserta['email-peserta'].value
     }).then(() => {
-        tanggal = new Date().getTime();
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                pengguna : nama,
-                waktuOverview : tanggal,
-                overview : 'add-user'
-            })
-        }).then(() => {
         $('#modaldaftarpeserta').modal('hide');
         document.querySelector('#tambah-peserta').reset();
         document.getElementsByClassName('seleksi').selectedIndex = null;
-        })
     })
    }
 })
@@ -788,15 +652,7 @@ daftarTugas.addEventListener('submit', (e) => {
     e.preventDefault();
     if(document.querySelector('#per-minggu').value == "" && document.querySelector('#per-hari').value == "" && document.querySelector('#per-jam').value == "" && document.querySelector('#per-menit').value == ""){
         alert("Pastikan Mengisi Kolom Waktu Pengerjaan untuk Melanjuti Proses Tambah Tugas");
-    }else{
-    let tanggal = new Date();
-    let waktuRilis = tanggal.getTime();
-    let dd = String(tanggal.getDate()).padStart(2, '0');
-    let mm = String(tanggal.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let yyyy = tanggal.getFullYear();
-    let hh = ('0' + tanggal.getHours()).slice(-2);
-    let ms = ('0' + tanggal.getMinutes()).slice(-2);
-    tanggal = dd + '/' + mm + '/' + yyyy + ', ' + hh + ':' + ms;
+    } else {
     db.collection('tugas').add({
         namaPeserta : daftarTugas['target-peserta'].value,
         kontenTugas : daftarTugas['konten-tugas'].value.replace(/\n\r?/g, '<br/>'),
@@ -804,23 +660,15 @@ daftarTugas.addEventListener('submit', (e) => {
         perHari : daftarTugas['per-hari'].value,
         perJam : daftarTugas['per-jam'].value,
         perMenit : daftarTugas['per-menit'].value,
-        waktuRilis : waktuRilis,
+        waktuRilis : new Date().getTime(),
+        buktiPenyelesaian : 'Tidak Ada',
+        filePenyelesaian : 'Tidak Ada',
         penggunaUID : auth.currentUser.uid,
-        tanggalLuncur : tanggal
+        status : 'PENDING'
     }).then(() => {
-        tanggal = new Date().getTime();
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                penggunaTugas : daftarTugas['target-peserta'].value,
-                waktuOverview : tanggal,
-                overview : 'add-task'
-            })
-        }).then(() => {
         $('#modaltambahtugas').modal('hide');
         document.querySelector('#tambah-tugas').reset();
         document.getElementsByClassName('seleksi').selectedIndex = null;          
-        })
     })
   }
 })
@@ -842,18 +690,8 @@ daftarKesalahan.addEventListener('submit', (e) => {
         nama: daftarKesalahan['target-peserta-kedua'].value,
         kontenKesalahan: daftarKesalahan['konten-kesalahan'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
-        let tanggal = new Date().getTime();
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                penggunaKesalahan : daftarKesalahan['target-peserta-kedua'].value,
-                waktuOverview : tanggal,
-                overview : 'add-mistake'
-            })        
-        }).then(() => {
         $('#modaltambahkesalahan').modal('hide');
-        document.querySelector('#tambah-kesalahan').reset();  
-        })        
+        document.querySelector('#tambah-kesalahan').reset();        
     })
   } else {
     db.collection('kesalahan').add({
@@ -861,18 +699,8 @@ daftarKesalahan.addEventListener('submit', (e) => {
         nama: daftarKesalahan['target-peserta-kedua'].value,
         kontenKesalahan: daftarKesalahan['konten-kesalahan'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
-        let tanggal = new Date().getTime();
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                penggunaKesalahan : daftarKesalahan['target-peserta-kedua'].value,
-                waktuOverview : tanggal,
-                overview : 'add-mistake'
-            })        
-        }).then(() => {
-            $('#modaltambahkesalahan').modal('hide');
-            document.querySelector('#tambah-kesalahan').reset();  
-        })
+        $('#modaltambahkesalahan').modal('hide');
+        document.querySelector('#tambah-kesalahan').reset();  
     })
   }
 })
@@ -884,19 +712,9 @@ daftarSwot.addEventListener('submit', (e) => {
         analisis : daftarSwot['analisis-swot'].value,
         kontenAnalisis : daftarSwot['konten-analisis'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
-        let tanggal = new Date().getTime();
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : tanggal,
-                analisisSwot : daftarSwot['analisis-swot'].value.toLowerCase(),
-                overview : 'add-swot'
-            })
-    }).then(() =>{
         $('#modalswot').modal('hide');
         document.querySelector('#tambah-swot').reset();
         document.getElementsByClassName('seleksi').selectedIndex = null;
-        })
     })
 })
 
@@ -916,32 +734,16 @@ daftarAchievement.addEventListener('submit', (e) => {
         tanggal: tanggal,
         kontenPencapaian: daftarAchievement['konten-pencapaian'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : tanggal,
-                overview : 'add-achievement'
-            })
-        }).then(() => {
         $('#modalachievement').modal('hide');
         document.querySelector('#tambah-achievement').reset();
-        })
     })
   } else {
     db.collection('achievement').add({
         tanggal: daftarAchievement['tanggal-pencapaian'].value,
         kontenPencapaian: daftarAchievement['konten-pencapaian'].value.replace(/\n\r?/g, '<br/>')
-    }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : tanggal,
-                overview : 'add-achievement'
-            })
-        }).then(() => {        
+    }).then(() => {      
         $('#modalachievement').modal('hide');
         document.querySelector('#tambah-achievement').reset();
-        })
     })
   }
 })
@@ -958,17 +760,6 @@ daftarPengumuman.addEventListener('submit', (e) => {
         judulPengumuman: daftarPengumuman['judul-pengumuman'].value,
         kontenPengumuman: daftarPengumuman['konten-pengumuman'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
-            db.collection('overview').add({
-                penggunaOverview : username,
-                waktuOverview : tanggal,
-                judulPengumuman : daftarPengumuman['judul-pengumuman'].value,
-                overview : 'add-announcement'
-            })
-        }, err => {
-            if(err.name == 'FirebaseError'){
-                alert('Anda tidak diperizinkan untuk membuat pengumuman')
-            }
-    }).then(() => {
         $('#modalpengumuman').modal('hide');
         document.querySelector('#tambah-pengumuman').reset();
         })
@@ -983,17 +774,8 @@ daftarKategoriMenu.addEventListener('submit', (e) => {
         tanggal: tanggal,
         namaKategoriMenu: daftarKategoriMenu['nama-kategori-menu'].value
     }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : tanggal,
-                namaKategoriMenu : daftarKategoriMenu['nama-kategori-menu'].value,
-                overview : 'add-menu-category'
-            })
-        }).then(() => {
         $('#modalkategorimenu').modal('hide');
         document.querySelector('#tambah-kategori-menu').reset();
-        })
     })
 })
 
@@ -1006,17 +788,8 @@ daftarEkspedisiCetakLabel.addEventListener('submit', (e) => {
         penggunaUID: auth.currentUser.uid,
         namaEkspedisiCetakLabel: daftarEkspedisiCetakLabel['nama-ekspedisi-cetak-label'].value
     }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : tanggal,
-                namaEkspedisiCetakLabel : daftarEkspedisiCetakLabel['nama-ekspedisi-cetak-label'].value,
-                overview : 'add-print-label-expedition',
-            })
-        }).then(() => {
         $('#modalekspedisicetaklabel').modal('hide');
         document.querySelector('#tambah-ekspedisi-cetak-label').reset();
-        })
     })
 })
 
@@ -1031,12 +804,6 @@ daftarCatatan.addEventListener('submit', (e) => {
         pembuatCatatan: doc.data().username,
         penggunaUID: auth.currentUser.uid
     }).then(() => {
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : tanggal,
-                overview : 'add-note'
-            })
-        }).then(() => {
         $('#modalcatatan').modal('hide');
         document.querySelector('#tambah-catatan').reset();
         })
@@ -1055,17 +822,8 @@ daftarIndentCust.addEventListener('submit', (e) => {
         kontenIndent: daftarIndentCust['konten-indent-cust'].value.replace(/\n\r?/g, '<br/>'),
         produkIndent: daftarIndentCust['produk-indent-cust'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : tanggal,
-                namaCustomer : daftarIndentCust['nama-customer-indent-cust'].value,
-                overview : 'add-indent'
-            })
-        }).then(() => {
         $('#modalindentcust').modal('hide');
         document.querySelector('#tambah-indent-cust').reset();
-        })
     })
 })
 
@@ -1079,42 +837,24 @@ daftarPerpindahanBarang.addEventListener('submit', (e) => {
     tanggalSekarang = tahun + '-' + bulan + '-' + hari;    
     let tanggal = new Date().getTime();
     if(daftarPerpindahanBarang['tanggal-perpindahan-barang'].value == 0){
-    db.collection('perpindahan').add({
-        tanggal: tanggal,
-        kontenPerpindahan: daftarPerpindahanBarang['konten-perpindahan-barang'].value.replace(/\n\r?/g, '<br/>')
-    }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : tanggal,
-                tanggalPerpindahan : tanggal,
-                overview : 'add-transport'
-            })
+        db.collection('perpindahan').add({
+            tanggal: tanggal,
+            kontenPerpindahan: daftarPerpindahanBarang['konten-perpindahan-barang'].value.replace(/\n\r?/g, '<br/>')
         }).then(() => {
-        $('#modalperpindahanbarang').modal('hide');
-        document.querySelector('#tambah-perpindahan-barang').reset();
+            $('#modalperpindahanbarang').modal('hide');
+            document.querySelector('#tambah-perpindahan-barang').reset();
         })
-    })
     } else {
     if(daftarPerpindahanBarang['tanggal-perpindahan-barang'].value < tanggalSekarang){
         alert('Cantumkan tanggal perpindahan barang dengan benar!')   
     } else {
-    db.collection('perpindahan').add({
-        tanggal: daftarPerpindahanBarang['tanggal-perpindahan-barang'].value,
-        kontenPerpindahan: daftarPerpindahanBarang['konten-perpindahan-barang'].value.replace(/\n\r?/g, '<br/>')
-    }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : tanggal,
-                tanggalPerpindahan : daftarPerpindahanBarang['tanggal-perpindahan-barang'].value,
-                overview : 'add-transport'
-            })
+        db.collection('perpindahan').add({
+            tanggal: daftarPerpindahanBarang['tanggal-perpindahan-barang'].value,
+            kontenPerpindahan: daftarPerpindahanBarang['konten-perpindahan-barang'].value.replace(/\n\r?/g, '<br/>')
         }).then(() => {
-        $('#modalperpindahanbarang').modal('hide');
-        document.querySelector('#tambah-perpindahan-barang').reset();
+            $('#modalperpindahanbarang').modal('hide');
+            document.querySelector('#tambah-perpindahan-barang').reset();
         })
-    })
     }
 }
 })
@@ -1162,17 +902,8 @@ function fcTenorKalkulator(){
         biayaAdmin: daftarTenorKalkulator['biaya-admin-tenor-kalkulator'].value,
         bunga: daftarTenorKalkulator['bunga-tenor-kalkulator'].value
     }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : new Date().getTime(),
-                tenor : daftarTenorKalkulator['tenor-kalkulator'].value,
-                overview : 'add-tenor-calculator'
-            })
-        }).then(() => {
         $('#modaltenorkalkulator').modal('hide');
         document.querySelector('#tambah-tenor-kalkulator').reset();
-        })
     })
     }
 }
@@ -1200,17 +931,8 @@ daftarTransaksiBerjalan.addEventListener('submit', function(e){
         produkTransaksi: daftarTransaksiBerjalan['produk-transaksi-berjalan'].value.replace(/\n\r?/g, '<br/>'),
         keteranganTransaksi: daftarTransaksiBerjalan['keterangan-transaksi-berjalan'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : new Date().getTime(),
-                namaCustomer : daftarTransaksiBerjalan['customer-transaksi-berjalan'].value,
-                overview : 'add-transaction'
-            })
-        }).then(() => {
         $('#modaltransaksiberjalan').modal('hide');
         document.querySelector('#tambah-transaksi-berjalan').reset();
-        })
     })
     } else {
     db.collection('transaksiBerjalan').add({
@@ -1223,17 +945,8 @@ daftarTransaksiBerjalan.addEventListener('submit', function(e){
         produkTransaksi: daftarTransaksiBerjalan['produk-transaksi-berjalan'].value.replace(/\n\r?/g, '<br/>'),
         keteranganTransaksi: daftarTransaksiBerjalan['keterangan-transaksi-berjalan'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : new Date().getTime(),
-                namaCustomer : daftarTransaksiBerjalan['customer-transaksi-berjalan'].value,
-                overview : 'add-transaction'
-            })
-        }).then(() => {
         $('#modaltenorkalkulator').modal('hide');
         document.querySelector('#tambah-transaksi-berjalan').reset();
-        })
     })        
     }
 })
@@ -1251,17 +964,8 @@ if(daftarRetur['status-retur'].value == 'Belum Selesai'){
         keluhanCustomer: daftarRetur['keluhan-retur'].value.replace(/\n\r?/g, '<br/>'),
         keteranganRetur: daftarRetur['keterangan-retur'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : new Date().getTime(),
-                namaCustomer : daftarRetur['customer-retur'].value,
-                overview : 'add-return'
-            })
-        }).then(() => {
         $('#modalretur').modal('hide');
         document.querySelector('#tambah-retur').reset();
-        })
     })
     } else {
     db.collection('returSelesai').add({
@@ -1273,17 +977,8 @@ if(daftarRetur['status-retur'].value == 'Belum Selesai'){
         keluhanCustomer: daftarRetur['keluhan-retur'].value.replace(/\n\r?/g, '<br/>'),
         keteranganRetur: daftarRetur['keterangan-retur'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : new Date().getTime(),
-                namaCustomer : daftarRetur['customer-retur'].value,
-                overview : 'add-return'
-            })
-        }).then(() => {
         $('#modalretur').modal('hide');
-        document.querySelector('#tambah-retur').reset();
-        })        
+        document.querySelector('#tambah-retur').reset();      
     })
     }
 })
@@ -1298,17 +993,8 @@ if(daftarReturDealer['status-retur-dealer'].value == 'Belum Selesai'){
         produkRetur: daftarReturDealer['produk-retur-dealer'].value.replace(/\n\r?/g, '<br/>'),
         keteranganRetur: daftarReturDealer['keterangan-retur-dealer'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : new Date().getTime(),
-                namaDealer : daftarReturDealer['dealer-retur'].value,
-                overview : 'add-return-dealer'
-            })
-        }).then(() => {
         $('#modalreturdealer').modal('hide');
         document.querySelector('#tambah-retur-dealer').reset();
-        })
     })
     } else {
     db.collection('returDealerSelesai').add({
@@ -1317,17 +1003,8 @@ if(daftarReturDealer['status-retur-dealer'].value == 'Belum Selesai'){
         produkRetur: daftarReturDealer['produk-retur-dealer'].value.replace(/\n\r?/g, '<br/>'),
         keteranganRetur: daftarReturDealer['keterangan-retur-dealer'].value.replace(/\n\r?/g, '<br/>')
     }).then(() => {
-        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-            db.collection('overview').add({
-                penggunaOverview : doc.data().username,
-                waktuOverview : new Date().getTime(),
-                namaDealer : daftarReturDealer['dealer-retur'].value,
-                overview : 'add-return-dealer'
-            })
-        }).then(() => {
         $('#modalreturdealer').modal('hide');
-        document.querySelector('#tambah-retur-dealer').reset();
-        })        
+        document.querySelector('#tambah-retur-dealer').reset();      
     })
     }
 })
@@ -1393,87 +1070,47 @@ daftarPedomanGalaxy.addEventListener('submit', (e) => {
 
 const formDaftar = document.querySelector('#form-daftar');
 formDaftar.addEventListener('submit', (e) => {
-  e.preventDefault();
- 
-  const email = formDaftar['emaildaftar'].value;
-  const password = formDaftar['passworddaftar'].value;
-
-if(email.includes('galaxy.id')){
-
-  auth.createUserWithEmailAndPassword(email, password).then(cred => {
-    return db.collection('pengguna').doc(cred.user.uid).set({
-      username : formDaftar['username'].value
-    });
-}, err => 
-    console.log(err.code)
-
-  ).then(() => {
-    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-    let tanggal = new Date().getTime();
-    db.collection('overview').add({
-        penggunaOverview : doc.data().username,
-        waktuOverview : tanggal,
-        overview : 'sign-up'
-        })
-    })
+    e.preventDefault();
+    let email = formDaftar['emaildaftar'].value;
+    let password = formDaftar['passworddaftar'].value;
+    auth.createUserWithEmailAndPassword(email, password).then(cred => {
+        return db.collection('pengguna').doc(cred.user.uid).set({
+            username : formDaftar['username'].value
+        });
+    }).then(() => {
       $('#modaldaftar').modal('hide');
       formDaftar.reset();
-        });
-    } else {
-       alert('Data Tidak Valid');
-       formDaftar.reset();
-    }
+    });
 });
 
 const keluar = document.querySelector('#sign-out');
 keluar.addEventListener('click', (e) => {
     e.stopImmediatePropagation();
     db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-    let konfirmasi = confirm("Apa anda yakin ingin keluar?");
-    if(konfirmasi){
-    let tanggal = new Date().getTime();
-    db.collection('overview').add({
-        penggunaOverview : doc.data().username,
-        waktuOverview : tanggal,
-        overview : 'sign-out'
-        }).then(() => {
-            setTimeout(function(){
-            auth.signOut().then(() => {
+        let konfirmasi = confirm("Apa anda yakin ingin keluar?");
+        if(konfirmasi){
+            auth.signOut().then(function(){
                 window.location.reload();
             })
-        },1000)
-            })
         }
-    }, err => console.log(err.message));
+    });
 });
 
 
 const formMasuk = document.querySelector('#form-masuk');
 formMasuk.addEventListener('submit', (e) => {
-  e.preventDefault();
-  
-  const email = formMasuk['emailmasuk'].value;
-  const password = formMasuk['passwordmasuk'].value;
-
-  auth.signInWithEmailAndPassword(email, password).then((cred) => {
-    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-    let tanggal = new Date().getTime();
-    db.collection('overview').add({
-        penggunaOverview : doc.data().username,
-        waktuOverview : tanggal,
-        overview : 'sign-in'
-        })
-    })
-      $('#modallogin').modal('hide');
-      formMasuk.reset();
-      console.clear();
-  }, err => {
-    if(err.code == 'auth/user-not-found'){
-        alert('User tidak ditemukan.')
-    }else if(err.code == 'auth/wrong-password'){
-        alert('Email atau Password yang anda masukkan salah!')
-    } 
+    e.preventDefault();
+    let email = formMasuk['emailmasuk'].value;
+    let password = formMasuk['passwordmasuk'].value;
+    auth.signInWithEmailAndPassword(email, password).then((cred) => {
+        $('#modallogin').modal('hide');
+        formMasuk.reset();
+    }, err => {
+        if(err.code == 'auth/user-not-found'){
+            alert('User tidak ditemukan.')
+        } else if(err.code == 'auth/wrong-password'){
+            alert('Email atau Password yang anda masukkan salah!')
+        } 
   });
-
 });
 
