@@ -1479,7 +1479,7 @@ function renderTugas(doc){
     let hhDeadline = ('0' + new Date(waktuDeadline).getHours()).slice(-2);
     let msDeadline = ('0' + new Date(waktuDeadline).getMinutes()).slice(-2);
     let tanggalDeadline = ddDeadline + ' ' + mmDeadline + ' ' + yyyyDeadline + ', ' + hhDeadline + ':' + msDeadline;
-    div.innerHTML = `<div class="tugas" data-toggle="modal" data-target="#modaltugas${doc.id}" id="tugas${doc.id}">Tugas ${namaPeserta}</div>`
+    div.innerHTML = `<div class="tugas" data-toggle="modal" data-target="#modaltugas${doc.id}" id="tugas${doc.id}">Tugas ${tanggalPeluncuran}, CC : ${namaPeserta}</div>`
     switch(status){
         case 'PENDING':
         tugas.innerHTML = `
@@ -1487,7 +1487,7 @@ function renderTugas(doc){
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Tugas ${namaPeserta} </h5>
+                <h5 class="modal-title">Tugas ${tanggalPeluncuran}, CC : ${namaPeserta} </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
