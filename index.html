@@ -41,6 +41,7 @@
       <div class="tab-halaman text-white menu navbar-menu" id="cetak-label" data-toggle="pill" href="#halaman-cetak-label" role="tab" aria-controls="halaman-cetak-label" aria-selected="true"><i class="fa fa-print"></i> Cetak Label</div>
       <div class="tab-halaman text-white menu navbar-menu" id="surat-jalan" data-toggle="pill" href="#halaman-surat-jalan" role="tab" aria-controls="halaman-surat-jalan" aria-selected="true"><i class='fas fa-dove'></i> Surat Jalan</div>
       <div class="tab-halaman text-white menu navbar-menu" id="surat-penawaran" data-toggle="pill" href="#halaman-surat-penawaran" role="tab" aria-controls="halaman-surat-penawaran" aria-selected="true"><i class='fas fa-hand-holding-usd'></i> Surat Penawaran</div>
+      <div class="tab-halaman text-white menu navbar-menu" id="req-faktur-pajak" data-toggle="pill" href="#halaman-req-faktur-pajak" role="tab" aria-controls="halaman-req-faktur-pajak" aria-selected="true"><i class='fas fa-users'></i> Request Faktur Pajak</div>
       <div class="tab-halaman text-white menu navbar-menu" id="perpindahan-barang" data-toggle="pill" href="#halaman-perpindahan-barang" role="tab" aria-controls="halaman-perpindahan-barang" aria-selected="true"><i class='fas fa-boxes'></i> Perpindahan</div>
       <div class="tab-halaman text-white menu navbar-menu" id="kalkulator" data-toggle="pill" href="#halaman-kalkulator" role="tab" aria-controls="halaman-kalkulator" aria-selected="true"><i class="fa fa-calculator"></i> Kalkulator</div>
       <div class="tab-halaman text-white menu navbar-menu" id="transaksi-berjalan" data-toggle="pill" href="#halaman-transaksi-berjalan" role="tab" aria-controls="halaman-transaksi-berjalan" aria-selected="true"><i class='fas fa-coins'></i> Transaksi Berjalan</div>
@@ -1141,16 +1142,68 @@
 
 </div>
 
+<div class="halaman tab-pane fade" id="halaman-req-faktur-pajak" role="tabpanel">
+
+<div class="jumbotron" id="jumbotron-req-faktur-pajak">
+  <div id="judul-jumbotron-req-faktur-pajak" class="display-4"><i class='fas fa-users'></i> Request Faktur Pajak</div>
+  <div class="lead" style="font-size:18px;"></div>
+    <div id="tombol-tambah-lihat-req-faktur-pajak">
+      <div id="lihatreqfakturpajakselesai" class="tombol-lihat-req-faktur-pajak btn btn-primary pull-right">Request Selesai <span class="badge badge-success" id="jumlah-req-faktur-pajak-selesai">0</span></div>
+      <div id="lihatreqfakturpajakpending" class="tombol-lihat-req-faktur-pajak btn btn-primary pull-right">Request Pending <span class="badge badge-danger" id="jumlah-req-faktur-pajak-pending">0</span></div>      
+    </div>
+</div>
+
+<div id="tombol-tambah-lihat-req-faktur-pajak-kedua"></div>
+
+<div id="list-req-faktur-pajak-pending"></div>
+<div id="list-req-faktur-pajak-selesai"></div>
+
+<div class="modal fade" id="modalreqfakturpajak" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menambahkan Data Request Faktur Pajak</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <form id="tambah-req-faktur-pajak">
+              <div class="form-group">
+                <label class="col-form-label">Tanggal Request <small>(Note : Tanggal akan mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
+                <input type="date" class="form-control" id="tanggal-req-faktur-pajak" autocomplete="off">
+              </div>
+              <div class="form-group">              
+                <label>Keterangan</label>
+              <textarea oninput="auto_grow(this)" class="form-control" id="keterangan-req-faktur-pajak" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+              </div>
+                <div class="modal-footer">
+                      <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+            </div>
+          </div>
+       </div>
+     </div>
+
+<div id="modal-edit-req-faktur-pajak"></div>
+
+<a id="tambahreqfakturpajak" class="tombol-tambah" data-toggle="modal" data-target="#modalreqfakturpajak">+</a>
+
+</div>
+
 <div class="halaman tab-pane fade" id="halaman-perpindahan-barang" role="tabpanel">
 
 <div class="jumbotron" id="jumbotron-perpindahan-barang">
   <div id="judul-jumbotron-perpindahan-barang" class="display-4"><i class="fa fa-calendar-times-o"></i> Perpindahan</div>
-  <div class="lead"><span style="font-weight: bold;">01 Desember 2020</span><span>, Menambahkan fitur refresh dalam menghindari hal keterlambatan update konten perpindahan yang ada.</span></div>
+  <div class="lead" style="font-size:18px;"><span style="font-weight: bold;">01 Desember 2020</span><span>, Menambahkan fitur refresh dalam menghindari hal keterlambatan update konten perpindahan yang ada.</span></div>
     <div id="tombol-tambah-lihat-perpindahan">
       <div id="lihatperpindahanselesai" class="tombol-lihat-perpindahan btn btn-primary pull-right">Perpindahan Selesai <span class="badge badge-success" id="jumlah-perpindahan-selesai">0</span></div>
       <div id="lihatperpindahanpending" class="tombol-lihat-perpindahan btn btn-primary pull-right">Perpindahan Pending <span class="badge badge-danger" id="jumlah-perpindahan-pending">0</span></div>      
     </div>
 </div>
+
 <div id="tombol-tambah-lihat-perpindahan-kedua"></div>
 
 <div id="list-perpindahan-barang"></div>
@@ -1633,7 +1686,7 @@
 </script> 
 
 <script>
-const instance = [document.querySelector('#tambahpengumuman'), document.querySelector('#lihatperpindahanpending'), document.querySelector('#lihatperpindahanselesai'), document.querySelector('#lihatreturpending'), document.querySelector('#lihatreturselesai'), document.querySelector('#lihatreturdealerpending'), document.querySelector('#lihatreturdealerselesai')];
+const instance = [document.querySelector('#tambahpengumuman'), document.querySelector('#lihatreqfakturpajakpending'), document.querySelector('#lihatreqfakturpajakselesai'), document.querySelector('#lihatperpindahanpending'), document.querySelector('#lihatperpindahanselesai'), document.querySelector('#lihatreturpending'), document.querySelector('#lihatreturselesai'), document.querySelector('#lihatreturdealerpending'), document.querySelector('#lihatreturdealerselesai')];
 
 window.addEventListener('resize', function(e){
         document.querySelector('#darken').style.backgroundColor = '0';
@@ -1660,7 +1713,7 @@ window.addEventListener('resize', function(e){
             item.style.boxSizing = '0';
             item.style.paddingRight = '0';
         });
-        [document.querySelector('#tombol-tambah-lihat-retur-kedua'), document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua'), document.querySelector('#tombol-tambah-lihat-perpindahan-kedua'), document.querySelector('#peringatan-perpindahan-kedua')].forEach(item => {
+        [document.querySelector('#tombol-tambah-lihat-retur-kedua'), document.querySelector('#tombol-tambah-lihat-retur-dealer-kedua'), document.querySelector('#tombol-tambah-lihat-perpindahan-kedua'), document.querySelector('#tombol-tambah-lihat-req-faktur-pajak-kedua'), document.querySelector('#peringatan-perpindahan-kedua')].forEach(item => {
           if(item){
             item.style.width = '100%'
           }
@@ -1674,16 +1727,19 @@ window.addEventListener('resize', function(e){
                 break;
                 case 2:
                 case 4:
-                case 6:              
+                case 6:
+                case 8:              
                   item.style.marginRight = '0px';
                 break;
               }
               if(i > 0){
                 if(i == 1 || i == 2){
-                  tombolTambahLihatPerpindahanKedua.appendChild(item);
+                  tombolTambahLihatReqFakturPajakKedua.appendChild(item);
                 } else if(i == 3 || i == 4){
-                  tombolTambahLihatReturKedua.appendChild(item);
+                  tombolTambahLihatPerpindahanKedua.appendChild(item);
                 } else if(i == 5 || i == 6){
+                  tombolTambahLihatReturKedua.appendChild(item);
+                } else if(i == 7 || i == 8){
                   tombolTambahLihatReturDealerKedua.appendChild(item);
                 }
                 item.classList.remove('btn-primary');
@@ -1697,21 +1753,28 @@ window.addEventListener('resize', function(e){
               item.classList.remove('pull-right'); 
             }
           });
-            if(instance[1] &&instance[2]){
+            if(instance[1] && instance[2]){
+                tombolTambahLihatReqFakturPajakKedua.style.display = 'grid';
+                tombolTambahLihatReqFakturPajakKedua.style.gridTemplateColumns = '50% 50%';
+                tombolTambahLihatReqFakturPajakKedua.style.position = 'fixed';
+                tombolTambahLihatReqFakturPajakKedua.style.top = '57px';     
+                document.querySelector('#jumbotron-req-faktur-pajak').style.setProperty('margin-top', '50px', 'important')          
+            }
+            if(instance[3] && instance[4]){
                 tombolTambahLihatPerpindahanKedua.style.display = 'grid';
                 tombolTambahLihatPerpindahanKedua.style.gridTemplateColumns = '50% 50%';
                 tombolTambahLihatPerpindahanKedua.style.position = 'fixed';
                 tombolTambahLihatPerpindahanKedua.style.top = '57px';     
                 document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '50px', 'important')
             }
-            if(instance[3] && instance[4]){
+            if(instance[5] && instance[6]){
                 tombolTambahLihatReturKedua.style.display = 'grid';
                 tombolTambahLihatReturKedua.style.gridTemplateColumns = '50% 50%';
                 tombolTambahLihatReturKedua.style.position = 'fixed';
                 tombolTambahLihatReturKedua.style.top = '57px';     
                 document.querySelector('#jumbotron-retur').style.setProperty('margin-top', '55px', 'important')              
             }
-            if(instance[5] && instance[6]){
+            if(instance[7] && instance[8]){
                 tombolTambahLihatReturDealerKedua.style.display = 'grid';
                 tombolTambahLihatReturDealerKedua.style.gridTemplateColumns = '50% 50%';
                 tombolTambahLihatReturDealerKedua.style.position = 'fixed';
@@ -1807,15 +1870,18 @@ window.addEventListener('resize', function(e){
                 case 2:
                 case 4:
                 case 6:
+                case 8:
                 item.style.marginRight = '5px';
                 break;
               }
               if(i > 0){
                 if(i == 1 || i == 2){
-                  tombolTambahLihatPerpindahan.appendChild(item);
+                  tombolTambahLihatReqFakturPajak.appendChild(item);
                 } else if(i == 3 || i == 4){
-                  tombolTambahLihatRetur.appendChild(item);
+                  tombolTambahLihatPerpindahan.appendChild(item);
                 } else if(i == 5 || i == 6){
+                  tombolTambahLihatRetur.appendChild(item);
+                } else if(i == 7 || i == 8){
                   tombolTambahLihatReturDealer.appendChild(item);
                 }
                 item.classList.add('btn-primary');
@@ -1828,15 +1894,18 @@ window.addEventListener('resize', function(e){
             }
           })
             if(document.querySelector('#tambahpengumuman')){
-            tombolTambahPengumuman.appendChild(document.querySelector('#tambahpengumuman'));
+              tombolTambahPengumuman.appendChild(document.querySelector('#tambahpengumuman'));
             }
-            if(instance[1] &&instance[2]){
+            if(instance[1] && instance[2]){
+              document.querySelector('#jumbotron-req-faktur-pajak').style.setProperty('margin-top', '10px', 'important');   
+            }
+            if(instance[3] && instance[4]){
               document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '10px', 'important');         
             }
-            if(instance[3] &&instance[4]){   
+            if(instance[5] && instance[6]){   
               document.querySelector('#jumbotron-retur').style.setProperty('margin-top', '10px', 'important');                       
             }
-            if(instance[5] &&instance[6]){   
+            if(instance[7] && instance[8]){   
               document.querySelector('#jumbotron-retur-dealer').style.setProperty('margin-top', '10px', 'important');                     
             }            
             let formCetakLabel = document.createElement('form');
@@ -1925,6 +1994,8 @@ window.addEventListener('resize', function(e){
 
 let tombolTambahPengumuman = document.querySelector('#tombol-tambah-pengumuman');
 let tombolTambahPengumumanKedua = document.querySelector('#tombol-tambah-pengumuman-kedua');
+let tombolTambahLihatReqFakturPajak = document.querySelector('#tombol-tambah-lihat-req-faktur-pajak');
+let tombolTambahLihatReqFakturPajakKedua = document.querySelector('#tombol-tambah-lihat-req-faktur-pajak-kedua');
 let tombolTambahLihatPerpindahan = document.querySelector('#tombol-tambah-lihat-perpindahan');
 let tombolTambahLihatPerpindahanKedua = document.querySelector('#tombol-tambah-lihat-perpindahan-kedua');
 let tombolTambahLihatRetur = document.querySelector('#tombol-tambah-lihat-retur');
@@ -1943,15 +2014,18 @@ $(document).ready(function(e){
             case 2:
             case 4:
             case 6:
+            case 8:
             item.style.marginRight = '0px';
             break;
           }
           if(i > 0){
             if(i == 1 || i == 2){
-              tombolTambahLihatPerpindahanKedua.appendChild(item);
+              tombolTambahLihatReqFakturPajakKedua.appendChild(item);
             } else if(i == 3 || i == 4){
-              tombolTambahLihatReturKedua.appendChild(item);
+              tombolTambahLihatPerpindahanKedua.appendChild(item);
             } else if(i == 5 || i == 6){
+              tombolTambahLihatReturKedua.appendChild(item);
+            } else if(i == 7 || i == 8){
               tombolTambahLihatReturDealerKedua.appendChild(item);
             }
             item.classList.remove('btn-primary');
@@ -1963,20 +2037,27 @@ $(document).ready(function(e){
         }
       })      
         if(instance[1] && instance[2]){
+          tombolTambahLihatReqFakturPajakKedua.style.display = 'grid';
+          tombolTambahLihatReqFakturPajakKedua.style.gridTemplateColumns = '50% 50%';
+          tombolTambahLihatReqFakturPajakKedua.style.position = 'fixed';
+          tombolTambahLihatReqFakturPajakKedua.style.top = '57px';
+          document.querySelector('#jumbotron-req-faktur-pajak').style.setProperty('margin-top', '50px', 'important')          
+        }
+        if(instance[3] && instance[4]){
           tombolTambahLihatPerpindahanKedua.style.display = 'grid';
           tombolTambahLihatPerpindahanKedua.style.gridTemplateColumns = '50% 50%';
           tombolTambahLihatPerpindahanKedua.style.position = 'fixed';
           tombolTambahLihatPerpindahanKedua.style.top = '57px';
           document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '50px', 'important')
         }
-        if(instance[3] && instance[4]){         
+        if(instance[5] && instance[6]){         
           tombolTambahLihatReturKedua.style.display = 'grid';
           tombolTambahLihatReturKedua.style.gridTemplateColumns = '50% 50%';
           tombolTambahLihatReturKedua.style.position = 'fixed';
           tombolTambahLihatReturKedua.style.top = '57px';
           document.querySelector('#jumbotron-retur').style.setProperty('margin-top', '55px', 'important')                 
         }
-        if(instance[5] && instance[6]){  
+        if(instance[7] && instance[8]){  
           tombolTambahLihatReturDealerKedua.style.display = 'grid';
           tombolTambahLihatReturDealerKedua.style.gridTemplateColumns = '50% 50%';
           tombolTambahLihatReturDealerKedua.style.position = 'fixed';
@@ -2072,15 +2153,18 @@ $(document).ready(function(e){
                 case 2:
                 case 4:
                 case 6:
+                case 8:
                 item.style.marginRight = '5px';
                 break;
               }
               if(i > 0){
                 if(i == 1 || i == 2){
-                  tombolTambahLihatPerpindahan.appendChild(item);
+                  tombolTambahLihatReqFakturPajak.appendChild(item);
                 } else if(i == 3 || i == 4){
-                  tombolTambahLihatRetur.appendChild(item);
+                  tombolTambahLihatPerpindahan.appendChild(item);
                 } else if(i == 5 || i == 6){
+                  tombolTambahLihatRetur.appendChild(item);
+                } else if(i == 7 || i == 8){
                   tombolTambahLihatReturDealer.appendChild(item);
                 }
                 item.classList.add('btn-primary');
@@ -2316,35 +2400,73 @@ setInterval(function(){
     },0)
   })  
 
+    document.querySelector('#lihatreqfakturpajakpending').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-req-faktur-pajak-pending').style.display == '' || document.querySelector('#list-req-faktur-pajak-pending').style.display == 'none'){
+      if(window.innerWidth <= 840){
+        e.target.style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatreqfakturpajakselesai').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatreqfakturpajakselesai').style.setProperty('padding', '6px 12px', 'important');
+        e.target.style.setProperty('padding', '6px 12px', 'important');        
+      }      
+        document.querySelector('#list-req-faktur-pajak-pending').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-req-faktur-pajak-selesai').style.setProperty('display', 'none', 'important');
+        e.target.classList.add('active')
+        if(document.querySelector('#lihatreqfakturpajakselesai').classList.contains('active')){
+        document.querySelector('#lihatreqfakturpajakselesai').classList.remove('active')
+        }
+    }
+    },0)
+  })
+
+    document.querySelector('#lihatreqfakturpajakselesai').addEventListener('click', function(e){
+    setTimeout(function(){
+    if(document.querySelector('#list-req-faktur-pajak-selesai').style.display == '' || document.querySelector('#list-req-faktur-pajak-selesai').style.display == 'none'){
+      if(window.innerWidth <= 840){
+        e.target.style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        document.querySelector('#lihatreqfakturpajakpending').style.setProperty('border-bottom', '0', 'important');
+        document.querySelector('#lihatreqfakturpajakpending').style.setProperty('padding', '6px 12px', 'important');
+        e.target.style.setProperty('padding', '6px 12px', 'important');    
+      }    
+        document.querySelector('#list-req-faktur-pajak-selesai').style.setProperty('display', 'block', 'important');
+        document.querySelector('#list-req-faktur-pajak-pending').style.setProperty('display', 'none', 'important');
+        e.target.classList.add('active');
+        if(document.querySelector('#lihatreqfakturpajakpending').classList.contains('active')){
+        document.querySelector('#lihatreqfakturpajakpending').classList.remove('active');
+        }
+    }
+    },0)
+  })
+
     document.querySelector('#lihatperpindahanpending').addEventListener('click', function(e){
     setTimeout(function(){
     if(document.querySelector('#list-perpindahan-barang-pending').style.display == '' || document.querySelector('#list-perpindahan-barang-pending').style.display == 'none'){
       if(window.innerWidth <= 840){
-        document.querySelector('#lihatperpindahanpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        e.target.style.setProperty('border-bottom', '5px solid #db9832', 'important');
         document.querySelector('#lihatperpindahanselesai').style.setProperty('border-bottom', '0', 'important');
-        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
+        e.target.style.setProperty('padding', '6px 12px', 'important');
         document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important');
       }
         document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'none', 'important');
         document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'none', 'important');
-        document.querySelector('#lihatperpindahanpending').classList.add('active')
+        e.target.classList.add('active')
         if(document.querySelector('#lihatperpindahanselesai').classList.contains('active')){
         document.querySelector('#lihatperpindahanselesai').classList.remove('active')
         }
     } else {
       if(window.innerWidth <= 840){
-        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '8px 12px', 'important');
+        e.target.style.setProperty('padding', '8px 12px', 'important');
         document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '8px 12px', 'important');
       } else {
-        document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
+        e.target.style.setProperty('padding', '6px 12px', 'important');
         document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important'); 
       }
-        document.querySelector('#lihatperpindahanpending').style.setProperty('border', '0', 'important');
+        e.target.style.setProperty('border', '0', 'important');
         document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'none', 'important');
         document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'none', 'important');
-        document.querySelector('#lihatperpindahanpending').classList.remove('active')        
+        e.target.classList.remove('active')        
     }
     },0)
   })
@@ -2353,31 +2475,31 @@ setInterval(function(){
     setTimeout(function(){
     if(document.querySelector('#list-perpindahan-barang-selesai').style.display == '' || document.querySelector('#list-perpindahan-barang-selesai').style.display == 'none'){
       if(window.innerWidth <= 840){
-        document.querySelector('#lihatperpindahanselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        e.target.style.setProperty('border-bottom', '5px solid #db9832', 'important');
         document.querySelector('#lihatperpindahanpending').style.setProperty('border-bottom', '0', 'important');
         document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
-        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important');    
+        e.target.style.setProperty('padding', '6px 12px', 'important');    
       }
         document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'none', 'important');
         document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'none', 'important');
-        document.querySelector('#lihatperpindahanselesai').classList.add('active');
+        e.target.classList.add('active');
         if(document.querySelector('#lihatperpindahanpending').classList.contains('active')){
         document.querySelector('#lihatperpindahanpending').classList.remove('active');
         }
     } else {
       if(window.innerWidth <= 840){
         document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '8px 12px', 'important');
-        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '8px 12px', 'important');
+        e.target.style.setProperty('padding', '8px 12px', 'important');
       } else {
         document.querySelector('#lihatperpindahanpending').style.setProperty('padding', '6px 12px', 'important');
-        document.querySelector('#lihatperpindahanselesai').style.setProperty('padding', '6px 12px', 'important');
+        e.target.style.setProperty('padding', '6px 12px', 'important');
       }      
-        document.querySelector('#lihatperpindahanselesai').style.setProperty('border', '0', 'important');
+        e.target.style.setProperty('border', '0', 'important');
         document.querySelector('#list-perpindahan-barang-selesai').style.setProperty('display', 'none', 'important');
         document.querySelector('#list-perpindahan-barang').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-perpindahan-barang-pending').style.setProperty('display', 'none', 'important');
-        document.querySelector('#lihatperpindahanselesai').classList.remove('active');
+        e.target.classList.remove('active');
     }
     },0)
   })    
@@ -2386,14 +2508,14 @@ setInterval(function(){
     setTimeout(function(){
     if(document.querySelector('#list-retur-pending').style.display == '' || document.querySelector('#list-retur-pending').style.display == 'none'){
       if(window.innerWidth <= 840){
-        document.querySelector('#lihatreturpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        e.target.style.setProperty('border-bottom', '5px solid #db9832', 'important');
         document.querySelector('#lihatreturselesai').style.setProperty('border-bottom', '0', 'important');
-        document.querySelector('#lihatreturpending').style.setProperty('padding', '6px 12px', 'important');
+        e.target.style.setProperty('padding', '6px 12px', 'important');
         document.querySelector('#lihatreturselesai').style.setProperty('padding', '6px 12px', 'important');
       }      
         document.querySelector('#list-retur-pending').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-retur-selesai').style.setProperty('display', 'none', 'important');
-        document.querySelector('#lihatreturpending').classList.add('active')
+        e.target.classList.add('active')
         if(document.querySelector('#lihatreturselesai').classList.contains('active')){
         document.querySelector('#lihatreturselesai').classList.remove('active')
         }
@@ -2405,14 +2527,14 @@ setInterval(function(){
     setTimeout(function(){
     if(document.querySelector('#list-retur-selesai').style.display == '' || document.querySelector('#list-retur-selesai').style.display == 'none'){
       if(window.innerWidth <= 840){
-        document.querySelector('#lihatreturselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        e.target.style.setProperty('border-bottom', '5px solid #db9832', 'important');
         document.querySelector('#lihatreturpending').style.setProperty('border-bottom', '0', 'important');
         document.querySelector('#lihatreturpending').style.setProperty('padding', '6px 12px', 'important');
-        document.querySelector('#lihatreturselesai').style.setProperty('padding', '6px 12px', 'important');    
+        e.target.style.setProperty('padding', '6px 12px', 'important');    
       }    
         document.querySelector('#list-retur-selesai').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-retur-pending').style.setProperty('display', 'none', 'important');
-        document.querySelector('#lihatreturselesai').classList.add('active');
+        e.target.classList.add('active');
         if(document.querySelector('#lihatreturpending').classList.contains('active')){
         document.querySelector('#lihatreturpending').classList.remove('active');
         }
@@ -2424,14 +2546,14 @@ setInterval(function(){
     setTimeout(function(){
     if(document.querySelector('#list-retur-dealer-pending').style.display == '' || document.querySelector('#list-retur-dealer-pending').style.display == 'none'){
       if(window.innerWidth <= 840){
-        document.querySelector('#lihatreturdealerpending').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        e.target.style.setProperty('border-bottom', '5px solid #db9832', 'important');
         document.querySelector('#lihatreturdealerselesai').style.setProperty('border-bottom', '0', 'important');
-        document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '6px 12px', 'important');
+        e.target.style.setProperty('padding', '6px 12px', 'important');
         document.querySelector('#lihatreturdealerselesai').style.setProperty('padding', '6px 12px', 'important');
       }      
         document.querySelector('#list-retur-dealer-pending').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-retur-dealer-selesai').style.setProperty('display', 'none', 'important');
-        document.querySelector('#lihatreturdealerpending').classList.add('active')
+        documee.target.classList.add('active')
         if(document.querySelector('#lihatreturdealerselesai').classList.contains('active')){
         document.querySelector('#lihatreturdealerselesai').classList.remove('active')
         }
@@ -2443,14 +2565,14 @@ setInterval(function(){
     setTimeout(function(){
     if(document.querySelector('#list-retur-dealer-selesai').style.display == '' || document.querySelector('#list-retur-dealer-selesai').style.display == 'none'){
       if(window.innerWidth <= 840){
-        document.querySelector('#lihatreturdealerselesai').style.setProperty('border-bottom', '5px solid #db9832', 'important');
+        e.target.style.setProperty('border-bottom', '5px solid #db9832', 'important');
         document.querySelector('#lihatreturdealerpending').style.setProperty('border-bottom', '0', 'important');
         document.querySelector('#lihatreturdealerpending').style.setProperty('padding', '6px 12px', 'important');
-        document.querySelector('#lihatreturdealerselesai').style.setProperty('padding', '6px 12px', 'important');    
+        e.target.style.setProperty('padding', '6px 12px', 'important');    
       }      
         document.querySelector('#list-retur-dealer-selesai').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-retur-dealer-pending').style.setProperty('display', 'none', 'important');
-        document.querySelector('#lihatreturdealerselesai').classList.add('active');
+        e.target.classList.add('active');
         if(document.querySelector('#lihatreturdealerpending').classList.contains('active')){
         document.querySelector('#lihatreturdealerpending').classList.remove('active');
         }

@@ -705,13 +705,13 @@ body{
 	overflow-y: auto;
 }
 
-.tombol-lihat-perpindahan{
+.tombol-lihat-perpindahan, .tombol-lihat-req-faktur-pajak{
 	border:0 !important;
 	display: flex;
 	gap:5px;
 }
 
-#tombol-tambah-lihat-retur-dealer-kedua, #tombol-tambah-lihat-retur-kedua, #tombol-tambah-lihat-perpindahan-kedua{
+#tombol-tambah-lihat-retur-dealer-kedua, #tombol-tambah-lihat-retur-kedua, #tombol-tambah-lihat-req-faktur-pajak-kedua, #tombol-tambah-lihat-perpindahan-kedua{
 	width: 100%;
 	z-index: 1;
 }
@@ -1147,7 +1147,7 @@ input:checked + .slider:after {
 	color:orangered !important;
 }
 
-#list-perpindahan-barang-pending, #list-perpindahan-barang-selesai, #list-daftar-belanja, #list-daftar-belanja-selesai, #list-retur-selesai, #list-retur-dealer-selesai{
+#list-perpindahan-barang-pending, #list-perpindahan-barang-selesai, #list-daftar-belanja, #list-daftar-belanja-selesai, #list-retur-selesai, #list-retur-dealer-selesai, #list-req-faktur-pajak-selesai{
 	display: none;
 }
 
@@ -1199,7 +1199,7 @@ input:checked + .slider:after {
 	border-radius: 5px;
 }
 
-.konten-perpindahan-barang-tampilan, .konten-retur-tampilan{
+.konten-perpindahan-barang-tampilan, .konten-retur-tampilan, .keterangan-req-faktur-pajak-tampilan{
 	padding: 8px 8px 12px 16px;
 	background-color: white;
 	border-bottom-left-radius: 5px;
@@ -1207,7 +1207,7 @@ input:checked + .slider:after {
 	overflow-wrap: anywhere;
 }
 
-.header-perpindahan-barang, .header-retur{
+.header-perpindahan-barang, .header-retur, .header-req-faktur-pajak{
 	display: grid;
 	grid-template-columns: auto 40px;
 	background-color: #343a40;
@@ -1215,23 +1215,23 @@ input:checked + .slider:after {
 	border-top-right-radius: 5px;
 }
 
-.judul-perpindahan-barang, .judul-retur{
+.judul-perpindahan-barang, .judul-retur, .judul-req-faktur-pajak{
 	margin-top:0px auto;
 	margin-bottom: 0px auto;
 	color: white;
 	padding: 12px 12px 12px 16px;
 }
 
-.perpindahan-barang, .retur{
+.perpindahan-barang, .retur, .req-faktur-pajak{
 	margin: 10px;
 }
 
-.menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur, .menu-konfigurasi-catatan, .menu-konfigurasi-pedoman{
+.menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur, .menu-konfigurasi-catatan, .menu-konfigurasi-req-faktur-pajak, .menu-konfigurasi-pedoman{
 	border-radius: 0 !important;
 	z-index: 1 !important;
 }
 
-.menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur{
+.menu-konfigurasi-perpindahan-barang, .menu-konfigurasi-retur, .menu-konfigurasi-req-faktur-pajak{
 	transform: translate3d(-120px, 45px, 0px) !important;
 }
 
@@ -1280,7 +1280,8 @@ input:checked + .slider:after {
 	font-size: 14px;
 }
 
-.hapus-catatan, .edit-catatan, .hapus-perpindahan-barang, .edit-perpindahan-barang, .selesai-perpindahan-barang, .copy-perpindahan-barang, .refresh-perpindahan-barang, .edit-retur, .hapus-retur, .print-retur, .hapus-pedoman, .edit-pedoman{
+.hapus-catatan, .edit-catatan, .hapus-perpindahan-barang, .edit-perpindahan-barang, .selesai-perpindahan-barang, .copy-perpindahan-barang, .refresh-perpindahan-barang, .edit-retur,
+ .hapus-retur, .print-retur, .hapus-pedoman, .edit-pedoman, .selesai-req-faktur-pajak, .copy-req-faktur-pajak, .edit-req-faktur-pajak, .hapus-req-faktur-pajak{
 	cursor: pointer;
 }
 
@@ -1991,7 +1992,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	grid-template-columns: 50% 50%;
 }
 
-#halaman-kesalahan, #list-retur-pending, #list-retur-selesai, #list-retur-dealer-pending, #list-retur-dealer-selesai{
+#halaman-kesalahan, #list-retur-pending, #list-retur-selesai, #list-retur-dealer-pending, #list-retur-dealer-selesai, #list-req-faktur-pajak-pending, #list-req-faktur-pajak-selesai{
 	margin-bottom: 90px;
 }
 
@@ -2537,7 +2538,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 	display: block;
 }
 
-#judul-jumbotron-performa-peserta-individu, #judul-jumbotron-swot, #judul-jumbotron-achievement, #judul-jumbotron-pengumuman, #judul-jumbotron-overview, #judul-jumbotron-perpindahan-barang, #judul-jumbotron-cetak-label, #judul-jumbotron-catatan, #judul-jumbotron-indent-cust, #judul-jumbotron-retur, #judul-jumbotron-retur-dealer, #judul-jumbotron-transaksi-berjalan, #judul-jumbotron-daftar-belanja, #judul-jumbotron-pedoman-galaxy{
+#judul-jumbotron-performa-peserta-individu, #judul-jumbotron-swot, #judul-jumbotron-achievement, #judul-jumbotron-pengumuman, #judul-jumbotron-overview, #judul-jumbotron-req-faktur-pajak, #judul-jumbotron-perpindahan-barang, #judul-jumbotron-cetak-label, #judul-jumbotron-catatan, #judul-jumbotron-indent-cust, #judul-jumbotron-retur, #judul-jumbotron-retur-dealer, #judul-jumbotron-transaksi-berjalan, #judul-jumbotron-daftar-belanja, #judul-jumbotron-pedoman-galaxy{
 	font-size: 32px !important;
 }
 
@@ -2701,7 +2702,11 @@ div.induk-kategori-menu{
 	font-size: 16px;
 }
 
-.menu, .tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur, .tombol-lihat-perpindahan, #lihat-performa-peserta, .konten-perpindahan-barang-tampilan, .judul-perpindahan-barang, .label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, #label-setting-kalkulator-tenor, .info-tugas, label, #peringatan-perpindahan-kedua, .info-indent-cust, .info-pengeluaran, .keterangan-pengeluaran-tampilan, .info-kesalahan, .info-achievement, .info-akun, .info-tenor, .info-transaksi, .info-perpindahan-barang, .info-retur, .info-indent-cust, .info-pengeluaran, #tombol-edit-biaya-bunga, #tombol-edit-biaya-admin{
+.menu, .tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur, .tombol-lihat-perpindahan, .tombol-lihat-req-faktur-pajak, #lihat-performa-peserta, 
+.konten-perpindahan-barang-tampilan, .judul-perpindahan-barang, .label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, 
+#label-setting-kalkulator-tenor, .info-tugas, label, #peringatan-perpindahan-kedua, .info-indent-cust, .info-pengeluaran, .keterangan-pengeluaran-tampilan, .info-kesalahan, 
+.info-achievement, .info-akun, .info-tenor, .info-transaksi, .info-perpindahan-barang, .info-retur, .info-indent-cust, .info-pengeluaran, #tombol-edit-biaya-bunga, 
+#tombol-edit-biaya-admin, .keterangan-req-faktur-pajak-tampilan{
 	font-size: 15px;
 }
 

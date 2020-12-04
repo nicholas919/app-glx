@@ -567,7 +567,28 @@ auth.onAuthStateChanged(user => {
                         renderUpdatePedoman(change.doc);
                     }
                 })
-    }, err => console.log(err.message))        
+    }, err => console.log(err.message))
+
+        db.collection('reqFakturPajak').onSnapshot(snapshot =>{
+                let changes = snapshot.docChanges();
+                changes.forEach(change =>{
+                    if(change.type == 'added'){
+                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
+                        renderReqFakturPajak(change.doc);
+                        }
+                    } else if(change.type == 'removed'){
+                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
+                        if(div.parentElement == listReqFakturPajakPending){
+                            document.querySelector('#jumlah-req-faktur-pajak-pending').innerHTML = Number(document.querySelector('#jumlah-req-faktur-pajak-pending').innerHTML) - 1;
+                        } else if(div.parentElement == listReqFakturPajakSelesai){
+                            document.querySelector('#jumlah-req-faktur-pajak-selesai').innerHTML = Number(document.querySelector('#jumlah-req-faktur-pajak-selesai').innerHTML) - 1;
+                        }
+                        div.remove();
+                    } else if(change.type == 'modified'){
+                        renderUpdateReqFakturPajak(change.doc);
+                    }
+                })
+    }, err => console.log(err.message))            
                
 
         $(document).ready(function(){
@@ -1062,10 +1083,41 @@ daftarPedomanGalaxy.addEventListener('submit', (e) => {
         db.collection('pedoman').add({
             tanggal : new Date().getTime(),
             judul : daftarPedomanGalaxy['judul-pedoman'].value,
-            keterangan: daftarPedomanGalaxy['keterangan-pedoman'].value.replace(/\n\r?/g, '<br/>')
+            keterangan: daftarPedomanGalaxy['keterangan-pedoman'].value.replace(/\n\r?/g, '<br/>'),
         }).then(() => {
             daftarPedomanGalaxy.value = null;
         })
+})
+
+const daftarReqFakturPajak = document.querySelector('#tambah-req-faktur-pajak');
+daftarReqFakturPajak.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let hari = String(new Date().getDate()).padStart(2, '0');
+    let bulan = String(new Date().getMonth() + 1).padStart(2, '0');
+    let tahun = new Date().getFullYear();
+    let tanggalSekarang = tahun + '-' + bulan + '-' + hari;    
+    let tanggal = new Date().getTime();    
+    if(daftarReqFakturPajak['tanggal-req-faktur-pajak'].value > tanggalSekarang){
+        alert('Sepertinya anda mencantumkan tanggal sebelum kejadian terjadi');
+    } else if(daftarReqFakturPajak['tanggal-req-faktur-pajak'].value == 0){
+    db.collection('reqFakturPajak').add({
+        tanggal: tanggal,
+        keterangan: daftarReqFakturPajak['keterangan-req-faktur-pajak'].value.replace(/\n\r?/g, '<br/>'),
+        status : 'PENDING'
+    }).then(() => {
+        $('#modaltransaksiberjalan').modal('hide');
+        document.querySelector('#tambah-transaksi-berjalan').reset();
+    })
+    } else {
+    db.collection('reqFakturPajak').add({
+        tanggal: daftarReqFakturPajak['tanggal-req-faktur-pajak'].value,
+        keterangan: daftarReqFakturPajak['keterangan-req-faktur-pajak'].value.replace(/\n\r?/g, '<br/>'),
+        status : 'PENDING'
+    }).then(() => {
+        $('#modalreqfakturpajak').modal('hide');
+        e.target.reset();
+    })        
+    }
 })
 
 const formDaftar = document.querySelector('#form-daftar');

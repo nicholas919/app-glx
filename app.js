@@ -928,7 +928,7 @@ const setupUI = (user) => {
             });
             [document.querySelector('#tambahpengumuman'), document.querySelector('#swot'), document.querySelector('#achievement'), document.querySelector('#transaksi-berjalan'), document.querySelector('#retur-dealer')
             , document.querySelector('#surat-jalan'), document.querySelector('#surat-penawaran'), document.querySelector('#jumbotron-swot'), document.querySelector('#daftar-peserta')
-            , document.querySelector('#tambahperpindahanbarang')].forEach(item => {
+            , document.querySelector('#tambahperpindahanbarang'), document.querySelector('#format-order'), document.querySelector('#req-faktur-pajak')].forEach(item => {
                 item.style.display = 'none';
             });
             [document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua'), document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat'),
@@ -7711,6 +7711,216 @@ function renderUpdatePedoman(doc){
     } else {
         document.querySelector('#keterangan-pedoman-tampilan' + doc.id).innerHTML = keterangan;
     }    
+
+}
+
+const listReqFakturPajakPending = document.querySelector('#list-req-faktur-pajak-pending');
+const listReqFakturPajakSelesai = document.querySelector('#list-req-faktur-pajak-selesai');
+const modalReqFakturPajak = document.querySelector('#modal-edit-req-faktur-pajak');
+function renderReqFakturPajak(doc){
+    let div = document.createElement('div');
+    let request = document.createElement('div');
+    div.setAttribute('data-id', doc.id)
+    div.setAttribute('id', 'reqfakturpajak' + doc.id)
+    div.classList.add('dokumentasi-req-faktur-pajak' + doc.id, 'req-faktur-pajak');
+    let tanggal = doc.data().tanggal;
+    let keterangan = doc.data().keterangan;
+    let status = doc.data().status;
+    div.setAttribute('data-date', new Date(tanggal).getTime())
+    let kalkulasiTanggal = new Date(tanggal);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggal = dd + ' ' + mm + ' ' + yyyy;
+    mm = String(kalkulasiTanggal.getMonth() + 1).padStart(2, '0');
+    let tampilanTanggal = yyyy + '-' + mm + '-' + dd;
+    let tanggalRequest = yyyy + mm + dd;
+
+    request.innerHTML = `
+    <div class="modal fade" id="modalreqfakturpajak${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Pengaturan Data Request Faktur Pajak</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="modal-body">
+              <form id="tambah-req-faktur-pajak${doc.id}">
+                  <div class="form-group">
+                    <label class="col-form-label">Tanggal Request <small>(Note :Tanggal akan otomatis mengikuti tanggal hari ini jika kolom dikosongkan)</small></label>
+                    <input type="date" value="${tampilanTanggal}" class="form-control" id="tanggal-req-faktur-pajak${doc.id}" autocomplete="off">
+                  </div>
+                  <div class="form-group">              
+                    <label>Keterangan</label>
+                  <textarea oninput="auto_grow(this)" class="form-control" id="keterangan-req-faktur-pajak${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required>${keterangan.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                  </div>
+                    <div class="modal-footer">
+                          <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+           </div>
+         </div>
+    `
+    modalReqFakturPajak.appendChild(request);
+
+    switch(status){
+        case 'PENDING':
+        div.innerHTML = `
+        <div class="header-req-faktur-pajak">
+            <div class="judul-req-faktur-pajak">Request Faktur Pajak, Tanggal <span id="tanggal-req-faktur-pajak-tampilan${doc.id}">${tanggal}</span></div>
+            <div class="dropdown">        
+                <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
+                <div class="dropdown-menu menu-konfigurasi-req-faktur-pajak">
+                    <div class='selesai-req-faktur-pajak dropdown-item' id="selesai${doc.id}"><i class='fas fa-check'></i> Selesai</div>
+                    <div class='copy-req-faktur-pajak dropdown-item' id="copy${doc.id}"><i class='far fa-copy'></i> Copy</div>
+                    <div class='edit-req-faktur-pajak dropdown-item' id='edit${doc.id}' data-toggle='modal' data-target='#modalreqfakturpajak${doc.id}'><i class='fas fa-pen'></i> Edit</div>
+                    <div class='hapus-req-faktur-pajak dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+                </div>
+            </div>
+        </div>
+        <div id="keterangan-req-faktur-pajak-tampilan${doc.id}" class="keterangan-req-faktur-pajak-tampilan">${keterangan}</div>
+        `        
+        listReqFakturPajakPending.appendChild(div);
+        document.querySelector('#jumlah-req-faktur-pajak-pending').innerHTML = Number(document.querySelector('#jumlah-req-faktur-pajak-pending').innerHTML) + 1;
+
+        let edit = document.querySelector('#tambah-req-faktur-pajak' + doc.id);
+        edit.addEventListener('submit', function(e){
+            e.preventDefault();
+            let tanggalUpdate = edit['tanggal-req-faktur-pajak' + doc.id].value;
+            let keteranganUpdate = edit['keterangan-req-faktur-pajak' + doc.id].value;
+            let hari = String(new Date().getDate()).padStart(2, '0');
+            let bulan = String(new Date().getMonth() + 1).padStart(2, '0');
+            let tahun = new Date().getFullYear();
+            let tanggalSekarangUpdate = tahun + '-' + bulan + '-' + hari;
+            if(tanggalUpdate > tanggalSekarangUpdate){
+                alert('Sepertinya anda mencantumkan tanggal sebelum kejadian terjadi');
+            } else if(tanggalUpdate == 0){
+                tanggalUpdate = new Date().getTime();
+                db.collection('reqFakturPajak').doc(doc.id).update({
+                    tanggal : tanggalUpdate,
+                    keterangan : keteranganUpdate.replace(/\n\r?/g, '<br/>')
+                }).then(() => {
+                    $('#modalreqfakturpajak' + doc.id).modal('hide');
+                })
+            } else {
+                db.collection('reqFakturPajak').doc(doc.id).update({
+                    tanggal : tanggalUpdate,
+                    keterangan : keteranganUpdate.replace(/\n\r?/g, '<br/>')
+                }).then(() => {
+                    $('#modalreqfakturpajak' + doc.id).modal('hide');
+                })            
+            }
+        })
+
+        let copy = document.querySelector('#copy' + doc.id);
+        copy.addEventListener('click', function(e){
+            e.stopPropagation();
+            let range = document.getSelection().getRangeAt(0);
+            range.selectNode(document.querySelector("#keterangan-req-faktur-pajak-tampilan" + doc.id));
+            window.getSelection().addRange(range);
+            document.execCommand("copy");            
+        })
+
+        let selesai = document.querySelector('#selesai' + doc.id);
+        selesai.addEventListener('click', function(e){
+            e.stopPropagation();
+            db.collection('reqFakturPajak').doc(doc.id).update({
+                status : 'COMPLETED'
+            }).then(() => {
+                $('#modalreqfakturpajak' + doc.id).modal('hide');
+            })
+        })        
+
+        break;
+        case 'COMPLETED':
+        div.innerHTML = `
+        <div class="header-req-faktur-pajak">
+            <div class="judul-req-faktur-pajak">Request Faktur Pajak, Tanggal <span id="tanggal-req-faktur-pajak-tampilan${doc.id}">${tanggal}</span></div>
+            <div class="dropdown">        
+                <i class="btn fa fa-ellipsis-v tombol-pengaturan" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="tombol-pengaturan${doc.id}"></i>
+                <div class="dropdown-menu menu-konfigurasi-req-faktur-pajak">
+                    <div class='hapus-req-faktur-pajak dropdown-item' id="hapus${doc.id}"><i class='fas fa-trash-alt'></i> Hapus</div>
+                </div>
+            </div>
+        </div>
+        <div id="keterangan-req-faktur-pajak-tampilan${doc.id}" class="keterangan-req-faktur-pajak-tampilan">${keterangan}</div>
+        `        
+        listReqFakturPajakSelesai.appendChild(div);
+        document.querySelector('#jumlah-req-faktur-pajak-selesai').innerHTML = Number(document.querySelector('#jumlah-req-faktur-pajak-selesai').innerHTML) + 1;
+    }
+
+
+    let hapus = document.querySelector('#hapus' + doc.id);
+    hapus.addEventListener('click', function(e){
+        e.stopPropagation();
+        let konfirmasi = confirm('Apa anda yakin ingin menghapus data request faktur pajak ini?');
+        if(konfirmasi == true){
+            db.collection('reqFakturPajak').doc(doc.id).delete();
+            $('#modalreqfakturpajak' + doc.id).modal('hide');
+        }
+    })
+
+
+        $(document).ready(function() {
+        db.collection('reqFakturPajak').onSnapshot(snapshot =>{
+        let items = $('#list-req-faktur-pajak-pending > .req-faktur-pajak').get();
+        items.sort(function(a, b) {
+        let keyA = $(a).data('date');
+        let keyB = $(b).data('date');
+        if (keyA < keyB) return 1;
+        if (keyA > keyB) return -1;
+        return 0;
+        })
+        let daftarReqFakturPajakPending = $('#list-req-faktur-pajak-pending');
+        $.each(items, function(i, div) {
+        daftarReqFakturPajakPending.append(div);
+        })
+      })
+    })    
+
+}
+
+function renderUpdateReqFakturPajak(doc){
+    let tanggal = doc.data().tanggal;
+    let keterangan = doc.data().keterangan;
+    let status = doc.data().status;
+    document.querySelector('#reqfakturpajak' + doc.id).setAttribute('data-date', new Date(tanggal).getTime())
+    let kalkulasiTanggal = new Date(tanggal);
+    let dd = String(kalkulasiTanggal.getDate()).padStart(2, '0');
+    let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let mm = bulan[kalkulasiTanggal.getMonth()]
+    let yyyy = kalkulasiTanggal.getFullYear();
+    tanggal = dd + ' ' + mm + ' ' + yyyy;
+    mm = String(kalkulasiTanggal.getMonth() + 1).padStart(2, '0');
+    let tampilanTanggal = yyyy + '-' + mm + '-' + dd;
+    let tanggalRequest = yyyy + mm + dd;
+    document.querySelector('#tanggal-req-faktur-pajak' + doc.id).value = tampilanTanggal;
+    document.querySelector('#tanggal-req-faktur-pajak-tampilan' + doc.id).innerHTML = tanggal;
+    document.querySelector('#keterangan-req-faktur-pajak' + doc.id).innerHTML = keterangan.replace(/<br\s*[\/]?>/gi, "\n");
+    document.querySelector('#keterangan-req-faktur-pajak-tampilan' + doc.id).innerHTML = keterangan;
+
+    switch(status){
+        case 'PENDING':
+        if(document.querySelector('#reqfakturpajak' + doc.id).parentElement != listReqFakturPajakPending){
+            listReqFakturPajakPending.appendChild(document.querySelector('#reqfakturpajak' + doc.id))
+        }
+        break;
+        case 'COMPLETED':
+        if(document.querySelector('#reqfakturpajak' + doc.id).parentElement != listReqFakturPajakSelesai){
+            [document.querySelector('#selesai' + doc.id), document.querySelector('#edit' + doc.id), document.querySelector('#copy' + doc.id)].forEach(item => {
+                item.remove();
+            })
+            listReqFakturPajakSelesai.appendChild(document.querySelector('#reqfakturpajak' + doc.id))
+            document.querySelector('#jumlah-req-faktur-pajak-pending').innerHTML = Number(document.querySelector('#jumlah-req-faktur-pajak-pending').innerHTML) - 1;
+            document.querySelector('#jumlah-req-faktur-pajak-selesai').innerHTML = Number(document.querySelector('#jumlah-req-faktur-pajak-selesai').innerHTML) + 1;
+        }        
+    }
 
 }
 
