@@ -5214,6 +5214,7 @@ function renderPerpindahan(doc){
             let mmSekarang = String(new Date().getMonth() + 1).padStart(2, '0');
             let yyyySekarang = new Date().getFullYear();
             let tanggalSekarang = ddSekarang + '-' + mmSekarang + '-' + yyyySekarang;
+            let newTampilanTanggal = yyyyPerpindahan + '-' + mmPerpindahan + '-' + ddPerpindahan;
             if(document.querySelector('#perpindahanbarang' + doc.id).parentElement == listPerpindahanBarang){
                 if(newTanggalPerpindahan == tanggalSekarang){
                     document.querySelector('#tanggal-perpindahan-barang-tampilan' + doc.id).innerHTML = 'Hari Ini';
@@ -5239,7 +5240,8 @@ function renderPerpindahan(doc){
                     document.querySelector('#tanggal-perpindahan-barang-tampilan' + doc.id).innerHTML = 'Tanggal ' + ddPerpindahan + ' ' + mmPerpindahanKedua + ' ' + yyyyPerpindahan;
                 }                
             }
-            document.querySelector('#konten-perpindahan-barang' + doc.id).innerHTML = newKontenPerpindahan.replace(/<br\s*[\/]?>/gi, "&#13;&#10;");
+            document.querySelector('#tanggal-perpindahan-barang' + doc.id).value = newTampilanTanggal;;
+            document.querySelector('#konten-perpindahan-barang' + doc.id).value = newKontenPerpindahan.replace(/<br\s*[\/]?>/gi, "\n");
             document.querySelector('#konten-perpindahan-barang-tampilan' + doc.id).innerHTML = newKontenPerpindahan;
         })
     })
