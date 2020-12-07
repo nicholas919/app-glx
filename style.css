@@ -2874,3 +2874,19 @@ div.induk-kategori-menu{
 }
 
 }
+
+@media only screen and (max-width: 380px){
+.navbar-brand{
+	margin-left: 23% !important;
+	margin-right: auto !important;
+}
+
+}
+
+@media only screen and (max-width: 350px){
+.navbar-brand{
+	margin-left: 20% !important;
+	margin-right: auto !important;
+}
+
+}
