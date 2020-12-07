@@ -1341,7 +1341,6 @@ function renderUpdatePeserta(doc){
     document.querySelector('#nama' + doc.id).innerHTML = nama.toUpperCase();
     document.querySelector('#libur' + doc.id).innerHTML = libur;
     document.querySelector('#lokasi' + doc.id).innerHTML = lokasi;
-    document.querySelector('#peserta' + doc.id).innerHTML = nama + ' ';
 
     let hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
     let hariIni = new Date();
@@ -5362,6 +5361,7 @@ function renderHapusPerpindahan(doc){
         if(listPerpindahanBarang.childNodes.length == 1){
             [document.querySelector('#peringatan-perpindahan'), document.querySelector('#peringatan-perpindahan-kedua')].forEach(item =>{
                 item.remove();
+                document.querySelector('#kalender').style.setProperty('margin-top', '10px', 'important');
             })
         } else {
             [document.querySelector('#jumlah-perpindahan-hari-ini'), document.querySelector('#jumlah-perpindahan-hari-ini-kedua')].forEach(item => {
