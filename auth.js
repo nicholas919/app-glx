@@ -323,22 +323,7 @@ auth.onAuthStateChanged(user => {
                         renderUpdatePerpindahan(change.doc);
                     }
                 })
-    }, err => console.log(err.message))
-
-        db.collection('perpindahanSelesai').onSnapshot(snapshot =>{
-                let changes = snapshot.docChanges();
-                changes.forEach(change =>{
-                    if(change.type == 'added'){
-                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
-                        renderPerpindahanSelesai(change.doc);
-                        }
-                    } else if(change.type == 'removed'){
-                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
-                        div.remove();
-                        document.querySelector('#jumlah-perpindahan-selesai').innerHTML = Number(document.querySelector('#jumlah-perpindahan-selesai').innerHTML) - 1;
-                    }
-                })
-    }, err => console.log(err.message))            
+    }, err => console.log(err.message))           
 
         db.collection('tenorKalkulator').onSnapshot(snapshot =>{
                 let changes = snapshot.docChanges();

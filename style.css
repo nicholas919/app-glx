@@ -213,7 +213,6 @@ body{
 }
 
 #kalender{
-	display: grid;
 	grid-template-columns: 60% 40%;
 	margin: 10px 10px 0px;
 }
@@ -1663,7 +1662,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 
 .nama-kategori-menu-tampilan{
 	color:white;
-	font-size: 18px;
+	font-size: 15px;
 }
 
 
@@ -2505,10 +2504,6 @@ div.induk-kategori-menu:nth-child(2n+0){
 
 #tambahpengumuman{
 	margin: 0px 20px;
-}
-
-#kalender{
-	display: block !important;
 }
 
 #wrapper-kalender{

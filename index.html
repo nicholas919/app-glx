@@ -766,6 +766,10 @@
 
 
 </div>
+
+
+
+
 <!--<div class="halaman tab-pane fade" id="halaman-list-gaji" role="tabpanel">
 
 <div id="kotak-list-gaji">
@@ -1121,20 +1125,22 @@
     <div class="form-row">
       <div class="form-group col-7">
         <label class="col-form-label">Ongkir</label>
-        <input type="number" class="form-control" id="jumlah-ongkir-format-order" autocomplete="off" required>
+        <input type="number" class="form-control" id="jumlah-ongkir-format-order" autocomplete="off">
       </div>
       <div class="form-group col">
         <label class="col-form-label">Ekspedisi</label>
-        <select class="form-control" id="ekspedisi-format-order" required>
+        <select class="form-control" id="ekspedisi-format-order">
           <option value="" disabled selected hidden>-</option>
         </select>
       </div>        
     </div>
+
     <div class="form-group">              
       <label>Tujuan</label>
-      <textarea oninput="auto_grow(this)" class="form-control" id="alamat-tujuan-format-order" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required></textarea>
+      <textarea oninput="auto_grow(this)" class="form-control" id="alamat-tujuan-format-order" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)"></textarea>
     </div>
-    <button type="submit" class="btn w-100 btn-success d-block">Generate Format Order WA</button>       
+    <button type="submit" class="btn w-100 btn-success d-block" id="fo-wa-pertama">Generate Format Order WA</button>
+    <button type="submit" class="btn w-100 btn-info d-block" id="fo-wa-kedua" style="margin-top: 5px;">Generate Format Order WA(Tanpa Tujuan, Ongkir, dan Ekspedisi)</button>
   </form>
 </div>
 
@@ -2553,7 +2559,7 @@ setInterval(function(){
       }      
         document.querySelector('#list-retur-dealer-pending').style.setProperty('display', 'block', 'important');
         document.querySelector('#list-retur-dealer-selesai').style.setProperty('display', 'none', 'important');
-        documee.target.classList.add('active')
+        e.target.classList.add('active')
         if(document.querySelector('#lihatreturdealerselesai').classList.contains('active')){
         document.querySelector('#lihatreturdealerselesai').classList.remove('active')
         }
@@ -3411,6 +3417,16 @@ tambahBarisFO.addEventListener('click', function(e){
 
 })
 
+document.querySelector('#fo-wa-pertama').addEventListener('click', function(e){
+  e.target.setAttribute('clicked', true);
+  document.querySelector('#fo-wa-kedua').removeAttribute('clicked');
+})
+
+document.querySelector('#fo-wa-kedua').addEventListener('click',function(e){
+  e.target.setAttribute('clicked', true);
+  document.querySelector('#fo-wa-pertama').removeAttribute('clicked');
+})
+
 const listFormatOrder = document.querySelector('#list-format-order')
 let formFormatOrder = document.querySelector('#form-format-order');
 formFormatOrder.addEventListener('submit', function(e){
@@ -3431,8 +3447,11 @@ formFormatOrder.addEventListener('submit', function(e){
       `
     }
   }
+  console.log(sum);
+
   let div = document.createElement('div');
   div.classList.add('format-order')
+  if(document.querySelector('#fo-wa-pertama').getAttribute('clicked') == 'true'){
     div.innerHTML = `
     <div class="ml-auto mr-auto deskripsi-format-order">
     <div>Terima kasih sudah berbelanja di Galaxy Camera</div>
@@ -3447,7 +3466,22 @@ formFormatOrder.addEventListener('submit', function(e){
     <div>Kabari kami kembali ya kak jika sudah melakukan transaksi / pembayaran <span>&#128522;</span></div>
     </div>
     <div class="btn w-100 d-block btn-success copy-format-order">Copy</div>
+    `    
+  } else if(document.querySelector('#fo-wa-kedua').getAttribute('clicked') == 'true'){
+    div.innerHTML = `
+    <div class="ml-auto mr-auto deskripsi-format-order">
+    <div>Terima kasih sudah berbelanja di Galaxy Camera</div>
+    <div>Berikut rincian harga untuk produk yang kakak pesan</div>
+    ${sum}
+    <div>Total : *Rp ${(totalHarga).toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})},-*</div>
+    <div>Untuk pembayaran silahkan transfer ke rekening berikut</div>
+    <div>No Rek BCA : *8680767808*</div>
+    <div>Atas Nama : PT Galaxy Digital Niaga</div>
+    <div>Kabari kami kembali ya kak jika sudah melakukan transaksi / pembayaran <span>&#128522;</span></div>
+    </div>
+    <div class="btn w-100 d-block btn-success copy-format-order">Copy</div>
     `
+  }
   listFormatOrder.insertBefore(div, listFormatOrder.firstChild);
 
   for(let x = 0; x<document.querySelectorAll('.copy-format-order').length; x++){
