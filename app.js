@@ -559,6 +559,13 @@ const setupUI = (user) => {
                     document.querySelector('#kalender').style.display = 'grid';                      
             }
         }
+        
+            if(window.innerWidth > 900){
+                document.querySelector('#kalender').style.display = 'grid';
+            } else {
+                document.querySelector('#kalender').style.display = 'block';
+            }
+
             winWidth700(z);
             z.addListener(winWidth700);
             function winWidth700(z){
@@ -627,6 +634,13 @@ const setupUI = (user) => {
                     document.querySelector('#kalender').style.display = 'grid';  
             }
         }   
+
+            if(window.innerWidth > 900){
+                document.querySelector('#kalender').style.display = 'grid';
+            } else {
+                document.querySelector('#kalender').style.display = 'block';
+            }
+
             [rolePeserta, editPeserta, hapusPeserta, hapusTugasSelesai, editKesalahan, hapusKesalahan, bodyEmail, emailTable, editPengumuman, hapusPengumuman, document.querySelector('#tombol-tambah-kesalahan')
             , document.querySelector('#tombol-tambah-peserta')].forEach(item => {
                 if(item.length != undefined){
@@ -718,6 +732,12 @@ const setupUI = (user) => {
                     document.querySelector('#kalender').style.display = 'grid';
             }
         }   
+            if(window.innerWidth > 900){
+                document.querySelector('#kalender').style.display = 'grid';
+            } else {
+                document.querySelector('#kalender').style.display = 'block';
+            }
+
             [editPeserta, hapusPeserta, editTugas, hapusTugas, copyTugasSelesai, downloadTugasSelesai, hapusTugasSelesai, filePenyelesaianTugasBody, buktiPenyelesaianTugasBody, bodyEmail
             , emailTable, editKategoriMenu, hapusKategoriMenu, editMenu, hapusMenu, tombolTambahMenu, editPengumuman, hapusPengumuman, selesaiPerpindahan, hapusPerpindahan, editPerpindahan
             , selesaiPengeluaran, selesaiPengeluaranKedua, document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta')
