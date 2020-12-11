@@ -2,6 +2,20 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
+exports.addModeratorRole = functions.https.onCall((data, context) => {
+	return admin.auth().getUserByEmail(data.email).then(user => {
+		return admin.auth().setCustomUserClaims(user.uid, {
+			moderator: true
+		})
+	}).then(() => {
+		return {
+			message: `Success! ${data.email} has been made an moderator`
+		}
+	}).catch(err => {
+		return err;
+	})
+})
+
 exports.addAdminRole = functions.https.onCall((data, context) => {
 	return admin.auth().getUserByEmail(data.email).then(user => {
 		return admin.auth().setCustomUserClaims(user.uid, {
