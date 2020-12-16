@@ -6,7 +6,7 @@ body{
 	margin-right: 5px;
 }
 
-.deskripsi-format-order{
+.deskripsi-format-order, .deskripsi-format-order-dealer{
 	width:fit-content;
 }
 
@@ -527,7 +527,7 @@ body{
 	margin-bottom: -5px;
 }
 
-.alamat-pt-sj, .nama-pt-sj, .nama-pt-sp, .kontak-pt-sj, .tombol-hapus-kolom-surat-jalan, .tombol-hapus-kolom-surat-penawaran, .subtotal-sj, .subtotal-sp, #subtotal-barang-surat-jalan td:nth-child(1), #subtotal-barang-surat-penawaran td:nth-child(1), .header-pengaturan-surat-jalan, .header-pengaturan-surat-penawaran, #tombol-tambah-baris-surat-jalan, #tombol-tambah-karyawan-list-gaji, #tombol-tambah-baris-surat-penawaran, #tombol-tambah-baris-format-order{
+.alamat-pt-sj, .nama-pt-sj, .nama-pt-sp, .kontak-pt-sj, .tombol-hapus-kolom-surat-jalan, .tombol-hapus-kolom-surat-penawaran, .subtotal-sj, .subtotal-sp, #subtotal-barang-surat-jalan td:nth-child(1), #subtotal-barang-surat-penawaran td:nth-child(1), .header-pengaturan-surat-jalan, .header-pengaturan-surat-penawaran, #tombol-tambah-baris-surat-jalan, #tombol-tambah-karyawan-list-gaji, #tombol-tambah-baris-surat-penawaran, #tombol-tambah-baris-format-order, #tombol-tambah-baris-format-order-dealer{
 	font-weight: bold;
 }
 
@@ -574,19 +574,19 @@ body{
 	cursor: pointer;
 }
 
-#tombol-tambah-baris-format-order{
+#tombol-tambah-baris-format-order, #tombol-tambah-baris-format-order-dealer{
 	border:1px solid lightgray;
 	padding: 10px;
 	text-align: center;
 	border-radius: 5px;
 }
 
-#tombol-tambah-baris-surat-jalan, #tombol-tambah-karyawan-list-gaji, #tombol-tambah-baris-surat-jalan, #tombol-tambah-baris-surat-penawaran, #tombol-tambah-baris-format-order{
+#tombol-tambah-baris-surat-jalan, #tombol-tambah-karyawan-list-gaji, #tombol-tambah-baris-surat-jalan, #tombol-tambah-baris-surat-penawaran, #tombol-tambah-baris-format-order, #tombol-tambah-baris-format-order-dealer{
 	cursor: pointer;
 	background-color: white;
 }
 
-#tombol-tambah-baris-surat-jalan:hover, #tombol-tambah-karyawan-list-gaji:hover, #tombol-tambah-baris-surat-penawaran:hover, #tombol-tambah-baris-format-order:hover{
+#tombol-tambah-baris-surat-jalan:hover, #tombol-tambah-karyawan-list-gaji:hover, #tombol-tambah-baris-surat-penawaran:hover, #tombol-tambah-baris-format-order:hover, #tombol-tambah-baris-format-order-dealer:hover{
 	background-color: #f5f5f5;
 }
 
@@ -2774,15 +2774,15 @@ div.induk-kategori-menu{
 	width: 400%;
 }
 
-#list-barang-format-order{
+#list-barang-format-order, #list-barang-format-order-dealer{
 	overflow-x: scroll;
 }
 
-.barang-format-order{
+.barang-format-order, .barang-format-order-dealer{
 	width: 180%;
 }
 
-#tombol-tambah-baris-format-order{
+#tombol-tambah-baris-format-order, #tombol-tambah-baris-format-order-dealer{
 	margin-top: 10px;
 }
 

@@ -30,6 +30,7 @@
       <div class="tab-halaman text-white menu navbar-menu" id="indent-cust" data-toggle="pill" href="#halaman-indent-cust" role="tab" aria-controls="halaman-indent-cust" aria-selected="true"><i class="fa fa-address-book"></i> Indent Cust</div>
       </div>
       <div class="tab-halaman text-white menu navbar-menu" id="format-order" data-toggle="pill" href="#halaman-format-order" role="tab" aria-controls="halaman-format-order" aria-selected="true"><i class='fas fa-file-alt'></i> Format Order WA</div>
+      <div class="tab-halaman text-white menu navbar-menu" id="format-order-dealer" data-toggle="pill" href="#halaman-format-order-dealer" role="tab" aria-controls="halaman-format-order-dealer" aria-selected="true"><i class='fas fa-file-alt'></i> Format Order Dealer</div>
       <div class="text-white menu navbar-menu" id="retur" data-toggle="collapse" data-target="#tab-halaman-retur" aria-expanded="true" aria-controls="tab-halaman-retur"><i class='fas fa-reply'></i> Return <i class='fas fa-caret-up ikon-collapse ikon-collapse-bawah'></i></div>
       <div id="tab-halaman-retur" class="collapse show nav-pills" role="tablist" aria-orientation="vertical">
       <div class="tab-halaman text-white menu navbar-menu" id="retur-customer" data-toggle="pill" href="#halaman-retur-customer" role="tab" aria-controls="halaman-retur-customer" aria-selected="true"><i class="material-icons" style="font-size: 20px;vertical-align: text-bottom;">shop</i> Return Customer</div>
@@ -1145,6 +1146,50 @@
 </div>
 
 <div id="list-format-order"></div>
+
+</div>
+
+<div class="halaman tab-pane fade" id="halaman-format-order-dealer" role="tabpanel">
+
+<div style="margin:10px;background-color: honeydew;border:1px solid darkgray;">
+  <form id="form-format-order-dealer" style="padding: 10px 15px 15px">
+    <div style="font-size: 24px;font-weight: bold;">Format Order Dealer:</div>
+    <div id="list-barang-format-order-dealer">
+    <div class="form-row barang-format-order-dealer">
+      <div class="form-group col-7">
+        <label class="col-form-label">Nama Barang</label>
+        <input type="text" class="form-control nama-barang-format-order-dealer" autocomplete="off">
+      </div>
+      <div class="form-group col-2">
+        <label class="col-form-label">Kts</label>
+        <input type="number" class="form-control jumlah-barang-format-order-dealer" autocomplete="off">
+      </div>
+      <div class="form-group col">
+        <label class="col-form-label">Stock Tersisa</label>
+        <input type="number" class="form-control stock-tersisa-barang-format-order-dealer" autocomplete="off">
+      </div>      
+    </div>
+    <div class="form-row barang-format-order-dealer">
+      <div class="form-group col-7">
+        <label class="col-form-label">Nama Barang</label>
+        <input type="text" class="form-control nama-barang-format-order-dealer" autocomplete="off">
+      </div>
+      <div class="form-group col-2">
+        <label class="col-form-label">Kts</label>
+        <input type="number" class="form-control jumlah-barang-format-order-dealer" autocomplete="off">
+      </div>
+      <div class="form-group col">
+        <label class="col-form-label">Stock Tersisa</label>
+        <input type="number" class="form-control stock-tersisa-barang-format-order-dealer" autocomplete="off">
+      </div>      
+    </div>
+    </div>
+    <div id="tombol-tambah-baris-format-order-dealer" style="margin-bottom: 10px;">Add Row +</div>
+    <button type="submit" class="btn w-100 btn-success d-block" id="fo-d-pertama">Generate Format Order Dealer</button>
+  </form>
+</div>
+
+<div id="list-format-order-dealer"></div>
 
 </div>
 
@@ -3417,6 +3462,36 @@ tambahBarisFO.addEventListener('click', function(e){
 
 })
 
+let tambahBarisFOD = document.querySelector("#tombol-tambah-baris-format-order-dealer")
+tambahBarisFOD.addEventListener('click', function(e){
+  e.stopPropagation();
+  let div = document.createElement('div');
+  if(document.querySelectorAll('.barang-format-order-dealer').length < 15){
+  div.classList.add('form-row', 'barang-format-order-dealer');
+  div.innerHTML = `
+    <div class="form-group col-7">
+      <label class="col-form-label">Nama Barang</label>
+      <input type="text" class="form-control nama-barang-format-order-dealer" autocomplete="off">
+    </div>
+    <div class="form-group col-2">
+      <label class="col-form-label">Kts</label>
+      <input type="number" class="form-control jumlah-barang-format-order-dealer" autocomplete="off">
+    </div>
+    <div class="form-group col">
+      <label class="col-form-label">Stock Tersisa</label>
+      <input type="number" class="form-control stock-tersisa-barang-format-order-dealer" autocomplete="off">
+    </div>      
+    `
+
+    document.querySelector('#list-barang-format-order-dealer').appendChild(div);
+
+  } else {
+    alert('Sudah mencapai kuota maksimal, tidak bisa menambahkan kolom baru lagi.');
+    e.target.style.display = 'none';
+  }
+
+})
+
 document.querySelector('#fo-wa-pertama').addEventListener('click', function(e){
   e.target.setAttribute('clicked', true);
   document.querySelector('#fo-wa-kedua').removeAttribute('clicked');
@@ -3447,7 +3522,6 @@ formFormatOrder.addEventListener('submit', function(e){
       `
     }
   }
-  console.log(sum);
 
   let div = document.createElement('div');
   div.classList.add('format-order')
@@ -3488,6 +3562,45 @@ formFormatOrder.addEventListener('submit', function(e){
     document.querySelectorAll('.copy-format-order')[x].addEventListener('click', function(e){
       let range = document.getSelection().getRangeAt(0);
       range.selectNode(e.target.parentElement.querySelector('.deskripsi-format-order'));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+    })
+  }
+
+})
+
+const listFormatOrderDealer = document.querySelector('#list-format-order-dealer')
+let formFormatOrderDealer = document.querySelector('#form-format-order-dealer');
+formFormatOrderDealer.addEventListener('submit', function(e){
+  e.preventDefault();
+  let sum = ``
+  for(let x = 0; x<document.querySelectorAll('.barang-format-order-dealer').length; x++){
+    let namaBarangFOD = document.querySelectorAll('.nama-barang-format-order-dealer')[x].value;
+    let jumlahBarangFOD = document.querySelectorAll('.jumlah-barang-format-order-dealer')[x].value;
+    let stockTersisaBarangFOD = document.querySelectorAll('.stock-tersisa-barang-format-order-dealer')[x].value;
+    if(namaBarangFOD != 0 && jumlahBarangFOD != 0 && stockTersisaBarangFOD != 0){
+      sum = sum + `
+      <div>${namaBarangFOD} || ${jumlahBarangFOD} || ${stockTersisaBarangFOD}</div>
+      `
+    }
+  }
+
+  let div = document.createElement('div');
+  div.classList.add('format-order')
+    div.innerHTML = `
+    <div class="ml-auto mr-auto deskripsi-format-order-dealer">
+    <div>Nama Barang || Request Order Barang || Stock Tersisa</div>
+    ${sum}
+    </div>
+    <div class="btn w-100 d-block btn-success copy-format-order-dealer">Copy</div>
+    `    
+
+  listFormatOrderDealer.insertBefore(div, listFormatOrderDealer.firstChild);
+
+  for(let x = 0; x<document.querySelectorAll('.copy-format-order-dealer').length; x++){
+    document.querySelectorAll('.copy-format-order-dealer')[x].addEventListener('click', function(e){
+      let range = document.getSelection().getRangeAt(0);
+      range.selectNode(e.target.parentElement.querySelector('.deskripsi-format-order-dealer'));
       window.getSelection().addRange(range);
       document.execCommand("copy");
     })
