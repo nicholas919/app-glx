@@ -3580,7 +3580,7 @@ formFormatOrderDealer.addEventListener('submit', function(e){
     let stockTersisaBarangFOD = document.querySelectorAll('.stock-tersisa-barang-format-order-dealer')[x].value;
     if(namaBarangFOD != 0 && jumlahBarangFOD != 0 && stockTersisaBarangFOD != 0){
       sum = sum + `
-      <div>${namaBarangFOD} || ${jumlahBarangFOD} || ${stockTersisaBarangFOD}</div>
+      <div>${namaBarangFOD} = ${jumlahBarangFOD} | ${stockTersisaBarangFOD}</div>
       `
     }
   }
@@ -3589,7 +3589,7 @@ formFormatOrderDealer.addEventListener('submit', function(e){
   div.classList.add('format-order')
     div.innerHTML = `
     <div class="ml-auto mr-auto deskripsi-format-order-dealer">
-    <div>Nama Barang || Request Order Barang || Stock Tersisa</div>
+    <div>Nama Produk ----- Qty</div>
     ${sum}
     </div>
     <div class="btn w-100 d-block btn-success copy-format-order-dealer">Copy</div>
