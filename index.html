@@ -3578,7 +3578,7 @@ formFormatOrderDealer.addEventListener('submit', function(e){
     let namaBarangFOD = document.querySelectorAll('.nama-barang-format-order-dealer')[x].value;
     let jumlahBarangFOD = document.querySelectorAll('.jumlah-barang-format-order-dealer')[x].value;
     let stockTersisaBarangFOD = document.querySelectorAll('.stock-tersisa-barang-format-order-dealer')[x].value;
-    if(namaBarangFOD != 0 && jumlahBarangFOD != 0 && stockTersisaBarangFOD != 0){
+    if(namaBarangFOD != 0 && jumlahBarangFOD != 0){
       sum = sum + `
       <div>${namaBarangFOD} = ${jumlahBarangFOD} | ${stockTersisaBarangFOD}</div>
       `
