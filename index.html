@@ -3466,7 +3466,6 @@ let tambahBarisFOD = document.querySelector("#tombol-tambah-baris-format-order-d
 tambahBarisFOD.addEventListener('click', function(e){
   e.stopPropagation();
   let div = document.createElement('div');
-  if(document.querySelectorAll('.barang-format-order-dealer').length < 15){
   div.classList.add('form-row', 'barang-format-order-dealer');
   div.innerHTML = `
     <div class="form-group col-7">
@@ -3484,11 +3483,6 @@ tambahBarisFOD.addEventListener('click', function(e){
     `
 
     document.querySelector('#list-barang-format-order-dealer').appendChild(div);
-
-  } else {
-    alert('Sudah mencapai kuota maksimal, tidak bisa menambahkan kolom baru lagi.');
-    e.target.style.display = 'none';
-  }
 
 })
 

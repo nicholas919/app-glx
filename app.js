@@ -1383,6 +1383,7 @@ function renderTugas(doc){
     let status = doc.data().status;
     let buktiPenyelesaian = doc.data().buktiPenyelesaian;
     let filePenyelesaian = doc.data().filePenyelesaian;
+    let penggunaUID = doc.data().penggunaUID;
     let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     let ddRilis = String(new Date(waktuRilis).getDate()).padStart(2, '0');
     let mmRilis = bulan[new Date(waktuRilis).getMonth()];
@@ -1740,14 +1741,24 @@ function renderTugas(doc){
                         let username = docs.data().username;
                         let newFilePenyelesaian = item.data().filePenyelesaian;
                         if(newFilePenyelesaian != 'Tidak Ada'){
-                            db.collection('tugas').doc(doc.id).update({
-                                namaPeserta : username,
-                                filePenyelesaian : 'Tidak Ada'
-                            }).then(() => {
-                                let refPenyimpanan = firebase.storage().ref('Tugas ' + item.data().namaPeserta +  '/' + doc.id + '/');
-                                let ambilPenyimpanan = refPenyimpanan.child(newFilePenyelesaian);
-                                ambilPenyimpanan.delete();
-                            })            
+                            if(username == namaPeserta){
+                                db.collection('tugas').doc(doc.id).update({
+                                    namaPeserta : username,
+                                    filePenyelesaian : 'Tidak Ada'
+                                }).then(() => {
+                                    let refPenyimpanan = firebase.storage().ref('Tugas ' + item.data().namaPeserta +  '/' + doc.id + '/');
+                                    let ambilPenyimpanan = refPenyimpanan.child(newFilePenyelesaian);
+                                    ambilPenyimpanan.delete();
+                                })            
+                            } else {
+                                db.collection('tugas').doc(doc.id).update({
+                                    filePenyelesaian : 'Tidak Ada'
+                                }).then(() => {
+                                    let refPenyimpanan = firebase.storage().ref('Tugas ' + item.data().namaPeserta +  '/' + doc.id + '/');
+                                    let ambilPenyimpanan = refPenyimpanan.child(newFilePenyelesaian);
+                                    ambilPenyimpanan.delete();
+                                })                                    
+                            }
                         }
                     })
                 })
@@ -1798,13 +1809,22 @@ function renderTugas(doc){
                             }
                         }
                     }
-                    db.collection('tugas').doc(doc.id).update({
-                        namaPeserta : username,
-                        status : 'COMPLETED',
-                        buktiPenyelesaian : buktiPenyelesaian,
-                        filePenyelesaian : namaFile,
-                        terlambat : terlambat
-                    })
+                    if(username == namaPeserta){
+                        db.collection('tugas').doc(doc.id).update({
+                            namaPeserta : username,
+                            status : 'COMPLETED',
+                            buktiPenyelesaian : buktiPenyelesaian,
+                            filePenyelesaian : namaFile,
+                            terlambat : terlambat
+                        })
+                    } else {
+                        db.collection('tugas').doc(doc.id).update({
+                            status : 'COMPLETED',
+                            buktiPenyelesaian : buktiPenyelesaian,
+                            filePenyelesaian : namaFile,
+                            terlambat : terlambat
+                        })
+                    }
                 })
             })
         })
@@ -1916,10 +1936,17 @@ function renderTugas(doc){
             e.stopPropagation();
             db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
                 let username = docs.data().username;
-                db.collection('tugas').doc(doc.id).update({
-                    namaPeserta : username,
-                    status : 'PENDING'
-                })
+                if(username == namaPeserta){
+                    db.collection('tugas').doc(doc.id).update({
+                        namaPeserta : username,
+                        status : 'PENDING'
+                    })
+                } else {
+                    db.collection('tugas').doc(doc.id).update({
+                        status : 'PENDING'
+                    })
+                  
+                }
             })
         })
 
@@ -1945,6 +1972,7 @@ function renderTugas(doc){
 }
 
 function renderUpdateTugas(doc){
+    let namaPeserta = doc.data().namaPeserta;
     let kontenTugas = doc.data().kontenTugas;
     let perMinggu = doc.data().perMinggu;
     let perHari = doc.data().perHari;
@@ -1954,6 +1982,7 @@ function renderUpdateTugas(doc){
     let status = doc.data().status;
     let buktiPenyelesaian = doc.data().buktiPenyelesaian;
     let filePenyelesaian = doc.data().filePenyelesaian;
+    let penggunaUID = doc.data().penggunaUID;
     let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     let waktuDeadline = new Date().setTime(new Date(waktuRilis).getTime() + ((perMinggu*7*24*60*60*1000) + (perHari*24*60*60*1000) + (perJam*60*60*1000) + (perMenit*60*1000)))
     let ddDeadline = String(new Date(waktuDeadline).getDate()).padStart(2, '0');
@@ -2093,21 +2122,30 @@ function renderUpdateTugas(doc){
                 let eHapusFile = document.querySelector('#hapus-file' + doc.id);
                 eHapusFile.addEventListener('click', function(e){
                     e.preventDefault();
-                    e.stop
                     document.querySelector('#file-penyelesaian-tugas' + doc.id).remove();
                     db.collection('tugas').doc(doc.id).get().then(function(item){
                         db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
                             let username = docs.data().username;                
                             let newFilePenyelesaian = item.data().filePenyelesaian;
                             if(newFilePenyelesaian != 'Tidak Ada'){
-                                db.collection('tugas').doc(doc.id).update({
-                                    namaPeserta : username,
-                                    filePenyelesaian : 'Tidak Ada'
-                                }).then(() => {
-                                    let refPenyimpanan = firebase.storage().ref('Tugas ' + item.data().namaPeserta +  '/' + doc.id + '/');
-                                    let ambilPenyimpanan = refPenyimpanan.child(newFilePenyelesaian);
-                                    ambilPenyimpanan.delete();                                    
-                                })                              
+                                if(username == namaPeserta){
+                                    db.collection('tugas').doc(doc.id).update({
+                                        namaPeserta : username,
+                                        filePenyelesaian : 'Tidak Ada'
+                                    }).then(() => {
+                                        let refPenyimpanan = firebase.storage().ref('Tugas ' + item.data().namaPeserta +  '/' + doc.id + '/');
+                                        let ambilPenyimpanan = refPenyimpanan.child(newFilePenyelesaian);
+                                        ambilPenyimpanan.delete();                                    
+                                    })                          
+                                } else {
+                                    db.collection('tugas').doc(doc.id).update({
+                                        filePenyelesaian : 'Tidak Ada'
+                                    }).then(() => {
+                                        let refPenyimpanan = firebase.storage().ref('Tugas ' + item.data().namaPeserta +  '/' + doc.id + '/');
+                                        let ambilPenyimpanan = refPenyimpanan.child(newFilePenyelesaian);
+                                        ambilPenyimpanan.delete();                                    
+                                    })                                                     
+                                }
                             }
                         })
                     })
@@ -2158,13 +2196,22 @@ function renderUpdateTugas(doc){
                                 }
                             }
                         }
-                        db.collection('tugas').doc(doc.id).update({
-                            namaPeserta : username,
-                            status : 'COMPLETED',
-                            buktiPenyelesaian : buktiPenyelesaian,
-                            filePenyelesaian : namaFile,
-                            terlambat : terlambat
-                        })
+                        if(username == namaPeserta){
+                            db.collection('tugas').doc(doc.id).update({
+                                namaPeserta : username,
+                                status : 'COMPLETED',
+                                buktiPenyelesaian : buktiPenyelesaian,
+                                filePenyelesaian : namaFile,
+                                terlambat : terlambat
+                            })
+                        } else {
+                            db.collection('tugas').doc(doc.id).update({
+                                status : 'COMPLETED',
+                                buktiPenyelesaian : buktiPenyelesaian,
+                                filePenyelesaian : namaFile,
+                                terlambat : terlambat
+                            })                            
+                        }
                     })
                 })            
             })
@@ -2186,10 +2233,16 @@ function renderUpdateTugas(doc){
                 e.stopPropagation();
                 db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
                     let username = docs.data().username;
-                    db.collection('tugas').doc(doc.id).update({
-                        namaPeserta : username,
-                        status : 'PENDING'
-                    })
+                    if(username == namaPeserta){
+                        db.collection('tugas').doc(doc.id).update({
+                            namaPeserta : username,
+                            status : 'PENDING'
+                        })
+                    } else {
+                        db.collection('tugas').doc(doc.id).update({
+                            status : 'PENDING'
+                        })                        
+                    }
                 })
             })
 

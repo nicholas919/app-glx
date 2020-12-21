@@ -3,13 +3,18 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 exports.addModeratorRole = functions.https.onCall((data, context) => {
+
+	if(context.auth.token.moderator !== true){
+		return { error : 'only moderator can add other moderator'}
+	}
+
 	return admin.auth().getUserByEmail(data.email).then(user => {
 		return admin.auth().setCustomUserClaims(user.uid, {
 			moderator: true
 		})
 	}).then(() => {
 		return {
-			message: `Success! ${data.email} has been made an moderator`
+			message: `Success! ${data.email} has been made a moderator`
 		}
 	}).catch(err => {
 		return err;
@@ -17,6 +22,11 @@ exports.addModeratorRole = functions.https.onCall((data, context) => {
 })
 
 exports.addAdminRole = functions.https.onCall((data, context) => {
+
+	if(context.auth.token.moderator !== true){
+		return { error : 'only moderator can add other admin kantor'}
+	}
+
 	return admin.auth().getUserByEmail(data.email).then(user => {
 		return admin.auth().setCustomUserClaims(user.uid, {
 			adminKantor: true
@@ -31,6 +41,11 @@ exports.addAdminRole = functions.https.onCall((data, context) => {
 })
 
 exports.addMemberRole = functions.https.onCall((data, context) => {
+
+	if(context.auth.token.moderator !== true){
+		return { error : 'only moderator can add other member'}
+	}
+
 	return admin.auth().getUserByEmail(data.email).then(user => {
 		return admin.auth().setCustomUserClaims(user.uid, {
 			member: true
@@ -45,6 +60,11 @@ exports.addMemberRole = functions.https.onCall((data, context) => {
 })
 
 exports.removeRole = functions.https.onCall((data, context) => {
+
+	if(context.auth.token.moderator !== true){
+		return { error : "only moderator can remove it user's role"}
+	}	
+
 	return admin.auth().getUserByEmail(data.email).then(user => {
 		return admin.auth().setCustomUserClaims(user.uid, {
 			member: false,
