@@ -47,7 +47,6 @@
       <div class="tab-halaman text-white menu navbar-menu" id="kalkulator" data-toggle="pill" href="#halaman-kalkulator" role="tab" aria-controls="halaman-kalkulator" aria-selected="true"><i class="fa fa-calculator"></i> Kalkulator</div>
       <div class="tab-halaman text-white menu navbar-menu" id="transaksi-berjalan" data-toggle="pill" href="#halaman-transaksi-berjalan" role="tab" aria-controls="halaman-transaksi-berjalan" aria-selected="true"><i class='fas fa-coins'></i> Transaksi Berjalan</div>
       <div class="tab-halaman text-white menu navbar-menu" id="pedoman-galaxy" data-toggle="pill" href="#halaman-pedoman-galaxy" role="tab" aria-controls="halaman-pedoman-galaxy" aria-selected="true"><i class='fas fa-book'></i> Pedoman Galaxy</div>
-      <div class="tab-halaman text-white menu navbar-menu" id="daftar-belanja" data-toggle="pill" href="#halaman-daftar-belanja" role="tab" aria-controls="halaman-daftar-belanja" aria-selected="true"><i class="fa fa-shopping-basket"></i> List Belanja/Pengeluaran</div>
       <div id="setting" class="tab-halaman text-white menu item-masuk" id="account" data-toggle="modal" data-target="#modalpengaturanakun"><i class="fa fa-gear"></i> Pengaturan Akun</div>
       <div class="item-masuk text-white menu" id="sign-out"><i class='fas fa-sign-out-alt'></i> Keluar</div>
     </div>
@@ -1475,37 +1474,6 @@
 
 <div id="modal-edit-transaksi"></div>
 <div id="preview-print-transaksi-berjalan"></div>
-</div>
-
-<div class="halaman tab-pane fade" id="halaman-daftar-belanja" role="tabpanel">
-
-<div class="jumbotron" id="jumbotron-daftar-belanja">
-  <div id="judul-jumbotron-daftar-belanja" class="display-4"><i class='fa fa-shopping-basket'></i> List Belanja/Pengeluaran</div>
-  <div class="lead" id="jumbotron-keterangan-daftar-belanja"></div>
-</div>
-
-<div class="jumbotron" id="jumbotron-form-daftar-belanja">
-  <form id="form-daftar-belanja">
-      <div class="form-group">
-        <label class="col-form-label">Deskripsi Item</label>
-        <textarea oninput="auto_grow(this)" class="form-control" id="deskripsi-item-belanja" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:50px;" autocomplete="off" required></textarea>
-      </div>
-      <div class="form-group">
-        <label class="col-form-label">Jumlah Pengeluaran</label>
-        <input type="number" class="form-control your_class" id="jumlah-pengeluaran-belanja" autocomplete="off" required>
-      </div>
-      <button type="submit" class="btn btn-primary mx-auto d-block" id="tombol-tambah-daftar-belanja">Submit Rincian Belanja/Pengeluaran</button>
-      <div class="btn btn-success mx-auto d-block" id="tombol-lihat-daftar-belanja">List Belanja/Pengeluaran</div>
-  </form>
-</div>
-
-<div id="list-daftar-belanja"></div>
-<div id="list-daftar-belanja-selesai"></div>
-
-<div id="modal-edit-daftar-belanja"></div>
-
-<a id="kembalipengeluaran" class="tombol-kembali">Kembali</a>
-
 </div>
 
 <div class="halaman tab-pane fade" id="halaman-retur-customer" role="tabpanel">
@@ -3215,26 +3183,6 @@ for(let x = 0; x<tabHalaman.length; x++){
         }
     })
 }
-
-let tombolLihatListPengeluaran = document.querySelector('#tombol-lihat-daftar-belanja');
-tombolLihatListPengeluaran.addEventListener('click', function(e){
-  e.stopPropagation();
-    listBelanja.style.display = 'block';
-    listBelanjaSelesai.style.display = 'block';
-    tombolKembaliListPengeluaran.style.display = 'block';
-    document.querySelector('#jumbotron-form-daftar-belanja').style.display = 'none';
-    document.querySelector('#jumbotron-daftar-belanja').style.display = 'none';
-})
-
-let tombolKembaliListPengeluaran = document.querySelector('#kembalipengeluaran');
-tombolKembaliListPengeluaran.addEventListener('click', function(e){
-  e.stopPropagation();
-    listBelanja.style.display = 'none';
-    listBelanjaSelesai.style.display = 'none';
-    tombolKembaliListPengeluaran.style.display = 'none';
-    document.querySelector('#jumbotron-form-daftar-belanja').style.display = 'block';
-    document.querySelector('#jumbotron-daftar-belanja').style.display = 'block';
-})
 
 for(let x = 0; x<document.querySelectorAll('.barang-surat-jalan').length; x++){
   [document.querySelectorAll('.jumlah-barang-surat-jalan')[x], document.querySelectorAll('.harga-barang-surat-jalan')[x]].forEach(item => {

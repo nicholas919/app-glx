@@ -471,37 +471,7 @@ auth.onAuthStateChanged(user => {
                         renderUpdateReturDealerSelesai(change.doc);
                     }
                 })
-    }, err => console.log(err.message))                    
-
-        db.collection('pengeluaran').onSnapshot(snapshot =>{
-                let changes = snapshot.docChanges();
-                changes.forEach(change =>{
-                    if(change.type == 'added'){
-                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
-                        renderPengeluaran(change.doc);
-                        }
-                    } else if(change.type == 'removed'){
-                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
-                        div.remove();
-                    } else if(change.type == 'modified'){
-                        renderUpdatePengeluaran(change.doc);
-                    }
-                })
-    }, err => console.log(err.message))
-
-        db.collection('pengeluaranSelesai').onSnapshot(snapshot =>{
-                let changes = snapshot.docChanges();
-                changes.forEach(change =>{
-                    if(change.type == 'added'){
-                        if(!document.querySelector('[data-id="' + change.doc.id + '"]')){
-                        renderPengeluaranSelesai(change.doc);
-                        }
-                    } else if(change.type == 'removed'){
-                        let div = document.querySelector('[data-id="' + change.doc.id + '"]');
-                        div.remove();
-                    }
-                })
-    }, err => console.log(err.message))   
+    }, err => console.log(err.message))                      
 
         db.collection('eventKalender').onSnapshot(snapshot =>{
                 let changes = snapshot.docChanges();
@@ -1015,29 +985,6 @@ if(daftarReturDealer['status-retur-dealer'].value == 'Belum Selesai'){
     }
 })
 
-
-const daftarBelanja = document.querySelector('#form-daftar-belanja');
-daftarBelanja.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let tanggal = new Date().getTime();
-    let konfirmasi = confirm(`Apa anda yakin untuk men-submit rincian berikut dengan jumlah pengeluaran sebesar ${    "Rp " + Number(daftarBelanja['jumlah-pengeluaran-belanja'].value).toLocaleString(undefined, {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }) + ",00"}`);
-    if(konfirmasi == true){
-    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(doc){
-    db.collection('pengeluaran').add({
-        tanggal: tanggal,
-        penggunaBelanja: doc.data().username,
-        penggunaUID: auth.currentUser.uid,
-        deskripsiItem: daftarBelanja['deskripsi-item-belanja'].value.replace(/\n\r?/g, '<br/>'),
-        jumlahPengeluaran: daftarBelanja['jumlah-pengeluaran-belanja'].value
-    }).then(() => {
-        document.querySelector('#form-daftar-belanja').reset();
-        })
-    })
-    }
-})
 
 const submitEventKalender = document.querySelector('#submit-event-kalender');
 submitEventKalender.addEventListener('click', (e) => {

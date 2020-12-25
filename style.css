@@ -828,21 +828,6 @@ body{
 	margin: 5px 0px 0px;
 }
 
-#list-daftar-belanja{
-	margin: 0px 20px 0px;
-}
-
-#list-daftar-belanja-selesai{
-	margin: 0px 20px 50px;	
-}
-
-#halaman-belanja{
-	margin: 5px 20px;
-	background-color: white;
-	border-radius: 5px;
-	padding: 10px 20px;
-}
-
 #list-indent-cust{
 	display: grid;
 	grid-template-columns: 50% 50%;
@@ -1146,7 +1131,7 @@ input:checked + .slider:after {
 	color:orangered !important;
 }
 
-#list-perpindahan-barang-pending, #list-perpindahan-barang-selesai, #list-daftar-belanja, #list-daftar-belanja-selesai, #list-retur-selesai, #list-retur-dealer-selesai, #list-req-faktur-pajak-selesai{
+#list-perpindahan-barang-pending, #list-perpindahan-barang-selesai, #list-retur-selesai, #list-retur-dealer-selesai, #list-req-faktur-pajak-selesai{
 	display: none;
 }
 
@@ -1666,7 +1651,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 }
 
 
-.tombol-tambah-menu, #tombol-tambah-cetak-label, #tombol-print-cetak-label, #tombol-tambah-daftar-belanja, #tombol-lihat-daftar-belanja{
+.tombol-tambah-menu, #tombol-tambah-cetak-label, #tombol-print-cetak-label{
 	width: 100%;
 	display: block;
 	border-radius: 0 !important;
@@ -1982,7 +1967,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	display: none;
 }
 
-#jumbotron-form-cetak-label, #jumbotron-ekspedisi-cetak-label, #jumbotron-form-daftar-belanja{
+#jumbotron-form-cetak-label, #jumbotron-ekspedisi-cetak-label{
 	padding: 32px !important;
 }
 
@@ -2533,7 +2518,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 	display: block;
 }
 
-#judul-jumbotron-performa-peserta-individu, #judul-jumbotron-swot, #judul-jumbotron-achievement, #judul-jumbotron-pengumuman, #judul-jumbotron-overview, #judul-jumbotron-req-faktur-pajak, #judul-jumbotron-perpindahan-barang, #judul-jumbotron-cetak-label, #judul-jumbotron-catatan, #judul-jumbotron-indent-cust, #judul-jumbotron-retur, #judul-jumbotron-retur-dealer, #judul-jumbotron-transaksi-berjalan, #judul-jumbotron-daftar-belanja, #judul-jumbotron-pedoman-galaxy{
+#judul-jumbotron-performa-peserta-individu, #judul-jumbotron-swot, #judul-jumbotron-achievement, #judul-jumbotron-pengumuman, #judul-jumbotron-overview, #judul-jumbotron-req-faktur-pajak, #judul-jumbotron-perpindahan-barang, #judul-jumbotron-cetak-label, #judul-jumbotron-catatan, #judul-jumbotron-indent-cust, #judul-jumbotron-retur, #judul-jumbotron-retur-dealer, #judul-jumbotron-transaksi-berjalan, #judul-jumbotron-pedoman-galaxy{
 	font-size: 32px !important;
 }
 
@@ -2607,7 +2592,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 	font-size: 14px !important;
 }
 
-#list-performa-peserta-individu, #list-swot, #list-achievement, #jumlah-data-pengumuman-kosong, #jumbotron-keterangan-cetak-label, #jumbotron-keterangan-catatan, #jumbotron-keterangan-indent-cust, #jumbotron-keterangan-transaksi-berjalan, #jumbotron-keterangan-daftar-belanja{
+#list-performa-peserta-individu, #list-swot, #list-achievement, #jumlah-data-pengumuman-kosong, #jumbotron-keterangan-cetak-label, #jumbotron-keterangan-catatan, #jumbotron-keterangan-indent-cust, #jumbotron-keterangan-transaksi-berjalan{
 	font-size: 18px !important;
 	margin-top: 5px;
 }
