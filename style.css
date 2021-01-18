@@ -2,8 +2,25 @@ body{
 	background-color: #eeeeee !important;
 }
 
-.buka-file-tugas{
-	margin-right: 5px;
+[task-complete]{
+	background-color: #e6ffe6;
+}
+
+.prioritas-tugas-tinggi{
+	color:crimson;
+}
+
+.prioritas-tugas-sedang{
+	color:orange;
+}
+
+.prioritas-tugas-rendah{
+	color:green;
+}
+
+.checkbox-tugas{
+	height: 20px;
+	width: 20px;
 }
 
 .deskripsi-format-order, .deskripsi-format-order-dealer{
@@ -1265,7 +1282,7 @@ input:checked + .slider:after {
 }
 
 .hapus-catatan, .edit-catatan, .hapus-perpindahan-barang, .edit-perpindahan-barang, .selesai-perpindahan-barang, .copy-perpindahan-barang, .refresh-perpindahan-barang, .edit-retur,
- .hapus-retur, .print-retur, .hapus-pedoman, .edit-pedoman, .selesai-req-faktur-pajak, .copy-req-faktur-pajak, .edit-req-faktur-pajak, .hapus-req-faktur-pajak{
+ .hapus-retur, .print-retur, .hapus-pedoman, .edit-pedoman, .selesai-req-faktur-pajak, .copy-req-faktur-pajak, .edit-req-faktur-pajak, .hapus-req-faktur-pajak, input[type=checkbox]{
 	cursor: pointer;
 }
 
@@ -1971,7 +1988,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	padding: 32px !important;
 }
 
-#halaman-tugas, #halaman-kesalahan{
+#halaman-kesalahan{
 	display: none;
 	grid-template-columns: 50% 50%;
 }
@@ -1984,26 +2001,20 @@ div.induk-kategori-menu:nth-child(4n+0){
 	margin-bottom: 200px;
 }
 
-#list-tugas, #list-tugas-selesai{
-	background-color: #fff;
-	margin:10px 10px 20px 20px;
-	border: 1px solid rgba(0,0,0,.2);
-}
-
 #list-kesalahan{
 	background-color: #fff;
 	margin:0px 10px 20px 20px;
 	border: 1px solid rgba(0,0,0,.2);
 }
 
-#judul-list-tugas, #judul-list-tugas-selesai, #judul-list-kesalahan{
+#judul-list-kesalahan{
 	font-size: 24px;
 	font-weight: bold;
 	text-align: center;
 	padding:4px;
 }
 
-#list-tugas-peserta, #list-tugas-peserta-selesai, #list-kesalahan-peserta{
+#list-kesalahan-peserta{
 	margin:10px 50px 10px 50px;
 	height:400px;
 	overflow-y: auto;
@@ -2014,7 +2025,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	cursor: pointer;
 }
 
-.tugas, .kesalahan{
+.kesalahan{
 	background-color: #092532;
 	color:white;
 	margin: 4px 8px 8px;
@@ -2100,7 +2111,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 }
 
 
-#tombol-tambah-peserta, #tombol-tambah-tugas, #tombol-tambah-kesalahan, #tombol-tambah-kategori-menu, #tombol-hapus-kategori-menu{
+#tombol-tambah-peserta, #tombol-tambah-kesalahan, #tombol-tambah-kategori-menu, #tombol-hapus-kategori-menu{
 	display: none;
 	font-weight: bold;
 	color:white !important;
@@ -2175,13 +2186,6 @@ div.induk-kategori-menu:nth-child(4n+0){
 	border-bottom: 1px solid rgba(0,0,0,.2);
 }
 
-.info-tugas{
-	display: grid;
-	grid-template-columns: 160px 15px auto;
-	padding-bottom: 12px;
-	overflow-wrap: anywhere;
-}
-
 .hapus, .selesai, .edit, .copy ,.wewenang, .reset, .download, .print, .batal{
 	margin:4px 0px 8px 0px;
 	display: block !important;
@@ -2192,7 +2196,7 @@ div.induk-kategori-menu:nth-child(4n+0){
 	display: none;
 }
 
-.modal-tugas, .modal-kesalahan, .modal-achievement, .modal-pengumuman, .modal-indent-cust{
+.modal-kesalahan, .modal-achievement, .modal-pengumuman, .modal-indent-cust{
 	border-top:1px solid rgba(0,0,0,.2);
 	border-bottom:1px solid rgba(0,0,0,.2);
 	display: none;
@@ -2526,7 +2530,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 	font-size: 28px !important;
 }
 
-#judul-list-tugas, #judul-list-tugas-selesai, #judul-list-kesalahan{
+#judul-list-kesalahan{
 	font-size: 20px;
 	font-weight: bold;
 	text-align: center;
@@ -2553,7 +2557,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 }
 
 @media only screen and (max-width: 700px) {
-#list-tugas, #list-tugas-selesai, #list-kesalahan{
+#list-kesalahan{
 	background-color: #fff;
 	margin:15px 20px;
 	border: 1px solid rgba(0,0,0,.2);
@@ -2564,7 +2568,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 	z-index: -1 !important;
 }
 
-#list-tugas-peserta, #list-tugas-peserta-selesai, #list-kesalahan-peserta{
+#list-kesalahan-peserta{
 	margin:10px 20px 10px 20px;
 }
 
@@ -2572,7 +2576,7 @@ div.induk-kategori-menu:nth-child(2n+0){
 	cursor: pointer;
 }
 
-.tugas, .kesalahan{
+.kesalahan{
 	background-color: #092532;
 	color:white;
 	margin: 4px 8px 8px;
@@ -2684,7 +2688,7 @@ div.induk-kategori-menu{
 
 .menu, .tombol-tenor-kalkulator, .judul-retur, .tombol-lihat-retur, .tombol-lihat-perpindahan, .tombol-lihat-req-faktur-pajak, #lihat-performa-peserta, 
 .konten-perpindahan-barang-tampilan, .judul-perpindahan-barang, .label-header-setting-kalkulator, #label-setting-kalkulator-biaya-bunga, #label-setting-kalkulator-biaya-admin, 
-#label-setting-kalkulator-tenor, .info-tugas, label, #peringatan-perpindahan-kedua, .info-indent-cust, .info-pengeluaran, .keterangan-pengeluaran-tampilan, .info-kesalahan, 
+#label-setting-kalkulator-tenor, label, #peringatan-perpindahan-kedua, .info-indent-cust, .info-pengeluaran, .keterangan-pengeluaran-tampilan, .info-kesalahan, 
 .info-achievement, .info-akun, .info-tenor, .info-transaksi, .info-perpindahan-barang, .info-retur, .info-indent-cust, .info-pengeluaran, #tombol-edit-biaya-bunga, 
 #tombol-edit-biaya-admin, .keterangan-req-faktur-pajak-tampilan{
 	font-size: 15px;

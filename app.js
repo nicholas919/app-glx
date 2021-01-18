@@ -206,23 +206,6 @@ function renderPeserta(doc){
         document.querySelector('#adminKantor' + doc.id).classList.add('btn','btn-info');        
     }
 
-    $(document).ready(function() {
-        db.collection('tugas').onSnapshot(snapshot =>{
-            let items = $('#list-tugas-peserta > .tugasseseorang').get();
-            items.sort(function(a, b) {
-                let keyA = $(a).data('date');
-                let keyB = $(b).data('date');
-                if (keyA < keyB) return 1;
-                if (keyA > keyB) return -1;
-                return 0;
-            })
-            let daftarTugas = $('#list-tugas-peserta');
-            $.each(items, function(i, div) {
-            daftarTugas.append(div);
-            })
-        })
-    })
-
     let hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
     let hariIni = new Date();
     let hariLibur = hariIni.getDay();
@@ -257,12 +240,8 @@ function renderPeserta(doc){
         }
     }
 
-    let status = document.querySelector('#status-peserta' + doc.id).innerHTML;
     if(auth.currentUser.email != email){
-        switch(status){
-            case "Aktif":
-            document.querySelector('#target-peserta').appendChild(opsiTugas);
-        }
+        document.querySelector('#target-peserta').appendChild(opsiTugas);
         document.querySelector('#target-peserta-kedua').appendChild(opsiTugasKedua);
     }
 
@@ -337,8 +316,8 @@ function renderHapusPeserta(doc){
             daftarEmailKaryawan.splice(x,1)
         }
     }    
-    let removeRole = functions.httpsCallable('removeRole');
-    removeRole({email: email}).then(() => {
+    let removeToken = functions.httpsCallable('removeToken');
+    removeToken({email: email}).then(() => {
         if(auth.currentUser.email == email){
             auth.onAuthStateChanged(user => {
                 user.getIdToken(true).then(() => {
@@ -505,18 +484,9 @@ const setupUI = (user) => {
         let rolePeserta = document.querySelectorAll('.role-peserta');
         let editPeserta = document.querySelectorAll('.edit-peserta');
         let hapusPeserta = document.querySelectorAll('.hapus-peserta');
-        let editTugas = document.querySelectorAll('.edit-tugas');
-        let hapusTugas = document.querySelectorAll('.hapus-tugas');
-        let copyTugasSelesai = document.querySelectorAll('.copy-tugas-selesai');
-        let downloadTugasSelesai = document.querySelectorAll('.download-tugas-selesai');
-        let hapusTugasSelesai = document.querySelectorAll('.hapus-tugas-selesai');
-        let filePenyelesaianTugasBody = document.querySelectorAll('.file-penyelesaian-tugas-body');
-        let buktiPenyelesaianTugasBody = document.querySelectorAll('.bukti-penyelesaian-tugas-body');
         let editKesalahan = document.querySelectorAll('.edit-kesalahan');
         let hapusKesalahan = document.querySelectorAll('.hapus-kesalahan');
         let peserta = document.querySelectorAll('.peserta');
-        let tugas = document.querySelectorAll('.tugasseseorang');
-        let tugasSelesai = document.querySelectorAll('.tugasseseorangselesai');
         let kesalahan = document.querySelectorAll('.kesalahanseseorang');
         let bodyEmail = document.querySelectorAll('.body-email');
         let emailTable = document.querySelectorAll('.email-table');
@@ -551,11 +521,9 @@ const setupUI = (user) => {
             winWidth900(x);
             x.addListener(winWidth900);
             function winWidth900(x){
-            if (x.matches) {
-                    document.querySelector('#halaman-tugas').style.display = 'block';                    
+            if (x.matches) {        
                     document.querySelector('#kalender').style.display = 'block';                         
-            } else {
-                    document.querySelector('#halaman-tugas').style.display = 'grid';                  
+            } else {               
                     document.querySelector('#kalender').style.display = 'grid';                      
             }
         }
@@ -575,10 +543,9 @@ const setupUI = (user) => {
                     document.querySelector('#tabel-peserta').style.width = '100%';                    
             }
         }   
-            [rolePeserta, editPeserta, hapusPeserta, editTugas, hapusTugas, copyTugasSelesai, downloadTugasSelesai, hapusTugasSelesai, filePenyelesaianTugasBody, buktiPenyelesaianTugasBody
-            , editKesalahan, hapusKesalahan, tugas, tugasSelesai, kesalahan, bodyEmail, tombolTambahMenu, editPengumuman, hapusPengumuman, selesaiPengeluaranKedua
-            , document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tombol-tambah-tugas')
-            , document.querySelector('#tombol-tambah-kategori-menu')].forEach(item => {
+            [rolePeserta, editPeserta, hapusPeserta, editKesalahan, hapusKesalahan, kesalahan, bodyEmail, tombolTambahMenu, editPengumuman, 
+            hapusPengumuman, selesaiPengeluaranKedua, document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta'), 
+            document.querySelector('#tombol-tambah-kategori-menu')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
                         item[x].setAttribute('style','display:block !important;');
@@ -626,11 +593,9 @@ const setupUI = (user) => {
             winWidth900(x);
             x.addListener(winWidth900);
             function winWidth900(x){
-            if (x.matches) {
-                    document.querySelector('#halaman-tugas').style.display = 'block';                    
+            if (x.matches) {                  
                     document.querySelector('#kalender').style.display = 'block';                         
-            } else {
-                    document.querySelector('#halaman-tugas').style.display = 'grid';                  
+            } else {              
                     document.querySelector('#kalender').style.display = 'grid';  
             }
         }   
@@ -641,7 +606,7 @@ const setupUI = (user) => {
                 document.querySelector('#kalender').style.display = 'block';
             }
 
-            [rolePeserta, editPeserta, hapusPeserta, hapusTugasSelesai, editKesalahan, hapusKesalahan, bodyEmail, emailTable, editPengumuman, hapusPengumuman, document.querySelector('#tombol-tambah-kesalahan')
+            [rolePeserta, editPeserta, hapusPeserta, editKesalahan, hapusKesalahan, bodyEmail, emailTable, editPengumuman, hapusPengumuman, document.querySelector('#tombol-tambah-kesalahan')
             , document.querySelector('#tombol-tambah-peserta')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
@@ -651,8 +616,7 @@ const setupUI = (user) => {
                     item.setAttribute('style','display:none !important;');
                 }
             });
-            [editTugas, hapusTugas, copyTugasSelesai, downloadTugasSelesai, filePenyelesaianTugasBody, buktiPenyelesaianTugasBody, tugas, tugasSelesai, kesalahan, tombolTambahMenu
-            , selesaiPengeluaranKedua, document.querySelector('#tombol-tambah-tugas'), document.querySelector('#tombol-tambah-kategori-menu')].forEach(item => {
+            [kesalahan, tombolTambahMenu, selesaiPengeluaranKedua, document.querySelector('#tombol-tambah-kategori-menu')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
                         item[x].setAttribute('style','display:block !important;');
@@ -724,11 +688,9 @@ const setupUI = (user) => {
             winWidth900(x);
             x.addListener(winWidth900);
             function winWidth900(x){
-            if (x.matches) {
-                    document.querySelector('#halaman-tugas').style.display = 'block';                    
+            if (x.matches) {                  
                     document.querySelector('#kalender').style.display = 'block';                         
-            } else {
-                    document.querySelector('#halaman-tugas').style.display = 'grid';                  
+            } else {                
                     document.querySelector('#kalender').style.display = 'grid';
             }
         }   
@@ -738,11 +700,10 @@ const setupUI = (user) => {
                 document.querySelector('#kalender').style.display = 'block';
             }
 
-            [editPeserta, hapusPeserta, editTugas, hapusTugas, copyTugasSelesai, downloadTugasSelesai, hapusTugasSelesai, filePenyelesaianTugasBody, buktiPenyelesaianTugasBody, bodyEmail
-            , emailTable, editKategoriMenu, hapusKategoriMenu, editMenu, hapusMenu, tombolTambahMenu, editPengumuman, hapusPengumuman, selesaiPerpindahan, hapusPerpindahan, editPerpindahan
-            , selesaiPengeluaran, selesaiPengeluaranKedua, document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta')
-            , document.querySelector('#tombol-tambah-tugas'), document.querySelector('#tombol-tambah-kategori-menu'), document.querySelector('#lihatperpindahanpending')
-            , document.querySelector('#lihatperpindahanselesai')].forEach(item => {
+            [editPeserta, hapusPeserta, bodyEmail, emailTable, editKategoriMenu, hapusKategoriMenu, editMenu, hapusMenu, tombolTambahMenu, editPengumuman,
+             hapusPengumuman, selesaiPerpindahan, hapusPerpindahan, editPerpindahan, selesaiPengeluaran, selesaiPengeluaranKedua, document.querySelector('#tombol-tambah-kesalahan'),
+             document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tambahtugas'), document.querySelector('#action-tugas'), document.querySelectorAll('.list-action-tugas'),
+             document.querySelector('#tombol-tambah-kategori-menu'), document.querySelector('#lihatperpindahanpending'), document.querySelector('#lihatperpindahanselesai')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
                         item[x].setAttribute('style','display:none !important;');
@@ -756,20 +717,6 @@ const setupUI = (user) => {
                     peserta[x].style.display = 'table-row';
                 } else {
                     peserta[x].style.display = 'none';
-                }
-            }
-            for(let x = 0; x<tugas.length;x++){
-                if(tugas[x].classList.contains('tugasseseorang' + username.toLowerCase().replace(/\s/g, "-"))){
-                    tugas[x].setAttribute('style','display:block !important;');
-                } else {
-                    tugas[x].setAttribute('style','display:none !important;');
-                }
-            }
-            for(let x = 0; x<tugasSelesai.length;x++){
-                if(tugasSelesai[x].classList.contains('tugasseseorangselesai' + username.toLowerCase().replace(/\s/g, "-"))){
-                    tugasSelesai[x].setAttribute('style','display:block !important;');
-                } else {
-                    tugasSelesai[x].setAttribute('style','display:none !important;');
                 }
             }
             for(let x = 0; x<kesalahan.length;x++){
@@ -829,8 +776,7 @@ const setupUI = (user) => {
             })
             document.querySelector('#jumbotron-perpindahan-barang').style.setProperty('margin-top', '10px', 'important');            
         } else {
-            [editPeserta, hapusPeserta, editTugas, hapusTugas, document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta')
-            , document.querySelector('#tombol-tambah-tugas')].forEach(item => {
+            [editPeserta, hapusPeserta, document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
                         item[x].setAttribute('style','display:none !important;');
@@ -840,7 +786,7 @@ const setupUI = (user) => {
                 }                
             });
             [navbarMenu, document.querySelector('#customer-reply'), document.querySelector('#google-sheet'), document.querySelector('#jumbotron-performa-peserta-individu')
-            , document.querySelector('#daftar-peserta'), document.querySelector('#halaman-tugas'), document.querySelector('#halaman-kesalahan'), document.querySelector('#kalender')].forEach(item => {
+            , document.querySelector('#daftar-peserta'), document.querySelector('#halaman-kesalahan'), document.querySelector('#kalender')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
                         item[x].style.display = 'none';
@@ -1185,7 +1131,7 @@ document.querySelector('#search-menu').addEventListener('input', function(e){
     }             
     [navbarMenu, document.querySelector('#myTabContent'), document.querySelector('#customer-reply'), document.querySelector('#google-sheet')
     , document.querySelector('#jumbotron-performa-peserta-individu'), document.querySelector('#daftar-peserta'), document.querySelector('#list-menu-tambahan'), document.querySelector('#list-menu-tambahan-kedua')
-    , document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat'), document.querySelector('#halaman-tugas'), document.querySelector('#halaman-kesalahan')
+    , document.querySelector('#list-menu-tambahan-ketiga'), document.querySelector('#list-menu-tambahan-keempat'), document.querySelector('#halaman-kesalahan')
     , document.querySelector('#kalender')].forEach(item => {
         if(item.length != undefined){
             for(let x = 0; x<item.length;x++){
@@ -1196,7 +1142,7 @@ document.querySelector('#search-menu').addEventListener('input', function(e){
         }
     });       
     document.querySelector('.navbar-collapse').classList.remove('show');
-    [document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tombol-tambah-tugas')].forEach(item => {
+    [document.querySelector('#tombol-tambah-kesalahan'), document.querySelector('#tombol-tambah-peserta')].forEach(item => {
         item.setAttribute('style','display:none !important;');
     });
     [document.querySelector('#pengguna-akun'), document.querySelector('#email-akun')].forEach(item => {
@@ -1219,8 +1165,8 @@ function renderUpdatePeserta(doc){
     let opsiTugasKedua = document.createElement('option');
     opsiTugas.classList.add('opsi-target-peserta' + doc.id, 'pemilihan-tugas-peserta');
     opsiTugas.innerHTML = nama;
-    let addMemberRole = functions.httpsCallable('addMemberRole');
-    let addAdminRole = functions.httpsCallable('addAdminRole');
+    let addMember = functions.httpsCallable('addMember');
+    let addAdmin = functions.httpsCallable('addAdmin');
     let refreshRoleAdminKantor;
     let refreshRoleMember;
 
@@ -1269,30 +1215,17 @@ function renderUpdatePeserta(doc){
         let status = document.querySelector('#status-peserta' + doc.id).innerHTML;
         let opsi = document.querySelector('.opsi-target-peserta' + doc.id);
         let opsiKedua = document.querySelector('.opsi-target-peserta-kedua' + doc.id);
-
-        switch(status){
-            case "Aktif":
-            if(opsi){
-                opsi.style.display = 'block';
-            } else if(!opsi){
-                document.querySelector('#target-peserta').appendChild(opsiTugas);
-                opsiTugas.style.display = 'block';
-            }
-            break;
-            case "Non-Aktif":
-            if(opsi){
-                opsi.style.display = 'none';
-            } else if(!opsi){
-                document.querySelector('#target-peserta').appendChild(opsiTugas);
-                opsiTugas.style.display = 'none';
-            }
+        if(opsi){
+            opsi.style.display = 'block';
+        } else if(!opsi){
+            document.querySelector('#target-peserta').appendChild(opsiTugas);
+            opsiTugas.style.display = 'block';
         }
-
     })
 
         switch(role){         
         case "Member":
-        addMemberRole({email: email}).then(() => {
+        addMember({email: email}).then(() => {
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
                     user.getIdToken(true).then(() => {
@@ -1312,7 +1245,7 @@ function renderUpdatePeserta(doc){
         })           
         break;
         case "Admin Kantor":
-        addAdminRole({email: email}).then(() => {
+        addAdmin({email: email}).then(() => {
             if(auth.currentUser.email == email){
                 auth.onAuthStateChanged(user => {
                     user.getIdToken(true).then(() => {
@@ -1361,1010 +1294,258 @@ function renderUpdateSwot(doc){
 
 }
 
-
-const tugasPeserta = document.querySelector("#list-tugas-peserta");
-const modalTugasPeserta = document.querySelector("#modal-tambah-tugas");
-const tugasPesertaSelesai = document.querySelector('#list-tugas-peserta-selesai');
-const modalTugasSelesai = document.querySelector('#modal-tugas-selesai');
-
+const listTugasPeserta = document.querySelector('#list-tugas-peserta');
 function renderTugas(doc){
-    let div = document.createElement('div');
-    let tugas = document.createElement('div');
-    div.setAttribute('data-id', doc.id);
     let namaPeserta = doc.data().namaPeserta;
-    div.classList.add('dokumentasi-tugas-peserta' + doc.id, 'tugasseseorang', 'tugasseseorang' + namaPeserta.toLowerCase().replace(/\s/g, "-"));
     let kontenTugas = doc.data().kontenTugas;
     let perMinggu = doc.data().perMinggu;
     let perHari = doc.data().perHari;
     let perJam = doc.data().perJam;
     let perMenit = doc.data().perMenit;
-    let waktuRilis = doc.data().waktuRilis;
-    let terlambat = doc.data().terlambat;
-    let status = doc.data().status;
-    let buktiPenyelesaian = doc.data().buktiPenyelesaian;
-    let filePenyelesaian = doc.data().filePenyelesaian;
-    let penggunaUID = doc.data().penggunaUID;
     let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    let waktuRilis = doc.data().waktuRilis;
+    let waktuPenyelesaian = doc.data().waktuPenyelesaian;
+    let hhRilis = String(new Date(waktuRilis).getHours()).padStart(2, '0');
+    let msRilis = String(new Date(waktuRilis).getMinutes()).padStart(2, '0');
     let ddRilis = String(new Date(waktuRilis).getDate()).padStart(2, '0');
     let mmRilis = bulan[new Date(waktuRilis).getMonth()];
     let yyyyRilis = new Date(waktuRilis).getFullYear();
-    let hhRilis = ('0' + new Date(waktuRilis).getHours()).slice(-2);
-    let msRilis = ('0' + new Date(waktuRilis).getMinutes()).slice(-2);    
-    let tanggalPeluncuran = ddRilis + ' ' + mmRilis + ' ' + yyyyRilis + ', ' + hhRilis + ':' + msRilis;
-    div.setAttribute('data-date', waktuRilis);
-    let waktuDeadline = new Date().setTime(new Date(waktuRilis).getTime() + ((perMinggu*7*24*60*60*1000) + (perHari*24*60*60*1000) + (perJam*60*60*1000) + (perMenit*60*1000)))
-    let ddDeadline = String(new Date(waktuDeadline).getDate()).padStart(2, '0');
+    let waktuDeadline = new Date(waktuRilis + (perMinggu * 7 * 24 * 60 * 60 * 1000) + (perHari * 24 * 60 * 60 * 1000) + (perJam * 60 * 60 * 1000) + (perMenit * 60 * 1000));
+    waktuRilis = hhRilis + ':' + msRilis + " / " + ddRilis + ' ' + mmRilis + ' ' + yyyyRilis;
+    let hhDeadline = String(new Date(waktuDeadline).getHours()).padStart(2, '0');
+    let msDeadline = String(new Date(waktuDeadline).getMinutes()).padStart(2, '0');
+    let ddDealine = String(new Date(waktuDeadline).getDate()).padStart(2, '0');
     let mmDeadline = bulan[new Date(waktuDeadline).getMonth()];
     let yyyyDeadline = new Date(waktuDeadline).getFullYear();
-    let hhDeadline = ('0' + new Date(waktuDeadline).getHours()).slice(-2);
-    let msDeadline = ('0' + new Date(waktuDeadline).getMinutes()).slice(-2);
-    let tanggalDeadline = ddDeadline + ' ' + mmDeadline + ' ' + yyyyDeadline + ', ' + hhDeadline + ':' + msDeadline;
-    div.innerHTML = `<div class="tugas" data-toggle="modal" data-target="#modaltugas${doc.id}" id="tugas${doc.id}">Tugas ${tanggalPeluncuran}, CC : ${namaPeserta}</div>`
-    switch(status){
-        case 'PENDING':
-        tugas.innerHTML = `
-        <div class="modal fade" id="modaltugas${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Tugas ${tanggalPeluncuran}, CC : ${namaPeserta} </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="data-tugas">
-                  <div class="info-tugas" id="info-tugas${doc.id}">
-                    <div>CC</div>
-                    <div>:</div>
-                    <div style="font-weight:bold;" id="nama-peserta-tugas${doc.id}">${namaPeserta.toUpperCase()}</div>
-                    <div>Waktu Peluncuran</div>
-                    <div>:</div>        
-                    <div style="font-weight:bold;">${tanggalPeluncuran}</div>
-                    <div>Waktu Deadline</div>
-                    <div>:</div>        
-                    <div style="font-weight:bold;" id="batas-waktu${doc.id}">${tanggalDeadline}</div>
-                    <div>Status</div>
-                    <div>:</div> 
-                    <div id="status-tugas${doc.id}" style="font-weight:bold;color:#c72424;">${status}</div>
-                    <div>Konten Tugas</div>
-                    <div>:</div> 
-                    <div id="konten-tugas-body${doc.id}">${kontenTugas}</div>
-                  </div>
-                  <form id="form-bukti-penyelesaian${doc.id}">
-                    <div class="form-group" id="bukti-penyelesaian-tugas${doc.id}">
-                      <label>Bukti Penyelesaian <small>(Note : Tidak wajib untuk diisi)</small></label>
-                      <textarea oninput="auto_grow(this)" class="form-control" id="bukti-penyelesaian${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)"></textarea>
-                    </div>
-                    <div class="form-group" id="file-penyelesaian-tugas${doc.id}">
-                      <input type="file" accept="docx/*,xls/*,pdf/*,pptx/*,txt/*,html*/,css/*,js/*,image/*" id="file-penyelesaian${doc.id}" class="inputfile">
-                    </div>
-                  </form>
-                  <div id="selesai${doc.id}" class="btn btn-success selesai selesai-tugas">Selesaikan Tugas</div>
-                  <div id="edit${doc.id}" class="btn btn-warning edit edit-tugas">Edit Tugas Karyawan</div>
-                  <div id="hapus${doc.id}" class="btn btn-danger hapus hapus-tugas">Hapus Tugas Karyawan</div>
-                </div>
-                <form id="modal-tugas${doc.id}" class="modal-tugas">
-                  <div class="form-group">
-                    <label>Konten Tugas</label>
-                    <textarea oninput="auto_grow(this)" class="form-control" id="konten-tugas${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required>${kontenTugas.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
-                  </div>
-                  <div class="form-group">
-                    <label style="display: block;text-align:center;">Waktu Pengerjaan</label>
-                    <div class="form-row align-items-center">
-                      <div class="col-sm-3 my-1">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text">Minggu</div>
-                          </div>
-                          <input type="number" id="per-minggu${doc.id}" autocomplete="off" value="${perMinggu}" max="53" min="0" class="form-control your_class">
-                        </div>
-                      </div>
-                      <div class="col-sm-3 my-1">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text">Hari</div>
-                          </div>
-                          <input type="number" id="per-hari${doc.id}" autocomplete="off" value="${perHari}" max="366" min="0" class="form-control your_class">
-                        </div>
-                      </div>
-                      <div class="col-sm-3 my-1">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text">Jam</div>
-                          </div>
-                          <input type="number" id="per-jam${doc.id}" autocomplete="off" value="${perJam}" max="24" min="0" class="form-control your_class">
-                        </div>
-                      </div>
-                      <div class="col-sm-3 my-1">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text">Menit</div>
-                          </div>
-                          <input type="number" id="per-menit${doc.id}" autocomplete="off" value="${perMenit}" max="60" min="0" class="form-control your_class">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        `
-        tugasPeserta.appendChild(div);
+    waktuDeadline = hhDeadline + ':' + msDeadline + " / " + ddDealine + ' ' + mmDeadline + ' ' + yyyyDeadline;
+    let taskMasterUID = doc.data().taskMasterUID;
+    let taskMaster = doc.data().taskMaster;
+    let prioritasTugas = doc.data().prioritasTugas;
+    let complete = doc.data().complete;
+    let tr = document.createElement('tr');
+    let modal = document.createElement('div');
+    let prioritasTinggi;
+    let prioritasSedang;
+    let prioritasRendah;
+    switch(prioritasTugas){
+        case "Tinggi":
+        prioritasTinggi = 'selected';
         break;
-        case 'COMPLETED':
-        tugas.innerHTML = `
-        <div class="modal fade" id="modaltugas${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Tugas ${namaPeserta} </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="data-tugas">
-                  <div class="info-tugas" id="info-tugas${doc.id}">
-                    <div>CC</div>
-                    <div>:</div>
-                    <div style="font-weight:bold;" id="nama-peserta-tugas${doc.id}">${namaPeserta.toUpperCase()}</div>
-                    <div>Waktu Peluncuran</div>
-                    <div>:</div>        
-                    <div style="font-weight:bold;">${tanggalPeluncuran}</div>
-                    <div>Waktu Deadline</div>
-                    <div>:</div>        
-                    <div style="font-weight:bold;" id="batas-waktu${doc.id}">${tanggalDeadline}</div>
-                    <div>Status</div>
-                    <div>:</div> 
-                    <div id="status-tugas${doc.id}" style="font-weight:bold;">${status}</div>
-                    <div>Konten Tugas</div>
-                    <div>:</div> 
-                    <div id="konten-tugas-body${doc.id}">${kontenTugas}</div>
-                    <div>Bukti Penyelesaian</div>
-                    <div>:</div> 
-                    <div id="bukti-penyelesaian-tugas${doc.id}">${buktiPenyelesaian}</div>
-                    <div>File Penyelesaian</div>
-                    <div>:</div> 
-                    <div id="file-penyelesaian-tugas${doc.id}"></div>                                        
-                  </div>
-                  <div id="batal${doc.id}" class="btn btn-info batal batal-tugas">Batalkan Penyelesaian Tugas</div>
-                  <div id="edit${doc.id}" class="btn btn-warning edit edit-tugas">Edit Tugas Karyawan</div>
-                  <div id="hapus${doc.id}" class="btn btn-danger hapus hapus-tugas">Hapus Tugas Karyawan</div>
-                </div>
-                <form id="modal-tugas${doc.id}" class="modal-tugas">
-                  <div class="form-group">
-                    <label>Konten Tugas</label>
-                    <textarea oninput="auto_grow(this)" class="form-control" id="konten-tugas${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required>${kontenTugas.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
-                  </div>
-                  <div class="form-group">
-                    <label style="display: block;text-align:center;">Waktu Pengerjaan</label>
-                    <div class="form-row align-items-center">
-                      <div class="col-sm-3 my-1">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text">Minggu</div>
-                          </div>
-                          <input type="number" id="per-minggu${doc.id}" autocomplete="off" value="${perMinggu}" max="53" min="0" class="form-control your_class">
-                        </div>
-                      </div>
-                      <div class="col-sm-3 my-1">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text">Hari</div>
-                          </div>
-                          <input type="number" id="per-hari${doc.id}" autocomplete="off" value="${perHari}" max="366" min="0" class="form-control your_class">
-                        </div>
-                      </div>
-                      <div class="col-sm-3 my-1">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text">Jam</div>
-                          </div>
-                          <input type="number" id="per-jam${doc.id}" autocomplete="off" value="${perJam}" max="24" min="0" class="form-control your_class">
-                        </div>
-                      </div>
-                      <div class="col-sm-3 my-1">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text">Menit</div>
-                          </div>
-                          <input type="number" id="per-menit${doc.id}" autocomplete="off" value="${perMenit}" max="60" min="0" class="form-control your_class">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        `        
-        tugasPesertaSelesai.appendChild(div);
+        case "Sedang":
+        prioritasSedang = 'selected';
+        break;
+        case "Rendah":
+        prioritasRendah = 'selected';
     }
+    if(complete){
+        tr.setAttribute('task-complete', '');
+        complete = 'checked';
+        let hhPenyelesaian = String(new Date(waktuPenyelesaian).getHours()).padStart(2, '0');
+        let msPenyelesaian = String(new Date(waktuPenyelesaian).getMinutes()).padStart(2, '0');
+        let ddPenyelesaian = String(new Date(waktuPenyelesaian).getDate()).padStart(2, '0');
+        let mmPenyelesaian = bulan[new Date(waktuPenyelesaian).getMonth()];
+        let yyyyPenyelesaian = new Date(waktuPenyelesaian).getFullYear();
+        waktuPenyelesaian = hhPenyelesaian + ':' + msPenyelesaian + " / " + ddPenyelesaian + ' ' + mmPenyelesaian + ' ' + yyyyPenyelesaian;
+    } else {
+        tr.setAttribute('task-incomplete', '');
+        complete = '';
+        waktuPenyelesaian = '-'
+    }
+    tr.setAttribute('data-id', doc.id);
+    prioritasTugas = `<div class="prioritas-tugas-${prioritasTugas.toLowerCase()}">${prioritasTugas}</div>`
+    tr.innerHTML = `
+    <td class="align-middle"><input type="checkbox" class="checkbox-tugas m-1" id="checkbox-tugas${doc.id}" ${complete}></td>
+    <td class="align-middle font-weight-bold" id=nama-peserta-tugas${doc.id}>${namaPeserta}</td>
+    <td class="align-middle font-weight-bold" id="prioritas-tugas-tampilan${doc.id}">${prioritasTugas}</td>
+    <td class="align-middle text-left" id="konten-tugas-tampilan${doc.id}">${kontenTugas}</td>
+    <td class="align-middle font-weight-bold" id="taskmaster-tugas${doc.id}">${taskMaster}</td>
+    <td class="align-middle">${waktuRilis}</td>
+    <td class="align-middle" id="waktu-penyelesaian-tugas${doc.id}">${waktuPenyelesaian}</td>
+    <td class="align-middle" id="waktu-deadline-tugas${doc.id}">${waktuDeadline}</td>    
+    <td class="align-middle list-action-tugas">
+        <div class="d-flex">
+            <a href="#" class="btn btn-warning mr-1 text-white" data-target="#modaltugas${doc.id}" data-toggle="modal">Update</a>
+            <a href="#" class="btn btn-danger" id="hapus${doc.id}">Delete</a>
+        </div>
+    </td>
+    `
+    modal.innerHTML = `
+    <div class="modal fade" id="modaltugas${doc.id}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Menambahkan Tugas Terbaru</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-tugas${doc.id}">
+                        <div class="form-group">
+                            <label>Konten Tugas</label>
+                            <textarea oninput="auto_grow(this)" class="form-control" id="konten-tugas${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)" required>${kontenTugas.replace(/<br\s*[\/]?>/gi, "&#13;&#10;")}</textarea>
+                        </div>            
+                        <div class="form-group">
+                            <label>Prioritas Tugas</label>
+                            <select class="form-control" id="prioritas-tugas${doc.id}" required>
+                                <option ${prioritasTinggi}>Tinggi</option>
+                                <option ${prioritasSedang}>Sedang</option>
+                                <option ${prioritasRendah}>Rendah</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: block;text-align:center;">Waktu Pengerjaan</label>
+                            <div class="form-row align-items-center">
+                                <div class="col-sm-3 my-1">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text" style="font-size: 15px !important;">Minggu</div>
+                                        </div>
+                                        <input type="number" id="per-minggu${doc.id}" autocomplete="off" value="${perMinggu}" max="53" min="0" class="form-control your_class">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 my-1">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text" style="font-size: 15px !important;">Hari</div>
+                                        </div>
+                                        <input type="number" id="per-hari${doc.id}" autocomplete="off" value="${perHari}" max="366" min="0" class="form-control your_class">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 my-1">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text" style="font-size: 15px !important;">Jam</div>
+                                        </div>
+                                        <input type="number" id="per-jam${doc.id}" autocomplete="off" value="${perJam}" max="24" min="0" class="form-control your_class">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 my-1">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text" style="font-size: 15px !important;">Menit</div>
+                                        </div>
+                                        <input type="number" id="per-menit${doc.id}" autocomplete="off" value="${perMenit}" max="60" min="0" class="form-control your_class">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
 
-    modalTugasPeserta.appendChild(tugas);
+    if(complete){
+        listTugasPeserta.append(tr);
+    } else {
+        listTugasPeserta.prepend(tr);
+    }
+    document.body.appendChild(modal);
 
-    let edit = document.querySelector('#edit' + doc.id);
-    edit.addEventListener('click', function(e){
-        e.stopPropagation();
-        formEdit.style.display = "block";
-    })
-
-    let formEdit = document.querySelector('#modal-tugas' + doc.id);      
-    formEdit.addEventListener('submit', function(e){
+    document.querySelector('#edit-tugas' + doc.id).addEventListener('submit', function(e){
         e.preventDefault();
-        let kontenTugasUpdate = formEdit['konten-tugas' + doc.id].value.replace(/\n\r?/g, '<br/>');
-        let perMingguUpdate = formEdit['per-minggu' + doc.id].value;
-        let perHariUpdate = formEdit['per-hari' + doc.id].value;
-        let perJamUpdate = formEdit['per-jam' + doc.id].value;
-        let perMenitUpdate = formEdit['per-menit' + doc.id].value;
-        db.collection('tugas').doc(doc.id).update({
-            kontenTugas : kontenTugasUpdate,
-            perMinggu : perMingguUpdate,
-            perHari : perHariUpdate,
-            perJam : perJamUpdate,
-            perMenit : perMenitUpdate
+        db.collection('tugass').doc(doc.id).update({
+            kontenTugas : this['konten-tugas' + doc.id].value.replace(/\n\r?/g, '<br/>'),
+            prioritasTugas : this['prioritas-tugas' + doc.id].value,
+            perMinggu : this['per-minggu' + doc.id].value,
+            perHari : this['per-hari' + doc.id].value,
+            perJam : this['per-jam' + doc.id].value,
+            perMenit : this['per-menit' + doc.id].value
         }).then(() => {
-            formEdit.style.display = 'none';
+            alert('Informasi tugas telah diupdate!')
         })
     })
 
-    let hapus = document.querySelector('#hapus' + doc.id);
-    hapus.addEventListener('click', (e) => {
+    document.querySelector('#checkbox-tugas' + doc.id).addEventListener('change', function(e){
         e.stopPropagation();
-        let konfirmasi = confirm('Anda yakin ingin menghapus tugas ini?');
-        if(konfirmasi == true){
-            db.collection('tugas').doc(doc.id).get().then(function(item){
-                let newFilePenyelesaian = item.data().filePenyelesaian;
-                if(newFilePenyelesaian != 'Tidak Ada'){
-                    let refPenyimpanan = firebase.storage().ref('Tugas ' + namaPeserta +  '/' + doc.id + '/');
-                    let ambilPenyimpanan = refPenyimpanan.child(item.data().filePenyelesaian);
-                    ambilPenyimpanan.delete();                    
-                }
+        if(this.checked){
+            db.collection('tugass').doc(doc.id).update({
+                complete : true,
+                waktuPenyelesaian : new Date().getTime()
             }).then(() => {
-                db.collection('tugas').doc(doc.id).delete();
-            })  
+                alert('Tugas berhasil diselesaikan')
+            })
+        } else {
+            db.collection('tugass').doc(doc.id).update({
+                complete : false,
+                waktuPenyelesaian : firebase.firestore.FieldValue.delete()
+            }).then(() => {
+                alert('Berhasil membatalkan penyelesaian tugas')
+            })
         }
     })
 
-    switch(status){
-        case 'PENDING':
-        document.querySelector('#status-tugas' + doc.id).style.color = 'crimson';
-        if(buktiPenyelesaian == 'Tidak Ada'){
-            buktiPenyelesaian = '';
-        } else if(buktiPenyelesaian == 0 || buktiPenyelesaian == null){
-            buktiPenyelesaian = '';
-        }
-        document.querySelector('#bukti-penyelesaian' + doc.id).innerHTML = buktiPenyelesaian.replace(/<br\s*\/?>/gi, "\n");
-        if(filePenyelesaian != 'Tidak Ada'){
-            document.querySelector('#file-penyelesaian' + doc.id).remove();
-            let bukaFile = document.createElement('button');
-            let hapusFile = document.createElement('button');
-            bukaFile.setAttribute('id', 'buka-file' + doc.id);
-            bukaFile.classList.add('buka-file-tugas')
-            hapusFile.setAttribute('id', 'hapus-file' + doc.id);
-            hapusFile.classList.add('hapus-file-tugas')
-            let karakterTitik = filePenyelesaian.lastIndexOf('.');
-            let ekstensi = filePenyelesaian.substring(karakterTitik + 1);
-            switch(ekstensi){
-                case "docx":
-                bukaFile.innerHTML = '<i class="fas fa-cloud-download-alt"></i> Download File';
-                break;
-                case "xls":
-                bukaFile.innerHTML = '<i class="fas fa-cloud-download-alt"></i> Download File';
-                break;
-                case "pptx":
-                bukaFile.innerHTML = '<i class="fas fa-cloud-download-alt"></i> Download File';
-                break;
-                case "pdf":
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                break;
-                case "txt":
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                break;
-                case "jpg":
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                break;
-                case "jpeg":
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                break;
-                case "png":
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                break;
-                case "gif":
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                break;
-                default:
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-            }
-            hapusFile.innerHTML = `<i class="fa fa-trash"></i> Hapus`
-            document.querySelector('#file-penyelesaian-tugas' + doc.id).appendChild(bukaFile);
-            document.querySelector('#buka-file' + doc.id).parentNode.insertBefore(hapusFile, document.querySelector('#buka-file' + doc.id).nextSibling);
-
-            let eBukaFile = document.querySelector('#buka-file' + doc.id);
-            eBukaFile.addEventListener('click', function(e){
-                e.preventDefault();
-                let refPenyimpanan = firebase.storage().ref('Tugas ' + namaPeserta +  '/' + doc.id + '/');
-                let ambilPenyimpanan = refPenyimpanan.child(filePenyelesaian);
-                ambilPenyimpanan.getDownloadURL().then(function(url){
-                switch(ekstensi){
-                    case "docx":
-                    window.location.href = url;
-                    break;
-                    case "xls":
-                    window.location.href = url;
-                    break;
-                    case "pptx":
-                    window.location.href = url;
-                    break;
-                    case "pdf":
-                    window.open(url);
-                    break;
-                    case "txt":
-                    window.open(url);
-                    break;
-                    case "jpg":
-                    window.open(url);
-                    break;
-                    case "jpeg":
-                    window.open(url);
-                    break;
-                    case "png":
-                    window.open(url);
-                    break;
-                    case "gif":
-                    window.open(url);
-                    break;
-                    default:
-                    window.location.href = url;
-                    }
-                })                
-            })
-
-            let eHapusFile = document.querySelector('#hapus-file' + doc.id);
-            eHapusFile.addEventListener('click', function(e){
-                e.preventDefault();
-                document.querySelector('#file-penyelesaian-tugas' + doc.id).remove();                
-                db.collection('tugas').doc(doc.id).get().then(function(item){
-                    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
-                        let username = docs.data().username;
-                        let newFilePenyelesaian = item.data().filePenyelesaian;
-                        if(newFilePenyelesaian != 'Tidak Ada'){
-                            if(username == namaPeserta){
-                                db.collection('tugas').doc(doc.id).update({
-                                    namaPeserta : username,
-                                    filePenyelesaian : 'Tidak Ada'
-                                }).then(() => {
-                                    let refPenyimpanan = firebase.storage().ref('Tugas ' + item.data().namaPeserta +  '/' + doc.id + '/');
-                                    let ambilPenyimpanan = refPenyimpanan.child(newFilePenyelesaian);
-                                    ambilPenyimpanan.delete();
-                                })            
-                            } else {
-                                db.collection('tugas').doc(doc.id).update({
-                                    filePenyelesaian : 'Tidak Ada'
-                                }).then(() => {
-                                    let refPenyimpanan = firebase.storage().ref('Tugas ' + item.data().namaPeserta +  '/' + doc.id + '/');
-                                    let ambilPenyimpanan = refPenyimpanan.child(newFilePenyelesaian);
-                                    ambilPenyimpanan.delete();
-                                })                                    
-                            }
-                        }
-                    })
-                })
-                let filePenyelesaianTugas = document.createElement('div');
-                filePenyelesaianTugas.setAttribute('id', 'file-penyelesaian-tugas' + doc.id);
-                filePenyelesaianTugas.classList.add('form-group');
-                filePenyelesaianTugas.innerHTML = `
-                <input type="file" accept="docx/*,xls/*,pdf/*,pptx/*,txt/*,html*/,css/*,js/*,image/*" id="file-penyelesaian${doc.id}" class="inputfile">
-                `
-                document.querySelector('#bukti-penyelesaian-tugas' + doc.id).parentNode.insertBefore(filePenyelesaianTugas, document.querySelector('#bukti-penyelesaian-tugas' + doc.id).nextSibling);
-            })
-        }        
-
-        let selesai = document.querySelector('#selesai' + doc.id);
-        selesai.addEventListener('click', function(e){
-            e.stopPropagation();
-            db.collection('tugas').doc(doc.id).get().then(function(item){
-                db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
-                    let username = docs.data().username;            
-                    let newPerMinggu = item.data().perMinggu;
-                    let newPerHari = item.data().perHari;
-                    let newPerJam = item.data().perJam;
-                    let newPerMenit = item.data().perMenit;
-                    let newFilePenyelesaian = item.data().filePenyelesaian;
-                    let newWaktuDeadline = new Date().setTime(new Date(waktuRilis).getTime() + ((perMinggu*7*24*60*60*1000) + (perHari*24*60*60*1000) + (perJam*60*60*1000) + (perMenit*60*1000)))
-                    let terlambat;
-                    if(new Date().getTime() < newWaktuDeadline){
-                        terlambat = 'Tidak';
-                    } else {
-                        terlambat = 'Ya';
-                    }
-                    let buktiPenyelesaian = document.querySelector('#bukti-penyelesaian' + doc.id).value.replace(/\n\r?/g, '<br/>');
-                    if(buktiPenyelesaian == 0){
-                        buktiPenyelesaian = 'Tidak Ada';
-                    }
-                    let namaFile;
-                    if(newFilePenyelesaian != 'Tidak Ada' && newFilePenyelesaian != null && newFilePenyelesaian != undefined){
-                        namaFile = newFilePenyelesaian;
-                    } else {
-                        if(document.querySelector('#file-penyelesaian' + doc.id)){
-                            let filePenyelesaian = document.querySelector('#file-penyelesaian' + doc.id).files[0];
-                            if(filePenyelesaian != null){
-                                namaFile = filePenyelesaian.name;
-                                let refPenyimpanan = firebase.storage().ref('Tugas ' + namaPeserta +  '/' + doc.id + '/' + namaFile);
-                                let penyimpanan = refPenyimpanan.put(filePenyelesaian);                        
-                            } else {
-                                namaFile = 'Tidak Ada'
-                            }
-                        }
-                    }
-                    if(username == namaPeserta){
-                        db.collection('tugas').doc(doc.id).update({
-                            namaPeserta : username,
-                            status : 'COMPLETED',
-                            buktiPenyelesaian : buktiPenyelesaian,
-                            filePenyelesaian : namaFile,
-                            terlambat : terlambat
-                        })
-                    } else {
-                        db.collection('tugas').doc(doc.id).update({
-                            status : 'COMPLETED',
-                            buktiPenyelesaian : buktiPenyelesaian,
-                            filePenyelesaian : namaFile,
-                            terlambat : terlambat
-                        })
-                    }
-                })
-            })
+    document.querySelector('#hapus' + doc.id).addEventListener('click', function(e){
+        e.stopPropagation();
+        db.collection('tugass').doc(doc.id).delete().then(() => {
+            alert('Berhasil menghapus tugas ' + namaPeserta)
         })
-
-        $(document).ready(function() {
-            db.collection('tugas').onSnapshot(snapshot =>{
-                let items = $('#list-tugas-peserta > .tugasseseorang').get();
-                items.sort(function(a, b) {
-                    let keyA = $(a).data('date');
-                    let keyB = $(b).data('date');
-                    if (keyA < keyB) return 1;
-                    if (keyA > keyB) return -1;
-                    return 0;
-                })
-                let daftarTugas = $('#list-tugas-peserta');
-                $.each(items, function(i, div) {
-                    daftarTugas.append(div);
-                })
-            })
-        })
-
-        break;
-        case 'COMPLETED':
-        document.querySelector('#status-tugas' + doc.id).style.color = 'green';
-        if(filePenyelesaian != 'Tidak Ada'){        
-            let bukaFile = document.createElement('button');
-            bukaFile.setAttribute('id', 'buka-file' + doc.id);
-            bukaFile.classList.add('buka-file-tugas')
-            let karakterTitik = filePenyelesaian.lastIndexOf('.');
-            let ekstensi = filePenyelesaian.substring(karakterTitik + 1);
-            switch(ekstensi){
-                case "docx":
-                bukaFile.innerHTML = '<i class="fas fa-cloud-download-alt"></i> Download File';
-                break;
-                case "xls":
-                bukaFile.innerHTML = '<i class="fas fa-cloud-download-alt"></i> Download File';
-                break;
-                case "pptx":
-                bukaFile.innerHTML = '<i class="fas fa-cloud-download-alt"></i> Download File';
-                break;
-                case "pdf":
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                break;
-                case "txt":
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                break;
-                case "jpg":
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                break;
-                case "jpeg":
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                break;
-                case "png":
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                break;
-                case "gif":
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                break;
-                default:
-                bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-            }                    
-            document.querySelector('#file-penyelesaian-tugas' + doc.id).appendChild(bukaFile);
-
-            let eBukaFile = document.querySelector('#buka-file' + doc.id);
-            eBukaFile.addEventListener('click', function(e){
-                e.preventDefault();
-                let refPenyimpanan = firebase.storage().ref('Tugas ' + namaPeserta +  '/' + doc.id + '/');
-                let ambilPenyimpanan = refPenyimpanan.child(filePenyelesaian);
-                ambilPenyimpanan.getDownloadURL().then(function(url){
-                switch(ekstensi){
-                    case "docx":
-                    window.location.href = url;
-                    break;
-                    case "xls":
-                    window.location.href = url;
-                    break;
-                    case "pptx":
-                    window.location.href = url;
-                    break;
-                    case "pdf":
-                    window.open(url);
-                    break;
-                    case "txt":
-                    window.open(url);
-                    break;
-                    case "jpg":
-                    window.open(url);
-                    break;
-                    case "jpeg":
-                    window.open(url);
-                    break;
-                    case "png":
-                    window.open(url);
-                    break;
-                    case "gif":
-                    window.open(url);
-                    break;
-                    default:
-                    window.location.href = url;
-                    }
-                })                
-            })
-        } else if(filePenyelesaian == 'Tidak Ada'){
-            document.querySelector('#file-penyelesaian-tugas' + doc.id).innerHTML = 'Tidak Ada';
-        }
-
-        let batal = document.querySelector('#batal' + doc.id);
-        batal.addEventListener('click', function(e){
-            e.stopPropagation();
-            db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
-                let username = docs.data().username;
-                if(username == namaPeserta){
-                    db.collection('tugas').doc(doc.id).update({
-                        namaPeserta : username,
-                        status : 'PENDING'
-                    })
-                } else {
-                    db.collection('tugas').doc(doc.id).update({
-                        status : 'PENDING'
-                    })
-                  
-                }
-            })
-        })
-
-        $(document).ready(function() {
-            db.collection('tugas').onSnapshot(snapshot =>{
-                let items = $('#list-tugas-peserta-selesai > .tugasseseorang').get();
-                items.sort(function(a, b) {
-                    let keyA = $(a).data('date');
-                    let keyB = $(b).data('date');
-                    if (keyA < keyB) return 1;
-                    if (keyA > keyB) return -1;
-                    return 0;
-                })
-                let daftarTugas = $('#list-tugas-peserta-selesai');
-                $.each(items, function(i, div) {
-                    daftarTugas.append(div);
-                })
-            })
-        })
-
-    }
+    })
 
 }
 
 function renderUpdateTugas(doc){
     let namaPeserta = doc.data().namaPeserta;
+    let taskMaster = doc.data().taskMaster;
+    let complete = doc.data().complete;
     let kontenTugas = doc.data().kontenTugas;
     let perMinggu = doc.data().perMinggu;
     let perHari = doc.data().perHari;
     let perJam = doc.data().perJam;
     let perMenit = doc.data().perMenit;
-    let waktuRilis = doc.data().waktuRilis;
-    let status = doc.data().status;
-    let buktiPenyelesaian = doc.data().buktiPenyelesaian;
-    let filePenyelesaian = doc.data().filePenyelesaian;
-    let penggunaUID = doc.data().penggunaUID;
     let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-    let waktuDeadline = new Date().setTime(new Date(waktuRilis).getTime() + ((perMinggu*7*24*60*60*1000) + (perHari*24*60*60*1000) + (perJam*60*60*1000) + (perMenit*60*1000)))
-    let ddDeadline = String(new Date(waktuDeadline).getDate()).padStart(2, '0');
+    let waktuRilis = doc.data().waktuRilis;
+    let waktuPenyelesaian = doc.data().waktuPenyelesaian;
+    let waktuDeadline = new Date(waktuRilis + (perMinggu * 7 * 24 * 60 * 60 * 1000) + (perHari * 24 * 60 * 60 * 1000) + (perJam * 60 * 60 * 1000) + (perMenit * 60 * 1000));
+    let hhDeadline = String(new Date(waktuDeadline).getHours()).padStart(2, '0');
+    let msDeadline = String(new Date(waktuDeadline).getMinutes()).padStart(2, '0');
+    let ddDealine = String(new Date(waktuDeadline).getDate()).padStart(2, '0');
     let mmDeadline = bulan[new Date(waktuDeadline).getMonth()];
     let yyyyDeadline = new Date(waktuDeadline).getFullYear();
-    let hhDeadline = ('0' + new Date(waktuDeadline).getHours()).slice(-2);
-    let msDeadline = ('0' + new Date(waktuDeadline).getMinutes()).slice(-2);
-    let tanggalDeadline = ddDeadline + ' ' + mmDeadline + ' ' + yyyyDeadline + ', ' + hhDeadline + ':' + msDeadline;
-    document.querySelector('#konten-tugas' + doc.id).innerHTML = kontenTugas.replace(/<br\s*\/?>/gi, "\n");      
+    waktuDeadline = hhDeadline + ':' + msDeadline + " / " + ddDealine + ' ' + mmDeadline + ' ' + yyyyDeadline;   
+    let prioritasTugas = doc.data().prioritasTugas; 
+    document.querySelector('#nama-peserta-tugas' + doc.id).innerHTML = namaPeserta;
+    document.querySelector('#taskmaster-tugas' + doc.id).innerHTML = taskMaster;
+    document.querySelector('#konten-tugas' + doc.id).value = kontenTugas.replace(/<br\s*[\/]?>/gi, "\n");
+    document.querySelector('#konten-tugas-tampilan' + doc.id).innerHTML = kontenTugas;
+    document.querySelector('#waktu-deadline-tugas' + doc.id).innerHTML = waktuDeadline;
     document.querySelector('#per-minggu' + doc.id).value = perMinggu;
     document.querySelector('#per-hari' + doc.id).value = perHari;
     document.querySelector('#per-jam' + doc.id).value = perJam;
     document.querySelector('#per-menit' + doc.id).value = perMenit;
-    document.querySelector('#batas-waktu' + doc.id).innerHTML = tanggalDeadline;
-    document.querySelector('#konten-tugas-body' + doc.id).innerHTML = kontenTugas;
-
-    switch(status){
-        case 'PENDING':
-        if(document.querySelector('#batal' + doc.id) && !document.querySelector('#selesai' + doc.id) && !document.querySelector('#form-bukti-penyelesaian' + doc.id)){
-            tugasPeserta.appendChild(document.querySelector('.dokumentasi-tugas-peserta' + doc.id));
-            document.querySelector('#batal' + doc.id).remove();        
-            document.querySelector('#status-tugas' + doc.id).innerHTML = `<span style="color:crimson;">${status}</span>`;
-            let selesai = document.createElement('div');
-            selesai.setAttribute('id','selesai' + doc.id);
-            selesai.classList.add('btn', 'btn-success', 'selesai', 'selesai-tugas');
-            selesai.innerHTML = 'Selesaikan Tugas';
-            document.querySelector('#edit' + doc.id).parentNode.insertBefore(selesai, document.querySelector('#edit' + doc.id))
-            for(let x = 0; x<6; x++){
-                document.querySelector('#info-tugas' + doc.id).querySelectorAll('div')[document.querySelector('#info-tugas' + doc.id).querySelectorAll('div').length - 1].remove()
-            }
-            let form = document.createElement('form');
-            form.setAttribute('id', 'form-bukti-penyelesaian' + doc.id);
-            form.innerHTML = `
-            <div class="form-group" id="bukti-penyelesaian-tugas${doc.id}">
-                <label>Bukti Penyelesaian <small>(Note : Tidak wajib untuk diisi)</small></label>
-                <textarea oninput="auto_grow(this)" class="form-control" id="bukti-penyelesaian${doc.id}" style="display: block;overflow: hidden;resize: none;box-sizing: border-box;min-height:100px;" autocomplete="off" onfocus="auto_grow(this)"></textarea>
-            </div>        
-            <div class="form-group" id="file-penyelesaian-tugas${doc.id}">
-                <input type="file" accept="docx/*,xls/*,pdf/*,pptx/*,txt/*,html*/,css/*,js/*,image/*" id="file-penyelesaian${doc.id}" class="inputfile">
-            </div>        
-            `
-            document.querySelector('#info-tugas' + doc.id).parentNode.insertBefore(form, document.querySelector('#info-tugas' + doc.id).nextSibling);
-            if(buktiPenyelesaian != 'Tidak Ada'){
-                document.querySelector('#bukti-penyelesaian' + doc.id).innerHTML = buktiPenyelesaian.replace(/<br\s*\/?>/gi, "\n");
-            } else if(buktiPenyelesaian == 'Tidak Ada'){
-                document.querySelector('#bukti-penyelesaian' + doc.id).innerHTML = '';
-            }
-
-            if(filePenyelesaian != 'Tidak Ada'){
-                document.querySelector('#file-penyelesaian' + doc.id).remove();
-                let bukaFile = document.createElement('button');
-                let hapusFile = document.createElement('button');
-                bukaFile.setAttribute('id', 'buka-file' + doc.id);
-                bukaFile.classList.add('buka-file-tugas')
-                hapusFile.setAttribute('id', 'hapus-file' + doc.id);
-                hapusFile.classList.add('hapus-file-tugas')
-                let karakterTitik = filePenyelesaian.lastIndexOf('.');
-                let ekstensi = filePenyelesaian.substring(karakterTitik + 1);
-                switch(ekstensi){
-                    case "docx":
-                    bukaFile.innerHTML = '<i class="fas fa-cloud-download-alt"></i> Download File';
-                    break;
-                    case "xls":
-                    bukaFile.innerHTML = '<i class="fas fa-cloud-download-alt"></i> Download File';
-                    break;
-                    case "pptx":
-                    bukaFile.innerHTML = '<i class="fas fa-cloud-download-alt"></i> Download File';
-                    break;
-                    case "pdf":
-                    bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                    break;
-                    case "txt":
-                    bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                    break;
-                    case "jpg":
-                    bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                    break;
-                    case "jpeg":
-                    bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                    break;
-                    case "png":
-                    bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                    break;
-                    case "gif":
-                    bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                    break;
-                    default:
-                    bukaFile.innerHTML = "<i class='fas fa-eye'></i> Lihat File";
-                }
-                hapusFile.innerHTML = `<i class="fa fa-trash"></i> Hapus`
-                document.querySelector('#file-penyelesaian-tugas' + doc.id).appendChild(bukaFile);
-                document.querySelector('#buka-file' + doc.id).parentNode.insertBefore(hapusFile, document.querySelector('#buka-file' + doc.id).nextSibling);
-
-                let eBukaFile = document.querySelector('#buka-file' + doc.id);
-                eBukaFile.addEventListener('click', function(e){
-                    e.preventDefault();
-                    db.collection('tugas').doc(doc.id).get().then(function(item){
-                        let newFilePenyelesaian = item.data().filePenyelesaian;
-                        let refPenyimpanan = firebase.storage().ref('Tugas ' + item.data().namaPeserta +  '/' + doc.id + '/');
-                        let ambilPenyimpanan = refPenyimpanan.child(newFilePenyelesaian);
-                        ambilPenyimpanan.getDownloadURL().then(function(url){
-                        switch(ekstensi){
-                            case "docx":
-                            window.location.href = url;
-                            break;
-                            case "xls":
-                            window.location.href = url;
-                            break;
-                            case "pptx":
-                            window.location.href = url;
-                            break;
-                            case "pdf":
-                            window.open(url);
-                            break;
-                            case "txt":
-                            window.open(url);
-                            break;
-                            case "jpg":
-                            window.open(url);
-                            break;
-                            case "jpeg":
-                            window.open(url);
-                            break;
-                            case "png":
-                            window.open(url);
-                            break;
-                            case "gif":
-                            window.open(url);
-                            break;
-                            default:
-                            window.location.href = url;
-                            }
-                        })
-                    })                
-                })
-
-                let eHapusFile = document.querySelector('#hapus-file' + doc.id);
-                eHapusFile.addEventListener('click', function(e){
-                    e.preventDefault();
-                    document.querySelector('#file-penyelesaian-tugas' + doc.id).remove();
-                    db.collection('tugas').doc(doc.id).get().then(function(item){
-                        db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
-                            let username = docs.data().username;                
-                            let newFilePenyelesaian = item.data().filePenyelesaian;
-                            if(newFilePenyelesaian != 'Tidak Ada'){
-                                if(username == namaPeserta){
-                                    db.collection('tugas').doc(doc.id).update({
-                                        namaPeserta : username,
-                                        filePenyelesaian : 'Tidak Ada'
-                                    }).then(() => {
-                                        let refPenyimpanan = firebase.storage().ref('Tugas ' + item.data().namaPeserta +  '/' + doc.id + '/');
-                                        let ambilPenyimpanan = refPenyimpanan.child(newFilePenyelesaian);
-                                        ambilPenyimpanan.delete();                                    
-                                    })                          
-                                } else {
-                                    db.collection('tugas').doc(doc.id).update({
-                                        filePenyelesaian : 'Tidak Ada'
-                                    }).then(() => {
-                                        let refPenyimpanan = firebase.storage().ref('Tugas ' + item.data().namaPeserta +  '/' + doc.id + '/');
-                                        let ambilPenyimpanan = refPenyimpanan.child(newFilePenyelesaian);
-                                        ambilPenyimpanan.delete();                                    
-                                    })                                                     
-                                }
-                            }
-                        })
-                    })
-                    let filePenyelesaianTugas = document.createElement('div');
-                    filePenyelesaianTugas.setAttribute('id', 'file-penyelesaian-tugas' + doc.id);
-                    filePenyelesaianTugas.classList.add('form-group');
-                    filePenyelesaianTugas.innerHTML = `
-                    <input type="file" accept="docx/*,xls/*,pdf/*,pptx/*,txt/*,html*/,css/*,js/*,image/*" id="file-penyelesaian${doc.id}" class="inputfile">
-                    `
-                    document.querySelector('#bukti-penyelesaian-tugas' + doc.id).parentNode.insertBefore(filePenyelesaianTugas, document.querySelector('#bukti-penyelesaian-tugas' + doc.id).nextSibling);
-                })
-            }
-
-            let eSelesai = document.querySelector('#selesai' + doc.id);
-            eSelesai.addEventListener('click', function(e){
-                e.stopPropagation();
-                db.collection('tugas').doc(doc.id).get().then(function(item){
-                    db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){            
-                        let username = docs.data().username;
-                        let newPerMinggu = item.data().perMinggu;
-                        let newPerHari = item.data().perHari;
-                        let newPerJam = item.data().perJam;
-                        let newPerMenit = item.data().perMenit;
-                        let newFilePenyelesaian = item.data().filePenyelesaian;
-                        let newWaktuDeadline = new Date().setTime(new Date(waktuRilis).getTime() + ((perMinggu*7*24*60*60*1000) + (perHari*24*60*60*1000) + (perJam*60*60*1000) + (perMenit*60*1000)))
-                        let terlambat;
-                        if(new Date().getTime() < newWaktuDeadline){
-                            terlambat = 'Tidak';
-                        } else {
-                            terlambat = 'Ya';
-                        }
-                        let buktiPenyelesaian = document.querySelector('#bukti-penyelesaian' + doc.id).value.replace(/\n\r?/g, '<br/>');
-                        if(buktiPenyelesaian == 0){
-                            buktiPenyelesaian = 'Tidak Ada';
-                        }
-                        let namaFile;
-                        if(newFilePenyelesaian != 'Tidak Ada'){
-                            namaFile = newFilePenyelesaian;
-                        } else if(newFilePenyelesaian == 'Tidak Ada'){
-                            if(document.querySelector('#file-penyelesaian' + doc.id)){
-                                let filePenyelesaian = document.querySelector('#file-penyelesaian' + doc.id).files[0];
-                                if(filePenyelesaian != null){
-                                    namaFile = filePenyelesaian.name;
-                                    let refPenyimpanan = firebase.storage().ref('Tugas ' + item.data().namaPeserta +  '/' + doc.id + '/' + namaFile);
-                                    let penyimpanan = refPenyimpanan.put(filePenyelesaian);                        
-                                } else {
-                                    namaFile = 'Tidak Ada'
-                                }
-                            }
-                        }
-                        if(username == namaPeserta){
-                            db.collection('tugas').doc(doc.id).update({
-                                namaPeserta : username,
-                                status : 'COMPLETED',
-                                buktiPenyelesaian : buktiPenyelesaian,
-                                filePenyelesaian : namaFile,
-                                terlambat : terlambat
-                            })
-                        } else {
-                            db.collection('tugas').doc(doc.id).update({
-                                status : 'COMPLETED',
-                                buktiPenyelesaian : buktiPenyelesaian,
-                                filePenyelesaian : namaFile,
-                                terlambat : terlambat
-                            })                            
-                        }
-                    })
-                })            
-            })
+    document.querySelector('#prioritas-tugas' + doc.id).querySelectorAll('option').forEach((item, index) => {
+        if(item.innerHTML == prioritasTugas){
+            document.querySelector('#prioritas-tugas' + doc.id).selectedIndex = index;
         }
-        break;
-        case 'COMPLETED':
-        if(document.querySelector('#form-bukti-penyelesaian' + doc.id) && document.querySelector('#selesai' + doc.id) && !document.querySelector('#batal' + doc.id)){
-            tugasPesertaSelesai.appendChild(document.querySelector('.dokumentasi-tugas-peserta' + doc.id));
-            document.querySelector('#form-bukti-penyelesaian' + doc.id).remove();
-            document.querySelector('#selesai' + doc.id).remove();
-            let batal = document.createElement('div');
-            batal.setAttribute('id','batal' + doc.id);
-            batal.classList.add('btn', 'btn-info', 'batal', 'batal-tugas');
-            batal.innerHTML = 'Batalkan Penyelesaian Tugas';
-            document.querySelector('#edit' + doc.id).parentNode.insertBefore(batal, document.querySelector('#edit' + doc.id))
-
-            let eBatal = document.querySelector('#batal' + doc.id);
-            eBatal.addEventListener('click', function(e){
-                e.stopPropagation();
-                db.collection('pengguna').doc(auth.currentUser.uid).get().then(function(docs){
-                    let username = docs.data().username;
-                    if(username == namaPeserta){
-                        db.collection('tugas').doc(doc.id).update({
-                            namaPeserta : username,
-                            status : 'PENDING'
-                        })
-                    } else {
-                        db.collection('tugas').doc(doc.id).update({
-                            status : 'PENDING'
-                        })                        
-                    }
-                })
-            })
-
-            for(let x = 0; x<2; x++){
-                let div = document.createElement('div');
-                let divKedua = document.createElement('div');
-                let divKetiga = document.createElement('div');
-                divKedua.innerHTML = ':';
-                if(x == 0){
-                    divKetiga.setAttribute('id', 'bukti-penyelesaian-tugas' + doc.id)
-                    div.innerHTML = 'Bukti Penyelesaian';
-                    divKetiga.innerHTML = buktiPenyelesaian;                
-                } else if(x == 1){
-                    divKetiga.setAttribute('id', 'file-penyelesaian-tugas' + doc.id)
-                    div.innerHTML = 'File Penyelesaian';
-                    if(filePenyelesaian != 'Tidak Ada'){
-                        let karakterTitik = filePenyelesaian.lastIndexOf('.');
-                        let ekstensi = filePenyelesaian.substring(karakterTitik + 1);
-                        let bukaFile;
-                        switch(ekstensi){
-                            case "docx":
-                            bukaFile = '<i class="fas fa-cloud-download-alt"></i> Download File';
-                            break;
-                            case "xls":
-                            bukaFile = '<i class="fas fa-cloud-download-alt"></i> Download File';
-                            break;
-                            case "pptx":
-                            bukaFile = '<i class="fas fa-cloud-download-alt"></i> Download File';
-                            break;
-                            case "pdf":
-                            bukaFile = "<i class='fas fa-eye'></i> Lihat File";
-                            break;
-                            case "txt":
-                            bukaFile = "<i class='fas fa-eye'></i> Lihat File";
-                            break;
-                            case "jpg":
-                            bukaFile = "<i class='fas fa-eye'></i> Lihat File";
-                            break;
-                            case "jpeg":
-                            bukaFile = "<i class='fas fa-eye'></i> Lihat File";
-                            break;
-                            case "png":
-                            bukaFile = "<i class='fas fa-eye'></i> Lihat File";
-                            break;
-                            case "gif":
-                            bukaFile = "<i class='fas fa-eye'></i> Lihat File";
-                            break;
-                            default:
-                            bukaFile = "<i class='fas fa-eye'></i> Lihat File";   
-                        }             
-                        divKetiga.innerHTML = `
-                        <button id="buka-file${doc.id}" class="buka-file-tugas">${bukaFile}</button>
-                        `;
-                    } else if(filePenyelesaian == 'Tidak Ada'){
-                        divKetiga.innerHTML = 'Tidak Ada';
-                    }                
-                }
-
-                document.querySelector('#info-tugas' + doc.id).insertBefore(div, document.querySelector('#info-tugas' + doc.id).querySelectorAll('div')[document.querySelector('#info-tugas' + doc.id).querySelectorAll('div').length - 1].nextSibling);            
-                document.querySelector('#info-tugas' + doc.id).insertBefore(divKedua, document.querySelector('#info-tugas' + doc.id).querySelectorAll('div')[document.querySelector('#info-tugas' + doc.id).querySelectorAll('div').length - 1].nextSibling);
-                document.querySelector('#info-tugas' + doc.id).insertBefore(divKetiga, document.querySelector('#info-tugas' + doc.id).querySelectorAll('div')[document.querySelector('#info-tugas' + doc.id).querySelectorAll('div').length - 1].nextSibling);
-
-                if(document.querySelector('#buka-file' + doc.id)){
-                    let eBukaFile = document.querySelector('#buka-file' + doc.id);
-                    eBukaFile.addEventListener('click', function(e){
-                        e.preventDefault();
-                        db.collection('tugas').doc(doc.id).get().then(function(item){
-                            let newFilePenyelesaian = item.data().filePenyelesaian;
-                            if(newFilePenyelesaian != 'Tidak Ada'){
-                                let refPenyimpanan = firebase.storage().ref('Tugas ' + item.data().namaPeserta +  '/' + doc.id + '/');
-                                let ambilPenyimpanan = refPenyimpanan.child(newFilePenyelesaian);
-                                let karakterTitik = newFilePenyelesaian.lastIndexOf('.');
-                                let ekstensi = newFilePenyelesaian.substring(karakterTitik + 1);
-                                ambilPenyimpanan.getDownloadURL().then(function(url){
-                                switch(ekstensi){
-                                    case "docx":
-                                    window.location.href = url;
-                                    break;
-                                    case "xls":
-                                    window.location.href = url;
-                                    break;
-                                    case "pptx":
-                                    window.location.href = url;
-                                    break;
-                                    case "pdf":
-                                    window.open(url);
-                                    break;
-                                    case "txt":
-                                    window.open(url);
-                                    break;
-                                    case "jpg":
-                                    window.open(url);
-                                    break;
-                                    case "jpeg":
-                                    window.open(url);
-                                    break;
-                                    case "png":
-                                    window.open(url);
-                                    break;
-                                    case "gif":
-                                    window.open(url);
-                                    break;
-                                    default:
-                                    window.location.href = url;
-                                    }
-                                })
-                            } else if(newFilePenyelesaian == 'Tidak Ada'){
-                                let parent = e.target.parentElement;
-                                e.target.remove();
-                                parent.innerHTML = 'Tidak Ada';                            
-                            }
-                        })                
-                    })
-                }
-
-            }
-
-            if(waktuDeadline > new Date().getTime()){
-                document.querySelector('#status-tugas' + doc.id).innerHTML = `<span style="color:green;">${status}</span>`;
-            } else {
-                document.querySelector('#status-tugas' + doc.id).innerHTML = `<span style="color:green;">${status}</span>(Terlambat)`;
-            }
+    })
+    document.querySelector('#prioritas-tugas-tampilan' + doc.id).innerHTML = `<div class="prioritas-tugas-${prioritasTugas.toLowerCase()}">${prioritasTugas}</div>`;
+    if(complete){
+        if(document.querySelector('[data-id="' + doc.id + '"]').hasAttribute('task-incomplete')){
+            document.querySelector('#checkbox-tugas' + doc.id).checked = true;
+            let hhPenyelesaian = String(new Date(waktuPenyelesaian).getHours()).padStart(2, '0');
+            let msPenyelesaian = String(new Date(waktuPenyelesaian).getMinutes()).padStart(2, '0');
+            let ddPenyelesaian = String(new Date(waktuPenyelesaian).getDate()).padStart(2, '0');
+            let mmPenyelesaian = bulan[new Date(waktuPenyelesaian).getMonth()];
+            let yyyyPenyelesaian = new Date(waktuPenyelesaian).getFullYear();
+            waktuPenyelesaian = hhPenyelesaian + ':' + msPenyelesaian + " / " + ddPenyelesaian + ' ' + mmPenyelesaian + ' ' + yyyyPenyelesaian;                
+            document.querySelector('#waktu-penyelesaian-tugas' + doc.id).innerHTML = waktuPenyelesaian;
+            document.querySelector('[data-id="' + doc.id + '"]').removeAttribute('task-incomplete');
+            document.querySelector('[data-id="' + doc.id + '"]').setAttribute('task-complete', '');
+            listTugasPeserta.append(document.querySelector('[data-id="' + doc.id + '"]'))               
+        }
+    } else {
+        if(document.querySelector('[data-id="' + doc.id + '"]').hasAttribute('task-complete')){
+            document.querySelector('#checkbox-tugas' + doc.id).checked = false;   
+            document.querySelector('#waktu-penyelesaian-tugas' + doc.id).innerHTML = '-'
+            document.querySelector('[data-id="' + doc.id + '"]').removeAttribute('task-complete');
+            document.querySelector('[data-id="' + doc.id + '"]').setAttribute('task-incomplete', '');
+            listTugasPeserta.prepend(document.querySelector('[data-id="' + doc.id + '"]'))
         }
     }
 
@@ -5528,7 +4709,7 @@ function renderEventKalender(doc){
     for(let i = 0; i < tanggalKalender.length; i++){
         let li = tanggalKalender[i].querySelectorAll('li');
         for(let y = 0; y < li.length; y++){
-            if(li[y].getAttribute('data-date') == tanggal){
+            if(li[y].getAttribute('data-date') == tanggal){                
                 if(!li[y].querySelector('.event-calendar-available')){
                     let availability = document.createElement('div');
                     availability.classList.add('event-calendar-available');                    

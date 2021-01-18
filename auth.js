@@ -34,7 +34,17 @@ auth.onAuthStateChanged(user => {
     })
         }, err => console.log(err.message))
 
-    db.collection('tugas').onSnapshot(snapshot =>{
+    db.collection('tugass').onSnapshot(snapshot =>{
+        if(snapshot.docs.length == 0){
+            let tr = document.createElement('tr');
+            tr.setAttribute('tidak-ada-tugas-tersedia', '');
+            tr.innerHTML = `<td class="p-5" colspan="9">Tidak ada tugas yang tersedia untuk saat ini</td>`
+            listTugasPeserta.appendChild(tr);            
+        } else {
+            if(document.querySelector('[tidak-ada-tugas-tersedia]')){
+                document.querySelector('[tidak-ada-tugas-tersedia]').remove();
+            }
+        }
         let changes = snapshot.docChanges();
         changes.forEach(change =>{
             if(change.type == 'added'){
@@ -42,13 +52,9 @@ auth.onAuthStateChanged(user => {
                 renderTugas(change.doc);
                 setupUI(user);
                 }
-            }else if (change.type == 'removed'){
+            } else if (change.type == 'removed'){
                 let div = document.querySelector('[data-id="' + change.doc.id + '"]');
-                if(div.parentElement == tugasPeserta){
-                    tugasPeserta.removeChild(div);
-                } else if(div.parentElement == tugasPesertaSelesai){
-                    tugasPesertaSelesai.removeChild(div);
-                }
+                div.remove();
             } else if(change.type == 'modified'){
                 renderUpdateTugas(change.doc);
             }
@@ -629,22 +635,25 @@ daftarTugas.addEventListener('submit', (e) => {
     if(document.querySelector('#per-minggu').value == "" && document.querySelector('#per-hari').value == "" && document.querySelector('#per-jam').value == "" && document.querySelector('#per-menit').value == ""){
         alert("Pastikan Mengisi Kolom Waktu Pengerjaan untuk Melanjuti Proses Tambah Tugas");
     } else {
-    db.collection('tugas').add({
-        namaPeserta : daftarTugas['target-peserta'].value,
-        kontenTugas : daftarTugas['konten-tugas'].value.replace(/\n\r?/g, '<br/>'),
-        perMinggu : daftarTugas['per-minggu'].value,
-        perHari : daftarTugas['per-hari'].value,
-        perJam : daftarTugas['per-jam'].value,
-        perMenit : daftarTugas['per-menit'].value,
-        waktuRilis : new Date().getTime(),
-        buktiPenyelesaian : 'Tidak Ada',
-        filePenyelesaian : 'Tidak Ada',
-        penggunaUID : auth.currentUser.uid,
-        status : 'PENDING'
-    }).then(() => {
-        $('#modaltambahtugas').modal('hide');
-        document.querySelector('#tambah-tugas').reset();
-        document.getElementsByClassName('seleksi').selectedIndex = null;          
+    db.collection('pengguna').doc(auth.currentUser.uid).get().then(doc => {
+        db.collection('tugass').add({
+            namaPeserta : daftarTugas['target-peserta'].value,
+            kontenTugas : daftarTugas['konten-tugas'].value.replace(/\n\r?/g, '<br/>'),
+            perMinggu : daftarTugas['per-minggu'].value,
+            perHari : daftarTugas['per-hari'].value,
+            perJam : daftarTugas['per-jam'].value,
+            perMenit : daftarTugas['per-menit'].value,
+            waktuRilis : new Date().getTime(),
+            taskMasterUID : auth.currentUser.uid,
+            taskMaster : doc.data().username,
+            prioritasTugas : daftarTugas['prioritas-tugas'].value,
+            complete : false
+        }).then(() => {
+            $('#modaltambahtugas').modal('hide');
+            document.querySelector('#tambah-tugas').reset();
+            daftarTugas['target-peserta'].selectedIndex = null;        
+            daftarTugas['prioritas-tugas'].selectedIndex = null;  
+        })
     })
   }
 })
