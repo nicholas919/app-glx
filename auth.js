@@ -34,7 +34,7 @@ auth.onAuthStateChanged(user => {
     })
         }, err => console.log(err.message))
 
-    db.collection('tugass').onSnapshot(snapshot =>{
+    db.collection('tugas').onSnapshot(snapshot =>{
         if(snapshot.docs.length == 0){
             let tr = document.createElement('tr');
             tr.setAttribute('tidak-ada-tugas-tersedia', '');
@@ -636,7 +636,7 @@ daftarTugas.addEventListener('submit', (e) => {
         alert("Pastikan Mengisi Kolom Waktu Pengerjaan untuk Melanjuti Proses Tambah Tugas");
     } else {
     db.collection('pengguna').doc(auth.currentUser.uid).get().then(doc => {
-        db.collection('tugass').add({
+        db.collection('tugas').add({
             namaPeserta : daftarTugas['target-peserta'].value,
             kontenTugas : daftarTugas['konten-tugas'].value.replace(/\n\r?/g, '<br/>'),
             perMinggu : daftarTugas['per-minggu'].value,

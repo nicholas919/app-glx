@@ -1450,7 +1450,7 @@ function renderTugas(doc){
 
     document.querySelector('#edit-tugas' + doc.id).addEventListener('submit', function(e){
         e.preventDefault();
-        db.collection('tugass').doc(doc.id).update({
+        db.collection('tugas').doc(doc.id).update({
             kontenTugas : this['konten-tugas' + doc.id].value.replace(/\n\r?/g, '<br/>'),
             prioritasTugas : this['prioritas-tugas' + doc.id].value,
             perMinggu : this['per-minggu' + doc.id].value,
@@ -1465,14 +1465,14 @@ function renderTugas(doc){
     document.querySelector('#checkbox-tugas' + doc.id).addEventListener('change', function(e){
         e.stopPropagation();
         if(this.checked){
-            db.collection('tugass').doc(doc.id).update({
+            db.collection('tugas').doc(doc.id).update({
                 complete : true,
                 waktuPenyelesaian : new Date().getTime()
             }).then(() => {
                 alert('Tugas berhasil diselesaikan')
             })
         } else {
-            db.collection('tugass').doc(doc.id).update({
+            db.collection('tugas').doc(doc.id).update({
                 complete : false,
                 waktuPenyelesaian : firebase.firestore.FieldValue.delete()
             }).then(() => {
@@ -1483,7 +1483,7 @@ function renderTugas(doc){
 
     document.querySelector('#hapus' + doc.id).addEventListener('click', function(e){
         e.stopPropagation();
-        db.collection('tugass').doc(doc.id).delete().then(() => {
+        db.collection('tugas').doc(doc.id).delete().then(() => {
             alert('Berhasil menghapus tugas ' + namaPeserta)
         })
     })
