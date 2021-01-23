@@ -35,16 +35,6 @@ auth.onAuthStateChanged(user => {
         }, err => console.log(err.message))
 
     db.collection('tugas').onSnapshot(snapshot =>{
-        if(snapshot.docs.length == 0){
-            let tr = document.createElement('tr');
-            tr.setAttribute('tidak-ada-tugas-tersedia', '');
-            tr.innerHTML = `<td class="p-5" colspan="9">Tidak ada tugas yang tersedia untuk saat ini</td>`
-            listTugasPeserta.appendChild(tr);            
-        } else {
-            if(document.querySelector('[tidak-ada-tugas-tersedia]')){
-                document.querySelector('[tidak-ada-tugas-tersedia]').remove();
-            }
-        }
         let changes = snapshot.docChanges();
         changes.forEach(change =>{
             if(change.type == 'added'){
