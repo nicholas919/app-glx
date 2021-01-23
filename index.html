@@ -406,24 +406,43 @@
 <div class="halaman tab-pane fade" id="halaman-list-tugas" role="tabpanel">
 
 <div class="mx-2 mt-2 mb-5">
+  <div class="bg-dark d-flex border border-bottom-0 rounded-top">
+    <div class="p-2 btn btn-dark font-weight-bold text-white rounded-0 tombol-lihat-tugas active" id="lihattugaspending">Tugas Pending</div>
+    <div class="p-2 btn btn-dark font-weight-bold text-white rounded-0 tombol-lihat-tugas" id="lihattugasselesai">Tugas Selesai</div>
+  </div>  
   <div class="table-responsive">
-    <table class="table table-sm bg-white table-bordered">
+    <table class="table table-sm bg-white table-bordered tabel-lihat-tugas" id="tabel-tugas-pending">
       <thead class="bg-light">
         <tr>
-          <th scope="col" class="border-bottom-0 p-3" style="min-width: 70px;">Status</th>
+          <th scope="col" class="border-bottom-0 p-3" style="min-width: 110px;">Tersedia Sejak</th>          
+          <th scope="col" class="border-bottom-0 p-3" style="min-width: 400px;">Deskripsi Tugas</th>
           <th scope="col" class="border-bottom-0 p-3" style="min-width: 120px;">Ditugaskan kepada</th>
           <th scope="col" class="border-bottom-0 p-3" style="min-width: 90px;">Prioritas</th>
-          <th scope="col" class="border-bottom-0 p-3" style="min-width: 400px;">Deskripsi Tugas</th>
-          <th scope="col" class="border-bottom-0 p-3" style="min-width: 120px;">Taskmaster</th>
-          <th scope="col" class="border-bottom-0 p-3" style="min-width: 110px;">Tersedia Sejak</th>
           <th scope="col" class="border-bottom-0 p-3" style="min-width: 110px;">Waktu Penyelesaian</th>
           <th scope="col" class="border-bottom-0 p-3" style="min-width: 110px;">Jatuh Tempo Tugas</th>
-          <th scope="col" class="border-bottom-0 p-3" style="min-width: 170px;" id="action-tugas">Action</th>
+          <th scope="col" class="border-bottom-0 p-3" style="min-width: 70px;">Status</th>          
+          <th scope="col" class="border-bottom-0 p-3 action-tugas" style="min-width: 170px;">Action</th>
         </tr>
       </thead>
-      <tbody id="list-tugas-peserta">                    
+      <tbody id="list-tugas-pending-peserta">                    
       </tbody>
     </table>
+    <table class="table table-sm bg-white table-bordered tabel-lihat-tugas d-none" id="tabel-tugas-selesai">
+      <thead class="bg-light">
+        <tr>
+          <th scope="col" class="border-bottom-0 p-3" style="min-width: 110px;">Tersedia Sejak</th>          
+          <th scope="col" class="border-bottom-0 p-3" style="min-width: 400px;">Deskripsi Tugas</th>
+          <th scope="col" class="border-bottom-0 p-3" style="min-width: 120px;">Ditugaskan kepada</th>
+          <th scope="col" class="border-bottom-0 p-3" style="min-width: 90px;">Prioritas</th>
+          <th scope="col" class="border-bottom-0 p-3" style="min-width: 110px;">Waktu Penyelesaian</th>
+          <th scope="col" class="border-bottom-0 p-3" style="min-width: 110px;">Jatuh Tempo Tugas</th>
+          <th scope="col" class="border-bottom-0 p-3" style="min-width: 70px;">Status</th>          
+          <th scope="col" class="border-bottom-0 p-3 action-tugas" style="min-width: 170px;">Action</th>
+        </tr>
+      </thead>
+      <tbody id="list-tugas-selesai-peserta">                    
+      </tbody>
+    </table>    
   </div>
 </div>
 
@@ -2546,7 +2565,20 @@ setInterval(function(){
         e.target.classList.remove('active');
     }
     },0)
-  })    
+  });    
+
+    document.querySelectorAll('.tombol-lihat-tugas').forEach(link => {
+      link.addEventListener('click', function(e){
+        if(!this.classList.contains('active')){
+          document.querySelectorAll('.tombol-lihat-tugas').forEach(item => {
+            item.classList.toggle('active');
+          })
+          document.querySelectorAll('.tabel-lihat-tugas').forEach(item => {
+            item.classList.toggle('d-none');
+          })                    
+        }
+      })
+    })
 
     document.querySelector('#lihatreturpending').addEventListener('click', function(e){
     setTimeout(function(){

@@ -702,7 +702,7 @@ const setupUI = (user) => {
 
             [editPeserta, hapusPeserta, bodyEmail, emailTable, editKategoriMenu, hapusKategoriMenu, editMenu, hapusMenu, tombolTambahMenu, editPengumuman,
              hapusPengumuman, selesaiPerpindahan, hapusPerpindahan, editPerpindahan, selesaiPengeluaran, selesaiPengeluaranKedua, document.querySelector('#tombol-tambah-kesalahan'),
-             document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tambahtugas'), document.querySelector('#action-tugas'), document.querySelectorAll('.list-action-tugas'),
+             document.querySelector('#tombol-tambah-peserta'), document.querySelector('#tambahtugas'), document.querySelectorAll('.action-tugas'), document.querySelectorAll('.list-action-tugas'),
              document.querySelector('#tombol-tambah-kategori-menu'), document.querySelector('#lihatperpindahanpending'), document.querySelector('#lihatperpindahanselesai')].forEach(item => {
                 if(item.length != undefined){
                     for(let x = 0; x<item.length;x++){
@@ -1294,7 +1294,8 @@ function renderUpdateSwot(doc){
 
 }
 
-const listTugasPeserta = document.querySelector('#list-tugas-peserta');
+const listTugasPendingPeserta = document.querySelector('#list-tugas-pending-peserta');
+const listTugasSelesaiPeserta = document.querySelector('#list-tugas-selesai-peserta');
 function renderTugas(doc){
     let namaPeserta = doc.data().namaPeserta;
     let kontenTugas = doc.data().kontenTugas;
@@ -1354,14 +1355,13 @@ function renderTugas(doc){
     tr.setAttribute('data-id', doc.id);
     prioritasTugas = `<div class="prioritas-tugas-${prioritasTugas.toLowerCase()}">${prioritasTugas}</div>`
     tr.innerHTML = `
-    <td class="align-middle"><input type="checkbox" class="checkbox-tugas m-1" id="checkbox-tugas${doc.id}" ${complete}></td>
-    <td class="align-middle font-weight-bold" id=nama-peserta-tugas${doc.id}>${namaPeserta}</td>
-    <td class="align-middle font-weight-bold" id="prioritas-tugas-tampilan${doc.id}">${prioritasTugas}</td>
-    <td class="align-middle text-left" id="konten-tugas-tampilan${doc.id}">${kontenTugas}</td>
-    <td class="align-middle font-weight-bold" id="taskmaster-tugas${doc.id}">${taskMaster}</td>
     <td class="align-middle">${waktuRilis}</td>
-    <td class="align-middle" id="waktu-penyelesaian-tugas${doc.id}">${waktuPenyelesaian}</td>
-    <td class="align-middle" id="waktu-deadline-tugas${doc.id}">${waktuDeadline}</td>    
+    <td class="align-middle text-left" id="konten-tugas-tampilan${doc.id}">${kontenTugas}</td>    
+    <td class="align-middle font-weight-bold" id=nama-peserta-tugas${doc.id}>${namaPeserta}</td>    
+    <td class="align-middle font-weight-bold" id="prioritas-tugas-tampilan${doc.id}">${prioritasTugas}</td>    
+    <td class="align-middle" id="waktu-penyelesaian-tugas${doc.id}">${waktuPenyelesaian}</td>       
+    <td class="align-middle" id="waktu-deadline-tugas${doc.id}">${waktuDeadline}</td>     
+    <td class="align-middle"><input type="checkbox" class="checkbox-tugas m-1" id="checkbox-tugas${doc.id}" ${complete}></td>
     <td class="align-middle list-action-tugas">
         <div class="d-flex">
             <a href="#" class="btn btn-warning mr-1 text-white" data-target="#modaltugas${doc.id}" data-toggle="modal">Update</a>
@@ -1442,9 +1442,9 @@ function renderTugas(doc){
     `
 
     if(complete){
-        listTugasPeserta.append(tr);
+        listTugasSelesaiPeserta.append(tr);
     } else {
-        listTugasPeserta.prepend(tr);
+        listTugasPendingPeserta.append(tr);
     }
     document.body.appendChild(modal);
 
@@ -1465,27 +1465,40 @@ function renderTugas(doc){
     document.querySelector('#checkbox-tugas' + doc.id).addEventListener('change', function(e){
         e.stopPropagation();
         if(this.checked){
-            db.collection('tugas').doc(doc.id).update({
-                complete : true,
-                waktuPenyelesaian : new Date().getTime()
-            }).then(() => {
-                alert('Tugas berhasil diselesaikan')
-            })
+            let konfirmasi = confirm('Anda yakin ingin menyelesaikan tugas berikut?');
+            if(konfirmasi){
+                db.collection('tugas').doc(doc.id).update({
+                    complete : true,
+                    waktuPenyelesaian : new Date().getTime()
+                }).then(() => {
+                    alert('Tugas berhasil diselesaikan')
+                })
+            } else {
+                this.checked = false;
+            }
         } else {
-            db.collection('tugas').doc(doc.id).update({
-                complete : false,
-                waktuPenyelesaian : firebase.firestore.FieldValue.delete()
-            }).then(() => {
-                alert('Berhasil membatalkan penyelesaian tugas')
-            })
+            let konfirmasi = confirm('Anda yakin ingin membatalkan penyelesaian tugas berikut?');
+            if(konfirmasi){
+                db.collection('tugas').doc(doc.id).update({
+                    complete : false,
+                    waktuPenyelesaian : firebase.firestore.FieldValue.delete()
+                }).then(() => {
+                    alert('Berhasil membatalkan penyelesaian tugas')
+                })
+            } else {
+                this.checked = true;
+            }
         }
     })
 
     document.querySelector('#hapus' + doc.id).addEventListener('click', function(e){
         e.stopPropagation();
-        db.collection('tugas').doc(doc.id).delete().then(() => {
-            alert('Berhasil menghapus tugas ' + namaPeserta)
-        })
+        let konfirmasi = confirm('Apa anda yakin ingin menghapus tugas ' + namaPeserta);
+        if(konfirmasi){
+            db.collection('tugas').doc(doc.id).delete().then(() => {
+                alert('Berhasil menghapus tugas ' + namaPeserta)
+            })
+        }
     })
 
 }
@@ -1511,7 +1524,6 @@ function renderUpdateTugas(doc){
     waktuDeadline = hhDeadline + ':' + msDeadline + " / " + ddDealine + ' ' + mmDeadline + ' ' + yyyyDeadline;   
     let prioritasTugas = doc.data().prioritasTugas; 
     document.querySelector('#nama-peserta-tugas' + doc.id).innerHTML = namaPeserta;
-    document.querySelector('#taskmaster-tugas' + doc.id).innerHTML = taskMaster;
     document.querySelector('#konten-tugas' + doc.id).value = kontenTugas.replace(/<br\s*[\/]?>/gi, "\n");
     document.querySelector('#konten-tugas-tampilan' + doc.id).innerHTML = kontenTugas;
     document.querySelector('#waktu-deadline-tugas' + doc.id).innerHTML = waktuDeadline;
@@ -1537,7 +1549,7 @@ function renderUpdateTugas(doc){
             document.querySelector('#waktu-penyelesaian-tugas' + doc.id).innerHTML = waktuPenyelesaian;
             document.querySelector('[data-id="' + doc.id + '"]').removeAttribute('task-incomplete');
             document.querySelector('[data-id="' + doc.id + '"]').setAttribute('task-complete', '');
-            listTugasPeserta.append(document.querySelector('[data-id="' + doc.id + '"]'))               
+            listTugasSelesaiPeserta.append(document.querySelector('[data-id="' + doc.id + '"]'))               
         }
     } else {
         if(document.querySelector('[data-id="' + doc.id + '"]').hasAttribute('task-complete')){
@@ -1545,7 +1557,7 @@ function renderUpdateTugas(doc){
             document.querySelector('#waktu-penyelesaian-tugas' + doc.id).innerHTML = '-'
             document.querySelector('[data-id="' + doc.id + '"]').removeAttribute('task-complete');
             document.querySelector('[data-id="' + doc.id + '"]').setAttribute('task-incomplete', '');
-            listTugasPeserta.prepend(document.querySelector('[data-id="' + doc.id + '"]'))
+            listTugasPendingPeserta.prepend(document.querySelector('[data-id="' + doc.id + '"]'))
         }
     }
 
