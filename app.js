@@ -1297,6 +1297,8 @@ function renderUpdateSwot(doc){
 const listTugasPendingPeserta = document.querySelector('#list-tugas-pending-peserta');
 const listTugasSelesaiPeserta = document.querySelector('#list-tugas-selesai-peserta');
 function renderTugas(doc){
+    let tr = document.createElement('tr');
+    let modal = document.createElement('div');    
     let namaPeserta = doc.data().namaPeserta;
     let kontenTugas = doc.data().kontenTugas;
     let perMinggu = doc.data().perMinggu;
@@ -1305,6 +1307,7 @@ function renderTugas(doc){
     let perMenit = doc.data().perMenit;
     let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
     let waktuRilis = doc.data().waktuRilis;
+    tr.setAttribute('data-date', waktuRilis);
     let waktuPenyelesaian = doc.data().waktuPenyelesaian;
     let hhRilis = String(new Date(waktuRilis).getHours()).padStart(2, '0');
     let msRilis = String(new Date(waktuRilis).getMinutes()).padStart(2, '0');
@@ -1323,8 +1326,6 @@ function renderTugas(doc){
     let taskMaster = doc.data().taskMaster;
     let prioritasTugas = doc.data().prioritasTugas;
     let complete = doc.data().complete;
-    let tr = document.createElement('tr');
-    let modal = document.createElement('div');
     let prioritasTinggi;
     let prioritasSedang;
     let prioritasRendah;
@@ -1339,6 +1340,7 @@ function renderTugas(doc){
         prioritasRendah = 'selected';
     }
     if(complete){
+        tr.setAttribute('data-date', waktuPenyelesaian);
         tr.setAttribute('task-complete', '');
         complete = 'checked';
         let hhPenyelesaian = String(new Date(waktuPenyelesaian).getHours()).padStart(2, '0');
@@ -1350,7 +1352,7 @@ function renderTugas(doc){
     } else {
         tr.setAttribute('task-incomplete', '');
         complete = '';
-        waktuPenyelesaian = '-'
+        waktuPenyelesaian = '-';
     }
     tr.setAttribute('data-id', doc.id);
     prioritasTugas = `<div class="prioritas-tugas-${prioritasTugas.toLowerCase()}">${prioritasTugas}</div>`
@@ -1443,8 +1445,22 @@ function renderTugas(doc){
 
     if(complete){
         listTugasSelesaiPeserta.append(tr);
+        Array.from(document.querySelectorAll('[task-complete]')).sort(function(a, b){
+            if(a.getAttribute('data-date') > b.getAttribute('data-date')) { return 1; }
+            if(a.getAttribute('data-date') < b.getAttribute('data-date')) { return -1; }
+            return 0;         
+        }).forEach(item => {
+            listTugasSelesaiPeserta.prepend(item);
+        })        
     } else {
         listTugasPendingPeserta.append(tr);
+        Array.from(document.querySelectorAll('[task-incomplete]')).sort(function(a, b){
+            if(a.getAttribute('data-date') > b.getAttribute('data-date')) { return 1; }
+            if(a.getAttribute('data-date') < b.getAttribute('data-date')) { return -1; }
+            return 0;         
+        }).forEach(item => {
+            listTugasPendingPeserta.prepend(item);
+        })        
     }
     document.body.appendChild(modal);
 
@@ -1539,6 +1555,7 @@ function renderUpdateTugas(doc){
     document.querySelector('#prioritas-tugas-tampilan' + doc.id).innerHTML = `<div class="prioritas-tugas-${prioritasTugas.toLowerCase()}">${prioritasTugas}</div>`;
     if(complete){
         if(document.querySelector('[data-id="' + doc.id + '"]').hasAttribute('task-incomplete')){
+            document.querySelector('[data-id="' + doc.id + '"]').setAttribute('data-date', waktuPenyelesaian);
             document.querySelector('#checkbox-tugas' + doc.id).checked = true;
             let hhPenyelesaian = String(new Date(waktuPenyelesaian).getHours()).padStart(2, '0');
             let msPenyelesaian = String(new Date(waktuPenyelesaian).getMinutes()).padStart(2, '0');
@@ -1549,15 +1566,30 @@ function renderUpdateTugas(doc){
             document.querySelector('#waktu-penyelesaian-tugas' + doc.id).innerHTML = waktuPenyelesaian;
             document.querySelector('[data-id="' + doc.id + '"]').removeAttribute('task-incomplete');
             document.querySelector('[data-id="' + doc.id + '"]').setAttribute('task-complete', '');
-            listTugasSelesaiPeserta.append(document.querySelector('[data-id="' + doc.id + '"]'))               
+            listTugasSelesaiPeserta.append(document.querySelector('[data-id="' + doc.id + '"]'))
+            Array.from(document.querySelectorAll('[task-complete]')).sort(function(a, b){
+                if(a.getAttribute('data-date') > b.getAttribute('data-date')) { return 1; }
+                if(a.getAttribute('data-date') < b.getAttribute('data-date')) { return -1; }
+                return 0;         
+            }).forEach(item => {
+                listTugasSelesaiPeserta.prepend(item);
+            }) 
         }
     } else {
         if(document.querySelector('[data-id="' + doc.id + '"]').hasAttribute('task-complete')){
+            document.querySelector('[data-id="' + doc.id + '"]').setAttribute('data-date', waktuRilis);
             document.querySelector('#checkbox-tugas' + doc.id).checked = false;   
             document.querySelector('#waktu-penyelesaian-tugas' + doc.id).innerHTML = '-'
             document.querySelector('[data-id="' + doc.id + '"]').removeAttribute('task-complete');
             document.querySelector('[data-id="' + doc.id + '"]').setAttribute('task-incomplete', '');
             listTugasPendingPeserta.prepend(document.querySelector('[data-id="' + doc.id + '"]'))
+            Array.from(document.querySelectorAll('[task-incomplete]')).sort(function(a, b){
+                if(a.getAttribute('data-date') > b.getAttribute('data-date')) { return 1; }
+                if(a.getAttribute('data-date') < b.getAttribute('data-date')) { return -1; }
+                return 0;         
+            }).forEach(item => {
+                listTugasPendingPeserta.prepend(item);
+            })            
         }
     }
 
